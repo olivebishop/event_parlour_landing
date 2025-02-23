@@ -11,7 +11,9 @@ export default function Home() {
         <Hero />
       </div>
       {/* Overlay only on mobile, normal spacing on desktop */}
-      <div className="-mt-48 md:mt-0 relative z-20">
+      <div className="mt-0 md:mt-0 relative z-20">
+        {/* use below commented infuture */}
+      {/* <div className="-mt-48 md:mt-0 relative z-20"> */}
         <EventSection />
       </div>
       <div className="relative z-10">

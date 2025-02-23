@@ -53,7 +53,8 @@ export function Navbar() {
 
   const navLinks = [
     { href: "/events", label: "Events Near Me" },
-    { href: "/beds", label: "Accomodations" },
+    { href: "/bed", label: "Accomodations" },
+    // { href: "/beds", label: "Accomodations" },
     { href: "/Venues", label: "Venues" },
     { href: "/contact", label: "Contact" }
   ]
