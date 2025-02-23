@@ -4,7 +4,7 @@ export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Use default export instead of GET function
+// Use default export for Next.js OG image generation
 export default async function OGImage() {
   return new ImageResponse(
     (
@@ -24,22 +24,22 @@ export default async function OGImage() {
         {/* Left Section - Text */}
         <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
           <h1 style={{ fontSize: "60px", fontWeight: "bold", marginBottom: "20px" }}>
-            Unforgettable Events, <br /> Made Simple.
+            Events & Stays, <br /> Made Simple.
           </h1>
           <p style={{ fontSize: "28px", maxWidth: "500px", lineHeight: "1.4" }}>
-            The ultimate platform for organizers, attendees & vendors.
+            Discover events and book accommodations—like Airbnb for organizers, attendees & speakers.
           </p>
         </div>
-        
+
         {/* Right Section - Image */}
         <div style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
           <img
-            src="https://epalour.vercel.app/images/login.svg" // Replace with your actual image URL
-            alt="Event Preview"
+            src="https://epalour.vercel.app/images/login.svg" // Update to an image showing events + lodging if possible
+            alt="Event & Accommodation Preview"
             style={{ width: "500px", height: "auto", borderRadius: "12px" }}
           />
         </div>
-        
+
         {/* Footer - Brand URL */}
         <div
           style={{

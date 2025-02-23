@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google"; 
 import "./globals.css";
 
 const geistSans = Geist({
@@ -43,8 +44,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Event Parlour - Events & Accommodation Booking",
     description: "Host events and book event-specific stays with Event Parlour—Airbnb for the event world.",
-    site: "@EventParlour", // Fixed typo assuming this is correct
-    creator: "@EventParlour",
+    site: "@EventsPalour", // Consider updating to "@EventParlour" if intended
+    creator: "@EventsPalour",
     images: [`${siteUrl}/twitter-card.jpg`],
   },
   metadataBase: new URL(siteUrl),
@@ -66,6 +67,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#171717" />
+        <meta name="google-site-verification" content="google-site-verification: google6fd33e29e29c5c47.html" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -77,7 +79,7 @@ export default function RootLayout({
               "logo": `${siteUrl}/logo.png`,
               "description": "A platform to discover, host events, and book event-specific accommodations for organizers, attendees, and speakers.",
               "sameAs": [
-                "https://twitter.com/eventparlour",
+                "https://x.com/EventsPalour",
                 "https://www.facebook.com/eventparlour",
                 "https://www.instagram.com/eventparlour",
               ],
@@ -89,6 +91,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#171717] text-white`}
       >
         <div className="min-h-screen">{children}</div>
+        <GoogleAnalytics gaId="G-VSXHC4Y9YQ" /> {/* Replace with your GA4 Measurement ID */}
       </body>
     </html>
   );

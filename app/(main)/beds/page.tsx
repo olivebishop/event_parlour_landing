@@ -11,7 +11,7 @@ function CTABanner() {
       </h2>
       <Link href="/sign-in">
         <Button className="bg-black text-gray-100 hover:bg-[#171717] border-[#171717] border hover:text-white px-6 py-2 rounded-full">
-          Book Now
+        Reserve Your Event Stay Now
         </Button>
       </Link>
     </section>
