@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google"; 
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 import "./globals.css";
 
 const geistSans = Geist({
@@ -73,7 +75,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": ["Organization", "LodgingBusiness"],
+              "@type": ["Organization", "LodgingBusiness", "EventVenue", "Event", "Ticketting"],
               "name": "Event Parlour",
               "url": siteUrl,
               "logo": `${siteUrl}/logo.png`,
@@ -92,6 +94,8 @@ export default function RootLayout({
       >
         <div className="min-h-screen">{children}</div>
         <GoogleAnalytics gaId="G-VSXHC4Y9YQ" /> {/* Replace with your GA4 Measurement ID */}
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
