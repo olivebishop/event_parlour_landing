@@ -14,9 +14,7 @@ export default function Home() {
       <div className="mt-0 md:mt-0 relative z-20">
         {/* use below commented infuture */}
       {/* <div className="-mt-48 md:mt-0 relative z-20"> */}
-
-      
-        <EventSection />
+       <EventSection />
       </div>
       <div className="relative z-10">
         <BedsSection />
