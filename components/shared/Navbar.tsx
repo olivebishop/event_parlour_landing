@@ -56,7 +56,7 @@ export function Navbar() {
     { href: "/bed", label: "Accomodations" },
     // { href: "/beds", label: "Accomodations" },
     { href: "/Venues", label: "Venues" },
-    { href: "/contact", label: "Contact" }
+    { href: "/contact-us", label: "Contact" }
   ]
 
   return (
