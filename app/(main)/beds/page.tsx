@@ -3,6 +3,7 @@ import BedsSection from "@/components/shared/BedSection";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
+
 function CTABanner() {
   return (
     <section className="py-12 bg-gradient-to-r from-black to-[#171717] text-center">
