@@ -52,10 +52,12 @@ export function Navbar() {
   }, [])
 
   const navLinks = [
-    { href: "/events", label: "Events Near Me" },
-    { href: "/bed", label: "Accomodations" },
+    { href: "#", label: "Events Near Me" },
+    // { href: "/events", label: "Events Near Me" },
+    { href: "#", label: "Accomodations" },
     // { href: "/beds", label: "Accomodations" },
-    { href: "/Venues", label: "Venues" },
+    { href: "#", label: "Venues" },
+    // { href: "/Venues", label: "Venues" },
     { href: "/contact-us", label: "Contact" }
   ]
 
