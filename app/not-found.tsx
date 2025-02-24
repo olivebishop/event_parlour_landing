@@ -72,7 +72,7 @@ export default function NotFound() {
             <div className="space-y-4">
               <AnimatedText delay={0.2}>
                 <h2 className="text-xl lg:text-2xl font-bold tracking-tight text-black uppercase">
-                  Entertainment was not found!
+                  Page not found!
                 </h2>
               </AnimatedText>
               <AnimatedText delay={0.4}>
