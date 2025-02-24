@@ -29,7 +29,7 @@ export async function GET() {
     { href: "/events", label: "Events Near Me", priority: 0.9, changeFreq: "daily" },
     { href: "/beds", label: "Accommodations", priority: 0.9, changeFreq: "daily" },
     { href: "/Venues", label: "Venues", priority: 0.8, changeFreq: "weekly" },
-    { href: "/contact", label: "Contact", priority: 0.7, changeFreq: "monthly" },
+    { href: "/contact-us", label: "Contact", priority: 0.7, changeFreq: "monthly" },
   ].map((page) => ({
     url: `${landingBaseUrl}${page.href}`,
     lastModified: new Date().toISOString(),
