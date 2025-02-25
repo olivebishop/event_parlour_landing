@@ -51,13 +51,14 @@ export function Hero() {
       {/* Top Update Link */}
       <div className="container mx-auto px-4 sm:px-6 pt-20">
         <motion.a
-          href="/updates"
+          href="https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R"
           className="inline-flex items-center space-x-2 text-sm text-white hover:text-gray-200 transition-colors border border-white/80 rounded-full px-4 py-1 backdrop-blur-sm"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <span>🎉 | February Event Updates</span>
-          <ArrowRight className="w-4 h-4" />
+          {/* <span>🎉 | February Event Updates</span> */}
+          <span>🎉 | Get Event Updates</span>
+          <ArrowRight className="w-4 h-4 animate-out" />
         </motion.a>
       </div>
 
