@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import nodemailer from "nodemailer"
 
-type ResponseData = {
-  message: string
-}
-
-export async function POST(req: NextRequest): Promise<NextResponse<ResponseData>> {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const body = await req.json()
     const { name, email, subject, message, turnstileToken } = body as {
@@ -21,21 +17,21 @@ export async function POST(req: NextRequest): Promise<NextResponse<ResponseData>
       "https://challenges.cloudflare.com/turnstile/v0/siteverify",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           secret: process.env.TURNSTILE_SECRET_KEY,
           response: turnstileToken,
         }),
       }
     )
+
+    if (!turnstileResponse.ok) {
+      throw new Error("Failed to verify Turnstile token")
+    }
+
     const turnstileResult = await turnstileResponse.json()
     if (!turnstileResult.success) {
-      return NextResponse.json(
-        { message: "Invalid Turnstile verification" } as ResponseData,
-        { status: 400 }
-      )
+      return NextResponse.json({ message: "Invalid Turnstile verification" }, { status: 400 })
     }
 
     // Create transporter
@@ -76,17 +72,11 @@ export async function POST(req: NextRequest): Promise<NextResponse<ResponseData>
       `,
     })
 
-    return NextResponse.json(
-      { message: "Email sent successfully" } as ResponseData,
-      { status: 200 }
-    )
+    return NextResponse.json({ message: "Email sent successfully" }, { status: 200 })
   } catch (error) {
     console.error("Error in POST /api/send-email:", error)
     const errorMessage =
-      error instanceof Error ? error.message : "Failed to send email"
-    return NextResponse.json(
-      { message: errorMessage } as ResponseData,
-      { status: 500 }
-    )
+      error instanceof Error ? error.message : "Failed to send email due to a server issue"
+    return NextResponse.json({ message: errorMessage }, { status: 500 })
   }
 }

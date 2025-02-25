@@ -1,12 +1,19 @@
 import React from 'react'
-import {LaunchingSoon} from '@/components/shared/launchingSoon/launching-soon'
+import { LaunchingSoon } from '@/components/shared/launchingSoon/launching-soon'
 
-function page() {
+// meta view point
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  
+}
+
+function Page() {
   return (
     <div>
-    <LaunchingSoon/>
+      <LaunchingSoon/>
     </div>
   )
 }
 
-export default page
+export default Page

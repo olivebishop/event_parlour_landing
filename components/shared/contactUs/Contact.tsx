@@ -17,38 +17,27 @@ import { Toaster, toast } from "sonner"
 import Turnstile from "react-turnstile"
 import { z } from "zod"
 
-// Form schema
+// Form schema with updated name validation (1-2 words)
 const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
+  name: z.string()
+    .min(2, "Name must be at least 2 characters")
+    .regex(/^[a-zA-Z]+(?:\s[a-zA-Z]+)?$/, "Name can be one or two words"),
   email: z.string().email("Invalid email address"),
   subject: z.string().min(3, "Subject must be at least 3 characters"),
   message: z.string().min(10, "Message must be at least 10 characters"),
 })
 
 type FormData = z.infer<typeof formSchema>
+type Errors = Partial<Record<keyof FormData, string>>
 
-// Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
-    },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
 }
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 }
 
 export function ContactUs() {
@@ -58,21 +47,28 @@ export function ContactUs() {
     subject: "",
     message: "",
   })
+  const [errors, setErrors] = useState<Errors>({})
   const [turnstileToken, setTurnstileToken] = useState<string>("")
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+    // Clear error when user types
+    if (errors[name as keyof FormData]) {
+      setErrors({ ...errors, [name]: undefined })
+    }
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setErrors({})
 
     try {
       // Validate form data
-      formSchema.parse(formData)
-      
+      const validatedData = formSchema.parse(formData)
+
       if (!turnstileToken) {
         toast.error("Please verify you're not a bot", { position: "bottom-right" })
         setIsSubmitting(false)
@@ -81,10 +77,8 @@ export function ContactUs() {
 
       const response = await fetch("/api/send-email", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...formData, turnstileToken }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...validatedData, turnstileToken }),
       })
 
       const result = await response.json()
@@ -97,12 +91,26 @@ export function ContactUs() {
         throw new Error(result.message || "Failed to send message")
       }
     } catch (error) {
-      const errorMessage = error instanceof z.ZodError 
-        ? error.errors[0].message 
-        : error instanceof Error 
+      if (error instanceof z.ZodError) {
+        const fieldErrors: Errors = {}
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            fieldErrors[err.path[0] as keyof FormData] = err.message
+          }
+        })
+        setErrors(fieldErrors)
+      } else {
+        const errorMessage = error instanceof Error 
           ? error.message 
-          : "Something went wrong. Please try again."
-      toast.error(errorMessage, { position: "bottom-right" })
+          : "Something went wrong. Please try again later."
+        toast.error(errorMessage, {
+          position: "bottom-right",
+          action: {
+            label: "Retry",
+            onClick: () => handleSubmit(e),
+          },
+        })
+      }
     } finally {
       setIsSubmitting(false)
     }
@@ -195,10 +203,13 @@ export function ContactUs() {
                       name={field}
                       value={formData[field as keyof FormData]}
                       onChange={handleChange}
-                      className="w-full p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-transparent group-hover:bg-zinc-900 transition-all duration-300"
+                      className={`w-full p-4 bg-zinc-900/50 border ${errors[field as keyof FormData] ? 'border-red-500' : 'border-zinc-800/50'} rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-transparent group-hover:bg-zinc-900 transition-all duration-300`}
                       placeholder={`Enter your ${field}`}
                       disabled={isSubmitting}
                     />
+                    {errors[field as keyof FormData] && (
+                      <p className="text-red-500 text-sm mt-1">{errors[field as keyof FormData]}</p>
+                    )}
                   </div>
                 ))}
 
@@ -210,10 +221,13 @@ export function ContactUs() {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-transparent h-36 resize-none group-hover:bg-zinc-900 transition-all duration-300"
+                    className={`w-full p-4 bg-zinc-900/50 border ${errors.message ? 'border-red-500' : 'border-zinc-800/50'} rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-transparent h-36 resize-none group-hover:bg-zinc-900 transition-all duration-300`}
                     placeholder="Tell us about your event..."
                     disabled={isSubmitting}
                   />
+                  {errors.message && (
+                    <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+                  )}
                 </div>
 
                 <Turnstile
@@ -222,10 +236,7 @@ export function ContactUs() {
                   theme="dark"
                 />
 
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     type="submit"
                     disabled={isSubmitting}
