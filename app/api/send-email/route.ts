@@ -1,28 +1,22 @@
-import type { NextApiRequest, NextApiResponse } from "next"
+import { NextRequest, NextResponse } from "next/server"
 import nodemailer from "nodemailer"
 
 type ResponseData = {
   message: string
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
-) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" })
-  }
-
-  const { name, email, subject, message, turnstileToken } = req.body as {
-    name: string
-    email: string
-    subject: string
-    message: string
-    turnstileToken: string
-  }
-
-  // Verify Turnstile token
+export async function POST(req: NextRequest): Promise<NextResponse<ResponseData>> {
   try {
+    const body = await req.json()
+    const { name, email, subject, message, turnstileToken } = body as {
+      name: string
+      email: string
+      subject: string
+      message: string
+      turnstileToken: string
+    }
+
+    // Verify Turnstile token
     const turnstileResponse = await fetch(
       "https://challenges.cloudflare.com/turnstile/v0/siteverify",
       {
@@ -38,25 +32,23 @@ export default async function handler(
     )
     const turnstileResult = await turnstileResponse.json()
     if (!turnstileResult.success) {
-      return res.status(400).json({ message: "Invalid Turnstile verification" })
+      return NextResponse.json(
+        { message: "Invalid Turnstile verification" } as ResponseData,
+        { status: 400 }
+      )
     }
-  } catch (error) {
-    console.error("Turnstile verification error:", error)
-    return res.status(500).json({ message: "Failed to verify CAPTCHA" })
-  }
 
-  // Create transporter
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: parseInt(process.env.EMAIL_PORT || "587"),
-    secure: process.env.EMAIL_SECURE === "true",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  })
+    // Create transporter
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: parseInt(process.env.EMAIL_PORT || "587"),
+      secure: process.env.EMAIL_SECURE === "true",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    })
 
-  try {
     // Email to platform owner
     await transporter.sendMail({
       from: process.env.EMAIL_FROM,
@@ -84,9 +76,17 @@ export default async function handler(
       `,
     })
 
-    return res.status(200).json({ message: "Email sent successfully" })
+    return NextResponse.json(
+      { message: "Email sent successfully" } as ResponseData,
+      { status: 200 }
+    )
   } catch (error) {
-    console.error("Email sending error:", error)
-    return res.status(500).json({ message: "Failed to send email" })
+    console.error("Error in POST /api/send-email:", error)
+    const errorMessage =
+      error instanceof Error ? error.message : "Failed to send email"
+    return NextResponse.json(
+      { message: errorMessage } as ResponseData,
+      { status: 500 }
+    )
   }
 }

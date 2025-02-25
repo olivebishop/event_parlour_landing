@@ -92,7 +92,7 @@ export function ContactUs() {
       if (response.ok) {
         toast.success("Message sent successfully!", { position: "bottom-right" })
         setFormData({ name: "", email: "", subject: "", message: "" })
-        setTurnstileToken("") // Turnstile will auto-reset after successful verification
+        setTurnstileToken("")
       } else {
         throw new Error(result.message || "Failed to send message")
       }
