@@ -1,0 +1,137 @@
+{
+    "Navbar": {
+      "eventsNearMe": "Eventi Vicino a Me",
+      "accommodations": "Alloggi",
+      "venues": "Location",
+      "contact": "Contatti",
+      "signIn": "Accedi"
+    },
+    "BedsPage": {
+      "ctaBanner": {
+        "title": "Assicurati il Tuo Soggiorno per l'Evento!",
+        "button": "Prenota Ora il Tuo Soggiorno per l'Evento"
+      }
+    },
+    "NotFound": {
+      "title": "errore",
+      "subtitle": "Pagina non trovata!",
+      "description": "Ci dispiace, ma la pagina che stai cercando non esiste o è stata rimossa.",
+      "button": "Torna alla pagina principale"
+    },
+    "ContactUs": {
+      "title": "Contattaci",
+      "getInTouch": "Mettiti in Contatto",
+      "description": "Event Parlour aiuta a creare eventi indimenticabili. Contattaci per una pianificazione senza problemi.",
+      "location": "Nairobi, Kenya",
+      "email": "support@eventparlour.com",
+      "phone": "+254 791 482 626",
+      "hours": "Aperto - 24 ore",
+      "yourDetails": "I Tuoi Dati",
+      "nameLabel": "Nome *",
+      "namePlaceholder": "Inserisci il tuo nome",
+      "emailLabel": "Email *",
+      "emailPlaceholder": "Inserisci la tua email",
+      "subjectLabel": "Oggetto *",
+      "subjectPlaceholder": "Inserisci l'oggetto",
+      "messageLabel": "Messaggio *",
+      "messagePlaceholder": "Parlaci del tuo evento...",
+      "sendButton": "Invia Messaggio"
+    },
+    "LaunchingSoon": {
+      "title": "Prossimo Lancio",
+      "button": "Contattaci"
+    },
+    "BannerHero": {
+      "title": "Trova il Tuo Soggiorno Perfetto",
+      "subtitle": "Alloggi confortevoli vicino alla location del tuo evento",
+      "locationPlaceholder": "Località",
+      "datesPlaceholder": "Check-in - Check-out",
+      "searchButton": "Cerca"
+    },
+    "BedsSection": {
+      "title": "Alloggi per Eventi",
+      "categories": {
+        "all": "Tutti",
+        "nearVenue": "Vicino alla Location",
+        "budget": "Economici",
+        "luxury": "Lusso",
+        "groupFriendly": "Per Gruppi"
+      },
+      "bookNow": "Prenota Ora",
+      "guests": "ospiti",
+      "night": "notte"
+    },
+    "EventSection": {
+      "title": "Eventi in Evidenza",
+      "categories": {
+        "all": "Tutti",
+        "tech": "Tecnologia",
+        "conference": "Conferenze",
+        "hangouts": "Incontri",
+        "festivals": "Festival",
+        "concerts": "Concerti"
+      },
+      "viewAllEvents": "Visualizza Tutti gli Eventi",
+      "showLess": "Mostra Meno",
+      "getTickets": "Acquista Biglietti"
+    },
+    "FAQSection": {
+      "title": "Domande Frequenti",
+      "questions": [
+        {
+          "question": "Come posso acquistare i biglietti?",
+          "answer": "Per acquistare i biglietti, clicca sul pulsante 'Acquista Biglietti' su qualsiasi scheda evento. Dovrai accedere o creare un account per completare l'acquisto."
+        },
+        {
+          "question": "Posso ottenere un rimborso per i miei biglietti?",
+          "answer": "I rimborsi sono disponibili fino a 24 ore prima dell'inizio dell'evento, in base alla politica dell'organizzatore. Se non sei disponibile e non puoi partecipare, puoi anche trasferire il tuo biglietto a qualcun altro. Controlla i dettagli dell'evento per maggiori informazioni."
+        },
+        {
+          "question": "Gli eventi sono disponibili a livello internazionale?",
+          "answer": "Sì, presentiamo eventi da varie località in tutto il mondo. Usa i filtri per trovare eventi vicino a te o in regioni specifiche."
+        },
+        {
+          "question": "Come posso contattare l'assistenza?",
+          "answer": "Puoi raggiungere il nostro team di supporto via email a support@example.com o attraverso la pagina 'Contattaci'."
+        }
+      ]
+    },
+    "Footer": {
+      "relax": "Rilassati, ci pensiamo noi",
+      "latestUpdates": "Ultimi Aggiornamenti",
+      "address1": "123 Business District",
+      "address2": "Nairobi, Kenya",
+      "quickLinksTitle": "Link Rapidi",
+      "quickLinks": {
+        "events": "Eventi",
+        "contact": "Contatti",
+        "privacyPolicy": "Informativa sulla Privacy",
+        "termsAndCondition": "Termini e Condizioni"
+      },
+      "followUs": "Seguici",
+      "socialLinks": {
+        "x": "X",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn",
+        "whatsapp": "Canale WhatsApp"
+      },
+      "copyright": "©{year} event parlour. Tutti i diritti riservati.",
+      "legal": "Legale"
+    },
+    "Hero": {
+      "updateLink": "🎉 | Ricevi Aggiornamenti sugli Eventi",
+      "title": "Eventi Indimenticabili, Resi Semplici.",
+      "subtitle": "La Piattaforma di Riferimento per ",
+      "hostEvent": "Ospita un Evento",
+      "exploreEvents": "Esplora Eventi"
+    },
+    "NoEvents": {
+      "title": "Nessun Evento Trovato",
+      "description": "Al momento non ci sono eventi in questa categoria. Controlla più tardi o esplora altre categorie!"
+    },
+    "NoBeds": {
+      "title": "Nessun Hotel Trovato",
+      "description": "Al momento non ci sono hotel in questa categoria. Controlla più tardi o esplora altre categorie!"
+    }
+  }

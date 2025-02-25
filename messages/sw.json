@@ -1,0 +1,137 @@
+{
+    "Navbar": {
+      "eventsNearMe": "Matukio Karibu Nami",
+      "accommodations": "Malazi",
+      "venues": "Maeneo",
+      "contact": "Wasiliana",
+      "signIn": "Ingia"
+    },
+    "BedsPage": {
+      "ctaBanner": {
+        "title": "Pata Makao Yako kwa Tukio!",
+        "button": "Hifadhi Makao Yako ya Tukio Sasa"
+      }
+    },
+    "NotFound": {
+      "title": "hitilafu",
+      "subtitle": "Ukurasa Haukupatikana!",
+      "description": "Samahani, lakini ukurasa unaoutafuta haupo au umeondolewa.",
+      "button": "Rudi kwenye Ukurasa wa Mwanzo"
+    },
+    "ContactUs": {
+      "title": "Wasiliana Nasi",
+      "getInTouch": "Pata Mawasiliano",
+      "description": "Event Parlour inasaidia kuunda matukio yasiyosahaulika. Wasiliana nasi kwa upangaji rahisi.",
+      "location": "Nairobi, Kenya",
+      "email": "support@eventparlour.com",
+      "phone": "+254 791 482 626",
+      "hours": "Wazi - Masaa 24",
+      "yourDetails": "Maelezo Yako",
+      "nameLabel": "Jina *",
+      "namePlaceholder": "Ingiza jina lako",
+      "emailLabel": "Barua Pepe *",
+      "emailPlaceholder": "Ingiza barua pepe yako",
+      "subjectLabel": "Mada *",
+      "subjectPlaceholder": "Ingiza mada yako",
+      "messageLabel": "Ujumbe *",
+      "messagePlaceholder": "Tuambie kuhusu tukio lako...",
+      "sendButton": "Tuma Ujumbe"
+    },
+    "LaunchingSoon": {
+      "title": "Inazinduliwa Hivi Karibuni",
+      "button": "Wasiliana Nasi"
+    },
+    "BannerHero": {
+      "title": "Pata Makao Yako ya Kukamilika",
+      "subtitle": "Malazi ya starehe karibu na eneo la tukio lako",
+      "locationPlaceholder": "Mahali",
+      "datesPlaceholder": "Kuingia - Kutoka",
+      "searchButton": "Tafuta"
+    },
+    "BedsSection": {
+      "title": "Malazi ya Matukio",
+      "categories": {
+        "all": "Yote",
+        "nearVenue": "Karibu na Eneo",
+        "budget": "Bajeti",
+        "luxury": "Anasa",
+        "groupFriendly": "Rafiki kwa Kikundi"
+      },
+      "bookNow": "Hifadhi Sasa",
+      "guests": "wageni",
+      "night": "usiku"
+    },
+    "EventSection": {
+      "title": "Matukio Yanayofaa",
+      "categories": {
+        "all": "Yote",
+        "tech": "Teknolojia",
+        "conference": "Mkutano",
+        "hangouts": "Hangouti",
+        "festivals": "Sherehe",
+        "concerts": "Tamasha"
+      },
+      "viewAllEvents": "Angalia Matukio Yote",
+      "showLess": "Onyesha Kidogo",
+      "getTickets": "Pata Tiketi"
+    },
+    "FAQSection": {
+      "title": "Maswali Yanayoulizwa Mara kwa Mara",
+      "questions": [
+        {
+          "question": "Ninawezaje kununua tiketi?",
+          "answer": "Ili kununua tiketi, bofya kitufe cha 'Pata Tiketi' kwenye kadi yoyote ya tukio. Utahitaji kuingia au kuunda akaunti ili kukamilisha ununuzi wako."
+        },
+        {
+          "question": "Je, ninaweza kupata refund kwa tiketi zangu?",
+          "answer": "Refund zinapatikana hadi masaa 24 kabla ya tukio kuanza, kulingana na sera ya mratibu wa tukio. Ikiwa huwezi kuhudhuria, unaweza pia kuhamishia tiketi yako kwa mtu mwingine. Angalia maelezo ya tukio kwa habari zaidi."
+        },
+        {
+          "question": "Je, matukio yanapatikana kimataifa?",
+          "answer": "Ndiyo, tunaonyesha matukio kutoka maeneo mbalimbali duniani. Tumia vichujio kupata matukio karibu nawe au katika maeneo mahususi."
+        },
+        {
+          "question": "Ninawezaje kuwasiliana na usaidizi?",
+          "answer": "Unaweza kufikia timu yetu ya usaidizi kupitia barua pepe kwa support@example.com au kupitia ukurasa wa 'Wasiliana Nasi'."
+        }
+      ]
+    },
+    "Footer": {
+      "relax": "Pumzika tunakushughulikia",
+      "latestUpdates": "Masasisho ya Hivi Punde",
+      "address1": "123 Wilaya ya Biashara",
+      "address2": "Nairobi, Kenya",
+      "quickLinksTitle": "Viungo vya Haraka",
+      "quickLinks": {
+        "events": "Matukio",
+        "contact": "Wasiliana",
+        "privacyPolicy": "Sera ya Faragha",
+        "termsAndCondition": "Masharti na Hali"
+      },
+      "followUs": "Tufuate",
+      "socialLinks": {
+        "x": "X",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn",
+        "whatsapp": "Kituo cha WhatsApp"
+      },
+      "copyright": "©{year} event parlour. Haki Zote Zimehifadhiwa.",
+      "legal": "Kisheria"
+    },
+    "Hero": {
+      "updateLink": "🎉 | Pata Masasisho ya Tukio",
+      "title": "Matukio Yasiyosahaulika, Yaliyorahisishwa.",
+      "subtitle": "Jukwaa la Kwanza kwa ",
+      "hostEvent": "Ratibu Tukio",
+      "exploreEvents": "Chunguza Matukio"
+    },
+    "NoEvents": {
+      "title": "Hakuna Matukio Yanayopatikana",
+      "description": "Hakuna matukio katika kategoria hii kwa sasa. Angalia tena baadaye au chunguza kategoria zingine!"
+    },
+    "NoBeds": {
+      "title": "Hakuna Hoteli Zilizopatikana",
+      "description": "Hakuna hoteli katika kategoria hii kwa sasa. Angalia tena baadaye au chunguza kategoria zingine!"
+    }
+  }

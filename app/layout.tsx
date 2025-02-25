@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google"; 
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/react"
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -46,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Event Parlour - Events & Accommodation Booking",
     description: "Host events and book event-specific stays with Event Parlour—Airbnb for the event world.",
-    site: "@EventsPalour", // Consider updating to "@EventParlour" if intended
+    site: "@EventsPalour",
     creator: "@EventsPalour",
     images: [`${siteUrl}/twitter-card.jpg`],
   },
@@ -58,13 +60,16 @@ export const metadata: Metadata = {
   robots: "index, follow",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -92,10 +97,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#171717] text-white`}
       >
-        <div className="min-h-screen">{children}</div>
-        <GoogleAnalytics gaId="G-VSXHC4Y9YQ" /> {/* Replace with your GA4 Measurement ID */}
-        <SpeedInsights />
-        <Analytics />
+        <NextIntlClientProvider messages={messages}>
+          <div className="min-h-screen">{children}</div>
+          <GoogleAnalytics gaId="G-VSXHC4Y9YQ" />
+          <SpeedInsights />
+          <Analytics />
+        </NextIntlClientProvider>
       </body>
     </html>
   );
