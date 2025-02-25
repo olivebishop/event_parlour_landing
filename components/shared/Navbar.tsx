@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Languages } from "lucide-react";
+import { Menu, X, Languages, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from 'next-intl';
-import { languages } from "@/utils/languageUtils" // Fixed import
+import { languages } from "@/utils/languageUtils"
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
@@ -47,12 +47,22 @@ const linkVariants = {
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState(() => {
-    return Cookies.get('language') || 'en';
-  });
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const [isMobileLanguageOpen, setIsMobileLanguageOpen] = useState(false);
   const t = useTranslations('Navbar');
   const router = useRouter();
+  
+  // Fix hydration mismatch by using useState with no initial value
+  // and updating it in useEffect
+  const [selectedLanguage, setSelectedLanguage] = useState('en'); // Default to 'en' initially
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Handle client-side initialization after mount
+  useEffect(() => {
+    setIsMounted(true);
+    const savedLanguage = Cookies.get('language') || 'en';
+    setSelectedLanguage(savedLanguage);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,9 +86,9 @@ export function Navbar() {
   }, [isLanguageOpen]);
 
   const navLinks: NavLink[] = [
-    { href: "#", label: t('eventsNearMe') },
-    { href: "#", label: t('accommodations') },
-    { href: "#", label: t('venues') },
+    { href: "#evento", label: t('eventsNearMe') },
+    { href: "#bed", label: t('accommodations') },
+    { href: "#venues", label: t('venues') },
     { href: "/contact-us", label: t('contact') }
   ];
 
@@ -87,6 +97,7 @@ export function Navbar() {
     Cookies.set('language', code, { expires: 365 });
     router.refresh();
     setIsLanguageOpen(false);
+    setIsMobileLanguageOpen(false);
   };
 
   // Function to render language grid in 3x3 format
@@ -155,7 +166,8 @@ export function Navbar() {
   // Get the current language name safely
   const getCurrentLanguageName = () => {
     const typedLanguages = languages as unknown as Language[];
-    return typedLanguages.find(lang => lang.code === selectedLanguage)?.name || 'English';
+    const foundLang = typedLanguages.find(lang => lang.code === selectedLanguage);
+    return foundLang?.name || 'English';
   };
 
   return (
@@ -191,21 +203,24 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center space-x-2 sm:space-x-4">
-            <div className="relative language-dropdown-container">
-              <Button
-                variant="ghost"
-                className="text-white hover:text-black transition-colors duration-300 flex items-center"
-                onClick={() => setIsLanguageOpen(!isLanguageOpen)}
-              >
-                <Languages className="h-5 w-5 mr-2" />
-                {getCurrentLanguageName()}
-              </Button>
-              {isLanguageOpen && (
-                <div className="absolute right-0 mt-2 bg-[#171717] border border-gray-700 rounded-lg shadow-lg z-50 p-4 w-72">
-                  {renderLanguageGrid()}
-                </div>
-              )}
-            </div>
+            {/* Language selector - visible only on md and larger screens */}
+            {isMounted && (
+              <div className="relative language-dropdown-container hidden md:block">
+                <Button
+                  variant="ghost"
+                  className="text-white hover:text-black transition-colors duration-300 flex items-center"
+                  onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+                >
+                  <Languages className="h-5 w-5 mr-2" />
+                  {getCurrentLanguageName()}
+                </Button>
+                {isLanguageOpen && (
+                  <div className="absolute right-0 mt-2 bg-[#171717] border border-gray-700 rounded-lg shadow-lg z-50 p-4 w-72">
+                    {renderLanguageGrid()}
+                  </div>
+                )}
+              </div>
+            )}
 
             <Button
               variant="outline"
@@ -256,11 +271,49 @@ export function Navbar() {
                     </Link>
                   </motion.div>
                 ))}
+                
+                {/* Language selector in mobile menu */}
+                {isMounted && (
+                  <motion.div
+                    variants={linkVariants}
+                    initial="hidden"
+                    animate="visible"
+                    custom={navLinks.length}
+                  >
+                    <div className="relative">
+                      <button
+                        onClick={() => setIsMobileLanguageOpen(!isMobileLanguageOpen)}
+                        className="flex items-center justify-between w-full text-white hover:text-primary transition-colors duration-300 text-lg group"
+                      >
+                        <div className="flex items-center">
+                          <Languages className="h-5 w-5 mr-2" />
+                          {getCurrentLanguageName()}
+                        </div>
+                        <ChevronDown className={`h-5 w-5 transition-transform duration-300 ${isMobileLanguageOpen ? 'rotate-180' : ''}`} />
+                      </button>
+                      
+                      <AnimatePresence>
+                        {isMobileLanguageOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="mt-2 bg-[#1f1f1f] rounded-lg p-3"
+                          >
+                            {renderLanguageGrid()}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </motion.div>
+                )}
+                
                 <motion.div
                   variants={linkVariants}
                   initial="hidden"
                   animate="visible"
-                  custom={navLinks.length}
+                  custom={navLinks.length + 1}
                 >
                   <Button
                     variant="outline"
