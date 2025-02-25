@@ -12,7 +12,22 @@ import {
   FaInstagram,
 } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
+import { useState, FormEvent } from "react"
+import { Toaster, toast } from "sonner"
+import Turnstile from "react-turnstile"
+import { z } from "zod"
 
+// Form schema
+const formSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  subject: z.string().min(3, "Subject must be at least 3 characters"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+})
+
+type FormData = z.infer<typeof formSchema>
+
+// Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -37,9 +52,64 @@ const itemVariants = {
 }
 
 export function ContactUs() {
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  })
+  const [turnstileToken, setTurnstileToken] = useState<string>("")
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    try {
+      // Validate form data
+      formSchema.parse(formData)
+      
+      if (!turnstileToken) {
+        toast.error("Please verify you're not a bot", { position: "bottom-right" })
+        setIsSubmitting(false)
+        return
+      }
+
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...formData, turnstileToken }),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        toast.success("Message sent successfully!", { position: "bottom-right" })
+        setFormData({ name: "", email: "", subject: "", message: "" })
+        setTurnstileToken("") // Turnstile will auto-reset after successful verification
+      } else {
+        throw new Error(result.message || "Failed to send message")
+      }
+    } catch (error) {
+      const errorMessage = error instanceof z.ZodError 
+        ? error.errors[0].message 
+        : error instanceof Error 
+          ? error.message 
+          : "Something went wrong. Please try again."
+      toast.error(errorMessage, { position: "bottom-right" })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <div className="relative min-h-[80vh] bg-gradient-to-b from-black to-zinc-900 font-sans mt-10">
-      {/* Enhanced background with overlay */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/hero_one.svg"
@@ -55,7 +125,7 @@ export function ContactUs() {
 
       <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-20 relative z-10">
         <motion.div 
-          className="max-w-5xl mx-auto bg-zinc-900/80 backdrop-blur-lg p-8 md:p-12 rounded-2xl "
+          className="max-w-5xl mx-auto bg-zinc-900/80 backdrop-blur-lg p-8 md:p-12 rounded-2xl"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -74,10 +144,10 @@ export function ContactUs() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
             <motion.div variants={itemVariants} className="space-y-8">
               <h3 className="text-2xl font-semibold text-white mb-6">Get in Touch</h3>
-                <p className="text-gray-300 leading-relaxed text-lg">
-                <span className="font-bold"> Event Parlour</span> helps create unforgettable events. Contact us for seamless planning.
-                </p>
-              <div className="space-y-6 ">
+              <p className="text-gray-300 leading-relaxed text-lg">
+                <span className="font-bold">Event Parlour</span> helps create unforgettable events. Contact us for seamless planning.
+              </p>
+              <div className="space-y-6">
                 {[
                   { icon: FaMapMarkerAlt, text: "Nairobi, Kenya", link: null },
                   { icon: FaEnvelope, text: "support@eventparlour.com", link: "mailto:support@eventparlour.com" },
@@ -86,18 +156,17 @@ export function ContactUs() {
                 ].map((item, index) => (
                   <motion.div
                     key={index}
-                    className={`group flex items-center space-x-4 p-4  rounded-xl bg-zinc-900/50 border border-zinc-800/50 backdrop-blur-sm ${item.link ? 'cursor-pointer' : ''}`}
+                    className={`group flex items-center space-x-4 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800/50 backdrop-blur-sm ${item.link ? 'cursor-pointer' : ''}`}
                     whileHover={{ scale: 1.02, backgroundColor: "rgba(24, 24, 27, 0.8)" }}
                     transition={{ duration: 0.2 }}
                   >
                     <div className="p-3 bg-gold-500/10 rounded-lg group-hover:bg-gold-500/20 transition-colors">
                       <item.icon className="text-gold-500" size={24} />
                     </div>
-                    <span className="text-md lg:text-lg text-gray-300  group-hover:text-white transition-colors">{item.text}</span>
+                    <span className="text-md lg:text-lg text-gray-300 group-hover:text-white transition-colors">{item.text}</span>
                   </motion.div>
                 ))}
               </div>
-              
               <div className="flex gap-4 mt-12">
                 {[FaFacebookF, FaXTwitter, FaInstagram].map((Icon, index) => (
                   <motion.a
@@ -115,7 +184,7 @@ export function ContactUs() {
 
             <motion.div variants={itemVariants} className="space-y-8">
               <h2 className="text-2xl font-semibold text-gold-500 mb-6">Your Details</h2>
-              <div className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 {["name", "email", "subject"].map((field) => (
                   <div key={field} className="group">
                     <label className="block text-base font-medium text-gray-300 mb-3 capitalize">
@@ -123,8 +192,12 @@ export function ContactUs() {
                     </label>
                     <input
                       type={field === "email" ? "email" : "text"}
+                      name={field}
+                      value={formData[field as keyof FormData]}
+                      onChange={handleChange}
                       className="w-full p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-transparent group-hover:bg-zinc-900 transition-all duration-300"
                       placeholder={`Enter your ${field}`}
+                      disabled={isSubmitting}
                     />
                   </div>
                 ))}
@@ -134,26 +207,40 @@ export function ContactUs() {
                     Message *
                   </label>
                   <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     className="w-full p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-transparent h-36 resize-none group-hover:bg-zinc-900 transition-all duration-300"
                     placeholder="Tell us about your event..."
+                    disabled={isSubmitting}
                   />
                 </div>
+
+                <Turnstile
+                  sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY as string}
+                  onVerify={(token: string) => setTurnstileToken(token)}
+                  theme="dark"
+                />
 
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <Button
-                    className="w-full bg-black text-gray-100 hover:bg-[#171717] border-[#171717] border hover:text-white hover:border-white  rounded-full px-6 py-6 text-lg font-semibold shadow-lg hover:shadow-gold-500/20 transition-all duration-300"
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-black text-gray-100 hover:bg-[#171717] border-[#171717] border hover:text-white hover:border-white rounded-full px-6 py-6 text-lg font-semibold shadow-lg hover:shadow-gold-500/20 transition-all duration-300 disabled:opacity-50"
                   >
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </motion.div>
-              </div>
+              </form>
             </motion.div>
           </div>
         </motion.div>
       </div>
+
+      <Toaster richColors position="bottom-right" />
     </div>
   )
 }
