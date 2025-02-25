@@ -1,0 +1,137 @@
+{
+    "Navbar": {
+      "eventsNearMe": "近くのイベント",
+      "accommodations": "宿泊施設",
+      "venues": "会場",
+      "contact": "お問い合わせ",
+      "signIn": "ログイン"
+    },
+    "BedsPage": {
+      "ctaBanner": {
+        "title": "イベントのための宿泊を確保！",
+        "button": "今すぐイベント宿泊を予約"
+      }
+    },
+    "NotFound": {
+      "title": "エラー",
+      "subtitle": "ページが見つかりません！",
+      "description": "申し訳ありませんが、お探しのページは存在しないか削除されました。",
+      "button": "メインページに戻る"
+    },
+    "ContactUs": {
+      "title": "お問い合わせ",
+      "getInTouch": "連絡を取る",
+      "description": "Event Parlourは忘れられないイベント作りをサポートします。スムーズな計画のためにご連絡ください。",
+      "location": "ナイロビ、ケニア",
+      "email": "support@eventparlour.com",
+      "phone": "+254 791 482 626",
+      "hours": "オープン - 24時間",
+      "yourDetails": "あなたの詳細",
+      "nameLabel": "名前 *",
+      "namePlaceholder": "名前を入力してください",
+      "emailLabel": "メール *",
+      "emailPlaceholder": "メールを入力してください",
+      "subjectLabel": "件名 *",
+      "subjectPlaceholder": "件名を入力してください",
+      "messageLabel": "メッセージ *",
+      "messagePlaceholder": "イベントについて教えてください...",
+      "sendButton": "メッセージを送信"
+    },
+    "LaunchingSoon": {
+      "title": "近日公開！",
+      "button": "お問い合わせ"
+    },
+    "BannerHero": {
+      "title": "完璧な宿泊施設を見つける",
+      "subtitle": "イベント会場近くの快適な宿泊施設",
+      "locationPlaceholder": "場所",
+      "datesPlaceholder": "チェックイン - チェックアウト",
+      "searchButton": "検索"
+    },
+    "BedsSection": {
+      "title": "イベント宿泊施設",
+      "categories": {
+        "all": "すべて",
+        "nearVenue": "会場近く",
+        "budget": "予算",
+        "luxury": "豪華",
+        "groupFriendly": "グループ対応"
+      },
+      "bookNow": "今すぐ予約",
+      "guests": "ゲスト",
+      "night": "泊"
+    },
+    "EventSection": {
+      "title": "注目のイベント",
+      "categories": {
+        "all": "すべて",
+        "tech": "テクノロジー",
+        "conference": "会議",
+        "hangouts": "ハングアウト",
+        "festivals": "フェスティバル",
+        "concerts": "コンサート"
+      },
+      "viewAllEvents": "すべてのイベントを見る",
+      "showLess": "少なく表示",
+      "getTickets": "チケットを取得"
+    },
+    "FAQSection": {
+      "title": "よくある質問",
+      "questions": [
+        {
+          "question": "チケットはどうやって購入しますか？",
+          "answer": "チケットを購入するには、イベントカードの「チケットを取得」ボタンをクリックしてください。購入を完了するにはログインまたはアカウント作成が必要です。"
+        },
+        {
+          "question": "チケットの払い戻しはできますか？",
+          "answer": "イベント開始24時間前まで払い戻しが可能で、主催者のポリシーに準じます。参加できない場合、チケットを他人に譲渡することもできます。詳細はイベント情報を確認してください。"
+        },
+        {
+          "question": "イベントは国際的に利用可能ですか？",
+          "answer": "はい、世界各地のイベントを掲載しています。フィルターを使って近くや特定地域のイベントを見つけてください。"
+        },
+        {
+          "question": "サポートにどうやって連絡しますか？",
+          "answer": "サポートチームにはメール（support@example.com）または「お問い合わせ」ページから連絡できます。"
+        }
+      ]
+    },
+    "Footer": {
+      "relax": "安心してください、私たちがサポートします",
+      "latestUpdates": "最新アップデート",
+      "address1": "123 ビジネス地区",
+      "address2": "ナイロビ、ケニア",
+      "quickLinksTitle": "クイックリンク",
+      "quickLinks": {
+        "events": "イベント",
+        "contact": "お問い合わせ",
+        "privacyPolicy": "プライバシーポリシー",
+        "termsAndCondition": "利用規約"
+      },
+      "followUs": "フォローしてください",
+      "socialLinks": {
+        "x": "X",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn",
+        "whatsapp": "WhatsAppチャンネル"
+      },
+      "copyright": "©{year} event parlour. 全著作権所有。",
+      "legal": "法的情報"
+    },
+    "Hero": {
+      "updateLink": "🎉 | イベント更新を取得",
+      "title": "忘れられないイベント、簡単に。",
+      "subtitle": "のための主要プラットフォーム",
+      "hostEvent": "イベントを主催",
+      "exploreEvents": "イベントを探す"
+    },
+    "NoEvents": {
+      "title": "イベントが見つかりません",
+      "description": "現在このカテゴリーにイベントはありません。後で確認するか他のカテゴリーを探してください！"
+    },
+    "NoBeds": {
+      "title": "ホテルが見つかりません",
+      "description": "現在このカテゴリーにホテルはありません。後で確認するか他のカテゴリーを探してください！"
+    }
+  }

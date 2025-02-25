@@ -1,0 +1,137 @@
+{
+    "Navbar": {
+      "eventsNearMe": "Events Near Me",
+      "accommodations": "Accommodations",
+      "venues": "Venues",
+      "contact": "Contact",
+      "signIn": "Sign In"
+    },
+    "BedsPage": {
+      "ctaBanner": {
+        "title": "Secure Your Stay for the Event!",
+        "button": "Reserve Your Event Stay Now"
+      }
+    },
+    "NotFound": {
+      "title": "error",
+      "subtitle": "Page not found!",
+      "description": "Sorry, but the page you are looking for doesn't exist or has been removed.",
+      "button": "Back to main page"
+    },
+    "ContactUs": {
+      "title": "Contact Us",
+      "getInTouch": "Get in Touch",
+      "description": "Event Parlour helps create unforgettable events. Contact us for seamless planning.",
+      "location": "Nairobi, Kenya",
+      "email": "support@eventparlour.com",
+      "phone": "+254 791 482 626",
+      "hours": "Open - 24 hrs",
+      "yourDetails": "Your Details",
+      "nameLabel": "Name *",
+      "namePlaceholder": "Enter your name",
+      "emailLabel": "Email *",
+      "emailPlaceholder": "Enter your email",
+      "subjectLabel": "Subject *",
+      "subjectPlaceholder": "Enter your subject",
+      "messageLabel": "Message *",
+      "messagePlaceholder": "Tell us about your event...",
+      "sendButton": "Send Message"
+    },
+    "LaunchingSoon": {
+      "title": "Launching Soon",
+      "button": "Contact Us"
+    },
+    "BannerHero": {
+      "title": "Find Your Perfect Stay",
+      "subtitle": "Comfortable accommodations near your event venue",
+      "locationPlaceholder": "Location",
+      "datesPlaceholder": "Check-in - Check-out",
+      "searchButton": "Search"
+    },
+    "BedsSection": {
+      "title": "Event Accommodations",
+      "categories": {
+        "all": "All",
+        "nearVenue": "Near Venue",
+        "budget": "Budget",
+        "luxury": "Luxury",
+        "groupFriendly": "Group-friendly"
+      },
+      "bookNow": "Book Now",
+      "guests": "guests",
+      "night": "night"
+    },
+    "EventSection": {
+      "title": "Featured Events",
+      "categories": {
+        "all": "All",
+        "tech": "Tech",
+        "conference": "Conference",
+        "hangouts": "Hangouts",
+        "festivals": "Festivals",
+        "concerts": "Concerts"
+      },
+      "viewAllEvents": "View All Events",
+      "showLess": "Show Less",
+      "getTickets": "Get Tickets"
+    },
+    "FAQSection": {
+      "title": "Frequently Asked Questions",
+      "questions": [
+        {
+          "question": "How do I purchase tickets?",
+          "answer": "To purchase tickets, click on the 'Get Tickets' button on any event card. You'll need to sign in or create an account to complete your purchase."
+        },
+        {
+          "question": "Can I get a refund for my tickets?",
+          "answer": "Refunds are available up to 24 hours before the event starts, subject to the event organizer's policy. If you're unavailable and unable to attend, you can also transfer your ticket to someone else. Check the event details for more information."
+        },
+        {
+          "question": "Are events available internationally?",
+          "answer": "Yes, we feature events from various locations worldwide. Use the filters to find events near you or in specific regions."
+        },
+        {
+          "question": "How can I contact support?",
+          "answer": "You can reach our support team via email at support@example.com or through the 'Contact Us' page."
+        }
+      ]
+    },
+    "Footer": {
+      "relax": "Relax we've got you",
+      "latestUpdates": "Latest Updates",
+      "address1": "123 Business District",
+      "address2": "Nairobi, Kenya",
+      "quickLinksTitle": "Quick Links",
+      "quickLinks": {
+        "events": "Events",
+        "contact": "Contact",
+        "privacyPolicy": "Privacy Policy",
+        "termsAndCondition": "Terms And Condition"
+      },
+      "followUs": "Follow Us",
+      "socialLinks": {
+        "x": "X",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn",
+        "whatsapp": "WhatsApp Channel"
+      },
+      "copyright": "©{year} event parlour. All rights reserved.",
+      "legal": "Legal"
+    },
+    "Hero": {
+      "updateLink": "🎉 | Get Event Updates",
+      "title": "Unforgettable Events, Made Simple.",
+      "subtitle": "The Go-To Platform for ",
+      "hostEvent": "Host Event",
+      "exploreEvents": "Explore Events"
+    },
+    "NoEvents": {
+      "title": "No Events Found",
+      "description": "There are currently no events in this category. Check back later or explore other categories!"
+    },
+    "NoBeds": {
+      "title": "No Hotel Found",
+      "description": "There are currently no hotels in this category. Check back later or explore other categories!"
+    }
+  }

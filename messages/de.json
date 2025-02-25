@@ -1,0 +1,137 @@
+{
+    "Navbar": {
+      "eventsNearMe": "Veranstaltungen in meiner Nähe",
+      "accommodations": "Unterkünfte",
+      "venues": "Veranstaltungsorte",
+      "contact": "Kontakt",
+      "signIn": "Anmelden"
+    },
+    "BedsPage": {
+      "ctaBanner": {
+        "title": "Sichern Sie sich Ihren Aufenthalt für die Veranstaltung!",
+        "button": "Reservieren Sie jetzt Ihren Veranstaltungsaufenthalt"
+      }
+    },
+    "NotFound": {
+      "title": "Fehler",
+      "subtitle": "Seite nicht gefunden!",
+      "description": "Es tut uns leid, aber die Seite, die Sie suchen, existiert nicht oder wurde entfernt.",
+      "button": "Zurück zur Hauptseite"
+    },
+    "ContactUs": {
+      "title": "Kontaktieren Sie uns",
+      "getInTouch": "In Kontakt kommen",
+      "description": "Event Parlour hilft, unvergessliche Veranstaltungen zu schaffen. Kontaktieren Sie uns für eine reibungslose Planung.",
+      "location": "Nairobi, Kenia",
+      "email": "support@eventparlour.com",
+      "phone": "+254 791 482 626",
+      "hours": "Geöffnet - 24 Stunden",
+      "yourDetails": "Ihre Details",
+      "nameLabel": "Name *",
+      "namePlaceholder": "Geben Sie Ihren Namen ein",
+      "emailLabel": "E-Mail *",
+      "emailPlaceholder": "Geben Sie Ihre E-Mail ein",
+      "subjectLabel": "Betreff *",
+      "subjectPlaceholder": "Geben Sie Ihren Betreff ein",
+      "messageLabel": "Nachricht *",
+      "messagePlaceholder": "Erzählen Sie uns von Ihrer Veranstaltung...",
+      "sendButton": "Nachricht senden"
+    },
+    "LaunchingSoon": {
+      "title": "Bald verfügbar!",
+      "button": "Kontaktieren Sie uns"
+    },
+    "BannerHero": {
+      "title": "Finden Sie Ihre perfekte Unterkunft",
+      "subtitle": "Komfortable Unterkünfte in der Nähe Ihres Veranstaltungsortes",
+      "locationPlaceholder": "Ort",
+      "datesPlaceholder": "Check-in - Check-out",
+      "searchButton": "Suchen"
+    },
+    "BedsSection": {
+      "title": "Veranstaltungsunterkünfte",
+      "categories": {
+        "all": "Alle",
+        "nearVenue": "In der Nähe des Veranstaltungsortes",
+        "budget": "Budget",
+        "luxury": "Luxus",
+        "groupFriendly": "Gruppenfreundlich"
+      },
+      "bookNow": "Jetzt buchen",
+      "guests": "Gäste",
+      "night": "Nacht"
+    },
+    "EventSection": {
+      "title": "Ausgewählte Veranstaltungen",
+      "categories": {
+        "all": "Alle",
+        "tech": "Technologie",
+        "conference": "Konferenz",
+        "hangouts": "Treffen",
+        "festivals": "Festivals",
+        "concerts": "Konzerte"
+      },
+      "viewAllEvents": "Alle Veranstaltungen anzeigen",
+      "showLess": "Weniger anzeigen",
+      "getTickets": "Tickets holen"
+    },
+    "FAQSection": {
+      "title": "Häufig gestellte Fragen",
+      "questions": [
+        {
+          "question": "Wie kaufe ich Tickets?",
+          "answer": "Um Tickets zu kaufen, klicken Sie auf die Schaltfläche 'Tickets holen' auf einer Veranstaltungskarte. Sie müssen sich anmelden oder ein Konto erstellen, um den Kauf abzuschließen."
+        },
+        {
+          "question": "Kann ich eine Rückerstattung für meine Tickets bekommen?",
+          "answer": "Rückerstattungen sind bis 24 Stunden vor Veranstaltungsbeginn möglich, abhängig von der Richtlinie des Veranstalters. Wenn Sie nicht teilnehmen können, können Sie Ihr Ticket auch an jemand anderen übertragen. Weitere Informationen finden Sie in den Veranstaltungsdetails."
+        },
+        {
+          "question": "Sind Veranstaltungen international verfügbar?",
+          "answer": "Ja, wir präsentieren Veranstaltungen aus verschiedenen Orten weltweit. Verwenden Sie die Filter, um Veranstaltungen in Ihrer Nähe oder in bestimmten Regionen zu finden."
+        },
+        {
+          "question": "Wie kann ich den Support kontaktieren?",
+          "answer": "Sie können unser Support-Team per E-Mail unter support@example.com oder über die Seite 'Kontaktieren Sie uns' erreichen."
+        }
+      ]
+    },
+    "Footer": {
+      "relax": "Entspann dich, wir haben dich abgedeckt",
+      "latestUpdates": "Neueste Updates",
+      "address1": "123 Geschäftsviertel",
+      "address2": "Nairobi, Kenia",
+      "quickLinksTitle": "Schnelllinks",
+      "quickLinks": {
+        "events": "Veranstaltungen",
+        "contact": "Kontakt",
+        "privacyPolicy": "Datenschutzrichtlinie",
+        "termsAndCondition": "Nutzungsbedingungen"
+      },
+      "followUs": "Folge uns",
+      "socialLinks": {
+        "x": "X",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn",
+        "whatsapp": "WhatsApp-Kanal"
+      },
+      "copyright": "©{year} event parlour. Alle Rechte vorbehalten.",
+      "legal": "Rechtlich"
+    },
+    "Hero": {
+      "updateLink": "🎉 | Erhalte Veranstaltungs-Updates",
+      "title": "Unvergessliche Veranstaltungen, vereinfacht.",
+      "subtitle": "Die führende Plattform für ",
+      "hostEvent": "Veranstaltung ausrichten",
+      "exploreEvents": "Veranstaltungen erkunden"
+    },
+    "NoEvents": {
+      "title": "Keine Veranstaltungen gefunden",
+      "description": "Derzeit gibt es keine Veranstaltungen in dieser Kategorie. Schau später wieder vorbei oder erkunde andere Kategorien!"
+    },
+    "NoBeds": {
+      "title": "Kein Hotel gefunden",
+      "description": "Derzeit gibt es keine Hotels in dieser Kategorie. Schau später wieder vorbei oder erkunde andere Kategorien!"
+    }
+  }
