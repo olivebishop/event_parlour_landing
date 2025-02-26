@@ -3,6 +3,7 @@ import { Hero } from "@/components/shared/Hero";
 import EventSection from "@/components/shared/EventSection";
 import FAQSection from "@/components/shared/FAQSection";
 import BedsSection from "@/components/shared/BedSection";
+import ExpandingCards from "@/components/shared/expanding-cards";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <div className="relative z-10">
         <BedsSection />
       </div>
+      <ExpandingCards/>
       <FAQSection />
     </main>
   );
