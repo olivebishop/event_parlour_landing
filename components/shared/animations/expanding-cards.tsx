@@ -33,9 +33,9 @@ const cards = [
     subtext: "Venue providers • Equipment rentals • Food Vendors",
     features: [
       "• Service Listings",
-      "• Booking Management & Analytics",
       "• Payment Processing",
       "• Event Applications",
+      "• Booking Management & Analytics",
     ],
   },
   {

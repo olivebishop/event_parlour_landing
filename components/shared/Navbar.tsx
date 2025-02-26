@@ -208,7 +208,7 @@ export function Navbar() {
               <div className="relative language-dropdown-container hidden md:block">
                 <Button
                   variant="ghost"
-                  className="text-white hover:text-black transition-colors duration-300 flex items-center"
+                  className="text-white hover:text-black  transition-colors duration-300 flex items-center"
                   onClick={() => setIsLanguageOpen(!isLanguageOpen)}
                 >
                   <Languages className="h-5 w-5 mr-2" />
