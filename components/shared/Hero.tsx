@@ -211,6 +211,7 @@ function SpinningTextBasic() {
 
 export default function Hero() {
   const [currentDateTime, setCurrentDateTime] = useState<{ date: string; time: string }>({ date: "", time: "" })
+  const [userLocation, setUserLocation] = useState<string>("Loading location...")
   const isLargeScreen = useMediaQuery("(min-width: 1024px)")
 
   useEffect(() => {
@@ -230,6 +231,50 @@ export default function Hero() {
 
     // Clean up interval
     return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    // Function to get user's location
+    const getUserLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            try {
+              // Using reverse geocoding to get location name from coordinates
+              const { latitude, longitude } = position.coords
+              const response = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10`
+              )
+              
+              if (response.ok) {
+                const data = await response.json()
+                // Get city name or address from the response
+                const city = data.address.city || 
+                             data.address.town || 
+                             data.address.village || 
+                             data.address.county ||
+                             "Your Location"
+                setUserLocation(city)
+              } else {
+                setUserLocation("Your Location")
+              }
+            } catch (error) {
+              setUserLocation("Your Location")
+              console.error("Error fetching location:", error)
+            }
+          },
+          (error) => {
+            setUserLocation("Your Location")
+            console.error("Geolocation error:", error)
+          }
+        )
+      } else {
+        setUserLocation("Your Location")
+        console.error("Geolocation is not supported by this browser")
+      }
+    }
+
+    getUserLocation()
   }, [])
 
   return (
@@ -321,7 +366,7 @@ export default function Hero() {
                   <div>
                     <p className="text-sm font-semibold mb-1">Date: {currentDateTime.date}</p>
                     <p className="text-sm font-semibold mb-1">Time: {currentDateTime.time}</p>
-                    <p className="text-sm font-semibold">Venue: Nairobi</p>
+                    <p className="text-sm font-semibold">Venue: {userLocation}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-semibold mb-1">Seat: General Admission</p>
@@ -346,4 +391,3 @@ export default function Hero() {
     </div>
   )
 }
-
