@@ -196,7 +196,7 @@ export function Navbar() {
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 
         ${hasScrolled 
-          ? 'bg-black/90 backdrop-blur-md border-b border-white/10 shadow-lg shadow-black/30' 
+          ? 'bg-black/90 backdrop-blur-md border-b border-black/10 shadow-lg shadow-black/30' 
           : 'bg-black/50 backdrop-blur-sm'}`}
     >
       <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
@@ -277,7 +277,7 @@ export function Navbar() {
             <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
               <Button
                 variant="outline"
-                className="relative text-black border-white/30 hover:bg-black hover:text-white hover:border-white text-sm sm:text-base 
+                className="relative text-black border-black/30 hover:bg-black hover:text-white hover:border-white text-sm sm:text-base 
                   transition-all duration-300 group"
               >
                 <span className="relative z-10">{t('signIn')}</span>
