@@ -138,10 +138,9 @@ export default function Hero() {
   }, [])
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center  bg-gradient-to-b from-black to-[#171717]">
+    <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-[#171717]">
       {/* Removed the Image background and related overlays */}
    
-
       {/* Animated Background Elements */}
       {!isMobileScreen && (
         <>
@@ -186,9 +185,9 @@ export default function Hero() {
         </>
       )}
 
-      {/* Main Content Container with enhanced glassmorphism */}
+      {/* Main Content Container with enhanced glassmorphism - shadow removed for sm screens */}
       <div className="container mx-auto px-4 sm:px-6 z-10"> 
-        <div className="w-full bg-gradient-to-r from-black/50 via-black/30 to-black/50 shadow-xl shadow-black/30 rounded-3xl overflow-hidden backdrop-blur-[4px] border border-white/10">
+        <div className="w-full bg-gradient-to-r from-black/50 via-black/30 to-black/50 sm:shadow-xl sm:shadow-black/30 rounded-3xl overflow-hidden backdrop-blur-[4px]">
           <div className="px-6 md:px-10 pt-10 pb-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             {/* Left Column - Main Content */}
             <motion.div
@@ -203,7 +202,7 @@ export default function Hero() {
               </motion.div>
               
               <motion.h1
-                className="text-5xl sm:text-6xl md:text-7xl font-bold text-white leading-tight"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight"
                 variants={itemVariants}
               >
                 Event platform for{' '}
@@ -219,18 +218,18 @@ export default function Hero() {
               </motion.h1>
 
               <motion.p 
-                className="text-lg md:text-xl text-gray-200 mt-6 mb-8 max-w-md" 
+                className="text-base sm:text-lg md:text-xl text-gray-200 mt-6 mb-8 max-w-md" 
                 variants={itemVariants}
               >
                 Connecting organizers, attendees, and vendors in one seamless experience.
               </motion.p>
 
-              <motion.div className="flex flex-wrap gap-4" variants={itemVariants}>
+              <motion.div className="flex flex-col sm:flex-row w-full sm:w-auto gap-4" variants={itemVariants}>
                 <button
-                  className="bg-white hover:bg-gray-100 text-black px-8 py-3 rounded-md font-medium transition-all duration-300 hover:shadow-lg hover:shadow-white/20 group"
+                  className="w-full sm:w-auto bg-white hover:bg-gray-100 text-black px-6 sm:px-8 py-3 rounded-md font-medium transition-all duration-300 hover:shadow-lg hover:shadow-white/20 group text-sm sm:text-base"
                   aria-label="Get started with Event Parlour"
                 >
-                  <span className="flex items-center">
+                  <span className="flex items-center justify-center sm:justify-start">
                     Get Started
                     <motion.span 
                       className="ml-2"
@@ -241,7 +240,7 @@ export default function Hero() {
                   </span>
                 </button>
                 <button
-                  className="bg-transparent border border-white/80 text-white px-8 py-3 rounded-md font-medium hover:bg-white/10 transition-all duration-300 hover:border-white"
+                  className="w-full sm:w-auto bg-transparent border border-white/80 text-white px-6 sm:px-8 py-3 rounded-md font-medium hover:bg-white/10 transition-all duration-300 hover:border-white text-sm sm:text-base"
                   aria-label="Explore Event Parlour features"
                 >
                   Explore Events
@@ -249,7 +248,7 @@ export default function Hero() {
               </motion.div>
 
               <motion.div 
-                className="mt-8 flex items-center space-x-6 text-sm text-gray-300" 
+                className="mt-8 flex flex-row flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-300" 
                 variants={itemVariants}
               >
                 <div className="flex items-center">
