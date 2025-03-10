@@ -71,22 +71,69 @@ const cards: Card[] = [
     description: "Showcase your talent, sell merchandise, and connect with event organizers for live performances.",
     features: [
       "• Performance Booking",
-      "• Merchandise Sales",
+      "• Merchandise  and  Album Sales",
       "• Music Samples",
       "• Tour Management",
-      "• Fan Engagement",
+   
     ],
     image: "/images/musician.svg",
+  },
+  {
+    id: 6,
+    title: "Accommodation",
+    description: "Host attendees, speakers, vendors, and organizers with our Airbnb-like feature for events.",
+    features: [
+      "• Event Hosting",
+      "• Booking Management",
+      "• Guest Communication",
+      "• Payment Processing",
+      "• Review System",
+    ],
+    image: "/images/accomodation.svg",
   },
 ]
 
 export default function ExpandingCards() {
   const [activeCard, setActiveCard] = useState(1)
+  // Add responsive state to track vertical or horizontal layout
+  const [isVerticalLayout, setIsVerticalLayout] = useState(false)
 
-  // Calculate grid template columns based on active card
+  // Calculate grid template based on active card
   const getGridTemplateColumns = () => {
-    return cards.map((card) => (card.id === activeCard ? "10fr" : "1fr")).join(" ")
+    // For horizontal layout
+    if (!isVerticalLayout) {
+      return cards.map((card) => (card.id === activeCard ? "10fr" : "1fr")).join(" ")
+    }
+    // For vertical layout, equal columns
+    return "1fr"
   }
+
+  const getGridTemplateRows = () => {
+    // For vertical layout on mobile
+    if (isVerticalLayout) {
+      return cards.map((card) => (card.id === activeCard ? "10fr" : "1fr")).join(" ")
+    }
+    // For horizontal layout, equal rows
+    return "1fr"
+  }
+
+  // Check screen size and adjust layout
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsVerticalLayout(window.innerWidth < 768) // Switch to vertical layout below md breakpoint
+    }
+
+    // Initial check
+    checkScreenSize()
+
+    // Add resize listener
+    window.addEventListener("resize", checkScreenSize)
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", checkScreenSize)
+    }
+  }, [])
 
   // Recalculate layout on resize if needed
   useEffect(() => {
@@ -113,22 +160,26 @@ export default function ExpandingCards() {
   }
 
   return (
-    <section className="py-16 dark">
+    <section className="py-8 sm:py-12 md:py-16 dark">
       <div className="container mx-auto px-4 sm:px-6 flex flex-col items-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">Empowering Event Experiences</h1>
-        <p className="max-w-[74ch] text-balance text-center mb-16 opacity-80 text-sm md:text-base">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-center">Empowering Event Experiences</h1>
+        <p className="max-w-[74ch] text-balance text-center mb-8 sm:mb-12 md:mb-16 opacity-80 text-xs sm:text-sm md:text-base">
           Unlock the art and science of event management. This isn&apos;t just about organizing events or following schedules
           — it&apos;s about mastering the tools, understanding the nuances, and shaping experiences with intention.
         </p>
 
         <ul
-          className="cards-container grid gap-2 list-none p-0 m-0 h-[clamp(300px,40vh,474px)] w-[820px] max-w-[calc(100%-4rem)] transition-all duration-600"
+          className={`cards-container list-none p-0 m-0 w-full max-w-full sm:max-w-full md:max-w-[820px] transition-all duration-600 ${
+            isVerticalLayout 
+              ? "grid grid-cols-1 gap-2 h-[85vh] max-h-[900px]" 
+              : "grid gap-2 h-[clamp(250px,40vh,474px)]"
+          }`}
           style={
             {
               gridTemplateColumns: getGridTemplateColumns(),
-              // Using CSS variables with proper TypeScript handling
+              gridTemplateRows: getGridTemplateRows(),
               "--gap": "8px",
-              "--base": "clamp(2rem, 8cqi, 80px)",
+              "--base": isVerticalLayout ? "40px" : "clamp(2rem, 8cqi, 80px)",
               "--easing":
                 "linear(0 0%, 0.1538 4.09%, 0.2926 8.29%, 0.4173 12.63%, 0.5282 17.12%, 0.6255 21.77%, 0.7099 26.61%, 0.782 31.67%, 0.8425 37%, 0.8887 42.23%, 0.9257 47.79%, 0.9543 53.78%, 0.9752 60.32%, 0.9883 67.11%, 0.9961 75%, 1 100%)",
               "--speed": "0.6s",
@@ -141,17 +192,25 @@ export default function ExpandingCards() {
             return (
               <li
                 key={card.id}
-                className={`card-item relative overflow-hidden min-w-[var(--base)] rounded-lg border border-zinc-800 bg-black ${isActive ? "active" : ""}`}
+                className={`card-item relative overflow-hidden ${
+                  isVerticalLayout ? "min-h-[var(--base)]" : "min-w-[var(--base)]"
+                } rounded-lg border border-zinc-800 bg-black ${isActive ? "active" : ""}`}
                 data-active={isActive.toString()}
                 onClick={() => handleCardInteraction(card.id)}
                 onMouseEnter={() => handleCardInteraction(card.id)}
               >
-                <article className="w-full h-full absolute top-0 left-0 flex flex-col justify-end gap-4 p-4 overflow-hidden font-mono">
-                  <h3 className="absolute top-4 left-[calc(var(--base)*0.5)] origin-[0_50%] rotate-90 text-base font-light uppercase text-white opacity-60 transition-opacity duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]">
+                <article className="w-full h-full absolute top-0 left-0 flex flex-col justify-end gap-2 sm:gap-4 p-3 sm:p-4 overflow-hidden font-mono">
+                  <h3 className={`
+                    absolute text-base font-light uppercase text-white opacity-60 
+                    transition-opacity duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]
+                    ${isVerticalLayout 
+                      ? "top-[50%] left-4 -translate-y-1/2 rotate-0" 
+                      : "top-4 left-[calc(var(--base)*0.5)] origin-[0_50%] rotate-90"}
+                  `}>
                     {card.title}
                   </h3>
 
-                  <p className="text-sm text-balance leading-tight opacity-0 transition-opacity duration-[calc(var(--speed)*1.2)] ease-[var(--easing)] delay-[calc(var(--speed)*0.25)]">
+                  <p className="text-xs sm:text-sm text-balance leading-tight opacity-0 transition-opacity duration-[calc(var(--speed)*1.2)] ease-[var(--easing)] delay-[calc(var(--speed)*0.25)]">
                     {card.description}
                   </p>
 
@@ -200,4 +259,3 @@ export default function ExpandingCards() {
     </section>
   )
 }
-
