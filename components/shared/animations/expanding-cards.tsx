@@ -71,12 +71,25 @@ const cards: Card[] = [
     description: "Showcase your talent, sell merchandise, and connect with event organizers for live performances.",
     features: [
       "• Performance Booking",
-      "• Merchandise Sales",
+      "• Merchandise  and  Album Sales",
       "• Music Samples",
       "• Tour Management",
-      "• Fan Engagement",
+   
     ],
     image: "/images/musician.svg",
+  },
+  {
+    id: 6,
+    title: "Accommodation",
+    description: "Host attendees, speakers, vendors, and organizers with our Airbnb-like feature for events.",
+    features: [
+      "• Event Hosting",
+      "• Booking Management",
+      "• Guest Communication",
+      "• Payment Processing",
+      "• Review System",
+    ],
+    image: "/images/accomodation.svg",
   },
 ]
 
