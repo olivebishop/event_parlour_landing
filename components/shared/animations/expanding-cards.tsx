@@ -179,7 +179,7 @@ export default function ExpandingCards() {
               gridTemplateColumns: getGridTemplateColumns(),
               gridTemplateRows: getGridTemplateRows(),
               "--gap": "8px",
-              "--base": isVerticalLayout ? "40px" : "clamp(2rem, 8cqi, 80px)",
+              "--base": isVerticalLayout ? "50px" : "clamp(2rem, 8cqi, 80px)",
               "--easing":
                 "linear(0 0%, 0.1538 4.09%, 0.2926 8.29%, 0.4173 12.63%, 0.5282 17.12%, 0.6255 21.77%, 0.7099 26.61%, 0.782 31.67%, 0.8425 37%, 0.8887 42.23%, 0.9257 47.79%, 0.9543 53.78%, 0.9752 60.32%, 0.9883 67.11%, 0.9961 75%, 1 100%)",
               "--speed": "0.6s",
@@ -214,23 +214,24 @@ export default function ExpandingCards() {
                     {card.description}
                   </p>
 
-                  <a
-                    href="#"
-                    className="absolute bottom-4 h-[18px] leading-none text-white opacity-0 transition-opacity duration-[calc(var(--speed)*1.2)] ease-[var(--easing)] delay-[calc(var(--speed)*0.25)]"
-                  >
-                    
-                  </a>
-
-                  <div className="absolute inset-0 w-full h-full">
-                    <Image
-                      src={card.image || "/placeholder.svg"}
-                      alt=""
-                      fill
-                      className="object-cover pointer-events-none filter grayscale brightness-150 scale-110 transition-all duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]"
-                      style={{
-                        maskImage: "radial-gradient(100% 100% at 100% 0, #fff, #0000)",
-                      }}
-                    />
+                  <div className="absolute inset-0 w-full h-full z-0">
+                    <div className={`relative w-full h-full ${isVerticalLayout && !isActive ? "opacity-50" : "opacity-100"}`}>
+                      <Image
+                        src={card.image || "/placeholder.svg"}
+                        alt={card.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className={`
+                          object-cover pointer-events-none transition-all duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]
+                          ${isActive ? "filter-none scale-100" : "filter grayscale brightness-75 scale-110"}
+                          ${isVerticalLayout && !isActive ? "opacity-70" : "opacity-100"}
+                        `}
+                        style={{
+                          maskImage: isActive ? "none" : "radial-gradient(100% 100% at 100% 0, #fff, #0000)",
+                        }}
+                        priority={card.id === 1}
+                      />
+                    </div>
                   </div>
                 </article>
               </li>
@@ -250,10 +251,17 @@ export default function ExpandingCards() {
           opacity: 1 !important;
         }
         
-        [data-active="true"] img {
-          filter: grayscale(0) brightness(1) !important;
-          scale: 1 !important;
-          transition-delay: calc(var(--speed) * 0.25);
+        @media (max-width: 767px) {
+          .card-item {
+            position: relative;
+            overflow: visible;
+          }
+          
+          .card-item[data-active="false"] img {
+            opacity: 0.8;
+            object-fit: contain !important;
+            object-position: center !important;
+          }
         }
       `}</style>
     </section>
