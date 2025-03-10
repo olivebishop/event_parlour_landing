@@ -97,6 +97,8 @@ export default function ExpandingCards() {
   const [activeCard, setActiveCard] = useState(1)
   // Add responsive state to track vertical or horizontal layout
   const [isVerticalLayout, setIsVerticalLayout] = useState(false)
+  // Track smaller screens for additional styling adjustments
+  const [isExtraSmallScreen, setIsExtraSmallScreen] = useState(false)
 
   // Calculate grid template based on active card
   const getGridTemplateColumns = () => {
@@ -121,6 +123,7 @@ export default function ExpandingCards() {
   useEffect(() => {
     const checkScreenSize = () => {
       setIsVerticalLayout(window.innerWidth < 768) // Switch to vertical layout below md breakpoint
+      setIsExtraSmallScreen(window.innerWidth < 480) // Extra small screens (most phones)
     }
 
     // Initial check
@@ -160,10 +163,10 @@ export default function ExpandingCards() {
   }
 
   return (
-    <section className="py-8 sm:py-12 md:py-16 dark">
-      <div className="container mx-auto px-4 sm:px-6 flex flex-col items-center">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-center">Empowering Event Experiences</h1>
-        <p className="max-w-[74ch] text-balance text-center mb-8 sm:mb-12 md:mb-16 opacity-80 text-xs sm:text-sm md:text-base">
+    <section className="py-6 sm:py-10 md:py-16 dark">
+      <div className="container mx-auto px-3 sm:px-6 flex flex-col items-center">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 text-center">Empowering Event Experiences</h1>
+        <p className="max-w-[74ch] text-balance text-center mb-6 sm:mb-12 md:mb-16 opacity-80 text-xs sm:text-sm md:text-base">
           Unlock the art and science of event management. This isn&apos;t just about organizing events or following schedules
           — it&apos;s about mastering the tools, understanding the nuances, and shaping experiences with intention.
         </p>
@@ -171,7 +174,7 @@ export default function ExpandingCards() {
         <ul
           className={`cards-container list-none p-0 m-0 w-full max-w-full sm:max-w-full md:max-w-[820px] transition-all duration-600 ${
             isVerticalLayout 
-              ? "grid grid-cols-1 gap-2 h-[85vh] max-h-[900px]" 
+              ? "grid grid-cols-1 gap-2 h-[80vh] max-h-[900px]" 
               : "grid gap-2 h-[clamp(250px,40vh,474px)]"
           }`}
           style={
@@ -179,7 +182,7 @@ export default function ExpandingCards() {
               gridTemplateColumns: getGridTemplateColumns(),
               gridTemplateRows: getGridTemplateRows(),
               "--gap": "8px",
-              "--base": isVerticalLayout ? "50px" : "clamp(2rem, 8cqi, 80px)",
+              "--base": isVerticalLayout ? (isExtraSmallScreen ? "35px" : "40px") : "clamp(2rem, 8cqi, 80px)",
               "--easing":
                 "linear(0 0%, 0.1538 4.09%, 0.2926 8.29%, 0.4173 12.63%, 0.5282 17.12%, 0.6255 21.77%, 0.7099 26.61%, 0.782 31.67%, 0.8425 37%, 0.8887 42.23%, 0.9257 47.79%, 0.9543 53.78%, 0.9752 60.32%, 0.9883 67.11%, 0.9961 75%, 1 100%)",
               "--speed": "0.6s",
@@ -197,11 +200,11 @@ export default function ExpandingCards() {
                 } rounded-lg border border-zinc-800 bg-black ${isActive ? "active" : ""}`}
                 data-active={isActive.toString()}
                 onClick={() => handleCardInteraction(card.id)}
-                onMouseEnter={() => handleCardInteraction(card.id)}
+                onMouseEnter={() => !isExtraSmallScreen ? handleCardInteraction(card.id) : null}
               >
                 <article className="w-full h-full absolute top-0 left-0 flex flex-col justify-end gap-2 sm:gap-4 p-3 sm:p-4 overflow-hidden font-mono">
                   <h3 className={`
-                    absolute text-base font-light uppercase text-white opacity-60 
+                    absolute text-sm sm:text-base font-light uppercase text-white opacity-60 
                     transition-opacity duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]
                     ${isVerticalLayout 
                       ? "top-[50%] left-4 -translate-y-1/2 rotate-0" 
@@ -210,28 +213,40 @@ export default function ExpandingCards() {
                     {card.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-balance leading-tight opacity-0 transition-opacity duration-[calc(var(--speed)*1.2)] ease-[var(--easing)] delay-[calc(var(--speed)*0.25)]">
-                    {card.description}
-                  </p>
+                  <div className={`
+                    relative z-10 flex flex-col gap-1 sm:gap-2
+                    transition-opacity duration-[calc(var(--speed)*1.2)] ease-[var(--easing)] delay-[calc(var(--speed)*0.25)]
+                    opacity-0 ${isActive && isVerticalLayout ? "mt-4 sm:mt-6" : ""}
+                  `}>
+                    <p className="text-xs sm:text-sm text-balance leading-tight mb-1 sm:mb-2">
+                      {card.description}
+                    </p>
+                    
+                    {isActive && (
+                      <ul className="text-xs leading-tight space-y-1 hidden sm:block">
+                        {card.features.slice(0, 3).map((feature, index) => (
+                          <li key={index} className="text-white/80">{feature}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
 
-                  <div className="absolute inset-0 w-full h-full z-0">
-                    <div className={`relative w-full h-full ${isVerticalLayout && !isActive ? "opacity-50" : "opacity-100"}`}>
-                      <Image
-                        src={card.image || "/placeholder.svg"}
-                        alt={card.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className={`
-                          object-cover pointer-events-none transition-all duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]
-                          ${isActive ? "filter-none scale-100" : "filter grayscale brightness-75 scale-110"}
-                          ${isVerticalLayout && !isActive ? "opacity-70" : "opacity-100"}
-                        `}
-                        style={{
-                          maskImage: isActive ? "none" : "radial-gradient(100% 100% at 100% 0, #fff, #0000)",
-                        }}
-                        priority={card.id === 1}
-                      />
-                    </div>
+                  <div className={`
+                    absolute inset-0 w-full h-full
+                    ${isActive && isVerticalLayout ? "opacity-40" : ""}
+                  `}>
+                    <Image
+                      src={card.image || "/placeholder.svg"}
+                      alt=""
+                      fill
+                      className={`
+                        object-cover pointer-events-none filter grayscale brightness-150 scale-110 
+                        transition-all duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]
+                      `}
+                      style={{
+                        maskImage: "radial-gradient(100% 100% at 100% 0, #fff, #0000)",
+                      }}
+                    />
                   </div>
                 </article>
               </li>
@@ -247,20 +262,37 @@ export default function ExpandingCards() {
           color: #fff;
         }
         
-        [data-active="true"] :is(a, p, h3) {
+        [data-active="true"] :is(a, p, h3, ul, li, div) {
           opacity: 1 !important;
         }
         
+        [data-active="true"] img {
+          filter: grayscale(0) brightness(1) !important;
+          scale: 1 !important;
+          transition-delay: calc(var(--speed) * 0.25);
+        }
+        
+        /* Add semi-transparent background behind content in active cards on small screens */
         @media (max-width: 767px) {
-          .card-item {
-            position: relative;
-            overflow: visible;
+          [data-active="true"] article::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.2) 100%);
+            z-index: 1;
+          }
+        }
+        
+        /* Specific adjustments for extra small screens */
+        @media (max-width: 479px) {
+          [data-active="true"] article {
+            padding-top: 2.5rem !important;
           }
           
-          .card-item[data-active="false"] img {
-            opacity: 0.8;
-            object-fit: contain !important;
-            object-position: center !important;
+          [data-active="true"] h3 {
+            top: 0.75rem !important;
+            left: 0.75rem !important;
+            transform: none !important;
           }
         }
       `}</style>
