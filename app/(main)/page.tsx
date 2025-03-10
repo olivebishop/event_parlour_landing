@@ -1,8 +1,8 @@
 import Hero from "@/components/shared/Hero";
 import EventSection from "@/components/shared/EventSection";
-import FAQSection from "@/components/shared/FAQSection";
+// import FAQSection from "@/components/shared/FAQSection";
 import BedsSection from "@/components/shared/BedSection";
-import ExpandingCards from "@/components/shared/animations/expanding-cards";
+// import ExpandingCards from "@/components/shared/animations/expanding-cards";
 
 export default function Home() {
   return (
@@ -25,14 +25,14 @@ export default function Home() {
         </section>
         
         {/* Expanding Cards - responsive spacing */}
-        <section className="relative z-20 mt-12 sm:mt-16 lg:mt-24">
+        {/* <section className="relative z-20 mt-12 sm:mt-16 lg:mt-24">
           <ExpandingCards />
-        </section>
+        </section> */}
         
         {/* FAQ Section - consistent bottom padding */}
-        <section className="relative z-20 mt-12 sm:mt-16 lg:mt-24 pb-16 sm:pb-20 lg:pb-32">
+        {/* <section className="relative z-20 mt-12 sm:mt-16 lg:mt-24 pb-16 sm:pb-20 lg:pb-32">
           <FAQSection />
-        </section>
+        </section> */}
       </div>
       
       {/* Background elements */}

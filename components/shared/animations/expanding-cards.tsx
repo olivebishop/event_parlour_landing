@@ -1,10 +1,21 @@
 "use client"
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { useMediaQuery } from "@/hooks/use-media-query"
+import type React from "react"
 
-const cards = [
+import { useState, useEffect } from "react"
+import Image from "next/image"
+
+// Define card type for better type safety
+interface Card {
+  id: number
+  title: string
+  description: string
+  features: string[]
+  image: string
+  subtext?: string
+}
+
+const cards: Card[] = [
   {
     id: 1,
     title: "Organizers",
@@ -17,6 +28,7 @@ const cards = [
       "• Merchandise Sales",
       "• Profile Customization",
     ],
+    image: "/images/org.svg",
   },
   {
     id: 2,
@@ -24,6 +36,7 @@ const cards = [
     description:
       "Discover and attend events, manage your tickets, and connect with other attendees. Transfer tickets easily and build your event network.",
     features: ["• Event Discovery", "• Ticket Transfers", "• Peer Connection", "• Event Calendar", "• Digital Tickets"],
+    image: "/images/attendee.svg",
   },
   {
     id: 3,
@@ -37,6 +50,7 @@ const cards = [
       "• Event Applications",
       "• Booking Management & Analytics",
     ],
+    image: "/images/vendor.svg",
   },
   {
     id: 4,
@@ -49,6 +63,7 @@ const cards = [
       "• Direct Booking",
       "• Performance Analytics",
     ],
+    image: "/images/speaker.svg",
   },
   {
     id: 5,
@@ -61,159 +76,128 @@ const cards = [
       "• Tour Management",
       "• Fan Engagement",
     ],
+    image: "/images/musician.svg",
   },
 ]
 
 export default function ExpandingCards() {
   const [activeCard, setActiveCard] = useState(1)
-  const isTablet = useMediaQuery("(min-width: 768px)")
-  const isMobile = useMediaQuery("(max-width: 640px)")
-  const isXsMobile = useMediaQuery("(max-width: 380px)")
-  const isLargeScreen = useMediaQuery("(min-width: 1024px)")
-  const isExtraLargeScreen = useMediaQuery("(min-width: 1280px)")
 
-  const getCardDimensions = () => {
-    if (isXsMobile) {
-      return {
-        startWidth: 50,
-        endWidth: 280,
-        height: 480,
-      }
-    }
-    if (isMobile) {
-      return {
-        startWidth: 60,
-        endWidth: 320,
-        height: 500,
-      }
-    }
-    if (isTablet) {
-      return {
-        startWidth: 80,
-        endWidth: 400,
-        height: 520,
-      }
-    }
-    if (isLargeScreen) {
-      return {
-        startWidth: 100,
-        endWidth: 480,
-        height: 540,
-      }
-    }
-    if (isExtraLargeScreen) {
-      return {
-        startWidth: 120,
-        endWidth: 520,
-        height: 560,
-      }
-    }
-    return {
-      startWidth: 100,
-      endWidth: 420,
-      height: 540,
-    }
+  // Calculate grid template columns based on active card
+  const getGridTemplateColumns = () => {
+    return cards.map((card) => (card.id === activeCard ? "10fr" : "1fr")).join(" ")
   }
 
-  const { startWidth, endWidth, height } = getCardDimensions()
+  // Recalculate layout on resize if needed
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(() => {
+      // Force a re-render on resize to ensure proper layout
+      setActiveCard((prev) => prev)
+    })
+
+    const container = document.querySelector(".cards-container")
+    if (container) {
+      resizeObserver.observe(container)
+    }
+
+    return () => {
+      if (container) {
+        resizeObserver.disconnect()
+      }
+    }
+  }, [])
+
+  // Handle card interaction
+  const handleCardInteraction = (id: number) => {
+    setActiveCard(id)
+  }
 
   return (
-    <section className="py-16 bg-gradient-to-b from-black via-[#171717] to-black">
-      <div className="container mx-auto px-4 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="max-w-[1140px] mx-auto"
+    <section className="py-16 dark">
+      <div className="container mx-auto px-4 sm:px-6 flex flex-col items-center">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">Empowering Event Experiences</h1>
+        <p className="max-w-[74ch] text-balance text-center mb-16 opacity-80 text-sm md:text-base">
+          Unlock the art and science of event management. This isn&apos;t just about organizing events or following schedules
+          — it&apos;s about mastering the tools, understanding the nuances, and shaping experiences with intention.
+        </p>
+
+        <ul
+          className="cards-container grid gap-2 list-none p-0 m-0 h-[clamp(300px,40vh,474px)] w-[820px] max-w-[calc(100%-4rem)] transition-all duration-600"
+          style={
+            {
+              gridTemplateColumns: getGridTemplateColumns(),
+              // Using CSS variables with proper TypeScript handling
+              "--gap": "8px",
+              "--base": "clamp(2rem, 8cqi, 80px)",
+              "--easing":
+                "linear(0 0%, 0.1538 4.09%, 0.2926 8.29%, 0.4173 12.63%, 0.5282 17.12%, 0.6255 21.77%, 0.7099 26.61%, 0.782 31.67%, 0.8425 37%, 0.8887 42.23%, 0.9257 47.79%, 0.9543 53.78%, 0.9752 60.32%, 0.9883 67.11%, 0.9961 75%, 1 100%)",
+              "--speed": "0.6s",
+            } as React.CSSProperties
+          }
         >
-          <motion.div
-            initial={{ y: 15, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="flex items-center mb-10"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mr-4">Why choose us?</h2>
-            <div className="flex-grow h-px bg-gradient-to-r from-gray-50 to-white"></div>
-          </motion.div>
-          
-          <div className="mb-10">
-            <h3 className="text-xl md:text-2xl text-zinc-400">Empowering Event Experiences</h3>
-          </div>
+          {cards.map((card) => {
+            const isActive = card.id === activeCard
 
-          <div
-            className="flex gap-2 sm:gap-3 md:gap-4 lg:gap-6 overflow-x-auto pb-6 items-stretch scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent"
-            style={{ height }}
-          >
-            {cards.map((card) => {
-              const isSelected = card.id === activeCard
+            return (
+              <li
+                key={card.id}
+                className={`card-item relative overflow-hidden min-w-[var(--base)] rounded-lg border border-zinc-800 bg-black ${isActive ? "active" : ""}`}
+                data-active={isActive.toString()}
+                onClick={() => handleCardInteraction(card.id)}
+                onMouseEnter={() => handleCardInteraction(card.id)}
+              >
+                <article className="w-full h-full absolute top-0 left-0 flex flex-col justify-end gap-4 p-4 overflow-hidden font-mono">
+                  <h3 className="absolute top-4 left-[calc(var(--base)*0.5)] origin-[0_50%] rotate-90 text-base font-light uppercase text-white opacity-60 transition-opacity duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]">
+                    {card.title}
+                  </h3>
 
-              const springConfig = {
-                width: isSelected ? endWidth : startWidth,
-                config: { mass: 2, friction: 40, tension: 600 },
-              }
+                  <p className="text-sm text-balance leading-tight opacity-0 transition-opacity duration-[calc(var(--speed)*1.2)] ease-[var(--easing)] delay-[calc(var(--speed)*0.25)]">
+                    {card.description}
+                  </p>
 
-              return (
-                <motion.div
-                  key={card.id}
-                  className="relative shrink-0 cursor-pointer rounded-xl bg-[#1f1f1f] transition-colors hover:bg-[#2a2a2a] shadow-lg"
-                  onHoverStart={() => setActiveCard(card.id)}
-                  onClick={() => setActiveCard(card.id)}
-                  animate={springConfig}
-                  style={{ width: springConfig.width }}
-                >
-                  <div className="h-full overflow-hidden">
-                    <div className="w-full h-full relative">
-                      <div className="p-3 xs:p-4 sm:p-5 lg:p-6 xl:p-8 h-full flex flex-col">
-                        {/* Rotated title for non-selected cards and larger screens */}
-                        <div 
-                          className={`origin-top-left rotate-90 absolute left-[32px] xs:left-[36px] sm:left-[42px] lg:left-[60px] xl:left-[82px] top-[32px] xs:top-[36px] sm:top-[42px] lg:top-[46px] h-[80px] flex items-center
-                          ${(isSelected && (isXsMobile || isMobile)) ? 'opacity-0' : 'opacity-100'}`}
-                        >
-                          <h3 className="text-sm xs:text-base sm:text-lg lg:text-xl font-semibold text-white whitespace-nowrap">
-                            {card.title}
-                          </h3>
-                        </div>
+                  <a
+                    href="#"
+                    className="absolute bottom-4 h-[18px] leading-none text-white opacity-0 transition-opacity duration-[calc(var(--speed)*1.2)] ease-[var(--easing)] delay-[calc(var(--speed)*0.25)]"
+                  >
+                    
+                  </a>
 
-                        {/* Centered title for selected cards on small devices */}
-                        <div 
-                          className={`absolute top-4 left-0 right-0 text-center transition-opacity duration-300
-                          ${(isSelected && (isXsMobile || isMobile)) ? 'opacity-100' : 'opacity-0'}`}
-                        >
-                          <h3 className="text-base xs:text-lg font-semibold text-white">
-                            {card.title}
-                          </h3>
-                        </div>
-                        
-                        <div className="absolute inset-0 flex flex-col">
-                          <div
-                            className={`mt-[120px] xs:mt-[140px] sm:mt-[160px] lg:mt-[180px] transition-opacity duration-300 delay-100 px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 pb-4 sm:pb-6 lg:pb-8 xl:pb-12 ${
-                              isSelected ? 'opacity-100' : 'opacity-0'
-                            }`}
-                          >
-                            <p className="text-xs xs:text-sm sm:text-base text-zinc-400 mb-2 sm:mb-3 lg:mb-4">{card.description}</p>
-                            {card.subtext && (
-                              <p className="text-xs xs:text-sm sm:text-base text-zinc-500 italic mb-3 sm:mb-4">
-                                {card.subtext}
-                              </p>
-                            )}
-                            <ul className="space-y-1.5 xs:space-y-2 sm:space-y-3">
-                              {card.features.map((feature, index) => (
-                                <li key={index} className="text-xs xs:text-sm sm:text-base lg:text-base text-zinc-300">
-                                  {feature}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="absolute inset-0 w-full h-full">
+                    <Image
+                      src={card.image || "/placeholder.svg"}
+                      alt=""
+                      fill
+                      className="object-cover pointer-events-none filter grayscale brightness-150 scale-110 transition-all duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]"
+                      style={{
+                        maskImage: "radial-gradient(100% 100% at 100% 0, #fff, #0000)",
+                      }}
+                    />
                   </div>
-                </motion.div>
-              )
-            })}
-          </div>
-        </motion.div>
+                </article>
+              </li>
+            )
+          })}
+        </ul>
       </div>
+
+      <style jsx global>{`
+        .dark {
+          color-scheme: dark;
+          background-color: #000;
+          color: #fff;
+        }
+        
+        [data-active="true"] :is(a, p, h3) {
+          opacity: 1 !important;
+        }
+        
+        [data-active="true"] img {
+          filter: grayscale(0) brightness(1) !important;
+          scale: 1 !important;
+          transition-delay: calc(var(--speed) * 0.25);
+        }
+      `}</style>
     </section>
   )
 }
+
