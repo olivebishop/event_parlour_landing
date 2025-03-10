@@ -54,6 +54,7 @@ export function Navbar() {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isMobileLanguageOpen, setIsMobileLanguageOpen] = useState(false);
+  const [screenSize, setScreenSize] = useState<string>("desktop");
   const t = useTranslations('Navbar');
   const router = useRouter();
   
@@ -68,6 +69,9 @@ export function Navbar() {
     setIsMounted(true);
     const savedLanguage = Cookies.get('language') || 'en';
     setSelectedLanguage(savedLanguage);
+    
+    // Initial screen size detection
+    handleScreenSize();
   }, []);
 
   // Enhanced scroll effect with smoother threshold
@@ -78,6 +82,28 @@ export function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Track screen size changes for responsive behavior
+  const handleScreenSize = () => {
+    if (typeof window !== "undefined") {
+      const width = window.innerWidth;
+      if (width >= 1024) {
+        setScreenSize("desktop");
+        if (isOpen) setIsOpen(false);
+      } else if (width >= 768) {
+        setScreenSize("tablet");
+        if (isOpen) setIsOpen(false);
+      } else {
+        setScreenSize("mobile");
+      }
+    }
+  };
+
+  // Add resize listener
+  useEffect(() => {
+    window.addEventListener('resize', handleScreenSize);
+    return () => window.removeEventListener('resize', handleScreenSize);
+  }, [isOpen]);
 
   // Close the language dropdown when clicking outside
   useEffect(() => {
@@ -91,18 +117,6 @@ export function Navbar() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isLanguageOpen]);
-  
-  // Close mobile menu on resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768 && isOpen) {
-        setIsOpen(false);
-      }
-    };
-    
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isOpen]);
 
   const navLinks: NavLink[] = [
     { href: "#evento", label: t('eventsNearMe') },
@@ -212,21 +226,23 @@ export function Navbar() {
                 alt="Event Parlour"
                 width={180}
                 height={60}
-                className="h-10 sm:h-14 w-auto transition-all duration-300"
+                className="h-8 sm:h-10 md:h-12 lg:h-14 w-auto transition-all duration-300"
                 priority
               />
             </motion.div>
             <span className="sr-only">Event Parlour</span>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden md:block">
-            <div className="flex items-center space-x-2 sm:space-x-8">
-              {navLinks.map((link) => (
+          {/* Desktop & Tablet Navigation Links - Only show on lg+ for desktop and hide part on md */}
+          <div className={`hidden ${screenSize === "desktop" ? "lg:flex" : "lg:hidden md:flex"}`}>
+            <div className="flex items-center space-x-1 md:space-x-2 lg:space-x-8">
+              {navLinks.map((link, index) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative px-3 py-2 text-white transition-colors duration-300 text-sm sm:text-base"
+                  className={`relative px-2 md:px-3 py-2 text-white transition-colors duration-300
+                    ${screenSize === "tablet" ? "text-xs md:text-sm" : "text-sm lg:text-base"}
+                    ${screenSize === "tablet" && index >= 3 ? "hidden lg:block" : ""}`}
                   onMouseEnter={() => setIsHovering(link.href)}
                   onMouseLeave={() => setIsHovering(null)}
                 >
@@ -242,20 +258,22 @@ export function Navbar() {
             </div>
           </div>
 
-          <div className="flex items-center space-x-2 sm:space-x-4">
-            {/* Language selector - visible only on md and larger screens */}
+          <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4">
+            {/* Language selector - visible on md and larger screens */}
             {isMounted && (
               <div className="relative language-dropdown-container hidden md:block">
                 <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
                   <Button
                     variant="ghost"
-                    className="text-white hover:bg-white/10 hover:text-white hover:border-gray-100 hover:border transition-all duration-300 flex items-center"
+                    className={`text-white hover:bg-white/10 hover:text-white hover:border-gray-100 hover:border 
+                      transition-all duration-300 flex items-center ${screenSize === "tablet" ? "text-xs px-2" : ""}`}
                     onClick={() => setIsLanguageOpen(!isLanguageOpen)}
                   >
-                    <Languages className="h-5 w-5 mr-2" />
-                    {getCurrentLanguageName()}
+                    <Languages className={`${screenSize === "tablet" ? "h-4 w-4 mr-1" : "h-5 w-5 mr-2"}`} />
+                    {screenSize === "tablet" ? getCurrentLanguageName().substring(0, 3) : getCurrentLanguageName()}
                     <ChevronDown 
-                      className={`ml-2 h-4 w-4 transition-transform duration-300 ${isLanguageOpen ? 'rotate-180' : ''}`}
+                      className={`${screenSize === "tablet" ? "ml-1 h-3 w-3" : "ml-2 h-4 w-4"} transition-transform duration-300 
+                      ${isLanguageOpen ? 'rotate-180' : ''}`}
                     />
                   </Button>
                 </motion.div>
@@ -278,8 +296,9 @@ export function Navbar() {
             <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
               <Button
                 variant="outline"
-                className="relative text-black border-black/30 hover:bg-black hover:text-white hover:border-white text-sm sm:text-base 
-                  transition-all duration-300 group"
+                className={`relative text-black border-black/30 hover:bg-black hover:text-white hover:border-white 
+                  transition-all duration-300 group 
+                  ${screenSize === "tablet" ? "text-xs px-2 py-1" : "text-sm lg:text-base"}`}
               >
                 <span className="relative z-10">{t('signIn')}</span>
                 <motion.span 
@@ -297,6 +316,18 @@ export function Navbar() {
               </Button>
             </motion.div>
             
+            {/* Tablet Menu Button - Show additional Menu button for tablet view */}
+            {screenSize === "tablet" && (
+              <Button 
+                variant="ghost" 
+                className="text-white hover:bg-white/10 hover:text-white transition-colors duration-300 md:block"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+            )}
+            
+            {/* Mobile Menu Button */}
             <Button 
               variant="ghost" 
               className="text-white hover:bg-white/10 hover:text-white md:hidden transition-colors duration-300"
@@ -314,29 +345,32 @@ export function Navbar() {
               initial="hidden"
               animate="visible"
               exit="hidden"
-              className="md:hidden mt-4 pb-4"
+              className={`${screenSize === "tablet" ? "" : "md:hidden"} mt-4 pb-4`}
             >
               <div className="flex flex-col space-y-4">
                 {navLinks.map((link, index) => (
-                  <motion.div
-                    key={link.href}
-                    variants={linkVariants}
-                    initial="hidden"
-                    animate="visible"
-                    custom={index}
-                  >
-                    <Link
-                      href={link.href}
-                      className="relative text-white hover:text-gray-300 transition-colors duration-300 text-lg block py-2 px-3 border-l-2 border-transparent hover:border-white/50"
-                      onClick={() => setIsOpen(false)}
+                  // For tablets, only show the links that are hidden in the main navbar
+                  (screenSize !== "tablet" || index >= 3) && (
+                    <motion.div
+                      key={link.href}
+                      variants={linkVariants}
+                      initial="hidden"
+                      animate="visible"
+                      custom={index}
                     >
-                      {link.label}
-                    </Link>
-                  </motion.div>
+                      <Link
+                        href={link.href}
+                        className="relative text-white hover:text-gray-300 transition-colors duration-300 text-lg block py-2 px-3 border-l-2 border-transparent hover:border-white/50"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.div>
+                  )
                 ))}
                 
-                {/* Language selector in mobile menu */}
-                {isMounted && (
+                {/* Language selector in mobile menu - only show on mobile, not tablet */}
+                {isMounted && screenSize === "mobile" && (
                   <motion.div
                     variants={linkVariants}
                     initial="hidden"
@@ -374,23 +408,26 @@ export function Navbar() {
                   </motion.div>
                 )}
                 
-                <motion.div
-                  variants={linkVariants}
-                  initial="hidden"
-                  animate="visible"
-                  custom={navLinks.length + 1}
-                >
-                  <div className="py-2 px-3 pt-4">
-                    <Button
-                      variant="outline"
-                      className="relative text-white border-white/30 hover:bg-white/10 hover:border-white text-lg w-full 
-                        transition-all duration-300"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {t('signIn')}
-                    </Button>
-                  </div>
-                </motion.div>
+                {/* Sign in button in mobile menu - don't show on tablet */}
+                {screenSize === "mobile" && (
+                  <motion.div
+                    variants={linkVariants}
+                    initial="hidden"
+                    animate="visible"
+                    custom={navLinks.length + 1}
+                  >
+                    <div className="py-2 px-3 pt-4">
+                      <Button
+                        variant="outline"
+                        className="relative text-white border-white/30 hover:bg-white/10 hover:border-white text-lg w-full 
+                          transition-all duration-300"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {t('signIn')}
+                      </Button>
+                    </div>
+                  </motion.div>
+                )}
               </div>
             </motion.div>
           )}

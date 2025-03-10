@@ -138,7 +138,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-[#171717]">
+    <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-[#171717] lg:mt-6">
       {/* Removed the Image background and related overlays */}
    
       {/* Animated Background Elements */}
