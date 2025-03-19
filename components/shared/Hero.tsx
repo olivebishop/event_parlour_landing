@@ -40,7 +40,7 @@ function WordAnimation() {
       setIndex((prev) => (prev + 1) % words.length)
     }, 2000)
     return () => clearInterval(interval)
-  }, [])
+  }, [words.length])
 
   const currentWord = words[index]
 
@@ -72,7 +72,7 @@ export default function Hero() {
   const [currentDateTime, setCurrentDateTime] = useState<{ date: string; time: string }>({ date: "", time: "" })
   const [userLocation, setUserLocation] = useState<string>("Loading location...")
   const isLargeScreen = useMediaQuery("(min-width: 1024px)")
-  const isMobileScreen = useMediaQuery("(max-width: 640px)")
+  // Removed isMobileScreen declaration as it's no longer needed
 
   useEffect(() => {
     const updateDateTime = () => {
@@ -138,57 +138,11 @@ export default function Hero() {
   }, [])
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-[#171717] lg:mt-6">
-      {/* Removed the Image background and related overlays */}
-   
-      {/* Animated Background Elements */}
-      {!isMobileScreen && (
-        <>
-          <motion.div 
-            className="absolute top-20 left-[10%] w-1 h-1 rounded-full bg-white z-5"
-            animate={{ 
-              opacity: [0.3, 0.8, 0.3],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{ 
-              duration: 3, 
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div 
-            className="absolute bottom-40 right-[20%] w-1 h-1 rounded-full bg-white z-5"
-            animate={{ 
-              opacity: [0.2, 0.7, 0.2],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{ 
-              duration: 2.5, 
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.5,
-            }}
-          />
-          <motion.div 
-            className="absolute top-1/3 right-[15%] w-1 h-1 rounded-full bg-white z-5"
-            animate={{ 
-              opacity: [0.2, 0.6, 0.2],
-              scale: [1, 1.4, 1],
-            }}
-            transition={{ 
-              duration: 4, 
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1,
-            }}
-          />
-        </>
-      )}
-
-      {/* Main Content Container with enhanced glassmorphism - shadow removed for sm screens */}
-      <div className="container mx-auto px-4 sm:px-6 z-10"> 
-        <div className="w-full bg-gradient-to-r from-black/50 via-black/30 to-black/50 sm:shadow-xl sm:shadow-black/30 rounded-3xl overflow-hidden backdrop-blur-[4px]">
-          <div className="px-6 md:px-10 pt-10 pb-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+    <div className="relative min-h-screen flex items-center justify-center lg:bg-gradient-to-b lg:from-black lg:to-[#171717] lg:mt-6 w-full">
+      {/* Main Content Container - Removed background for small devices */}
+      <div className="container mx-auto px-0 sm:px-6 z-10 w-full"> 
+        <div className="w-full lg:bg-gradient-to-r lg:from-black/50 lg:via-black/30 lg:to-black/50 lg:shadow-xl lg:shadow-black/30 lg:rounded-3xl lg:overflow-hidden lg:backdrop-blur-[4px]">
+          <div className="px-4 sm:px-6 md:px-10 pt-6 sm:pt-10 pb-12 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
             {/* Left Column - Main Content */}
             <motion.div
               className="flex flex-col justify-center"
@@ -230,7 +184,7 @@ export default function Hero() {
                   aria-label="Get started with Event Parlour"
                 >
                   <span className="flex items-center justify-center sm:justify-start">
-                    Get Started
+                    Create Your Event
                     <motion.span 
                       className="ml-2"
                       initial={{ x: 0 }}
