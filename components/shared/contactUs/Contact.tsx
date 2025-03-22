@@ -80,7 +80,7 @@ export function ContactUs() {
               <div className="space-y-6 ">
                 {[
                   { icon: FaMapMarkerAlt, text: "Nairobi, Kenya", link: null },
-                  { icon: FaEnvelope, text: "support@eventparlour.com", link: "mailto:eventspalour@gmail.com" },
+                  { icon: FaEnvelope, text: "hello@eventparlour.com", link: "mailto:eventspalour@gmail.com" },
                   { icon: FaPhone, text: "+254 791 482 626", link: "tel:+254791482626" },
                   { icon: FaClock, text: "Open - 24 hrs", link: null }
                 ].map((item, index) => (
