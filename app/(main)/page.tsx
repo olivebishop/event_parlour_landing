@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className="relative overflow-hidden bg-black">
       {/* Hero Section */}
-      <section className="relative z-10">
+      <section className="relative z-10 lg:mt-0 mt-4">
         <Hero />
       </section>
       
