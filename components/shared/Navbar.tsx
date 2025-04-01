@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Languages, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -214,21 +214,24 @@ export function Navbar() {
           ? 'bg-black/90 backdrop-blur-md border-b border-black/10 shadow-lg shadow-black/30' 
           : 'bg-black/50 backdrop-blur-sm'}`}
     >
-      <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
+      <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6 ">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center group">
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              <Image
+
+<p className="font-extrabold text-xl sm:text-xl md:text-2xl lg:text-2xl lg:ml-6">Event Parlour.</p>
+    
+              {/* <Image
                 src="/images/logo.png"
                 alt="Event Parlour"
                 width={180}
                 height={60}
                 className="h-8 sm:h-10 md:h-12 lg:h-14 w-auto transition-all duration-300"
                 priority
-              />
+              /> */}
             </motion.div>
             <span className="sr-only">Event Parlour</span>
           </Link>
