@@ -269,7 +269,7 @@ export function ContactUs() {
                         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                           <Button
                             type="submit"
-                            className="w-full bg-white  hover:bg-gray-50 text-black font-bold rounded-xl px-6 py-6 text-lg shadow-lg hover:white transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="w-full bg-white  hover:bg-gray-50 text-black font-bold rounded-xl px-6 py-6 text-lg shadow-lg hover:text-white transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                             disabled={isSubmitting}
                           >
                             {isSubmitting ? (
