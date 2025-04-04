@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
-import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaFacebookF, FaInstagram } from "react-icons/fa"
+import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaWhatsapp, FaInstagram } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
 
 const containerVariants = {
@@ -126,8 +126,8 @@ export function ContactUs() {
               <div className="bg-zinc-900/60 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-zinc-800/50 shadow-xl">
                 <h3 className="text-2xl font-semibold text-white mb-6">Contact Information</h3>
                 <p className="text-gray-300 leading-relaxed mb-8">
-                  <span className="font-bold text-gray-200">Event Parlour</span> helps create unforgettable events.
-                  Reach out to us for seamless planning and exceptional experiences.
+                  <span className="font-bold text-gray-200">Event Parlour</span> - event platform for everyone .
+                  Contact our dedicated support team for inquiries regarding our  services.
                 </p>
 
                 <div className="space-y-5">
@@ -157,9 +157,9 @@ export function ContactUs() {
 
                 <div className="flex gap-4 mt-10">
                   {[
-                    { icon: FaFacebookF, url: "#" },
-                    { icon: FaXTwitter, url: "#" },
-                    { icon: FaInstagram, url: "#" },
+                    { icon: FaWhatsapp, url: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R" },
+                    { icon: FaXTwitter, url: "https://x.com/EventsPalour" },
+                    { icon: FaInstagram, url: "https://www.instagram.com/event.parlour" },
                   ].map((social, index) => (
                     <motion.a
                       key={index}
@@ -269,7 +269,7 @@ export function ContactUs() {
                         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                           <Button
                             type="submit"
-                            className="w-full bg-white  hover:bg-gray-50 text-black font-bold rounded-xl px-6 py-6 text-lg shadow-lg hover:text-white transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="w-full bg-white  hover:bg-gray-50 hover:text-black text-black font-bold rounded-xl px-6 py-6 text-lg shadow-lg hover:text-white transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                             disabled={isSubmitting}
                           >
                             {isSubmitting ? (
