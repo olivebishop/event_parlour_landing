@@ -39,7 +39,7 @@ const Footer = () => {
   };
 
   const quickLinks = [
-    { href: "/events", label: "Events" },
+    { href: "/", label: "Events" },
     { href: "/contact", label: "Contact" },
     { href: "/privacy-policy", label: "Privacy Policy" },
     { href: "/terms-and-condition", label: "Terms And Condition" },
