@@ -8,6 +8,7 @@ import { NextIntlClientProvider } from "next-intl"
 import { getLocale, getMessages } from "next-intl/server"
 import { NetworkProvider } from "@/components/shared/network-provider"
 import "./globals.css"
+import TawkToChat from '@/components/shared/TawkToChat';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -109,6 +110,7 @@ export default async function RootLayout({
           <SpeedInsights />
           <Analytics />
         </NextIntlClientProvider>
+        <TawkToChat />
       </body>
     </html>
   )
