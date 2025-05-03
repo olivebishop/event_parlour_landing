@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
-import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaWhatsapp, FaInstagram } from "react-icons/fa"
+import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaWhatsapp, FaInstagram,FaTiktok, FaLinkedin } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
 
 const containerVariants = {
@@ -160,6 +160,8 @@ export function ContactUs() {
                     { icon: FaWhatsapp, url: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R" },
                     { icon: FaXTwitter, url: "https://x.com/EventsPalour" },
                     { icon: FaInstagram, url: "https://www.instagram.com/event.parlour" },
+                    { icon: FaTiktok, url: "https://www.tiktok.com/@eventparlour" },
+                    { icon: FaLinkedin, url: "https://www.linkedin.com/company/eventparlour" },
                   ].map((social, index) => (
                     <motion.a
                       key={index}

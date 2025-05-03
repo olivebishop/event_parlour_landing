@@ -25,7 +25,7 @@ const siteUrl = "https://www.eventparlour.com"
 export const metadata: Metadata = {
   title: "Event Parlour - Events & Accommodation Booking",
   description:
-    "Discover, host, and book event accommodations on Event Parlour—Airbnb-style lodging for organizers, attendees, and speakers.",
+    "Connecting organizers, attendees, and vendors in one seamless experience.",
   keywords:
     "event accommodations, event booking, event management, ticketing, concerts, festivals, conferences, Airbnb for events",
   authors: [{ name: "Event Parlour", url: siteUrl }],
