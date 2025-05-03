@@ -48,10 +48,12 @@ const Footer = () => {
   
   const socialLinks = [
     { href: "https://x.com/EventsPalour", label: "X " },
-    { href: "https://facebook.com/eparlour", label: "Facebook" },
+    { href: "https://www.tiktok.com/@eventparlour", label: "TikTok" },
+    // { href: "https://facebook.com/eparlour", label: "Facebook" },
     { href: "https://www.instagram.com/event.parlour", label: "Instagram" },
-    { href: "https://linkedin.com/company/eparlour", label: "LinkedIn" },
+    { href: "https://www.linkedin.com/company/eventparlour", label: "LinkedIn" },
     { href: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R", label: "WhatsApp Channel" }
+ 
   ];
 
   return (
