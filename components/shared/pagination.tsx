@@ -10,6 +10,15 @@ interface PaginationProps {
   onPageChange: (page: number) => void
 }
 
+/**
+ * Renders a paginated navigation UI with animated transitions and dynamic page range display.
+ *
+ * Displays previous and next buttons, numeric page buttons, and ellipses for skipped ranges. The current page is highlighted, and navigation buttons are disabled when at the start or end of the page range. Clicking a page or navigation button triggers the {@link onPageChange} callback with the selected page number.
+ *
+ * @param currentPage - The currently active page number.
+ * @param totalPages - The total number of available pages.
+ * @param onPageChange - Callback invoked with the new page number when a page change occurs.
+ */
 export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
   // Generate page numbers to display
   const getPageNumbers = () => {

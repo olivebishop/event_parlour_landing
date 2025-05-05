@@ -104,6 +104,13 @@ const events = [
   },
 ]
 
+/**
+ * Renders a responsive event discovery page with filtering, pagination, and interactive map/list views.
+ *
+ * Provides an interface for browsing events by category, country, county, and price, with real-time filtering and pagination. Users can toggle between a list and a map view, select events to highlight on the map, and expand or collapse the map area. The layout adapts for mobile, tablet, and desktop screens, ensuring an optimized experience across devices.
+ *
+ * @returns The rendered events page component.
+ */
 export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [selectedCountry, setSelectedCountry] = useState("All Countries")

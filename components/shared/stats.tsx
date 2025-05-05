@@ -2,7 +2,12 @@
 
 
 
-export default function StatsSection() {
+/**
+           * Renders a responsive section displaying three key statistics with descriptive labels.
+           *
+           * The section features a three-column grid layout, each column highlighting a different statistic: reduction in manual tasks, increase in productivity, and events successfully hosted. Styling and layout adapt for various screen sizes using Tailwind CSS classes.
+           */
+          export default function StatsSection() {
   return (
     <div className="w-full mt-auto  border-white/10">
         <div className="container mx-auto px-4 sm:px-6 py-8">
