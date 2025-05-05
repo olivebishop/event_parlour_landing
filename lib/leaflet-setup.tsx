@@ -3,7 +3,12 @@
 import { useEffect } from "react"
 import L from "leaflet"
 
-// This component sets up Leaflet icon paths correctly
+/**
+ * Configures Leaflet's default marker icon and shadow image URLs on component mount.
+ *
+ * @remark
+ * This component performs a side effect to globally update Leaflet's icon paths and does not render any UI.
+ */
 export default function LeafletSetup() {
   useEffect(() => {
     // Fix Leaflet's icon paths

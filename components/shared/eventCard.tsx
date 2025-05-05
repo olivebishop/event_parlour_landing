@@ -19,6 +19,13 @@ interface EventCardProps {
   onViewMap?: () => void
 }
 
+/**
+ * Renders a styled event card displaying event details such as image, title, date, location, price, and category.
+ *
+ * @param selected - If true, highlights the card to indicate selection.
+ *
+ * @returns A React element representing the event card UI.
+ */
 export default function EventCard({
   title,
   image,

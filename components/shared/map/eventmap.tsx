@@ -107,7 +107,20 @@ const EventMarker = ({
   )
 }
 
-// Update the EventMap component to include a ref and resize handler
+/**
+ * Renders an interactive Leaflet map displaying event markers with popups and dynamic centering.
+ *
+ * The map centers on the selected event if provided, or defaults to Kenya. Markers are highlighted when selected, and clicking a marker triggers the provided callback. The map container supports custom sizing and animates on mount.
+ *
+ * @param events - Array of event data to display as markers.
+ * @param selectedEventId - ID of the currently selected event, if any.
+ * @param onMarkerClick - Callback invoked with the event ID when a marker is clicked.
+ * @param height - Optional height of the map container (default: "70vh").
+ * @param width - Optional width of the map container (default: "100%").
+ * @param className - Optional additional class names for the container.
+ *
+ * @returns The rendered map component with interactive event markers.
+ */
 export default function EventMap({
   events,
   selectedEventId,
