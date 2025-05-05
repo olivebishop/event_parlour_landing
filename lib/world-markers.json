@@ -1,0 +1,383 @@
+{
+    "markers": [
+      {
+        "id": "marker-us-nyc",
+        "position": [40.7128, -74.006],
+        "title": "New York City",
+        "country": "United States",
+        "icon": "🗽"
+      },
+      {
+        "id": "marker-us-sf",
+        "position": [37.7749, -122.4194],
+        "title": "San Francisco",
+        "country": "United States",
+        "icon": "🌉"
+      },
+      {
+        "id": "marker-us-chicago",
+        "position": [41.8781, -87.6298],
+        "title": "Chicago",
+        "country": "United States",
+        "icon": "🏙️"
+      },
+      {
+        "id": "marker-us-la",
+        "position": [34.0522, -118.2437],
+        "title": "Los Angeles",
+        "country": "United States",
+        "icon": "🎬"
+      },
+      {
+        "id": "marker-us-miami",
+        "position": [25.7617, -80.1918],
+        "title": "Miami",
+        "country": "United States",
+        "icon": "🏖️"
+      },
+      {
+        "id": "marker-ca-toronto",
+        "position": [43.6532, -79.3832],
+        "title": "Toronto",
+        "country": "Canada",
+        "icon": "🍁"
+      },
+      {
+        "id": "marker-ca-vancouver",
+        "position": [49.2827, -123.1207],
+        "title": "Vancouver",
+        "country": "Canada",
+        "icon": "🏔️"
+      },
+      {
+        "id": "marker-ca-montreal",
+        "position": [45.5017, -73.5673],
+        "title": "Montreal",
+        "country": "Canada",
+        "icon": "🍁"
+      },
+      {
+        "id": "marker-mx-mexico",
+        "position": [19.4326, -99.1332],
+        "title": "Mexico City",
+        "country": "Mexico",
+        "icon": "🌮"
+      },
+      {
+        "id": "marker-mx-cancun",
+        "position": [21.1619, -86.8515],
+        "title": "Cancun",
+        "country": "Mexico",
+        "icon": "🏝️"
+      },
+      {
+        "id": "marker-uk-london",
+        "position": [51.5074, -0.1278],
+        "title": "London",
+        "country": "United Kingdom",
+        "icon": "🇬🇧"
+      },
+      {
+        "id": "marker-uk-manchester",
+        "position": [53.4808, -2.2426],
+        "title": "Manchester",
+        "country": "United Kingdom",
+        "icon": "🇬🇧"
+      },
+      {
+        "id": "marker-uk-edinburgh",
+        "position": [55.9533, -3.1883],
+        "title": "Edinburgh",
+        "country": "United Kingdom",
+        "icon": "🏰"
+      },
+      {
+        "id": "marker-fr-paris",
+        "position": [48.8566, 2.3522],
+        "title": "Paris",
+        "country": "France",
+        "icon": "🗼"
+      },
+      {
+        "id": "marker-fr-nice",
+        "position": [43.7102, 7.262],
+        "title": "Nice",
+        "country": "France",
+        "icon": "🏖️"
+      },
+      {
+        "id": "marker-fr-lyon",
+        "position": [45.764, 4.8357],
+        "title": "Lyon",
+        "country": "France",
+        "icon": "🇫🇷"
+      },
+      {
+        "id": "marker-de-berlin",
+        "position": [52.52, 13.405],
+        "title": "Berlin",
+        "country": "Germany",
+        "icon": "🇩🇪"
+      },
+      {
+        "id": "marker-de-munich",
+        "position": [48.1351, 11.582],
+        "title": "Munich",
+        "country": "Germany",
+        "icon": "🍺"
+      },
+      {
+        "id": "marker-de-hamburg",
+        "position": [53.5511, 9.9937],
+        "title": "Hamburg",
+        "country": "Germany",
+        "icon": "🇩🇪"
+      },
+      {
+        "id": "marker-it-rome",
+        "position": [41.9028, 12.4964],
+        "title": "Rome",
+        "country": "Italy",
+        "icon": "🍕"
+      },
+      {
+        "id": "marker-it-venice",
+        "position": [45.4408, 12.3155],
+        "title": "Venice",
+        "country": "Italy",
+        "icon": "🚣"
+      },
+      {
+        "id": "marker-it-milan",
+        "position": [45.4642, 9.19],
+        "title": "Milan",
+        "country": "Italy",
+        "icon": "🇮🇹"
+      },
+      {
+        "id": "marker-es-madrid",
+        "position": [40.4168, -3.7038],
+        "title": "Madrid",
+        "country": "Spain",
+        "icon": "🇪🇸"
+      },
+      {
+        "id": "marker-es-barcelona",
+        "position": [41.3851, 2.1734],
+        "title": "Barcelona",
+        "country": "Spain",
+        "icon": "⚽"
+      },
+      {
+        "id": "marker-es-seville",
+        "position": [37.3891, -5.9845],
+        "title": "Seville",
+        "country": "Spain",
+        "icon": "💃"
+      },
+      {
+        "id": "marker-jp-tokyo",
+        "position": [35.6762, 139.6503],
+        "title": "Tokyo",
+        "country": "Japan",
+        "icon": "🗾"
+      },
+      {
+        "id": "marker-jp-osaka",
+        "position": [34.6937, 135.5023],
+        "title": "Osaka",
+        "country": "Japan",
+        "icon": "🏯"
+      },
+      {
+        "id": "marker-jp-kyoto",
+        "position": [35.0116, 135.7681],
+        "title": "Kyoto",
+        "country": "Japan",
+        "icon": "⛩️"
+      },
+      {
+        "id": "marker-cn-beijing",
+        "position": [39.9042, 116.4074],
+        "title": "Beijing",
+        "country": "China",
+        "icon": "🏮"
+      },
+      {
+        "id": "marker-cn-shanghai",
+        "position": [31.2304, 121.4737],
+        "title": "Shanghai",
+        "country": "China",
+        "icon": "🌆"
+      },
+      {
+        "id": "marker-cn-hongkong",
+        "position": [22.3193, 114.1694],
+        "title": "Hong Kong",
+        "country": "China",
+        "icon": "🏙️"
+      },
+      {
+        "id": "marker-in-delhi",
+        "position": [28.6139, 77.209],
+        "title": "New Delhi",
+        "country": "India",
+        "icon": "🇮🇳"
+      },
+      {
+        "id": "marker-in-mumbai",
+        "position": [19.076, 72.8777],
+        "title": "Mumbai",
+        "country": "India",
+        "icon": "🏙️"
+      },
+      {
+        "id": "marker-in-bangalore",
+        "position": [12.9716, 77.5946],
+        "title": "Bangalore",
+        "country": "India",
+        "icon": "💻"
+      },
+      {
+        "id": "marker-sg-singapore",
+        "position": [1.3521, 103.8198],
+        "title": "Singapore",
+        "country": "Singapore",
+        "icon": "🇸🇬"
+      },
+      {
+        "id": "marker-th-bangkok",
+        "position": [13.7563, 100.5018],
+        "title": "Bangkok",
+        "country": "Thailand",
+        "icon": "🇹🇭"
+      },
+      {
+        "id": "marker-kr-seoul",
+        "position": [37.5665, 126.978],
+        "title": "Seoul",
+        "country": "South Korea",
+        "icon": "🇰🇷"
+      },
+      {
+        "id": "marker-za-cape",
+        "position": [-33.9249, 18.4241],
+        "title": "Cape Town",
+        "country": "South Africa",
+        "icon": "🇿🇦"
+      },
+      {
+        "id": "marker-za-johannesburg",
+        "position": [-26.2041, 28.0473],
+        "title": "Johannesburg",
+        "country": "South Africa",
+        "icon": "🇿🇦"
+      },
+      {
+        "id": "marker-eg-cairo",
+        "position": [30.0444, 31.2357],
+        "title": "Cairo",
+        "country": "Egypt",
+        "icon": "🔺"
+      },
+      {
+        "id": "marker-ng-lagos",
+        "position": [6.5244, 3.3792],
+        "title": "Lagos",
+        "country": "Nigeria",
+        "icon": "🇳🇬"
+      },
+      {
+        "id": "marker-ke-nairobi",
+        "position": [-1.2921, 36.8219],
+        "title": "Nairobi",
+        "country": "Kenya",
+        "icon": "🇰🇪"
+      },
+      {
+        "id": "marker-ma-casablanca",
+        "position": [33.5731, -7.5898],
+        "title": "Casablanca",
+        "country": "Morocco",
+        "icon": "🇲🇦"
+      },
+      {
+        "id": "marker-au-sydney",
+        "position": [-33.8688, 151.2093],
+        "title": "Sydney",
+        "country": "Australia",
+        "icon": "🦘"
+      },
+      {
+        "id": "marker-au-melbourne",
+        "position": [-37.8136, 144.9631],
+        "title": "Melbourne",
+        "country": "Australia",
+        "icon": "🇦🇺"
+      },
+      {
+        "id": "marker-au-brisbane",
+        "position": [-27.4698, 153.0251],
+        "title": "Brisbane",
+        "country": "Australia",
+        "icon": "🇦🇺"
+      },
+      {
+        "id": "marker-nz-auckland",
+        "position": [-36.8509, 174.7645],
+        "title": "Auckland",
+        "country": "New Zealand",
+        "icon": "🥝"
+      },
+      {
+        "id": "marker-nz-wellington",
+        "position": [-41.2865, 174.7762],
+        "title": "Wellington",
+        "country": "New Zealand",
+        "icon": "🇳🇿"
+      },
+      {
+        "id": "marker-br-rio",
+        "position": [-22.9068, -43.1729],
+        "title": "Rio de Janeiro",
+        "country": "Brazil",
+        "icon": "🏖️"
+      },
+      {
+        "id": "marker-br-saopaulo",
+        "position": [-23.5505, -46.6333],
+        "title": "São Paulo",
+        "country": "Brazil",
+        "icon": "🇧🇷"
+      },
+      {
+        "id": "marker-ar-buenosaires",
+        "position": [-34.6037, -58.3816],
+        "title": "Buenos Aires",
+        "country": "Argentina",
+        "icon": "🇦🇷"
+      },
+      {
+        "id": "marker-cl-santiago",
+        "position": [-33.4489, -70.6693],
+        "title": "Santiago",
+        "country": "Chile",
+        "icon": "🇨🇱"
+      },
+      {
+        "id": "marker-pe-lima",
+        "position": [-12.0464, -77.0428],
+        "title": "Lima",
+        "country": "Peru",
+        "icon": "🇵🇪"
+      },
+      {
+        "id": "marker-co-bogota",
+        "position": [4.711, -74.0721],
+        "title": "Bogotá",
+        "country": "Colombia",
+        "icon": "🇨🇴"
+      }
+    ]
+  }
+  

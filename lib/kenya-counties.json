@@ -1,0 +1,334 @@
+{
+    "counties": [
+      {
+        "id": "county-nairobi",
+        "position": [-1.286389, 36.817223],
+        "title": "Nairobi",
+        "country": "Kenya",
+        "icon": "🏙️"
+      },
+      {
+        "id": "county-mombasa",
+        "position": [-4.04374, 39.658871],
+        "title": "Mombasa",
+        "country": "Kenya",
+        "icon": "🏖️"
+      },
+      {
+        "id": "county-kisumu",
+        "position": [-0.10249, 34.751661],
+        "title": "Kisumu",
+        "country": "Kenya",
+        "icon": "🌊"
+      },
+      {
+        "id": "county-nakuru",
+        "position": [-0.303099, 36.080025],
+        "title": "Nakuru",
+        "country": "Kenya",
+        "icon": "🌋"
+      },
+      {
+        "id": "county-kiambu",
+        "position": [-1.17133, 36.82987],
+        "title": "Kiambu",
+        "country": "Kenya",
+        "icon": "🌳"
+      },
+      {
+        "id": "county-machakos",
+        "position": [-1.518032, 37.263331],
+        "title": "Machakos",
+        "country": "Kenya",
+        "icon": "🌾"
+      },
+      {
+        "id": "county-kakamega",
+        "position": [0.290223, 34.753345],
+        "title": "Kakamega",
+        "country": "Kenya",
+        "icon": "🌿"
+      },
+      {
+        "id": "county-kilifi",
+        "position": [-3.631636, 39.849511],
+        "title": "Kilifi",
+        "country": "Kenya",
+        "icon": "🏝️"
+      },
+      {
+        "id": "county-bungoma",
+        "position": [0.563375, 34.559999],
+        "title": "Bungoma",
+        "country": "Kenya",
+        "icon": "🌱"
+      },
+      {
+        "id": "county-uasin-gishu",
+        "position": [0.5213, 35.270128],
+        "title": "Uasin Gishu",
+        "country": "Kenya",
+        "icon": "🏃"
+      },
+      {
+        "id": "county-muranga",
+        "position": [-0.7955, 37.132125],
+        "title": "Murang'a",
+        "country": "Kenya",
+        "icon": "☕"
+      },
+      {
+        "id": "county-meru",
+        "position": [0.046838, 37.590204],
+        "title": "Meru",
+        "country": "Kenya",
+        "icon": "🌄"
+      },
+      {
+        "id": "county-turkana",
+        "position": [3.129822, 35.598329],
+        "title": "Turkana",
+        "country": "Kenya",
+        "icon": "🏜️"
+      },
+      {
+        "id": "county-kericho",
+        "position": [-0.368362, 35.285954],
+        "title": "Kericho",
+        "country": "Kenya",
+        "icon": "🍵"
+      },
+      {
+        "id": "county-trans-nzoia",
+        "position": [1.018192, 34.950441],
+        "title": "Trans Nzoia",
+        "country": "Kenya",
+        "icon": "🌽"
+      },
+      {
+        "id": "county-nyeri",
+        "position": [-0.417995, 36.947787],
+        "title": "Nyeri",
+        "country": "Kenya",
+        "icon": "⛰️"
+      },
+      {
+        "id": "county-laikipia",
+        "position": [0.389099, 36.790099],
+        "title": "Laikipia",
+        "country": "Kenya",
+        "icon": "🦁"
+      },
+      {
+        "id": "county-garissa",
+        "position": [-0.456103, 39.642284],
+        "title": "Garissa",
+        "country": "Kenya",
+        "icon": "🐪"
+      },
+      {
+        "id": "county-migori",
+        "position": [-1.063651, 34.473181],
+        "title": "Migori",
+        "country": "Kenya",
+        "icon": "🌿"
+      },
+      {
+        "id": "county-kitui",
+        "position": [-1.36772, 38.010681],
+        "title": "Kitui",
+        "country": "Kenya",
+        "icon": "🧶"
+      },
+      {
+        "id": "county-homa-bay",
+        "position": [-0.527247, 34.457238],
+        "title": "Homa Bay",
+        "country": "Kenya",
+        "icon": "🐟"
+      },
+      {
+        "id": "county-makueni",
+        "position": [-2.056031, 37.623646],
+        "title": "Makueni",
+        "country": "Kenya",
+        "icon": "🌵"
+      },
+      {
+        "id": "county-siaya",
+        "position": [0.058031, 34.288894],
+        "title": "Siaya",
+        "country": "Kenya",
+        "icon": "🌿"
+      },
+      {
+        "id": "county-kajiado",
+        "position": [-1.842599, 36.777397],
+        "title": "Kajiado",
+        "country": "Kenya",
+        "icon": "🦒"
+      },
+      {
+        "id": "county-kwale",
+        "position": [-4.181205, 39.452341],
+        "title": "Kwale",
+        "country": "Kenya",
+        "icon": "🏝️"
+      },
+      {
+        "id": "county-nandi",
+        "position": [0.186448, 35.145937],
+        "title": "Nandi",
+        "country": "Kenya",
+        "icon": "🏃"
+      },
+      {
+        "id": "county-embu",
+        "position": [-0.539567, 37.449929],
+        "title": "Embu",
+        "country": "Kenya",
+        "icon": "🌾"
+      },
+      {
+        "id": "county-narok",
+        "position": [-1.077622, 35.866771],
+        "title": "Narok",
+        "country": "Kenya",
+        "icon": "🦓"
+      },
+      {
+        "id": "county-nyamira",
+        "position": [-0.568456, 34.935972],
+        "title": "Nyamira",
+        "country": "Kenya",
+        "icon": "🌲"
+      },
+      {
+        "id": "county-kisii",
+        "position": [-0.680649, 34.770066],
+        "title": "Kisii",
+        "country": "Kenya",
+        "icon": "🌳"
+      },
+      {
+        "id": "county-taita-taveta",
+        "position": [-3.316074, 38.486215],
+        "title": "Taita Taveta",
+        "country": "Kenya",
+        "icon": "🐘"
+      },
+      {
+        "id": "county-bomet",
+        "position": [-0.787107, 35.341694],
+        "title": "Bomet",
+        "country": "Kenya",
+        "icon": "🍵"
+      },
+      {
+        "id": "county-kirinyaga",
+        "position": [-0.654431, 37.313345],
+        "title": "Kirinyaga",
+        "country": "Kenya",
+        "icon": "🍚"
+      },
+      {
+        "id": "county-busia",
+        "position": [0.46069, 34.111127],
+        "title": "Busia",
+        "country": "Kenya",
+        "icon": "🛣️"
+      },
+      {
+        "id": "county-baringo",
+        "position": [0.465376, 35.95502],
+        "title": "Baringo",
+        "country": "Kenya",
+        "icon": "🌋"
+      },
+      {
+        "id": "county-west-pokot",
+        "position": [1.7585, 35.393361],
+        "title": "West Pokot",
+        "country": "Kenya",
+        "icon": "🏔️"
+      },
+      {
+        "id": "county-vihiga",
+        "position": [0.076592, 34.722869],
+        "title": "Vihiga",
+        "country": "Kenya",
+        "icon": "🌿"
+      },
+      {
+        "id": "county-nyandarua",
+        "position": [-0.180537, 36.519834],
+        "title": "Nyandarua",
+        "country": "Kenya",
+        "icon": "🥔"
+      },
+      {
+        "id": "county-wajir",
+        "position": [1.747151, 40.057348],
+        "title": "Wajir",
+        "country": "Kenya",
+        "icon": "🐫"
+      },
+      {
+        "id": "county-tharaka-nithi",
+        "position": [-0.17929, 37.829432],
+        "title": "Tharaka-Nithi",
+        "country": "Kenya",
+        "icon": "🌾"
+      },
+      {
+        "id": "county-marsabit",
+        "position": [2.33241, 37.991184],
+        "title": "Marsabit",
+        "country": "Kenya",
+        "icon": "🏜️"
+      },
+      {
+        "id": "county-samburu",
+        "position": [1.080684, 36.762213],
+        "title": "Samburu",
+        "country": "Kenya",
+        "icon": "🦌"
+      },
+      {
+        "id": "county-isiolo",
+        "position": [0.35243, 38.484793],
+        "title": "Isiolo",
+        "country": "Kenya",
+        "icon": "🌵"
+      },
+      {
+        "id": "county-tana-river",
+        "position": [-1.488225, 39.451962],
+        "title": "Tana River",
+        "country": "Kenya",
+        "icon": "🐊"
+      },
+      {
+        "id": "county-lamu",
+        "position": [-2.27037, 40.901926],
+        "title": "Lamu",
+        "country": "Kenya",
+        "icon": "⛵"
+      },
+      {
+        "id": "county-mandera",
+        "position": [3.939194, 41.867599],
+        "title": "Mandera",
+        "country": "Kenya",
+        "icon": "🐪"
+      },
+      {
+        "id": "county-elgeyo-marakwet",
+        "position": [0.803786, 35.589912],
+        "title": "Elgeyo-Marakwet",
+        "country": "Kenya",
+        "icon": "🏃"
+      }
+    ]
+  }
+  
