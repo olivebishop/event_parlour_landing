@@ -237,6 +237,7 @@ export default function Hero() {
                   Explore Events
                 </button>
               </motion.div>
+              
 
               <motion.div 
                 className="mt-8 flex flex-row flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-300" 
