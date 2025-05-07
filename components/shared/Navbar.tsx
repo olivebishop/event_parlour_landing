@@ -119,9 +119,9 @@ export function Navbar() {
   }, [isLanguageOpen]);
 
   const navLinks: NavLink[] = [
-    { href: "#evento", label: t('eventsNearMe') },
-    { href: "#bed", label: t('accommodations') },
-    { href: "#venues", label: t('venues') },
+    { href: "/", label: t('events') },
+    { href: "/", label: t('accommodations') },
+    // { href: "#venues", label: t('venues') },
     { href: "/why-us", label: "Why Us" }, // Fixed label - using direct string instead of translation key
     { href: "/contact-us", label: t('contact') }
   ];
