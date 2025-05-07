@@ -1,3 +1,6 @@
+
+
+
 "use client"
 
 import React, { useState, useEffect } from "react"
@@ -102,21 +105,57 @@ export default function Hero() {
             try {
               // Using reverse geocoding to get location name from coordinates
               const { latitude, longitude } = position.coords
+              console.log("User coordinates:", latitude, longitude)
+              
               const response = await fetch(
-                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10`
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`,
+                { 
+                  headers: { 
+                    'User-Agent': 'eventparlour.com'
+                  } 
+                }
               )
               
               if (response.ok) {
                 const data = await response.json()
-                // Get city name or address from the response
-                const city = data.address.city || 
-                             data.address.town || 
-                             data.address.village || 
-                             data.address.county ||
-                             "Your Location"
-                setUserLocation(city)
+                console.log("Location data:", data)
+                
+                // First try getting most specific location (neighborhood level)
+                let location = data.address.suburb || 
+                             data.address.neighbourhood || 
+                             data.address.quarter ||
+                             data.address.hamlet
+                
+                // If no neighborhood found, try city level
+                if (!location) {
+                  location = data.address.city || 
+                           data.address.town || 
+                           data.address.village || 
+                           data.address.municipality
+                }
+                
+                // If no city found, try county/district level
+                if (!location) {
+                  location = data.address.county || 
+                           data.address.district || 
+                           data.address.state_district
+                }
+                
+                // If no county found, try state level
+                if (!location) {
+                  location = data.address.state || 
+                           data.address.province
+                }
+                
+                // If no state found, use country as last resort
+                if (!location) {
+                  location = data.address.country || "Your Location"
+                }
+                
+                setUserLocation(location)
               } else {
                 setUserLocation("Your Location")
+                console.error("Failed to fetch location data:", response.status)
               }
             } catch (error) {
               setUserLocation("Your Location")
@@ -126,17 +165,18 @@ export default function Hero() {
           (error) => {
             setUserLocation("Your Location")
             console.error("Geolocation error:", error)
-          }
+          },
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
         )
       } else {
         setUserLocation("Your Location")
         console.error("Geolocation is not supported by this browser")
       }
     }
-
+  
     getUserLocation()
   }, [])
-
+   
   return (
     <div className="relative min-h-screen flex items-center justify-center lg:bg-gradient-to-b lg:from-black lg:to-[#171717] lg:mt-6 w-full">
       {/* Main Content Container - Removed background for small devices */}
@@ -200,6 +240,7 @@ export default function Hero() {
                   Explore Events
                 </button>
               </motion.div>
+              
 
               <motion.div 
                 className="mt-8 flex flex-row flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-300" 
