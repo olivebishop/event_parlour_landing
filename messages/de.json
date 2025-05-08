@@ -1,11 +1,12 @@
 {
     "Navbar": {
-      "eventsNearMe": "Veranstaltungen in meiner Nähe",
-      "accommodations": "Unterkünfte",
-      "venues": "Veranstaltungsorte",
-      "contact": "Kontakt",
-      "signIn": "Anmelden"
-    },
+  "events": "Veranstaltungen",
+  "accommodations": "Unterkünfte",
+  "why us": "Warum Wir",
+  "venues": "Veranstaltungsorte",
+  "contact": "Kontakt",
+  "signIn": "Anmelden"
+},
     "BedsPage": {
       "ctaBanner": {
         "title": "Sichern Sie sich Ihren Aufenthalt für die Veranstaltung!",

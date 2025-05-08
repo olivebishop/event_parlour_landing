@@ -1,7 +1,8 @@
 {
     "Navbar": {
-      "eventsNearMe": "Events Near Me",
+      "events": "Events",
       "accommodations": "Accommodations",
+      "why us": "Why Us",
       "venues": "Venues",
       "contact": "Contact",
       "signIn": "Sign In"

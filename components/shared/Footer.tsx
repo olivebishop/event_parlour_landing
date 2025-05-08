@@ -133,7 +133,7 @@ const Footer = () => {
               <motion.span
                 key={i}
                 variants={childVariants}
-                className="inline-block text-white text-[15vw] sm:text-[12vw] md:text-[10vw] lg:text-[8vw] font-[rejoice-heading] leading-none"
+                className="inline-block text-white text-[15vw] sm:text-[12vw] md:text-[4vw] lg:text-[3vw] font-[rejoice-heading] leading-none"
                 style={{ 
                   display: "inline-block", 
                   overflow: "hidden"

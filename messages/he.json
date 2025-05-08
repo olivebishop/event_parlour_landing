@@ -1,11 +1,12 @@
 {
-    "Navbar": {
-      "eventsNearMe": "אירועים בקרבתי",
-      "accommodations": "מקומות לינה",
-      "venues": "אולמות",
-      "contact": "צור קשר",
-      "signIn": "התחברות"
-    },
+   "Navbar": {
+  "events": "אירועים",
+  "accommodations": "מקומות לינה",
+  "why us": "למה אנחנו",
+  "venues": "אתרים",
+  "contact": "צור קשר",
+  "signIn": "התחברות"
+},
     "BedsPage": {
       "ctaBanner": {
         "title": "הבטיחו את מקום הלינה שלכם לאירוע!",

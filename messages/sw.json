@@ -1,11 +1,11 @@
-{
-    "Navbar": {
-      "eventsNearMe": "Matukio Karibu Nami",
-      "accommodations": "Malazi",
-      "venues": "Maeneo",
-      "contact": "Wasiliana",
-      "signIn": "Ingia"
-    },
+{"Navbar": {
+  "events": "Matukio",
+  "accommodations": "Malazi ya Tukio",
+  "why us": "Kwa Nini Sisi",
+  "venues": "Maeneo Ya Tukio",
+  "contact": "Wasiliana Nasi",
+  "signIn": "Ingia "
+},
     "BedsPage": {
       "ctaBanner": {
         "title": "Pata Makao Yako kwa Tukio!",

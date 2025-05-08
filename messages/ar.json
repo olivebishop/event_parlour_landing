@@ -1,11 +1,12 @@
 {
     "Navbar": {
-      "eventsNearMe": "الفعاليات القريبة مني",
-      "accommodations": "الإقامات",
-      "venues": "الأماكن",
-      "contact": "اتصل بنا",
-      "signIn": "تسجيل الدخول"
-    },
+  "events": "الفعاليات",
+  "accommodations": "أماكن الإقامة",
+  "why us": "لماذا نحن",
+  "venues": "المواقع",
+  "contact": "اتصل بنا",
+  "signIn": "تسجيل الدخول"
+},
     "BedsPage": {
       "ctaBanner": {
         "title": "تأمين إقامتك للفعالية!",
