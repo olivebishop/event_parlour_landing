@@ -1,11 +1,11 @@
-{
-    "Navbar": {
-      "eventsNearMe": "近くのイベント",
-      "accommodations": "宿泊施設",
-      "venues": "会場",
-      "contact": "お問い合わせ",
-      "signIn": "ログイン"
-    },
+{"Navbar": {
+  "events": "イベント",
+  "accommodations": "宿泊施設",
+  "why us": "選ばれる理由",
+  "venues": "会場",
+  "contact": "お問い合わせ",
+  "signIn": "ログイン"
+},
     "BedsPage": {
       "ctaBanner": {
         "title": "イベントのための宿泊を確保！",

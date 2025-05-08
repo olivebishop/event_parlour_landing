@@ -1,11 +1,12 @@
 {
     "Navbar": {
-      "eventsNearMe": "Eventos Cerca de Mí",
-      "accommodations": "Alojamientos",
-      "venues": "Lugares",
-      "contact": "Contacto",
-      "signIn": "Iniciar Sesión"
-    },
+  "events": "Eventos",
+  "accommodations": "Alojamientos",
+  "why us": "Por Qué Nosotros",
+  "venues": "Lugares",
+  "contact": "Contacto",
+  "signIn": "Iniciar Sesión"
+},
     "BedsPage": {
       "ctaBanner": {
         "title": "¡Asegura tu Estancia para el Evento!",

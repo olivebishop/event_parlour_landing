@@ -1,11 +1,12 @@
 {
-    "Navbar": {
-      "eventsNearMe": "내 근처 이벤트",
-      "accommodations": "숙소",
-      "venues": "장소",
-      "contact": "문의하기",
-      "signIn": "로그인"
-    },
+   "Navbar": {
+  "events": "이벤트",
+  "accommodations": "숙박",
+  "why us": "우리를 선택하는 이유",
+  "venues": "장소",
+  "contact": "연락처",
+  "signIn": "로그인"
+},
     "BedsPage": {
       "ctaBanner": {
         "title": "이벤트 숙소를 확보하세요!",

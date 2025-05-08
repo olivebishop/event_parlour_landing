@@ -1,11 +1,12 @@
 {
     "Navbar": {
-      "eventsNearMe": "Eventi Vicino a Me",
-      "accommodations": "Alloggi",
-      "venues": "Location",
-      "contact": "Contatti",
-      "signIn": "Accedi"
-    },
+  "events": "Eventi",
+  "accommodations": "Alloggi",
+  "why us": "Perché Noi",
+  "venues": "Location",
+  "contact": "Contatti",
+  "signIn": "Accedi"
+},
     "BedsPage": {
       "ctaBanner": {
         "title": "Assicurati il Tuo Soggiorno per l'Evento!",

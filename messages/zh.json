@@ -1,11 +1,12 @@
 {
     "Navbar": {
-      "eventsNearMe": "我附近的活动",
-      "accommodations": "住宿",
-      "venues": "场地",
-      "contact": "联系我们",
-      "signIn": "登录"
-    },
+  "events": "活动",
+  "accommodations": "住宿",
+  "why us": "为什么选择我们",
+  "venues": "场地",
+  "contact": "联系我们",
+  "signIn": "登录"
+},
     "BedsPage": {
       "ctaBanner": {
         "title": "为活动锁定您的住宿！",
