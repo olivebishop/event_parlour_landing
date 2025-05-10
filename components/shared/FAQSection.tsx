@@ -14,6 +14,9 @@ export default function FAQSection() {
       answer:
         "To purchase tickets, click on the 'Get Tickets' button on any event card. You'll need to sign in or create an account to complete your purchase.",
     },
+
+
+
     {
       question: "Can I get a refund for my tickets?",
       answer:
