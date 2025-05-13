@@ -104,13 +104,6 @@ const events = [
   },
 ]
 
-/**
- * Renders a responsive event discovery page with filtering, pagination, and interactive map/list views.
- *
- * Provides an interface for browsing events by category, country, county, and price, with real-time filtering and pagination. Users can toggle between a list and a map view, select events to highlight on the map, and expand or collapse the map area. The layout adapts for mobile, tablet, and desktop screens, ensuring an optimized experience across devices.
- *
- * @returns The rendered events page component.
- */
 export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [selectedCountry, setSelectedCountry] = useState("All Countries")
@@ -220,8 +213,8 @@ export default function EventsPage() {
       <div className="bg-gradient-to-b from-black via-[#171717] to-black text-gray-50 min-h-screen">
         <div className="container mx-auto px-4 py-6 ">
           <motion.header className="mt-16 " variants={headerVariants} initial="hidden" animate="visible">
-            <motion.h1 className="text-xl font-bold mb-1 " variants={textVariants}>
-              Events Near You
+            <motion.h1 className="text-xl font-bold mb-1 mt-6" variants={textVariants}>
+             Events Near You
             </motion.h1>
             <motion.p className="text-muted-foreground mb-3 text-sm" variants={textVariants}>
               Discover exciting events happening in your area
@@ -469,12 +462,12 @@ export default function EventsPage() {
   // Tablet and Desktop layout
   return (
     <div className="bg-gradient-to-b from-black via-[#171717] to-black text-gray-50 min-h-screen">
-      <div className="container mx-auto px-4 py-6">
-        <motion.header className="lg:mt-16 mt-10" variants={headerVariants} initial="hidden" animate="visible">
-          <motion.h1 className="text-3xl md:text-4xl font-bold mb-2" variants={textVariants}>
-            Events Near You
+      <div className="container mx-auto px-7 py-6">
+        <motion.header className="lg:mt-24 mt-10" variants={headerVariants} initial="hidden" animate="visible">
+          <motion.h1 className="text-3xl md:text-4xl font-bold mb-2 mt-8" variants={textVariants}>
+        Events Near You
           </motion.h1>
-          <motion.p className="text-muted-foreground mb-4" variants={textVariants}>
+          <motion.p className="text-muted-foreground mb-4 " variants={textVariants}>
             Discover exciting events happening in your area
           </motion.p>
         </motion.header>

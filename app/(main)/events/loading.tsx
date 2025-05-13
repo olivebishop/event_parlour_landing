@@ -1,13 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
-/**
- * Renders a full-page skeleton UI representing the loading state of the events page.
- *
- * The layout includes placeholder elements for the page header, a sidebar with filter controls, a search bar, category filters, and a grid of event cards. All content is styled with a dark gradient background and gray skeleton components to simulate loading.
- *
- * @returns A React element displaying the loading skeleton for the events page.
- */
 export default function Loading() {
   return (
     <div className="bg-gradient-to-b from-black via-[#171717] to-black text-gray-50 min-h-screen">
