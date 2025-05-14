@@ -10,6 +10,7 @@ const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASS;
 const EMAIL_FROM = process.env.EMAIL_FROM;
 const EMAIL_TO = process.env.EMAIL_TO;
+const EMAIL_SECURE = process.env.EMAIL_SECURE === "True";
 
 export async function POST(req: NextRequest) {
   // Check if required environment variables are set
@@ -81,6 +82,7 @@ export async function POST(req: NextRequest) {
     }
     
     if (!turnstileRes.success) {
+      console.error("❌ Turnstile verification failed:", turnstileRes);
       return NextResponse.json(
         { error: "Security challenge verification failed" },
         { status: 400 }
@@ -93,7 +95,7 @@ export async function POST(req: NextRequest) {
       transporter = nodemailer.createTransport({
         host: EMAIL_HOST,
         port: Number(EMAIL_PORT),
-        secure: Number(EMAIL_PORT) === 465,
+        secure: EMAIL_SECURE, // Use the boolean value from env var
         auth: {
           user: EMAIL_USER,
           pass: EMAIL_PASS,
@@ -162,10 +164,10 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    // Success response
+    // Return valid JSON success response
     return NextResponse.json({ success: true });
   } catch (error) {
-    // Important: Make sure we return a proper JSON response even for unhandled errors
+    // Make sure we always return a valid JSON response
     console.error("❌ Unhandled error in contact route:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },

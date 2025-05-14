@@ -9,6 +9,7 @@ import { useState } from "react"
 import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaWhatsapp, FaInstagram, FaTiktok, FaLinkedin } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
 import { Turnstile } from "@marsidev/react-turnstile"
+import { toast } from "sonner"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -54,7 +55,6 @@ export function ContactUs() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [error, setError] = useState<string | null>(null)
   const [turnstileToken, setTurnstileToken] = useState("")
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -65,7 +65,6 @@ export function ContactUs() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    setError(null)
 
     try {
       // Send data to the API
@@ -80,20 +79,27 @@ export function ContactUs() {
         }),
       })
 
-      // Parse JSON response safely
-      let data;
+      // Get response text first
+      const responseText = await response.text()
+      
+      // Then try to parse as JSON if possible
+      let data
       try {
-        data = await response.json();
+        data = responseText ? JSON.parse(responseText) : {}
       } catch (jsonError) {
-        console.error("Error parsing response as JSON:", jsonError);
-        throw new Error("Failed to parse server response");
+        console.error("Error parsing response as JSON:", jsonError, "Response was:", responseText)
+        throw new Error("Invalid server response")
       }
 
       if (!response.ok) {
-        throw new Error(data?.error || `Request failed with status: ${response.status}`);
+        throw new Error(data?.error || `Request failed with status: ${response.status}`)
       }
 
       // Handle success
+      toast.success("Message sent successfully!", {
+        description: "We'll get back to you as soon as possible."
+      })
+      
       setIsSubmitted(true)
       
       // Reset form after showing success message
@@ -115,7 +121,9 @@ export function ContactUs() {
       }, 3000)
     } catch (err) {
       console.error("Form submission error:", err)
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred')
+      toast.error("Failed to send message", { 
+        description: err instanceof Error ? err.message : 'An unexpected error occurred'
+      })
     } finally {
       setIsSubmitting(false)
     }
@@ -256,12 +264,6 @@ export function ContactUs() {
                       exit={{ opacity: 0 }}
                     >
                       <h2 className="text-2xl font-semibold text-gray-50 mb-6">Send Us a Message</h2>
-                      
-                      {error && (
-                        <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-xl">
-                          <p className="text-red-300">{error}</p>
-                        </div>
-                      )}
                       
                       <div className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

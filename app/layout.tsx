@@ -10,6 +10,7 @@ import { NetworkProvider } from "@/lib/providers/network-provider"
 import LoadingProvider from "@/lib/providers/loadingProvider"
 import "./globals.css"
 import TawkToChat from '@/components/shared/TawkToChat';
+import { Toaster } from "@/components/ui/toaster"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -109,6 +110,7 @@ export default async function RootLayout({
               {children}
             </LoadingProvider>
           </NetworkProvider>
+          <Toaster />
           <GoogleAnalytics gaId="G-VSXHC4Y9YQ" />
           <SpeedInsights />
           <Analytics />
