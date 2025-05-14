@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaWhatsapp, FaInstagram,FaTiktok, FaLinkedin } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
+import { Turnstile } from "@marsidev/react-turnstile";
+
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -53,6 +55,7 @@ export function ContactUs() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -267,12 +270,17 @@ export function ContactUs() {
                             required
                           />
                         </motion.div>
+                         {/* Cloudflare Turnstile Widget */}
+      <Turnstile
+        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+        onSuccess={(token) => setTurnstileToken(token)}
+      />
 
                         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                           <Button
                             type="submit"
                             className="w-full bg-white hover:text-white hover:bg-[#171717] hover:border text-black font-bold rounded-xl px-6 py-6 text-lg shadow-lg transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
-                            disabled={isSubmitting}
+                            disabled={isSubmitting || !turnstileToken}
                           >
                             {isSubmitting ? (
                               <div className="flex items-center justify-center">
