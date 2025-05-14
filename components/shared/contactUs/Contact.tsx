@@ -6,10 +6,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
-import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaWhatsapp, FaInstagram,FaTiktok, FaLinkedin } from "react-icons/fa"
+import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaWhatsapp, FaInstagram, FaTiktok, FaLinkedin } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
 import { Turnstile } from "@marsidev/react-turnstile"
-
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -81,10 +80,17 @@ export function ContactUs() {
         }),
       })
 
-      const data = await response.json()
+      // Parse JSON response safely
+      let data;
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        console.error("Error parsing response as JSON:", jsonError);
+        throw new Error("Failed to parse server response");
+      }
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to send message')
+        throw new Error(data?.error || `Request failed with status: ${response.status}`);
       }
 
       // Handle success
@@ -312,7 +318,7 @@ export function ContactUs() {
                         {/* Cloudflare Turnstile Widget */}
                         <div className="mt-2 mb-4">
                           <Turnstile
-                            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""}
                             onSuccess={(token) => setTurnstileToken(token)}
                           />
                         </div>
