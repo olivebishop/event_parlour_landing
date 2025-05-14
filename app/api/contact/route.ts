@@ -34,7 +34,8 @@ export async function POST(req: NextRequest) {
     let body;
     try {
       body = await req.json();
-    } catch {
+    } catch (error) {
+      console.error("❌ Invalid request body:", error);
       return NextResponse.json(
         { error: "Invalid request body" },
         { status: 400 }
@@ -164,6 +165,7 @@ export async function POST(req: NextRequest) {
     // Success response
     return NextResponse.json({ success: true });
   } catch (error) {
+    // Important: Make sure we return a proper JSON response even for unhandled errors
     console.error("❌ Unhandled error in contact route:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
