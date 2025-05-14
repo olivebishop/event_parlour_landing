@@ -6,7 +6,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { NextIntlClientProvider } from "next-intl"
 import { getLocale, getMessages } from "next-intl/server"
-import { NetworkProvider } from "@/components/shared/network-provider"
+import { NetworkProvider } from "@/lib/providers/network-provider"
+import LoadingProvider from "@/lib/providers/loadingProvider"
 import "./globals.css"
 import TawkToChat from '@/components/shared/TawkToChat';
 
@@ -104,7 +105,9 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#171717] text-white`}>
         <NextIntlClientProvider messages={messages}>
           <NetworkProvider>
-            <div className="min-h-screen">{children}</div>
+            <LoadingProvider>
+              {children}
+            </LoadingProvider>
           </NetworkProvider>
           <GoogleAnalytics gaId="G-VSXHC4Y9YQ" />
           <SpeedInsights />
@@ -115,4 +118,3 @@ export default async function RootLayout({
     </html>
   )
 }
-
