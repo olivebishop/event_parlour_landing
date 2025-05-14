@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaWhatsapp, FaInstagram, FaTiktok, FaLinkedin } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
-import { Turnstile } from "@marsidev/react-turnstile"
 import { toast } from "sonner"
 
 const containerVariants = {
@@ -55,7 +54,6 @@ export function ContactUs() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [turnstileToken, setTurnstileToken] = useState("")
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -73,10 +71,7 @@ export function ContactUs() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formState,
-          token: turnstileToken
-        }),
+        body: JSON.stringify(formState),
       })
 
       // Get response text first
@@ -111,13 +106,6 @@ export function ContactUs() {
           subject: "",
           message: "",
         })
-        // Reset Turnstile - we need to manually reset the widget
-        const turnstileIframe = document.querySelector('iframe[src*="challenges.cloudflare.com"]')
-        if (turnstileIframe && turnstileIframe.parentNode) {
-          const resetEvent = new Event('turnstile:reset')
-          turnstileIframe.parentNode.dispatchEvent(resetEvent)
-        }
-        setTurnstileToken("")
       }, 3000)
     } catch (err) {
       console.error("Form submission error:", err)
@@ -316,20 +304,12 @@ export function ContactUs() {
                             required
                           />
                         </motion.div>
-                        
-                        {/* Cloudflare Turnstile Widget */}
-                        <div className="mt-2 mb-4">
-                          <Turnstile
-                            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""}
-                            onSuccess={(token) => setTurnstileToken(token)}
-                          />
-                        </div>
 
                         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                           <Button
                             type="submit"
                             className="w-full bg-white hover:text-white hover:bg-[#171717] hover:border text-black font-bold rounded-xl px-6 py-6 text-lg shadow-lg transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
-                            disabled={isSubmitting || !turnstileToken}
+                            disabled={isSubmitting}
                           >
                             {isSubmitting ? (
                               <div className="flex items-center justify-center">
