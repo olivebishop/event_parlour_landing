@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaWhatsapp, FaInstagram,FaTiktok, FaLinkedin } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
-import { Turnstile } from "@marsidev/react-turnstile";
+import { Turnstile } from "@marsidev/react-turnstile"
 
 
 const containerVariants = {
@@ -55,22 +55,41 @@ export function ContactUs() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [turnstileToken, setTurnstileToken] = useState("");
+  const [error, setError] = useState<string | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState("")
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormState((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError(null)
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
+    try {
+      // Send data to the API
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formState,
+          token: turnstileToken
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message')
+      }
+
+      // Handle success
       setIsSubmitted(true)
-
+      
       // Reset form after showing success message
       setTimeout(() => {
         setIsSubmitted(false)
@@ -80,8 +99,13 @@ export function ContactUs() {
           subject: "",
           message: "",
         })
+        setTurnstileToken("")
       }, 3000)
-    }, 1500)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -129,8 +153,8 @@ export function ContactUs() {
               <div className="bg-zinc-900/60 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-zinc-800/50 shadow-xl">
                 <h3 className="text-2xl font-semibold text-white mb-6">Contact Information</h3>
                 <p className="text-gray-300 leading-relaxed mb-8">
-                  <span className="font-bold text-gray-200">Event Parlour</span> - event platform for everyone .
-                  Contact our dedicated support team for inquiries regarding our  services.
+                  <span className="font-bold text-gray-200">Event Parlour</span> - event platform for everyone.
+                  Contact our dedicated support team for inquiries regarding our services.
                 </p>
 
                 <div className="space-y-5">
@@ -148,7 +172,7 @@ export function ContactUs() {
                       whileTap={{ scale: 0.98 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <div className="p-3 bg-black rounded-lg  transition-colors">
+                      <div className="p-3 bg-black rounded-lg transition-colors">
                         <item.icon className="text-gray-50" size={24} />
                       </div>
                       <span className="text-md text-gray-300 group-hover:text-white transition-colors">
@@ -218,7 +242,14 @@ export function ContactUs() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     >
-                      <h2 className="text-2xl font-semibold  text-gray-50 mb-6">Send Us a Message</h2>
+                      <h2 className="text-2xl font-semibold text-gray-50 mb-6">Send Us a Message</h2>
+                      
+                      {error && (
+                        <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-xl">
+                          <p className="text-red-300">{error}</p>
+                        </div>
+                      )}
+                      
                       <div className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           {[
@@ -227,7 +258,7 @@ export function ContactUs() {
                           ].map((field) => (
                             <motion.div key={field.name} className="group" whileHover={{ y: -2 }}>
                               <label className="block text-base font-medium text-gray-300 mb-2">
-                                {field.label} <span className="text-gray-50 ">*</span>
+                                {field.label} <span className="text-gray-50">*</span>
                               </label>
                               <input
                                 type={field.type}
@@ -244,7 +275,7 @@ export function ContactUs() {
 
                         <motion.div className="group" whileHover={{ y: -2 }}>
                           <label className="block text-base font-medium text-gray-300 mb-2">
-                            Subject <span className="text-gray-50 ">*</span>
+                            Subject <span className="text-gray-50">*</span>
                           </label>
                           <input
                             type="text"
@@ -259,7 +290,7 @@ export function ContactUs() {
 
                         <motion.div className="group" whileHover={{ y: -2 }}>
                           <label className="block text-base font-medium text-gray-300 mb-2">
-                            Message <span className="text-gray-50 ">*</span>
+                            Message <span className="text-gray-50">*</span>
                           </label>
                           <textarea
                             name="message"
@@ -270,11 +301,14 @@ export function ContactUs() {
                             required
                           />
                         </motion.div>
-                         {/* Cloudflare Turnstile Widget */}
-      <Turnstile
-        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-        onSuccess={(token) => setTurnstileToken(token)}
-      />
+                        
+                        {/* Cloudflare Turnstile Widget */}
+                        <div className="mt-2 mb-4">
+                          <Turnstile
+                            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                            onSuccess={(token) => setTurnstileToken(token)}
+                          />
+                        </div>
 
                         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                           <Button
@@ -285,7 +319,7 @@ export function ContactUs() {
                             {isSubmitting ? (
                               <div className="flex items-center justify-center">
                                 <svg
-                                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
+                                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900 dark:text-white"
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
                                   viewBox="0 0 24 24"
@@ -393,4 +427,3 @@ function Particles() {
     </div>
   )
 }
-
