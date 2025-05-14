@@ -99,9 +99,16 @@ export function ContactUs() {
           subject: "",
           message: "",
         })
+        // Reset Turnstile - we need to manually reset the widget
+        const turnstileIframe = document.querySelector('iframe[src*="challenges.cloudflare.com"]')
+        if (turnstileIframe && turnstileIframe.parentNode) {
+          const resetEvent = new Event('turnstile:reset')
+          turnstileIframe.parentNode.dispatchEvent(resetEvent)
+        }
         setTurnstileToken("")
       }, 3000)
     } catch (err) {
+      console.error("Form submission error:", err)
       setError(err instanceof Error ? err.message : 'An unexpected error occurred')
     } finally {
       setIsSubmitting(false)
