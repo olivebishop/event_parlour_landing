@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 // Environment variables with validation
-const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 const EMAIL_HOST = process.env.EMAIL_HOST;
 const EMAIL_PORT = process.env.EMAIL_PORT;
 const EMAIL_USER = process.env.EMAIL_USER;
@@ -15,7 +14,6 @@ const EMAIL_SECURE = process.env.EMAIL_SECURE === "True";
 export async function POST(req: NextRequest) {
   // Check if required environment variables are set
   if (
-    !TURNSTILE_SECRET_KEY ||
     !EMAIL_HOST ||
     !EMAIL_PORT ||
     !EMAIL_USER ||
@@ -43,48 +41,12 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    const { token, name, email, subject, message } = body;
+    const { name, email, subject, message } = body;
     
     // Validate required fields
-    if (!token || !name || !email || !subject || !message) {
+    if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
-    
-    // Verify Turnstile token
-    let turnstileRes;
-    try {
-      const form = new URLSearchParams();
-      form.append("secret", TURNSTILE_SECRET_KEY as string);
-      form.append("response", token);
-      
-      const turnstileResponse = await fetch(
-        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-        {
-          method: "POST",
-          body: form,
-        }
-      );
-      
-      if (!turnstileResponse.ok) {
-        throw new Error(`Turnstile API responded with status: ${turnstileResponse.status}`);
-      }
-      
-      turnstileRes = await turnstileResponse.json();
-    } catch (error) {
-      console.error("❌ Turnstile verification error:", error);
-      return NextResponse.json(
-        { error: "Error verifying security challenge" },
-        { status: 500 }
-      );
-    }
-    
-    if (!turnstileRes.success) {
-      console.error("❌ Turnstile verification failed:", turnstileRes);
-      return NextResponse.json(
-        { error: "Security challenge verification failed" },
         { status: 400 }
       );
     }
