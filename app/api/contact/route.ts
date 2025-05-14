@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
-// ✅ Environment variables with validation
+// Environment variables with validation
 const {
   TURNSTILE_SECRET_KEY,
   EMAIL_HOST,
@@ -28,12 +28,12 @@ if (
 export async function POST(req: NextRequest) {
   try {
     const { token, name, email, subject, message } = await req.json();
-
-    // ✅ Verify Turnstile token
+    
+    // Verify Turnstile token
     const form = new URLSearchParams();
     form.append("secret", TURNSTILE_SECRET_KEY as string);
     form.append("response", token);
-
+    
     const turnstileRes = await fetch(
       "https://challenges.cloudflare.com/turnstile/v0/siteverify",
       {
@@ -41,15 +41,15 @@ export async function POST(req: NextRequest) {
         body: form,
       }
     ).then((r) => r.json());
-
+    
     if (!turnstileRes.success) {
       return NextResponse.json(
         { error: "Turnstile verification failed" },
         { status: 400 }
       );
     }
-
-    // ✅ Nodemailer transporter
+    
+    // Nodemailer transporter
     const transporter = nodemailer.createTransport({
       host: EMAIL_HOST,
       port: Number(EMAIL_PORT),
@@ -59,8 +59,8 @@ export async function POST(req: NextRequest) {
         pass: EMAIL_PASS,
       },
     });
-
-    // ✅ Email to admin (you)
+    
+    // Email to admin (you)
     await transporter.sendMail({
       from: EMAIL_FROM,
       to: EMAIL_TO,
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
         Name:    ${name}
         Email:   ${email}
         Subject: ${subject}
-
+        
         Message:
         ${message}
       `,
@@ -82,8 +82,8 @@ export async function POST(req: NextRequest) {
         <pre>${message}</pre>
       `,
     });
-
-    // ✅ Acknowledgment email to visitor
+    
+    // Acknowledgment email to visitor
     await transporter.sendMail({
       from: EMAIL_FROM,
       to: email,
@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
             Thank you, ${name?.split(" ")[0]}!
           </h1>
           <p>
-            We’ve received your message (<em>${subject}</em>) and will get back to you shortly.<br/><br/>
+            We've received your message (<em>${subject}</em>) and will get back to you shortly.<br/><br/>
             <small style="opacity:.8">
               Sent automatically by eventparlour.com on ${new Date().toLocaleString(
                 "en-KE",
@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
         </div>
       `,
     });
-
+    
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("❌ Error in contact route:", error);
