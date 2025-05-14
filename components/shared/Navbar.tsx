@@ -223,7 +223,7 @@ export function Navbar() {
               transition={{ duration: 0.2 }}
             >
 
-<p className="font-extrabold text-xl sm:text-xl md:text-2xl lg:text-2xl lg:ml-6">Event Parlour.</p>
+  <p className="font-extrabold text-xl sm:text-xl md:text-2xl lg:text-2xl lg:ml-1">Event Parlour.</p>
     
               {/* <Image
                 src="/images/logo.png"
