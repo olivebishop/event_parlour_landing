@@ -9,6 +9,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+        url: 'https://eventparlour.com/why-us',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
         url: 'https://eventparlour.com/contact-us',
       lastModified: new Date(),
       changeFrequency: 'monthly',
