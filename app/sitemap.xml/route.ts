@@ -28,7 +28,7 @@ export async function GET() {
     { href: "/", label: "Home", priority: 1.0, changeFreq: "daily" },
     { href: "/events", label: "Events Near Me", priority: 0.9, changeFreq: "daily" },
     { href: "/beds", label: "Accommodations", priority: 0.9, changeFreq: "daily" },
-    { href: "/Venues", label: "Venues", priority: 0.8, changeFreq: "weekly" },
+    { href: "/venues", label: "Venues", priority: 0.8, changeFreq: "weekly" },
     { href: "/why-us", label: "Why Us", priority: 0.7, changeFreq: "monthly" },
     { href: "/contact-us", label: "Contact Us", priority: 0.7, changeFreq: "monthly" },
   ].map((page) => ({
