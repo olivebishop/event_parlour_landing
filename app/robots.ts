@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://eventparlour.com/sitemap.xml',
+   sitemap: 'https://eventparlour.com/sitemap.xml',
   }
 }

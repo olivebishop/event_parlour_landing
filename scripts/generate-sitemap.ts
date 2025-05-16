@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import fs from 'fs';
+import path from 'path';
 
 // Dummy event data (from lib/data)
 const events = [
@@ -19,16 +20,17 @@ const beds = [
   { id: 3, title: "Luxury Penthouse with City View", image: "/images/dummy/c.jpg", location: "City Center, 0.2 miles from venue", price: 30500, guests: 6, dates: "Mar 13 - Mar 20" },
 ];
 
-export async function GET() {
+function generateSitemap() {
   const landingBaseUrl = "https://www.eventparlour.com"; // Landing page URL
-  const appBaseUrl = "https://www.eventparlour.com"; // Temporary: Using landing URL until subdomain is ready (later: "https://app.eventparlour.com")
+  const appBaseUrl = "https://www.eventparlour.com"; // Temporary: Using landing URL until subdomain is ready
 
   // Static pages for landing page (eventparlour.com)
   const staticPages = [
     { href: "/", label: "Home", priority: 1.0, changeFreq: "daily" },
-    { href: "/events", label: "Events Near Me", priority: 0.9, changeFreq: "daily" },
+    { href: "/events", label: "Events", priority: 0.9, changeFreq: "daily" },
     { href: "/beds", label: "Accommodations", priority: 0.9, changeFreq: "daily" },
-    { href: "/Venues", label: "Venues", priority: 0.8, changeFreq: "weekly" },
+    { href: "/venues", label: "Venues", priority: 0.8, changeFreq: "weekly" },
+    { href: "/why-us", label: "Why Us", priority: 0.7, changeFreq: "monthly" },
     { href: "/contact-us", label: "Contact", priority: 0.7, changeFreq: "monthly" },
   ].map((page) => ({
     url: `${landingBaseUrl}${page.href}`,
@@ -37,7 +39,7 @@ export async function GET() {
     priority: page.priority,
   }));
 
-  // App-specific static pages (temporarily under eventparlour.com, later app.eventparlour.com)
+  // App-specific static pages
   const appStaticPages = [
     { href: "/sign-in", label: "Sign In", priority: 0.6, changeFreq: "monthly" },
   ].map((page) => ({
@@ -47,18 +49,18 @@ export async function GET() {
     priority: page.priority,
   }));
 
-  // Dynamic event pages (temporarily under eventparlour.com, later app.eventparlour.com)
+  // Dynamic event pages
   const dynamicEventPages = events.map((event) => ({
     url: `${appBaseUrl}/events/${event.id}`,
-    lastModified: new Date().toISOString(), // Could parse event.date for more accuracy
+    lastModified: new Date().toISOString(),
     changeFrequency: "weekly" as const,
     priority: 0.7,
   }));
 
-  // Dynamic bed pages (temporarily under eventparlour.com, later app.eventparlour.com)
+  // Dynamic bed pages
   const dynamicBedPages = beds.map((bed) => ({
     url: `${appBaseUrl}/beds/${bed.id}`,
-    lastModified: new Date().toISOString(), // Could parse bed.dates for more accuracy
+    lastModified: new Date().toISOString(),
     changeFrequency: "weekly" as const,
     priority: 0.6,
   }));
@@ -82,12 +84,19 @@ export async function GET() {
     .join("\n")}
 </urlset>`;
 
-  // Return the XML response
-  return new NextResponse(sitemap, {
-    status: 200,
-    headers: {
-      "Content-Type": "application/xml",
-      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate",
-    },
-  });
+  // Write to public directory
+  const publicDir = path.join(process.cwd(), 'public');
+  
+  // Ensure public directory exists
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
+  }
+  
+  // Write the sitemap
+  fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
+  
+  console.log('Sitemap generated successfully at public/sitemap.xml');
 }
+
+// Execute
+generateSitemap();
