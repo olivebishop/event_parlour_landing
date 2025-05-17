@@ -6,16 +6,16 @@ import BedsSection from "@/components/shared/BedSection";
 
 export default function Home() {
   return (
-    <main className="relative overflow-hidden bg-black">
+   <main className="relative overflow-hidden bg-gradient-to-b from-black via-[#121212] to-black">
       {/* Hero Section */}
-      <section className="relative z-10 lg:mt-0 mt-4">
+      <section className="relative z-10 lg:mt-0 mt-4 min-h-[70vh]">
         <Hero />
       </section>
       
       {/* Content Sections */}
       <div className="w-full">
         {/* Event Section - reduced top margin for small screens */}
-        <section className="relative z-10 mt-8 sm:mt-12 lg:mt-16">
+      <section id="events" className="relative z-10 mt-4 sm:mt-8 lg:mt-12">
           <EventSection />
         </section>
         
