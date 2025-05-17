@@ -191,24 +191,30 @@ export function ContactUs() {
                   ))}
                 </div>
 
-                <div className="flex gap-4 mt-10">
-                  {[
-                    { icon: FaWhatsapp, url: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R" },
-                    { icon: FaXTwitter, url: "https://x.com/EventsPalour" },
-                    { icon: FaInstagram, url: "https://www.instagram.com/event.parlour" },
-                    { icon: FaTiktok, url: "https://www.tiktok.com/@eventparlour" },
-                    { icon: FaLinkedin, url: "https://www.linkedin.com/company/eventparlour" },
-                  ].map((social, index) => (
-                    <motion.a
-                      key={index}
-                      href={social.url}
-                      className="p-4 bg-zinc-800/50 rounded-xl border border-zinc-700/30 text-gray-400 hover:text-white hover:border-white transition-all duration-300"
-                      whileHover={{ scale: 1.1, y: -4 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <social.icon size={20} />
-                    </motion.a>
-                  ))}
+                {/* Fixed and responsive social media icons section */}
+                <div className="mt-10">
+                  <h4 className="text-lg font-mono font-bold text-gray-200 mb-4">Connect With Us</h4>
+                  <div className="grid grid-cols-5 xs:grid-cols-5 sm:flex sm:flex-wrap gap-2 sm:gap-3 md:gap-4">
+                    {[
+                      { icon: FaWhatsapp, url: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R", label: "WhatsApp" },
+                      { icon: FaXTwitter, url: "https://x.com/EventsPalour", label: "Twitter" },
+                      { icon: FaInstagram, url: "https://www.instagram.com/event.parlour", label: "Instagram" },
+                      { icon: FaTiktok, url: "https://www.tiktok.com/@eventparlour", label: "TikTok" },
+                      { icon: FaLinkedin, url: "https://www.linkedin.com/company/eventparlour", label: "LinkedIn" },
+                    ].map((social, index) => (
+                      <motion.a
+                        key={index}
+                        href={social.url}
+                        title={social.label}
+                        className="flex justify-center items-center aspect-square p-2 xs:p-3 sm:p-3 md:p-4 bg-zinc-800/50 rounded-lg sm:rounded-xl border border-zinc-700/30 text-gray-400 hover:text-white hover:border-white transition-all duration-300"
+                        whileHover={{ scale: 1.1, y: -4 }}
+                        whileTap={{ scale: 0.95 }}
+                        aria-label={`Follow us on ${social.label}`}
+                      >
+                        <social.icon size={16} className="xs:text-base sm:text-lg md:text-xl" />
+                      </motion.a>
+                    ))}
+                  </div>
                 </div>
               </div>
             </motion.div>
