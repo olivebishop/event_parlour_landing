@@ -154,8 +154,8 @@ export default function EventMap({
 
   return (
     <div
-      className={`relative rounded-lg overflow-hidden bg-[#171717] border-gray-800 ${className || ""}`}
-      style={{ height, width }}
+      className={`relative rounded-lg overflow-hidden bg-[#171717] border-gray-800 z-0 ${className || ""}`}
+      style={{ height, width, zIndex: 0 }}
     >
       {/* Leaflet Setup Component */}
       <LeafletSetup />
@@ -165,12 +165,13 @@ export default function EventMap({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="h-full w-full"
+        className="h-full w-full relative z-0"
+        style={{ zIndex: 0 }}
       >
         <MapContainer
           center={center}
           zoom={12}
-          style={{ height: "100%", width: "100%", background: "#171717" }}
+          style={{ height: "100%", width: "100%", background: "#171717", zIndex: 0 }}
           zoomControl={true}
           attributionControl={true}
           className="leaflet-dark-mode"
