@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Languages, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/lib/i18n/translations';
 import { languages } from "@/utils/languageUtils";
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
@@ -119,12 +119,9 @@ export function Navbar() {
   }, [isLanguageOpen]);
 
   const navLinks: NavLink[] = [
-  
-    { href: "/", label: t('events') },
-    { href: "/", label: t('accommodations') },
-    // { href: "#venues", label: t('venues') },
-    { href: "/why-us", label: t('why us') }, // Fixed label - using direct string instead of translation key
-    { href: "/contact-us", label: t('contact') }
+    { href: "#features", label: t('features') },
+    { href: "#why-us", label: t('why us') },
+    { href: "#contact", label: t('contact') }
   ];
 
   const handleLanguageChange = (code: string) => {
@@ -133,6 +130,17 @@ export function Navbar() {
     router.refresh();
     setIsLanguageOpen(false);
     setIsMobileLanguageOpen(false);
+  };
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const targetElement = document.getElementById(targetId);
+    
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setIsOpen(false);
+    }
   };
 
   // Function to render language grid in 3x3 format with improved styling
@@ -241,10 +249,11 @@ export function Navbar() {
           <div className={`hidden ${screenSize === "desktop" ? "lg:flex" : "lg:hidden md:flex"}`}>
             <div className="flex items-center space-x-1 md:space-x-2 lg:space-x-8">
               {navLinks.map((link, index) => (
-                <Link
+                <a
                   key={link.href}
                   href={link.href}
-                  className={`relative px-2 md:px-3 py-2 text-white transition-colors duration-300
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`relative px-2 md:px-3 py-2 text-white transition-colors duration-300 cursor-pointer
                     ${screenSize === "tablet" ? "text-xs md:text-sm" : "text-sm lg:text-base"}
                     ${screenSize === "tablet" && index >= 3 ? "hidden lg:block" : ""}`}
                   onMouseEnter={() => setIsHovering(link.href)}
@@ -257,7 +266,7 @@ export function Navbar() {
                     animate={{ scaleX: isHovering === link.href ? 1 : 0 }}
                     transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                   />
-                </Link>
+                </a>
               ))}
             </div>
           </div>
@@ -362,13 +371,13 @@ export function Navbar() {
                       animate="visible"
                       custom={index}
                     >
-                      <Link
+                      <a
                         href={link.href}
-                        className="relative text-white hover:text-gray-300 transition-colors duration-300 text-lg block py-2 px-3 border-l-2 border-transparent hover:border-white/50"
-                        onClick={() => setIsOpen(false)}
+                        onClick={(e) => handleNavClick(e, link.href)}
+                        className="relative text-white hover:text-gray-300 transition-colors duration-300 text-lg block py-2 px-3 border-l-2 border-transparent hover:border-white/50 cursor-pointer"
                       >
                         {link.label}
-                      </Link>
+                      </a>
                     </motion.div>
                   )
                 ))}

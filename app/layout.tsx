@@ -1,11 +1,11 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
-import { NextIntlClientProvider } from "next-intl"
-import { getLocale, getMessages } from "next-intl/server"
+import { TranslationProvider } from "@/lib/i18n/translations"
+import { cookies } from 'next/headers'
 import { NetworkProvider } from "@/lib/providers/network-provider"
 import LoadingProvider from "@/lib/providers/loadingProvider"
 import "./globals.css"
@@ -64,8 +64,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   robots: "index, follow",
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 }
 
 export default async function RootLayout({
@@ -73,8 +78,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const locale = await getLocale()
-  const messages = await getMessages()
+  const cookieStore = await cookies()
+  const locale = cookieStore.get('language')?.value || 'en'
+  const messages = (await import(`../messages/${locale}.json`)).default
 
   return (
     <html lang={locale}>
@@ -104,7 +110,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#171717] text-white`}>
-        <NextIntlClientProvider messages={messages}>
+        <TranslationProvider messages={messages} locale={locale}>
           <NetworkProvider>
             <LoadingProvider>
               {children}
@@ -114,7 +120,7 @@ export default async function RootLayout({
           <GoogleAnalytics gaId="G-VSXHC4Y9YQ" />
           <SpeedInsights />
           <Analytics />
-        </NextIntlClientProvider>
+        </TranslationProvider>
         <TawkToChat />
       </body>
     </html>
