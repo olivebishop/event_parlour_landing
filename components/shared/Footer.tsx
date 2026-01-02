@@ -71,7 +71,7 @@ const Footer = () => {
             </h6>
             <motion.a
               href="/updates"
-              className="inline-flex items-center space-x-2 text-sm text-white hover:text-gray-200 transition-colors border border-white/80 rounded-full px-4 py-1 backdrop-blur-sm mb-4"
+              className="inline-flex items-center space-x-2 text-sm text-white hover:text-gray-200 transition-colors border border-white/80 px-4 py-1 backdrop-blur-sm mb-4"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
             >

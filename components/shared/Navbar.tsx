@@ -163,7 +163,7 @@ export function Navbar() {
             <button
               key={lang.code}
               onClick={() => handleLanguageChange(lang.code)}
-              className={`px-3 py-2 text-sm text-white hover:bg-white/10 transition-all duration-300 ease-out rounded 
+              className={`px-3 py-2 text-sm text-white hover:bg-white/10 transition-all duration-300 ease-out 
                 ${selectedLanguage === lang.code ? 'bg-white/20 font-medium' : ''}`}
             >
               {lang.name}
@@ -178,7 +178,7 @@ export function Navbar() {
               <button
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
-                className={`px-3 py-2 text-sm text-white hover:bg-white/10 transition-all duration-300 ease-out rounded 
+                className={`px-3 py-2 text-sm text-white hover:bg-white/10 transition-all duration-300 ease-out 
                   ${selectedLanguage === lang.code ? 'bg-white/20 font-medium' : ''}`}
               >
                 {lang.name}
@@ -194,7 +194,7 @@ export function Navbar() {
               <button
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
-                className={`px-3 py-2 text-sm text-white hover:bg-white/10 transition-all duration-300 ease-out rounded 
+                className={`px-3 py-2 text-sm text-white hover:bg-white/10 transition-all duration-300 ease-out 
                   ${selectedLanguage === lang.code ? 'bg-white/20 font-medium' : ''}`}
               >
                 {lang.name}
@@ -297,7 +297,7 @@ export function Navbar() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-2 bg-black border border-white/10 rounded-lg shadow-lg shadow-black/50 z-50 p-4 w-72"
+                      className="absolute right-0 mt-2 bg-black border border-white/10 shadow-lg shadow-black/50 z-50 p-4 w-72"
                     >
                       {renderLanguageGrid()}
                     </motion.div>
@@ -411,7 +411,7 @@ export function Navbar() {
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="mt-2 bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-white/10"
+                            className="mt-2 bg-black/80 backdrop-blur-sm p-3 border border-white/10"
                           >
                             {renderLanguageGrid()}
                           </motion.div>

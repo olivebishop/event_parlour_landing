@@ -45,7 +45,7 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-b from-black via-[#171717] to-black">
+    <section className="py-16 bg-black">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -69,11 +69,11 @@ export default function FAQSection() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, ease: "easeOut", delay: index * 0.05 }}
-              className="bg-[#1f1f1f] rounded-xl shadow-lg overflow-hidden"
+              className="bg-zinc-900 shadow-lg overflow-hidden"
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center p-5 text-left text-white hover:bg-[#2a2a2a] transition-colors duration-200"
+                className="w-full flex justify-between items-center p-5 text-left text-white hover:bg-zinc-800 transition-colors duration-200"
               >
                 <span className="text-lg font-medium">{faq.question}</span>
                 <motion.div
@@ -91,7 +91,7 @@ export default function FAQSection() {
                     animate="open"
                     exit="closed"
                     style={{ transformOrigin: "top", willChange: "transform, opacity" }}
-                    className="p-5 bg-[#171717] text-gray-300 text-sm"
+                    className="p-5 bg-zinc-900 text-gray-300 text-sm"
                   >
                     {faq.answer}
                   </motion.div>

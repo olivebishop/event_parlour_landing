@@ -93,14 +93,14 @@ export default function Hero() {
   }, [])
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center lg:bg-gradient-to-b lg:from-black lg:to-[#171717] lg:mt-6 w-full">
+    <div className="relative min-h-screen flex items-center justify-center lg:bg-black lg:mt-6 w-full">
       {/* Main Content Container */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         {/* Background Image with Next/Image for better loading */}
         <div className="absolute inset-0">
           {/* Using a div with background for better opacity control */}
           <div className="absolute inset-0 bg-[url('/images/two.png')] bg-cover bg-center bg-no-repeat opacity-40 backdrop-blur-[2px]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-[#171717]/90 to-black/80" />
+          <div className="absolute inset-0 bg-black/80" />
         </div>
         
         {/* Subtle noise texture for depth */}
@@ -110,14 +110,14 @@ export default function Hero() {
       {/* Refined Diagonal Light Beam - Reduced opacity and size for subtlety */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute -left-20 -top-20 w-[150%] h-40 rotate-[25deg] transform origin-top-left opacity-20">
-          <div className="w-full h-full bg-gradient-to-r from-white via-white/20 to-transparent blur-xl rounded-full"></div>
+          <div className="w-full h-full bg-gradient-to-r from-white via-white/20 to-transparent blur-xl"></div>
         </div>
       </div>
 
       {/* Removed the second beam to reduce interference */}
 
       <div className="container mx-auto px-0 sm:px-6 z-10 w-full"> 
-        <div className="w-full lg:bg-gradient-to-r lg:from-black lg:to-black/50 lg:shadow-xl lg:shadow-black/30 lg:rounded-3xl lg:overflow-hidden lg:backdrop-blur-[4px]">
+        <div className="w-full lg:bg-black lg:shadow-xl lg:shadow-black/30 lg:overflow-hidden lg:backdrop-blur-[4px]">
           <div className="px-4 sm:px-6 md:px-10 pt-6 sm:pt-10 pb-12 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
             {/* Left Column - Main Content */}
             <motion.div
@@ -156,7 +156,7 @@ export default function Hero() {
 
               <motion.div className="flex flex-col sm:flex-row w-full sm:w-auto gap-4" variants={itemVariants}>
                 <button
-                  className="w-full sm:w-auto bg-white hover:bg-gray-100 text-black px-6 sm:px-8 py-3 rounded-md font-medium transition-all duration-300 hover:shadow-lg hover:shadow-white/20 group text-sm sm:text-base"
+                  className="w-full sm:w-auto bg-white hover:bg-gray-100 text-black px-6 sm:px-8 py-3 font-medium transition-all duration-300 hover:shadow-lg hover:shadow-white/20 group text-sm sm:text-base"
                   aria-label="Get started with Event Parlour"
                 >
                   <span className="flex items-center justify-center sm:justify-start">
@@ -171,7 +171,7 @@ export default function Hero() {
                 </button>
                 <Link href="/events">
                   <button
-                    className="w-full sm:w-auto bg-transparent border border-white/80 text-white px-6 sm:px-8 py-3 rounded-md font-medium hover:bg-white/10 transition-all duration-300 hover:border-white text-sm sm:text-base"
+                    className="w-full sm:w-auto bg-transparent border border-white/80 text-white px-6 sm:px-8 py-3 font-medium hover:bg-white/10 transition-all duration-300 hover:border-white text-sm sm:text-base"
                     aria-label="Explore Event Parlour features"
                   >
                     Explore Events
@@ -184,13 +184,13 @@ export default function Hero() {
                 variants={itemVariants}
               >
                 <div className="flex items-center">
-                  <div className="w-5 h-5 flex items-center justify-center bg-white/10 rounded-full mr-2">
+                  <div className="w-5 h-5 flex items-center justify-center bg-white/10 mr-2">
                     <Sparkles className="w-3 h-3 text-white" />
                   </div>
                   <span>All-in-one solution</span>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-5 h-5 flex items-center justify-center bg-white/10 rounded-full mr-2">
+                  <div className="w-5 h-5 flex items-center justify-center bg-white/10 mr-2">
                     <Wallet className="w-3 h-3 text-white" />
                   </div>
                   <span>No hidden fees</span>
@@ -206,17 +206,17 @@ export default function Hero() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                <div className="bg-black/90 text-white p-8 rounded-xl shadow-md shadow-[#363535] w-full max-w-md backdrop-blur-sm relative overflow-hidden">
+                <div className="bg-black text-white p-8 shadow-md shadow-zinc-800 w-full max-w-md backdrop-blur-sm relative overflow-hidden">
                   {/* Decorative elements */}
-                  <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-white/5"></div>
-                  <div className="absolute -bottom-8 -left-8 w-16 h-16 rounded-full bg-white/5"></div>
+                  <div className="absolute -top-10 -right-10 w-24 h-24 bg-white/5"></div>
+                  <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-white/5"></div>
                   
                   <div className="flex justify-between items-start mb-6 relative z-10">
                     <div>
                       <h3 className="font-bold text-2xl bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Unforgettable Events,</h3>
                       <h4 className="font-bold text-xl text-gray-300">Made Simple.</h4>
                     </div>
-                    <div className="bg-white text-black px-3 py-1 rounded-full text-xs font-bold">Event Parlour</div>
+                    <div className="bg-white text-black px-3 py-1 text-xs font-bold">Event Parlour</div>
                   </div>
 
                   <div className="w-full h-0.5 bg-gradient-to-r from-white/5 via-white/20 to-white/5 mb-6"></div>

@@ -7,7 +7,7 @@ import { ContactUs } from "@/components/shared/contactUs/Contact";
 
 export default function Home() {
   return (
-   <main className="relative overflow-hidden bg-gradient-to-b from-black via-[#121212] to-black">
+   <main className="relative overflow-hidden bg-black">
       {/* Hero Section */}
       <section className="relative z-10 lg:mt-0 mt-4 min-h-[70vh]">
         <Hero />

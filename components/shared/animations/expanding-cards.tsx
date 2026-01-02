@@ -165,7 +165,7 @@ export default function ExpandingCards() {
                 key={card.id}
                 className={`card-item relative overflow-hidden ${
                   isVerticalLayout ? "min-h-[var(--base)]" : "min-w-[var(--base)]"
-                } rounded-lg border border-zinc-800 bg-black ${isActive ? "active" : ""}`}
+                } border border-zinc-800 bg-black ${isActive ? "active" : ""}`}
                 data-active={isActive.toString()}
                 onClick={() => handleCardInteraction(card.id)}
                 onMouseEnter={() => !isMobileView ? handleCardInteraction(card.id) : null}

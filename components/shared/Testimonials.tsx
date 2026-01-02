@@ -58,7 +58,7 @@ export default function Testimonials() {
         <AnimatedTestimonials
           testimonials={testimonialsData}
           autoplay={true}
-          className="bg-black rounded-xl backdrop-blur-sm"
+          className="bg-black backdrop-blur-sm"
         />
       </ScrollReveal>
     </div>

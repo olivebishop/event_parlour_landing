@@ -118,7 +118,7 @@ export function ContactUs() {
   }
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-black to-zinc-900 font-sans overflow-hidden">
+    <div className="relative min-h-screen bg-black font-sans overflow-hidden">
       {/* Parallax background with concert image */}
       <div className="absolute inset-0 z-0">
         <motion.div
@@ -159,7 +159,7 @@ export function ContactUs() {
           <motion.div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12" variants={containerVariants}>
             {/* Contact info section */}
             <motion.div className="lg:col-span-2 space-y-8" variants={itemVariants}>
-              <div className="bg-zinc-900/60 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-zinc-800/50 shadow-xl">
+              <div className="bg-zinc-900/60 backdrop-blur-md p-6 md:p-8 border border-zinc-800/50 shadow-xl">
                 <h3 className="text-2xl font-semibold text-white mb-6">Contact Information</h3>
                 <p className="text-gray-300 leading-relaxed mb-8">
                   <span className="font-bold text-gray-200">Event Parlour</span> - event platform for everyone.
@@ -176,12 +176,12 @@ export function ContactUs() {
                     <motion.a
                       key={index}
                       href={item.link || undefined}
-                      className={`group flex items-center space-x-4 p-4 rounded-xl bg-zinc-800/30 border border-zinc-700/30 backdrop-blur-sm ${item.link ? "cursor-pointer" : ""}`}
+                      className={`group flex items-center space-x-4 p-4 bg-zinc-800/30 border border-zinc-700/30 backdrop-blur-sm ${item.link ? "cursor-pointer" : ""}`}
                       whileHover={{ scale: 1.02, backgroundColor: "rgba(39, 39, 42, 0.5)" }}
                       whileTap={{ scale: 0.98 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <div className="p-3 bg-black rounded-lg transition-colors">
+                      <div className="p-3 bg-black transition-colors">
                         <item.icon className="text-gray-50" size={24} />
                       </div>
                       <span className="text-md text-gray-300 group-hover:text-white transition-colors">
@@ -206,7 +206,7 @@ export function ContactUs() {
                         key={index}
                         href={social.url}
                         title={social.label}
-                        className="flex justify-center items-center aspect-square p-2 xs:p-3 sm:p-3 md:p-4 bg-zinc-800/50 rounded-lg sm:rounded-xl border border-zinc-700/30 text-gray-400 hover:text-white hover:border-white transition-all duration-300"
+                        className="flex justify-center items-center aspect-square p-2 xs:p-3 sm:p-3 md:p-4 bg-zinc-800/50 border border-zinc-700/30 text-gray-400 hover:text-white hover:border-white transition-all duration-300"
                         whileHover={{ scale: 1.1, y: -4 }}
                         whileTap={{ scale: 0.95 }}
                         aria-label={`Follow us on ${social.label}`}
@@ -221,7 +221,7 @@ export function ContactUs() {
 
             {/* Form section */}
             <motion.div className="lg:col-span-3 relative" variants={itemVariants}>
-              <div className="bg-zinc-900/60 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-zinc-800/50 shadow-xl h-full">
+              <div className="bg-zinc-900/60 backdrop-blur-md p-6 md:p-8 border border-zinc-800/50 shadow-xl h-full">
                 <AnimatePresence mode="wait">
                   {isSubmitted ? (
                     <motion.div
@@ -232,7 +232,7 @@ export function ContactUs() {
                       transition={{ duration: 0.4 }}
                     >
                       <motion.div
-                        className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-6"
+                        className="w-20 h-20 bg-green-500/20 flex items-center justify-center mb-6"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ delay: 0.2, type: "spring" }}
@@ -274,7 +274,7 @@ export function ContactUs() {
                                 name={field.name}
                                 value={formState[field.name as keyof typeof formState]}
                                 onChange={handleInputChange}
-                                className="w-full p-4 bg-zinc-800/50 border border-zinc-700/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all duration-300"
+                                className="w-full p-4 bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all duration-300"
                                 placeholder={field.placeholder}
                                 required
                               />
@@ -291,7 +291,7 @@ export function ContactUs() {
                             name="subject"
                             value={formState.subject}
                             onChange={handleInputChange}
-                            className="w-full p-4 bg-zinc-800/50 border border-zinc-700/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all duration-300"
+                            className="w-full p-4 bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all duration-300"
                             placeholder="What's your event about?"
                             required
                           />
@@ -305,7 +305,7 @@ export function ContactUs() {
                             name="message"
                             value={formState.message}
                             onChange={handleInputChange}
-                            className="w-full p-4 bg-zinc-800/50 border border-zinc-700/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent h-40 resize-none transition-all duration-300"
+                            className="w-full p-4 bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent h-40 resize-none transition-all duration-300"
                             placeholder="Tell us about your event requirements..."
                             required
                           />
@@ -314,7 +314,7 @@ export function ContactUs() {
                         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                           <Button
                             type="submit"
-                            className="w-full bg-white hover:text-white hover:bg-[#171717] hover:border text-black font-bold rounded-xl px-6 py-6 text-lg shadow-lg transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="w-full bg-white hover:text-white hover:bg-zinc-900 hover:border text-black font-bold px-6 py-6 text-lg shadow-lg transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                             disabled={isSubmitting}
                           >
                             {isSubmitting ? (
@@ -354,7 +354,7 @@ export function ContactUs() {
 
               {/* Decorative elements */}
               <motion.div
-                className="absolute -top-10 -right-10 w-40 h-40 bg-white rounded-full blur-3xl"
+                className="absolute -top-10 -right-10 w-40 h-40 bg-white blur-3xl"
                 animate={{
                   scale: [1, 1.2, 1],
                   opacity: [0.3, 0.5, 0.3],
@@ -366,7 +366,7 @@ export function ContactUs() {
                 }}
               />
               <motion.div
-                className="absolute -bottom-10 -left-10 w-40 h-40 bg-orange-500/10 rounded-full blur-3xl"
+                className="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 blur-3xl"
                 animate={{
                   scale: [1, 1.2, 1],
                   opacity: [0.3, 0.5, 0.3],
@@ -405,7 +405,7 @@ function Particles() {
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="absolute rounded-full bg-white"
+          className="absolute bg-white"
           style={{
             width: particle.size,
             height: particle.size,
