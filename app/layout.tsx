@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Geist, Geist_Mono, Bricolage_Grotesque, Figtree } from "next/font/google"
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
@@ -20,6 +20,18 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+})
+
+const bricolageGrotesque = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+})
+
+const figtree = Figtree({
+  variable: "--font-figtree",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 })
 
 const siteUrl = "https://www.eventparlour.com"
@@ -109,7 +121,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#171717] text-white`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} ${figtree.variable} antialiased bg-[#171717] text-white`}>
         <TranslationProvider messages={messages} locale={locale}>
           <NetworkProvider>
             <LoadingProvider>

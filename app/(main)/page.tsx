@@ -4,19 +4,25 @@ import FAQSection from "@/components/shared/FAQSection";
 import ExpandingCards from "@/components/shared/animations/expanding-cards";
 import Testimonials from "@/components/shared/Testimonials";
 import { ContactUs } from "@/components/shared/contactUs/Contact";
+import FeaturesSection from "@/components/shared/FeaturesSection";
 
 export default function Home() {
   return (
    <main className="relative overflow-hidden bg-black">
       {/* Hero Section */}
-      <section className="relative z-10 lg:mt-0 mt-4 min-h-[70vh]">
+      <section className="relative z-10">
         <Hero />
       </section>
       
       
-        {/* Features Section - Expanding Cards */}
-        <section id="features" className="relative z-20 mt-12 sm:mt-16 lg:mt-24 scroll-mt-24">
+        {/* User Types Section - Expanding Cards */}
+        <section id="user-types" className="relative z-20 mt-12 sm:mt-16 lg:mt-24 scroll-mt-24">
           <ExpandingCards />
+        </section>
+        
+        {/* Features Section */}
+        <section id="features" className="relative z-20 mt-12 sm:mt-16 lg:mt-24 scroll-mt-24">
+          <FeaturesSection />
         </section>
         
         {/* Why Us Section */}

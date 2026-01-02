@@ -1,9 +1,10 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { ReactNode } from 'react';
+import { AbstractIntlMessages } from 'next-intl';
 
 type Props = {
   locale: string;
-  messages: IntlMessages;
+  messages: AbstractIntlMessages;
   children: ReactNode;
 };
 
