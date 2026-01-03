@@ -90,7 +90,9 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const cookieStore = await cookies()
-  const locale = cookieStore.get('language')?.value || 'en'
+  const supportedLocales = ['en', 'sw', 'fr', 'ar', 'de', 'es']
+  const requestedLocale = cookieStore.get('language')?.value || 'en'
+  const locale = supportedLocales.includes(requestedLocale) ? requestedLocale : 'en'
   const messages = (await import(`../messages/${locale}.json`)).default
 
   return (
