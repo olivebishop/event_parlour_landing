@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaWhatsapp, FaInstagram, FaTiktok, FaLinkedin } from "react-icons/fa"
@@ -15,8 +14,8 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
     },
   },
 }
@@ -27,19 +26,7 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  },
-}
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
+      duration: 0.5,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -65,7 +52,6 @@ export function ContactUs() {
     setIsSubmitting(true)
 
     try {
-      // Send data to the API
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -74,10 +60,8 @@ export function ContactUs() {
         body: JSON.stringify(formState),
       })
 
-      // Get response text first
       const responseText = await response.text()
       
-      // Then try to parse as JSON if possible
       let data
       try {
         data = responseText ? JSON.parse(responseText) : {}
@@ -90,14 +74,12 @@ export function ContactUs() {
         throw new Error(data?.error || `Request failed with status: ${response.status}`)
       }
 
-      // Handle success
       toast.success("Message sent successfully!", {
         description: "We'll get back to you as soon as possible."
       })
       
       setIsSubmitted(true)
       
-      // Reset form after showing success message
       setTimeout(() => {
         setIsSubmitted(false)
         setFormState({
@@ -118,55 +100,42 @@ export function ContactUs() {
   }
 
   return (
-    <div className="relative min-h-screen bg-black font-sans overflow-hidden">
-      {/* Parallax background with concert image */}
-      <div className="absolute inset-0 z-0">
-        <motion.div
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse", ease: "easeInOut" }}
-          className="h-full w-full"
-        >
-          <Image
-            src="/images/contact-us.png"
-            alt="Concert Stage at Sunset"
-            fill
-            priority
-            className="object-cover opacity-30"
-            sizes="100vw"
-            quality={100}
-          />
-        </motion.div>
-      </div>
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
+    <section className="py-20 sm:py-28 lg:py-36 bg-black dark">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="max-w-6xl mx-auto"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInUp}
+          variants={containerVariants}
         >
-          <motion.div className="flex flex-col items-center text-center mb-12 md:mb-16" variants={fadeInUp}>
-            <h1 className="text-4xl md:text-5xl lg:mt-8 lg:text-6xl font-bold bg-gradient-to-r from-gray-200 via-gray-100 to-white bg-clip-text text-transparent mb-4">
-              Get In Touch
-            </h1>
-            <p className="text-gray-300 max-w-2xl text-lg md:text-xl">
-              Let us help you create an unforgettable event experience
+          {/* Section Header */}
+          <motion.div className="text-center mb-16 sm:mb-20" variants={itemVariants}>
+            <motion.p 
+              className="text-xs font-medium tracking-widest text-zinc-500 mb-4"
+              variants={itemVariants}
+            >
+              GET IN TOUCH
+            </motion.p>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
+              Let&apos;s create something
+            </h2>
+            <p className="text-zinc-400 text-base sm:text-lg max-w-2xl mx-auto">
+              Have a question or want to work together? We&apos;d love to hear from you.
             </p>
           </motion.div>
 
           <motion.div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12" variants={containerVariants}>
             {/* Contact info section */}
-            <motion.div className="lg:col-span-2 space-y-8" variants={itemVariants}>
-              <div className="bg-zinc-900/60 backdrop-blur-md p-6 md:p-8 border border-zinc-800/50 shadow-xl">
-                <h3 className="text-2xl font-semibold text-white mb-6">Contact Information</h3>
-                <p className="text-gray-300 leading-relaxed mb-8">
-                  <span className="font-bold text-gray-200">Event Parlour</span> - event platform for everyone.
-                  Contact our dedicated support team for inquiries regarding our services.
+            <motion.div className="lg:col-span-2 space-y-6" variants={itemVariants}>
+              <div className="bg-zinc-950 border border-zinc-800 p-6 md:p-8">
+                <h3 className="text-xl font-semibold text-white mb-6">Contact Information</h3>
+                <p className="text-zinc-400 leading-relaxed mb-8">
+                  <span className="font-bold text-white">Event Parlour</span> - event platform for everyone.
+                  Contact our dedicated support team for inquiries.
                 </p>
 
-                <div className="space-y-5">
+                <div className="space-y-3">
                   {[
                     { icon: FaMapMarkerAlt, text: "Nairobi, Kenya", link: null },
                     { icon: FaEnvelope, text: "hello@eventparlour.com", link: "mailto:hello@eventparlour.com" },
@@ -176,25 +145,28 @@ export function ContactUs() {
                     <motion.a
                       key={index}
                       href={item.link || undefined}
-                      className={`group flex items-center space-x-4 p-4 bg-zinc-800/30 border border-zinc-700/30 backdrop-blur-sm ${item.link ? "cursor-pointer" : ""}`}
-                      whileHover={{ scale: 1.02, backgroundColor: "rgba(39, 39, 42, 0.5)" }}
+                      className={`group flex items-center space-x-4 p-4 bg-zinc-900 border border-zinc-800 ${item.link ? "cursor-pointer" : ""}`}
+                      whileHover={{ 
+                        backgroundColor: "rgb(255 255 255)",
+                        borderColor: "rgb(255 255 255)"
+                      }}
                       whileTap={{ scale: 0.98 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <div className="p-3 bg-black transition-colors">
-                        <item.icon className="text-gray-50" size={24} />
+                      <div className="w-10 h-10 bg-white group-hover:bg-black flex items-center justify-center transition-colors">
+                        <item.icon className="text-black group-hover:text-white transition-colors" size={18} />
                       </div>
-                      <span className="text-md text-gray-300 group-hover:text-white transition-colors">
+                      <span className="text-sm text-zinc-400 group-hover:text-black transition-colors">
                         {item.text}
                       </span>
                     </motion.a>
                   ))}
                 </div>
 
-                {/* Fixed and responsive social media icons section */}
-                <div className="mt-10">
-                  <h4 className="text-lg font-mono font-bold text-gray-200 mb-4">Connect With Us</h4>
-                  <div className="grid grid-cols-5 xs:grid-cols-5 sm:flex sm:flex-wrap gap-2 sm:gap-3 md:gap-4">
+                {/* Social media icons */}
+                <div className="mt-8 pt-6 border-t border-zinc-800">
+                  <h4 className="text-sm font-medium tracking-wider text-zinc-500 mb-4">CONNECT WITH US</h4>
+                  <div className="flex flex-wrap gap-2">
                     {[
                       { icon: FaWhatsapp, url: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R", label: "WhatsApp" },
                       { icon: FaXTwitter, url: "https://x.com/EventsPalour", label: "Twitter" },
@@ -206,12 +178,16 @@ export function ContactUs() {
                         key={index}
                         href={social.url}
                         title={social.label}
-                        className="flex justify-center items-center aspect-square p-2 xs:p-3 sm:p-3 md:p-4 bg-zinc-800/50 border border-zinc-700/30 text-gray-400 hover:text-white hover:border-white transition-all duration-300"
-                        whileHover={{ scale: 1.1, y: -4 }}
+                        className="w-10 h-10 flex justify-center items-center bg-zinc-900 border border-zinc-800 text-zinc-400"
+                        whileHover={{ 
+                          backgroundColor: "rgb(255 255 255)",
+                          borderColor: "rgb(255 255 255)",
+                          color: "rgb(0 0 0)"
+                        }}
                         whileTap={{ scale: 0.95 }}
                         aria-label={`Follow us on ${social.label}`}
                       >
-                        <social.icon size={16} className="xs:text-base sm:text-lg md:text-xl" />
+                        <social.icon size={16} />
                       </motion.a>
                     ))}
                   </div>
@@ -220,8 +196,8 @@ export function ContactUs() {
             </motion.div>
 
             {/* Form section */}
-            <motion.div className="lg:col-span-3 relative" variants={itemVariants}>
-              <div className="bg-zinc-900/60 backdrop-blur-md p-6 md:p-8 border border-zinc-800/50 shadow-xl h-full">
+            <motion.div className="lg:col-span-3" variants={itemVariants}>
+              <div className="bg-zinc-950 border border-zinc-800 p-6 md:p-8 h-full">
                 <AnimatePresence mode="wait">
                   {isSubmitted ? (
                     <motion.div
@@ -229,16 +205,16 @@ export function ContactUs() {
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.4 }}
+                      transition={{ duration: 0.3 }}
                     >
                       <motion.div
-                        className="w-20 h-20 bg-green-500/20 flex items-center justify-center mb-6"
+                        className="w-16 h-16 bg-white flex items-center justify-center mb-6"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        transition={{ delay: 0.2, type: "spring" }}
+                        transition={{ delay: 0.1, type: "spring" }}
                       >
                         <svg
-                          className="w-10 h-10 text-green-500"
+                          className="w-8 h-8 text-black"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -248,7 +224,7 @@ export function ContactUs() {
                         </svg>
                       </motion.div>
                       <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                      <p className="text-gray-300">We&apos;ll get back to you as soon as possible.</p>
+                      <p className="text-zinc-400">We&apos;ll get back to you as soon as possible.</p>
                     </motion.div>
                   ) : (
                     <motion.form
@@ -257,70 +233,70 @@ export function ContactUs() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     >
-                      <h2 className="text-2xl font-semibold text-gray-50 mb-6">Send Us a Message</h2>
+                      <h2 className="text-xl font-semibold text-white mb-6">Send Us a Message</h2>
                       
-                      <div className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-5">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           {[
                             { name: "name", label: "Full Name", type: "text", placeholder: "Enter your name" },
                             { name: "email", label: "Email Address", type: "email", placeholder: "Enter your email" },
                           ].map((field) => (
-                            <motion.div key={field.name} className="group" whileHover={{ y: -2 }}>
-                              <label className="block text-base font-medium text-gray-300 mb-2">
-                                {field.label} <span className="text-gray-50">*</span>
+                            <div key={field.name}>
+                              <label className="block text-sm font-medium text-zinc-400 mb-2">
+                                {field.label} <span className="text-white">*</span>
                               </label>
                               <input
                                 type={field.type}
                                 name={field.name}
                                 value={formState[field.name as keyof typeof formState]}
                                 onChange={handleInputChange}
-                                className="w-full p-4 bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all duration-300"
+                                className="w-full p-4 bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-600 focus:outline-none focus:border-white transition-colors"
                                 placeholder={field.placeholder}
                                 required
                               />
-                            </motion.div>
+                            </div>
                           ))}
                         </div>
 
-                        <motion.div className="group" whileHover={{ y: -2 }}>
-                          <label className="block text-base font-medium text-gray-300 mb-2">
-                            Subject <span className="text-gray-50">*</span>
+                        <div>
+                          <label className="block text-sm font-medium text-zinc-400 mb-2">
+                            Subject <span className="text-white">*</span>
                           </label>
                           <input
                             type="text"
                             name="subject"
                             value={formState.subject}
                             onChange={handleInputChange}
-                            className="w-full p-4 bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all duration-300"
+                            className="w-full p-4 bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-600 focus:outline-none focus:border-white transition-colors"
                             placeholder="What's your event about?"
                             required
                           />
-                        </motion.div>
+                        </div>
 
-                        <motion.div className="group" whileHover={{ y: -2 }}>
-                          <label className="block text-base font-medium text-gray-300 mb-2">
-                            Message <span className="text-gray-50">*</span>
+                        <div>
+                          <label className="block text-sm font-medium text-zinc-400 mb-2">
+                            Message <span className="text-white">*</span>
                           </label>
                           <textarea
                             name="message"
                             value={formState.message}
                             onChange={handleInputChange}
-                            className="w-full p-4 bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent h-40 resize-none transition-all duration-300"
+                            className="w-full p-4 bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-600 focus:outline-none focus:border-white h-32 resize-none transition-colors"
                             placeholder="Tell us about your event requirements..."
                             required
                           />
-                        </motion.div>
+                        </div>
 
-                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                        <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
                           <Button
                             type="submit"
-                            className="w-full bg-white hover:text-white hover:bg-zinc-900 hover:border text-black font-bold px-6 py-6 text-lg shadow-lg transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="w-full bg-white hover:bg-zinc-200 text-black font-medium px-6 py-6 text-base transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled={isSubmitting}
                           >
                             {isSubmitting ? (
                               <div className="flex items-center justify-center">
                                 <svg
-                                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900 dark:text-white"
+                                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
                                   viewBox="0 0 24 24"
@@ -351,80 +327,10 @@ export function ContactUs() {
                   )}
                 </AnimatePresence>
               </div>
-
-              {/* Decorative elements */}
-              <motion.div
-                className="absolute -top-10 -right-10 w-40 h-40 bg-white blur-3xl"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.5, 0.3],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatType: "reverse",
-                }}
-              />
-              <motion.div
-                className="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 blur-3xl"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.5, 0.3],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatType: "reverse",
-                  delay: 2,
-                }}
-              />
             </motion.div>
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Floating particles for ambient effect */}
-      <Particles />
-    </div>
-  )
-}
-
-// Decorative floating particles component
-function Particles() {
-  const particles = Array.from({ length: 20 }).map((_, i) => ({
-    id: i,
-    size: Math.random() * 6 + 2,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    duration: Math.random() * 20 + 10,
-    delay: Math.random() * 5,
-  }))
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((particle) => (
-        <motion.div
-          key={particle.id}
-          className="absolute bg-white"
-          style={{
-            width: particle.size,
-            height: particle.size,
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-          }}
-          animate={{
-            y: [0, -300, 0],
-            opacity: [0, 0.5, 0],
-            scale: [0, 1, 0],
-          }}
-          transition={{
-            duration: particle.duration,
-            repeat: Number.POSITIVE_INFINITY,
-            delay: particle.delay,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-    </div>
+    </section>
   )
 }
