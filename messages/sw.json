@@ -1,6 +1,7 @@
 {"Navbar": {
   "events": "Matukio",
   "accommodations": "Malazi ya Tukio",
+  "features": "Vipengele",
   "why us": "Kwa Nini Sisi",
   "venues": "Maeneo Ya Tukio",
   "contact": "Wasiliana Nasi",
@@ -133,5 +134,191 @@
     "NoBeds": {
       "title": "Hakuna Hoteli Zilizopatikana",
       "description": "Hakuna hoteli katika kategoria hii kwa sasa. Angalia tena baadaye au chunguza kategoria zingine!"
+    },
+    "ExpandingCards": {
+      "sectionLabel": "KWA NINI EVENT PARLOUR",
+      "title": "Njia bora ya kuendesha matukio",
+      "subtitle": "Tuliunda jukwaa tulilotamani liwepo. Hakuna ugumu, hakuna ada zilizofichwa, tu zana zenye nguvu zinazofanya kazi.",
+      "cards": {
+        "allInOne": {
+          "title": "Jukwaa Lote Kwa Moja",
+          "description": "Acha kujongea na zana nyingi. Event Parlour inaunganisha tiketi, uchambuzi, usimamizi wa wasemaji, na malipo katika eneo moja.",
+          "stat": "1",
+          "statLabel": "Jukwaa la kila kitu"
+        },
+        "builtForAfrica": {
+          "title": "Limeundwa kwa Afrika",
+          "description": "Imeundwa na njia za malipo za ndani, uzoefu wa simu kwanza, na miundombinu inayofanya kazi barani kote.",
+          "stat": "KE",
+          "statLabel": "Imeundwa Nairobi"
+        },
+        "zeroFees": {
+          "title": "Hakuna Ada Zilizofichwa",
+          "description": "Bei wazi bila mshangao. Jua haswa unalolipa na unachopata kutoka kwa kila tiketi iliyouzwa.",
+          "stat": "0%",
+          "statLabel": "Tozo zilizofichwa"
+        },
+        "realTimeInsights": {
+          "title": "Maarifa ya Wakati Halisi",
+          "description": "Fanya maamuzi yanayoongozwa na data na dashibodi za moja kwa moja zinaonyesha mauzo, idadi ya watu, na mifumo ya mahudhurio.",
+          "stat": "Hai",
+          "statLabel": "Dashibodi ya uchambuzi"
+        },
+        "instantPayouts": {
+          "title": "Malipo ya Papo Hapo",
+          "description": "Pata pesa yako wakati unaihitaji. Malipo ya haraka, ya kuaminika moja kwa moja kwa njia yako unayopendelea ya malipo.",
+          "stat": "Saa 24",
+          "statLabel": "Usindikaji wa malipo"
+        }
+      }
+    },
+    "FeaturesSection": {
+      "sectionLabel": "IMEUNDWA KWA UKUAJI",
+      "title": "Kila kitu unachohitaji",
+      "subtitle": "Kutoka uundaji wa tukio hadi kumbukumbu za kudumu. Zana zote za kuunda, kusimamia, na kuhudhuria matukio yasiyosahaulika.",
+      "tabs": {
+        "organizers": "Kwa Waratibu",
+        "attendees": "Kwa Wahudhuriaji"
+      },
+      "organizers": {
+        "dashboard": {
+          "label": "UDHIBITI WA KATIKATI",
+          "title": "Simamia kila kitu kutoka dashibodi moja.",
+          "description": "Matukio yako, timu, na rasilimali—yote katika eneo moja lenye nguvu.",
+          "capabilities": ["Usimamizi wa matukio mengi", "Ushirikiano wa timu na majukumu", "Chapa maalum", "Kumbukumbu za shughuli"]
+        },
+        "speakers": {
+          "label": "BUKU TALANTA BORA",
+          "title": "Pata na usimamie wasemaji wakuu.",
+          "description": "Tafuta, buku, na kuratibu wasemaji kwa matukio yako ya teknolojia na muziki.",
+          "capabilities": ["Saraka ya wasemaji", "Ubukaji na kuratibu", "Usimamizi wa mikataba", "Upangaji wa vikao"]
+        },
+        "events": {
+          "label": "MATUKIO KAMILI",
+          "title": "Unda matukio yanayouzwa.",
+          "description": "Kutoka uundaji hadi kuingia, simamia kila kipengele cha matukio yako.",
+          "capabilities": ["Mchawi wa kuunda tukio", "Usimamizi wa mahali", "Mjenzi wa ajenda", "Ngazi nyingi za tiketi"]
+        },
+        "analytics": {
+          "label": "MAAMUZI YANAYOONGOZWA NA DATA",
+          "title": "Uchambuzi unaosababisha ukuaji.",
+          "description": "Maarifa ya wakati halisi kuelewa hadhira yako na kuboresha utendaji.",
+          "capabilities": ["Dashibodi ya mauzo", "Idadi ya watu", "Ufuatiliaji wa mapato", "Ripoti maalum"]
+        },
+        "payments": {
+          "label": "MALIPO BILA MAUMIVU",
+          "title": "Fuatilia kila uuzaji, otomatisha malipo.",
+          "description": "Usimamizi kamili wa fedha na usindikaji wa malipo uliounganishwa.",
+          "capabilities": ["Ufuatiliaji wa wakati halisi", "Lango nyingi", "Malipo ya moja kwa moja", "Utengenezaji wa ankara"]
+        },
+        "postEvent": {
+          "label": "UBUNIFU BAADA YA TUKIO",
+          "title": "Hifadhi kumbukumbu hai.",
+          "description": "Shirikiana na wahudhuriaji na viungo vya muhtasari, picha, na wakati wa kukumbukwa.",
+          "capabilities": ["Barua pepe za muhtasari", "Galeri za picha", "Viungo vya kushiriki", "Utafiti wa maoni"]
+        }
+      },
+      "attendees": {
+        "discover": {
+          "label": "GUNDUA KINACHOMOTO",
+          "title": "Pata matukio utakayopenda.",
+          "description": "Mapendekezo yaliyobinafsishwa kulingana na mapenzi na eneo lako.",
+          "capabilities": ["Mapendekezo ya busara", "Utafutaji wa eneo", "Vichujio vya aina", "Usawazishaji wa kalenda"]
+        },
+        "local": {
+          "label": "KARIBU NA HAI",
+          "title": "Matukio yanayotokea karibu nawe.",
+          "description": "Usikose matukio ya karibu na ugunduzi unaotegemea eneo.",
+          "capabilities": ["Kitafutaji cha GPS", "Vichujio vya umbali", "Matukio yanayotrendi", "Uchunguzi wa ramani"]
+        },
+        "tickets": {
+          "label": "TIKETI ZAKO, ZILIZOSAHIHISHWA",
+          "title": "Tiketi zako zote mahali pamoja.",
+          "description": "Upatikanaji rahisi, uhamisho wa haraka, na kuingia bila maumivu na misimbo ya QR.",
+          "capabilities": ["Mkoba wa dijitali", "Kuingia kwa msimbo wa QR", "Uhamisho wa tiketi", "Historia ya ununuzi"]
+        },
+        "network": {
+          "label": "JENGA MTANDAO WAKO",
+          "title": "Ungana na mashabiki wenzako.",
+          "description": "Kutana na wahudhuriaji wenye mawazo sawa na kukuza mtandao wako wa matukio.",
+          "capabilities": ["Wasifu wa wahudhuriaji", "Ujumbe ndani ya tukio", "Uratibu wa kikundi", "Kubadilishana mawasiliano"]
+        },
+        "alerts": {
+          "label": "USIKOSE KAMWE",
+          "title": "Arifa za busara kwa matukio unayojali.",
+          "description": "Pata arifa kuhusu matukio mapya, kushuka kwa bei, na vikumbusho vya kuingia.",
+          "capabilities": ["Vikumbusho vya tukio", "Arifa za bei", "Arifa za matukio mapya", "Vidokezo vya kuingia"]
+        }
+      },
+      "includes": "Inajumuisha",
+      "active": "Hai"
+    },
+    "Testimonials": {
+      "title": "Wateja Wetu Wanasema Nini",
+      "subtitle": "Kutoka kwa waratibu hadi wauzaji, jukwaa letu la tiketi limebadilisha jinsi matukio yanavyosimamiwa na kupatikana. Tazama jinsi suluhisho letu limeweza biashara za ukubwa wote kuongeza mahudhurio, kurahisisha shughuli, na kuunda uzoefu usiosahaulika.",
+      "testimonials": [
+        {
+          "quote": "Jukwaa hili la tiketi limebadilisha kabisa jinsi tunavyosimamia tamasha zetu za muziki. Mchakato wa kuingia bila maumivu na uchambuzi wa wakati halisi umetusaidia kuongeza mahudhurio kwa 30%.",
+          "name": "Sarah Johnson",
+          "designation": "Mkurugenzi wa Matukio katika SoundWave Festivals"
+        },
+        {
+          "quote": "Kama mhudhuriaji, napenda jinsi ilivyo rahisi kununua tiketi, kuzihamisha kwa marafiki, na kupata maelezo ya tukio yote mahali pamoja. Uzoefu wa simu ni bora!",
+          "name": "Michael Chen",
+          "designation": "Mhudhuriaji wa Kawaida wa Mkutano wa Teknolojia"
+        },
+        {
+          "quote": "Kama muuzaji katika matukio mengi, jukwaa hili limerahisisha mchakato wetu wa ubukaji. Sasa tunaweza kusimamia ratiba yetu, malipo, na mawasiliano na wateja bila jitihada.",
+          "name": "Emily Rodriguez",
+          "designation": "Mmiliki wa Gourmet Food Trucks"
+        },
+        {
+          "quote": "Kama mwanamuziki anayezunguka, jukwaa hili limebadilisha jinsi tunavyoungana na maeneo na kuuza tiketi. Tumeona ongezeko la 45% katika mauzo ya awali tangu tubadilishe kwa huduma hii.",
+          "name": "David Park",
+          "designation": "Mwimbaji Mkuu katika Neon Pulse"
+        },
+        {
+          "quote": "Uchambuzi wa kina ulitusaidia kuelewa hadhira yetu vizuri na kurekebisha matukio yetu ya ushirika kulingana na mapenzi yao. Alama zetu za kuridhika za wahudhuriaji hazijawahi kuwa juu hivyo.",
+          "name": "Priya Sharma",
+          "designation": "Meneja wa Matukio ya Ushirika katika TechGlobal"
+        },
+        {
+          "quote": "Mfumo wa tiketi za msimbo wa QR ulifanya usimamizi wa kuingia kuwa rahisi kwa mkutano wetu wa watu 5,000. Hakuna foleni ndefu au wahudhuriaji waliokasirika tena!",
+          "name": "James Wilson",
+          "designation": "Mkurugenzi wa Operesheni katika DevCon"
+        }
+      ]
+    },
+    "ContactUsSection": {
+      "sectionLabel": "WASILIANA NASI",
+      "title": "Tuunde kitu pamoja",
+      "subtitle": "Una swali au unataka kufanya kazi pamoja? Tungependa kusikia kutoka kwako.",
+      "contactInfo": "Maelezo ya Mawasiliano",
+      "companyIntro": "Event Parlour - jukwaa la matukio kwa kila mtu. Wasiliana na timu yetu ya msaada kwa maswali.",
+      "location": "Nairobi, Kenya",
+      "email": "hello@eventparlour.com",
+      "phone": "+254 791 482 626",
+      "hours": "Wazi - Masaa 24",
+      "connectWithUs": "UNGANA NASI",
+      "formTitle": "Tutumie Ujumbe",
+      "fullName": "Jina Kamili",
+      "namePlaceholder": "Ingiza jina lako",
+      "emailAddress": "Anwani ya Barua Pepe",
+      "emailPlaceholder": "Ingiza barua pepe yako",
+      "subject": "Mada",
+      "subjectPlaceholder": "Tukio lako linahusu nini?",
+      "message": "Ujumbe",
+      "messagePlaceholder": "Tuambie kuhusu mahitaji yako ya tukio...",
+      "sendMessage": "Tuma Ujumbe",
+      "sending": "Inatuma...",
+      "messageSent": "Ujumbe Umetumwa!",
+      "successMessage": "Tutakujibu haraka iwezekanavyo."
+    },
+    "HeroSection": {
+      "title": "Matukio yaliyoundwa upya kwa",
+      "words": ["Waratibu", "Wahudhuriaji", "Wasemaji", "Wauzaji"],
+      "description": "Kwa sababu wakati bora unaostahili kuishi.",
+      "descriptionLine2": "Acha tukio lako lijalo liwe la kukumbukwa.",
+      "cta": "Unda tukio lako sasa"
     }
   }

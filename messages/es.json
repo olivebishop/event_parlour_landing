@@ -2,6 +2,7 @@
     "Navbar": {
   "events": "Eventos",
   "accommodations": "Alojamientos",
+  "features": "Características",
   "why us": "Por Qué Nosotros",
   "venues": "Lugares",
   "contact": "Contacto",
@@ -134,5 +135,191 @@
     "NoBeds": {
       "title": "No se Encontraron Hoteles",
       "description": "Actualmente no hay hoteles en esta categoría. ¡Vuelve más tarde o explora otras categorías!"
+    },
+    "ExpandingCards": {
+      "sectionLabel": "POR QUÉ EVENT PARLOUR",
+      "title": "La forma más inteligente de gestionar eventos",
+      "subtitle": "Construimos la plataforma que deseábamos. Sin complejidad, sin tarifas ocultas, solo herramientas poderosas que funcionan.",
+      "cards": {
+        "allInOne": {
+          "title": "Plataforma Todo en Uno",
+          "description": "Deja de malabarear con múltiples herramientas. Event Parlour unifica la venta de entradas, análisis, gestión de ponentes y pagos en un solo espacio de trabajo.",
+          "stat": "1",
+          "statLabel": "Plataforma para todo"
+        },
+        "builtForAfrica": {
+          "title": "Diseñado para África",
+          "description": "Diseñado con métodos de pago locales, experiencias mobile-first e infraestructura que funciona en todo el continente.",
+          "stat": "KE",
+          "statLabel": "Hecho en Nairobi"
+        },
+        "zeroFees": {
+          "title": "Cero Tarifas Ocultas",
+          "description": "Precios transparentes sin sorpresas. Sabe exactamente lo que pagas y lo que ganas de cada entrada vendida.",
+          "stat": "0%",
+          "statLabel": "Cargos ocultos"
+        },
+        "realTimeInsights": {
+          "title": "Información en Tiempo Real",
+          "description": "Toma decisiones basadas en datos con paneles en vivo que muestran ventas, demografía y patrones de asistencia.",
+          "stat": "En vivo",
+          "statLabel": "Panel de análisis"
+        },
+        "instantPayouts": {
+          "title": "Pagos Instantáneos",
+          "description": "Obtén tu dinero cuando lo necesites. Pagos rápidos y confiables directamente a tu método de pago preferido.",
+          "stat": "24h",
+          "statLabel": "Procesamiento de pagos"
+        }
+      }
+    },
+    "FeaturesSection": {
+      "sectionLabel": "DISEÑADO PARA EL CRECIMIENTO",
+      "title": "Todo lo que necesitas",
+      "subtitle": "Desde la creación de eventos hasta recuerdos duraderos. Todas las herramientas para crear, gestionar y asistir a eventos inolvidables.",
+      "tabs": {
+        "organizers": "Para Organizadores",
+        "attendees": "Para Asistentes"
+      },
+      "organizers": {
+        "dashboard": {
+          "label": "CONTROL CENTRALIZADO",
+          "title": "Gestiona todo desde un solo panel.",
+          "description": "Tus eventos, equipo y recursos, todo en un espacio de trabajo potente.",
+          "capabilities": ["Gestión multi-evento", "Colaboración de equipo y roles", "Marca personalizada", "Registros de actividad"]
+        },
+        "speakers": {
+          "label": "RESERVA LOS MEJORES TALENTOS",
+          "title": "Encuentra y gestiona ponentes principales.",
+          "description": "Busca, reserva y coordina ponentes para tus eventos de tecnología y música.",
+          "capabilities": ["Directorio de ponentes", "Reservas y programación", "Gestión de contratos", "Planificación de sesiones"]
+        },
+        "events": {
+          "label": "EVENTOS DE PRINCIPIO A FIN",
+          "title": "Crea eventos que se agoten.",
+          "description": "Desde la creación hasta el registro, gestiona cada aspecto de tus eventos.",
+          "capabilities": ["Asistente de creación de eventos", "Gestión de lugares", "Constructor de agenda", "Niveles de entradas múltiples"]
+        },
+        "analytics": {
+          "label": "DECISIONES BASADAS EN DATOS",
+          "title": "Análisis que impulsan el crecimiento.",
+          "description": "Información en tiempo real para entender a tu audiencia y optimizar el rendimiento.",
+          "capabilities": ["Panel de ventas", "Demografía", "Seguimiento de ingresos", "Informes personalizados"]
+        },
+        "payments": {
+          "label": "PAGOS SIN PROBLEMAS",
+          "title": "Rastrea cada venta, automatiza los pagos.",
+          "description": "Supervisión financiera completa con procesamiento de pagos integrado.",
+          "capabilities": ["Seguimiento en tiempo real", "Múltiples pasarelas", "Pagos automatizados", "Generación de facturas"]
+        },
+        "postEvent": {
+          "label": "MAGIA POST-EVENTO",
+          "title": "Mantén los recuerdos vivos.",
+          "description": "Involucra a los asistentes con enlaces de resumen, fotos y momentos memorables.",
+          "capabilities": ["Correos de resumen", "Galerías de fotos", "Enlaces compartibles", "Encuestas de feedback"]
+        }
+      },
+      "attendees": {
+        "discover": {
+          "label": "DESCUBRE LO QUE ESTÁ DE MODA",
+          "title": "Encuentra eventos que amarás.",
+          "description": "Recomendaciones personalizadas basadas en tus intereses y ubicación.",
+          "capabilities": ["Recomendaciones inteligentes", "Búsqueda por ubicación", "Filtros de género", "Sincronización de calendario"]
+        },
+        "local": {
+          "label": "LOCAL Y EN VIVO",
+          "title": "Eventos cerca de ti.",
+          "description": "Nunca te pierdas eventos locales con descubrimiento inteligente basado en ubicación.",
+          "capabilities": ["Localizador GPS", "Filtros de distancia", "Eventos en tendencia", "Exploración de mapa"]
+        },
+        "tickets": {
+          "label": "TUS ENTRADAS, SIMPLIFICADAS",
+          "title": "Todas tus entradas en un solo lugar.",
+          "description": "Acceso fácil, transferencias rápidas y entrada sin problemas con códigos QR.",
+          "capabilities": ["Cartera digital", "Entrada con código QR", "Transferencias de entradas", "Historial de compras"]
+        },
+        "network": {
+          "label": "CONSTRUYE TU RED",
+          "title": "Conecta con otros fans.",
+          "description": "Conoce asistentes con ideas afines y haz crecer tu red de eventos.",
+          "capabilities": ["Perfiles de asistentes", "Mensajería en evento", "Coordinación de grupo", "Intercambio de contactos"]
+        },
+        "alerts": {
+          "label": "NUNCA TE LO PIERDAS",
+          "title": "Alertas inteligentes para eventos que te importan.",
+          "description": "Recibe notificaciones sobre nuevos eventos, bajadas de precio y recordatorios de registro.",
+          "capabilities": ["Recordatorios de eventos", "Alertas de precio", "Notificaciones de nuevos eventos", "Avisos de registro"]
+        }
+      },
+      "includes": "Incluye",
+      "active": "Activo"
+    },
+    "Testimonials": {
+      "title": "Lo que dicen nuestros clientes",
+      "subtitle": "Desde organizadores hasta vendedores, nuestra plataforma de entradas ha revolucionado cómo se gestionan y experimentan los eventos. Descubre cómo nuestra solución ha empoderado a empresas de todos los tamaños para aumentar la asistencia, optimizar operaciones y crear experiencias inolvidables.",
+      "testimonials": [
+        {
+          "quote": "Esta plataforma de entradas ha transformado completamente cómo gestionamos nuestros festivales de música. El proceso de registro fluido y los análisis en tiempo real nos han ayudado a aumentar la asistencia en un 30%.",
+          "name": "Sarah Johnson",
+          "designation": "Directora de Eventos en SoundWave Festivals"
+        },
+        {
+          "quote": "Como asistente, me encanta lo fácil que es comprar entradas, transferirlas a amigos y acceder a los detalles del evento todo en un solo lugar. ¡La experiencia móvil es impecable!",
+          "name": "Michael Chen",
+          "designation": "Asistente Regular a Conferencias Tech"
+        },
+        {
+          "quote": "Como vendedor en múltiples eventos, esta plataforma ha optimizado nuestro proceso de reservas. Ahora podemos gestionar nuestro horario, pagos y comunicaciones con clientes sin esfuerzo.",
+          "name": "Emily Rodriguez",
+          "designation": "Propietaria de Gourmet Food Trucks"
+        },
+        {
+          "quote": "Como músico de gira, esta plataforma ha revolucionado cómo nos conectamos con los locales y vendemos entradas. Hemos visto un aumento del 45% en preventas desde que cambiamos a este servicio.",
+          "name": "David Park",
+          "designation": "Cantante Principal de Neon Pulse"
+        },
+        {
+          "quote": "Los análisis completos nos ayudaron a entender mejor a nuestra audiencia y adaptar nuestros eventos corporativos a sus preferencias. ¡Nuestras puntuaciones de satisfacción de asistentes nunca han sido más altas!",
+          "name": "Priya Sharma",
+          "designation": "Gerente de Eventos Corporativos en TechGlobal"
+        },
+        {
+          "quote": "El sistema de entradas con código QR hizo que la gestión de entrada fuera muy fácil para nuestra conferencia de 5,000 personas. ¡No más largas colas ni asistentes frustrados!",
+          "name": "James Wilson",
+          "designation": "Director de Operaciones en DevCon"
+        }
+      ]
+    },
+    "ContactUsSection": {
+      "sectionLabel": "CONTÁCTANOS",
+      "title": "Creemos algo juntos",
+      "subtitle": "¿Tienes una pregunta o quieres trabajar juntos? Nos encantaría saber de ti.",
+      "contactInfo": "Información de Contacto",
+      "companyIntro": "Event Parlour - plataforma de eventos para todos. Contacta a nuestro equipo de soporte dedicado para consultas.",
+      "location": "Nairobi, Kenia",
+      "email": "hello@eventparlour.com",
+      "phone": "+254 791 482 626",
+      "hours": "Abierto - 24 horas",
+      "connectWithUs": "CONÉCTATE CON NOSOTROS",
+      "formTitle": "Envíanos un Mensaje",
+      "fullName": "Nombre Completo",
+      "namePlaceholder": "Ingresa tu nombre",
+      "emailAddress": "Dirección de Email",
+      "emailPlaceholder": "Ingresa tu email",
+      "subject": "Asunto",
+      "subjectPlaceholder": "¿De qué trata tu evento?",
+      "message": "Mensaje",
+      "messagePlaceholder": "Cuéntanos sobre los requisitos de tu evento...",
+      "sendMessage": "Enviar Mensaje",
+      "sending": "Enviando...",
+      "messageSent": "¡Mensaje Enviado!",
+      "successMessage": "Te responderemos lo antes posible."
+    },
+    "HeroSection": {
+      "title": "Eventos reinventados para",
+      "words": ["Organizadores", "Asistentes", "Ponentes", "Vendedores"],
+      "description": "Porque los mejores momentos merecen ser vividos.",
+      "descriptionLine2": "Haz que tu próximo evento sea inolvidable.",
+      "cta": "Crea tu evento ahora"
     }
   }

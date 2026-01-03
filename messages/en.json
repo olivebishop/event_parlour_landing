@@ -2,6 +2,7 @@
     "Navbar": {
       "events": "Events",
       "accommodations": "Accommodations",
+      "features": "Features",
       "why us": "Why Us",
       "venues": "Venues",
       "contact": "Contact",
@@ -134,5 +135,191 @@
     "NoBeds": {
       "title": "No Hotel Found",
       "description": "There are currently no hotels in this category. Check back later or explore other categories!"
+    },
+    "ExpandingCards": {
+      "sectionLabel": "WHY EVENT PARLOUR",
+      "title": "The smarter way to run events",
+      "subtitle": "We built the platform we wished existed. No complexity, no hidden fees, just powerful tools that work.",
+      "cards": {
+        "allInOne": {
+          "title": "All-in-One Platform",
+          "description": "Stop juggling multiple tools. Event Parlour unifies ticketing, analytics, speaker management, and payouts in one seamless workspace.",
+          "stat": "1",
+          "statLabel": "Platform for everything"
+        },
+        "builtForAfrica": {
+          "title": "Built for Africa",
+          "description": "Designed with local payment methods, mobile-first experiences, and infrastructure that works across the continent.",
+          "stat": "KE",
+          "statLabel": "Made in Nairobi"
+        },
+        "zeroFees": {
+          "title": "Zero Hidden Fees",
+          "description": "Transparent pricing with no surprises. Know exactly what you pay and what you earn from every ticket sold.",
+          "stat": "0%",
+          "statLabel": "Hidden charges"
+        },
+        "realTimeInsights": {
+          "title": "Real-Time Insights",
+          "description": "Make data-driven decisions with live dashboards showing sales, demographics, and attendance patterns as they happen.",
+          "stat": "Live",
+          "statLabel": "Analytics dashboard"
+        },
+        "instantPayouts": {
+          "title": "Instant Payouts",
+          "description": "Get your money when you need it. Fast, reliable payouts directly to your preferred payment method.",
+          "stat": "24h",
+          "statLabel": "Payout processing"
+        }
+      }
+    },
+    "FeaturesSection": {
+      "sectionLabel": "BUILT FOR GROWTH",
+      "title": "Everything you need",
+      "subtitle": "From event creation to lasting memories. All the tools to create, manage, and attend unforgettable events.",
+      "tabs": {
+        "organizers": "For Organizers",
+        "attendees": "For Attendees"
+      },
+      "organizers": {
+        "dashboard": {
+          "label": "CENTRALIZED CONTROL",
+          "title": "Manage everything from one dashboard.",
+          "description": "Your events, team, and resources—all in one powerful workspace.",
+          "capabilities": ["Multi-event management", "Team collaboration & roles", "Custom branding", "Activity logs"]
+        },
+        "speakers": {
+          "label": "BOOK TOP TALENT",
+          "title": "Find and manage keynote speakers.",
+          "description": "Search, book, and coordinate speakers for your tech and music events.",
+          "capabilities": ["Speaker directory", "Booking & scheduling", "Contract management", "Session planning"]
+        },
+        "events": {
+          "label": "END-TO-END EVENTS",
+          "title": "Create events that sell out.",
+          "description": "From creation to check-in, manage every aspect of your events.",
+          "capabilities": ["Event creation wizard", "Venue management", "Agenda builder", "Multi-ticket tiers"]
+        },
+        "analytics": {
+          "label": "DATA-DRIVEN DECISIONS",
+          "title": "Analytics that drive growth.",
+          "description": "Real-time insights to understand your audience and optimize performance.",
+          "capabilities": ["Sales dashboard", "Demographics", "Revenue tracking", "Custom reports"]
+        },
+        "payments": {
+          "label": "SEAMLESS PAYMENTS",
+          "title": "Track every sale, automate payouts.",
+          "description": "Complete financial oversight with integrated payment processing.",
+          "capabilities": ["Real-time tracking", "Multiple gateways", "Automated payouts", "Invoice generation"]
+        },
+        "postEvent": {
+          "label": "POST-EVENT MAGIC",
+          "title": "Keep the memories alive.",
+          "description": "Engage attendees with recap links, photos, and memorable moments.",
+          "capabilities": ["Recap emails", "Photo galleries", "Shareable links", "Feedback surveys"]
+        }
+      },
+      "attendees": {
+        "discover": {
+          "label": "DISCOVER WHAT'S HOT",
+          "title": "Find events you'll love.",
+          "description": "Personalized recommendations based on your interests and location.",
+          "capabilities": ["Smart recommendations", "Location search", "Genre filters", "Calendar sync"]
+        },
+        "local": {
+          "label": "LOCAL & LIVE",
+          "title": "Events happening near you.",
+          "description": "Never miss local events with smart location-based discovery.",
+          "capabilities": ["GPS finder", "Distance filters", "Trending events", "Map exploration"]
+        },
+        "tickets": {
+          "label": "YOUR TICKETS, SIMPLIFIED",
+          "title": "All your tickets in one place.",
+          "description": "Easy access, quick transfers, and seamless entry with QR codes.",
+          "capabilities": ["Digital wallet", "QR code entry", "Ticket transfers", "Purchase history"]
+        },
+        "network": {
+          "label": "BUILD YOUR NETWORK",
+          "title": "Connect with fellow fans.",
+          "description": "Meet like-minded attendees and grow your event network.",
+          "capabilities": ["Attendee profiles", "In-event messaging", "Group coordination", "Contact exchange"]
+        },
+        "alerts": {
+          "label": "NEVER MISS OUT",
+          "title": "Smart alerts for events you care about.",
+          "description": "Get notified about new events, price drops, and check-in reminders.",
+          "capabilities": ["Event reminders", "Price alerts", "New event notifications", "Check-in prompts"]
+        }
+      },
+      "includes": "Includes",
+      "active": "Active"
+    },
+    "Testimonials": {
+      "title": "What Our Clients Say",
+      "subtitle": "From organizers to vendors, our ticketing platform has revolutionized how events are managed and experienced. See how our solution has empowered businesses of all sizes to boost attendance, streamline operations, and create unforgettable experiences.",
+      "testimonials": [
+        {
+          "quote": "This ticketing platform has completely transformed how we manage our music festivals. The seamless check-in process and real-time analytics have helped us increase attendance by 30%.",
+          "name": "Sarah Johnson",
+          "designation": "Event Director at SoundWave Festivals"
+        },
+        {
+          "quote": "As an attendee, I love how easy it is to purchase tickets, transfer them to friends, and access event details all in one place. The mobile experience is flawless!",
+          "name": "Michael Chen",
+          "designation": "Tech Conference Regular"
+        },
+        {
+          "quote": "Being a vendor at multiple events, this platform has streamlined our booking process. We can now manage our schedule, payments, and client communications effortlessly.",
+          "name": "Emily Rodriguez",
+          "designation": "Owner at Gourmet Food Trucks"
+        },
+        {
+          "quote": "As a touring musician, this platform has revolutionized how we connect with venues and sell tickets. We've seen a 45% increase in pre-sales since switching to this service.",
+          "name": "David Park",
+          "designation": "Lead Singer at Neon Pulse"
+        },
+        {
+          "quote": "The comprehensive analytics helped us understand our audience better and tailor our corporate events to their preferences. Our attendee satisfaction scores have never been higher.",
+          "name": "Priya Sharma",
+          "designation": "Corporate Events Manager at TechGlobal"
+        },
+        {
+          "quote": "The QR code ticketing system made entry management a breeze for our 5,000-person conference. No more long lines or frustrated attendees!",
+          "name": "James Wilson",
+          "designation": "Operations Director at DevCon"
+        }
+      ]
+    },
+    "ContactUsSection": {
+      "sectionLabel": "GET IN TOUCH",
+      "title": "Let's create something",
+      "subtitle": "Have a question or want to work together? We'd love to hear from you.",
+      "contactInfo": "Contact Information",
+      "companyIntro": "Event Parlour - event platform for everyone. Contact our dedicated support team for inquiries.",
+      "location": "Nairobi, Kenya",
+      "email": "hello@eventparlour.com",
+      "phone": "+254 791 482 626",
+      "hours": "Open - 24 hrs",
+      "connectWithUs": "CONNECT WITH US",
+      "formTitle": "Send Us a Message",
+      "fullName": "Full Name",
+      "namePlaceholder": "Enter your name",
+      "emailAddress": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "subject": "Subject",
+      "subjectPlaceholder": "What's your event about?",
+      "message": "Message",
+      "messagePlaceholder": "Tell us about your event requirements...",
+      "sendMessage": "Send Message",
+      "sending": "Sending...",
+      "messageSent": "Message Sent!",
+      "successMessage": "We'll get back to you as soon as possible."
+    },
+    "HeroSection": {
+      "title": "Events reimagined for",
+      "words": ["Organizers", "Attendees", "Speakers", "Vendors"],
+      "description": "Because the best moments deserve to be lived.",
+      "descriptionLine2": "Let your next event be one to remember.",
+      "cta": "Create your event now"
     }
   }

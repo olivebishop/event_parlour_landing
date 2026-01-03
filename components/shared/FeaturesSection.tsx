@@ -6,9 +6,10 @@ import Image from "next/image"
 import ScrollReveal from "@/components/shared/animations/scroll-reveal"
 import { cn } from "@/lib/utils"
 import { categories, type CategoryKey, type Feature, type Category } from "@/lib/data/features"
+import { useTranslations } from "@/lib/i18n/translations"
 
 // Shotgun-style feature block with images
-function FeatureBlock({ feature, index, isReversed }: { feature: Feature; index: number; isReversed: boolean }) {
+function FeatureBlock({ feature, index, isReversed, includesText, activeText }: { feature: Feature; index: number; isReversed: boolean; includesText: string; activeText: string }) {
   
   return (
     <div className="py-20 lg:py-32">
@@ -147,7 +148,7 @@ function FeatureBlock({ feature, index, isReversed }: { feature: Feature; index:
                       animate={{ opacity: [1, 0.4, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     />
-                    <span className="text-xs text-white">Active</span>
+                    <span className="text-xs text-white">{activeText}</span>
                   </motion.div>
                 </div>
               </motion.div>
@@ -162,7 +163,7 @@ function FeatureBlock({ feature, index, isReversed }: { feature: Feature; index:
               transition={{ delay: 0.7, duration: 0.5, type: "spring", stiffness: 200 }}
               whileHover={{ scale: 1.05 }}
             >
-              <p className="text-xs font-medium text-zinc-500 mb-2">Includes</p>
+              <p className="text-xs font-medium text-zinc-500 mb-2">{includesText}</p>
               <div className="space-y-1.5">
                 {feature.capabilities.slice(0, 3).map((cap, idx) => (
                   <motion.div 
@@ -200,11 +201,13 @@ function FeatureBlock({ feature, index, isReversed }: { feature: Feature; index:
 function CategoryTab({ 
   category, 
   isActive, 
-  onClick 
+  onClick,
+  translatedLabel
 }: { 
   category: Category; 
   isActive: boolean; 
-  onClick: () => void 
+  onClick: () => void;
+  translatedLabel: string;
 }) {
   return (
     <motion.button
@@ -220,15 +223,49 @@ function CategoryTab({
       transition={{ type: "spring", stiffness: 400, damping: 17 }}
     >
       {category.icon}
-      <span>{category.label}</span>
+      <span>{translatedLabel}</span>
     </motion.button>
   )
 }
 
 export default function FeaturesSection() {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("organizers")
+  const t = useTranslations('FeaturesSection')
   
   const currentCategory = categories.find(c => c.id === activeCategory) || categories[0]
+  
+  // Get translated features for the current category
+  const getTranslatedFeatures = (): Feature[] => {
+    try {
+      const categoryKey = activeCategory
+      const featuresData = t(`${categoryKey}`)
+      if (featuresData && featuresData !== categoryKey && featuresData.startsWith('{')) {
+        const parsed = JSON.parse(featuresData)
+        // Map the translated data back to the features with icons from original
+        return currentCategory.features.map((feature, index) => {
+          const featureKeys = ['dashboard', 'speakers', 'events', 'analytics', 'payments', 'postEvent']
+          const attendeeKeys = ['discover', 'local', 'tickets', 'network', 'alerts']
+          const keys = categoryKey === 'organizers' ? featureKeys : attendeeKeys
+          const translatedFeature = parsed[keys[index]]
+          if (translatedFeature) {
+            return {
+              ...feature,
+              label: translatedFeature.label || feature.label,
+              title: translatedFeature.title || feature.title,
+              description: translatedFeature.description || feature.description,
+              capabilities: translatedFeature.capabilities || feature.capabilities,
+            }
+          }
+          return feature
+        })
+      }
+    } catch {
+      // Return original features if parsing fails
+    }
+    return currentCategory.features
+  }
+  
+  const translatedFeatures = getTranslatedFeatures()
 
   return (
     <section className="py-20 sm:py-28 lg:py-36 dark overflow-hidden">
@@ -243,14 +280,13 @@ export default function FeaturesSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              BUILT FOR GROWTH
+              {t('sectionLabel')}
             </motion.p>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
-              Everything you need
+              {t('title')}
             </h2>
             <p className="text-zinc-400 text-base sm:text-lg max-w-2xl mx-auto">
-              From event creation to lasting memories. All the tools to create, 
-              manage, and attend unforgettable events.
+              {t('subtitle')}
             </p>
           </div>
         </ScrollReveal>
@@ -265,6 +301,7 @@ export default function FeaturesSection() {
                   category={category}
                   isActive={activeCategory === category.id}
                   onClick={() => setActiveCategory(category.id)}
+                  translatedLabel={t(`tabs.${category.id}`)}
                 />
               ))}
             </div>
@@ -281,12 +318,14 @@ export default function FeaturesSection() {
             transition={{ duration: 0.15 }}
           >
             <div className="max-w-7xl mx-auto">
-              {currentCategory.features.map((feature, index) => (
+              {translatedFeatures.map((feature, index) => (
                 <FeatureBlock 
                   key={feature.title} 
                   feature={feature} 
                   index={index}
                   isReversed={index % 2 === 1}
+                  includesText={t('includes')}
+                  activeText={t('active')}
                 />
               ))}
             </div>

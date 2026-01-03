@@ -3,11 +3,13 @@ import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { useTranslations } from "@/lib/i18n/translations";
 
 const Footer = () => {
   const [footerVisible, setFooterVisible] = useState(false);
   const footerTarget = useRef(null);
   const isInView = useInView(footerTarget, { once: true, amount: 0.1 });
+  const t = useTranslations('Footer');
 
   React.useEffect(() => {
     if (isInView) {
@@ -39,20 +41,19 @@ const Footer = () => {
   };
 
   const quickLinks = [
-    { href: "/", label: "Events" },
-    { href: "/contact", label: "Contact" },
-    { href: "/privacy-policy", label: "Privacy Policy" },
-    { href: "/terms-and-condition", label: "Terms And Condition" },
+    { href: "/", label: t('quickLinks.events') },
+    { href: "/contact", label: t('quickLinks.contact') },
+    { href: "/privacy-policy", label: t('quickLinks.privacyPolicy') },
+    { href: "/terms-and-condition", label: t('quickLinks.termsAndCondition') },
    
   ];
   
   const socialLinks = [
-    { href: "https://x.com/EventsPalour", label: "X " },
+    { href: "https://x.com/EventsPalour", label: t('socialLinks.x') },
     { href: "https://www.tiktok.com/@eventparlour", label: "TikTok" },
-    // { href: "https://facebook.com/eparlour", label: "Facebook" },
-    { href: "https://www.instagram.com/event.parlour", label: "Instagram" },
-    { href: "https://www.linkedin.com/company/eventparlour", label: "LinkedIn" },
-    { href: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R", label: "WhatsApp Channel" }
+    { href: "https://www.instagram.com/event.parlour", label: t('socialLinks.instagram') },
+    { href: "https://www.linkedin.com/company/eventparlour", label: t('socialLinks.linkedin') },
+    { href: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R", label: t('socialLinks.whatsapp') }
  
   ];
 
@@ -67,7 +68,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="col-span-1 lg:col-span-1">
             <h6 className="text-white font-[rejoice-body] text-2xl lg:text-[1.8vw] mb-4">
-              Relax we&apos;ve got you
+              {t('relax')}
             </h6>
             <motion.a
               href="/updates"
@@ -75,18 +76,18 @@ const Footer = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <span>Latest Updates</span>
+              <span>{t('latestUpdates')}</span>
               <ArrowRight className="w-4 h-4" />
             </motion.a>
             <div className="text-gray-300 text-sm space-y-2">
-              <p>123 Business District</p>
-              <p>Nairobi, Kenya</p>
+              <p>{t('address1')}</p>
+              <p>{t('address2')}</p>
             </div>
           </div>
 
           {/* Quick Links Section */}
           <div className="col-span-1">
-            <h6 className="text-white font-[rejoice-body] text-lg mb-4">Quick Links</h6>
+            <h6 className="text-white font-[rejoice-body] text-lg mb-4">{t('quickLinksTitle')}</h6>
             <ul className="space-y-2">
               {quickLinks.map((link, i) => (
                 <li key={i}>
@@ -103,7 +104,7 @@ const Footer = () => {
 
           {/* Social Links Section */}
           <div className="col-span-1">
-            <h6 className="text-white text-lg mb-4 font-[rejoice-body]">Follow Us</h6>
+            <h6 className="text-white text-lg mb-4 font-[rejoice-body]">{t('followUs')}</h6>
             <ul className="space-y-2">
               {socialLinks.map((social, i) => (
                 <li key={i}>
@@ -149,13 +150,13 @@ const Footer = () => {
         <div className="border-t border-gray-800 pt-8 mt-8">
           <div className="flex flex-col sm:flex-row justify-between items-center">
             <p className="text-gray-300  text-sm mb-4 sm:mb-0">
-              ©{new Date().getFullYear()} <span className="font-semibold ">event parlour</span>. All rights reserved.
+              ©{new Date().getFullYear()} <span className="font-semibold ">event parlour</span>. {t('copyright').replace('©{year}', '').replace('event parlour.', '')}
             </p>
             <Link 
               href="/legal"
               className="text-gray-300 hover:text-white transition-colors text-sm"
             >
-              Legal
+              {t('legal')}
             </Link>
           </div>
         </div>

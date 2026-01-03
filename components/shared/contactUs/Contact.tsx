@@ -8,6 +8,7 @@ import { useState } from "react"
 import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaWhatsapp, FaInstagram, FaTiktok, FaLinkedin } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
 import { toast } from "sonner"
+import { useTranslations } from "@/lib/i18n/translations"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -41,6 +42,7 @@ export function ContactUs() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const t = useTranslations('ContactUsSection')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -115,13 +117,13 @@ export function ContactUs() {
               className="text-xs font-medium tracking-widest text-zinc-500 mb-4"
               variants={itemVariants}
             >
-              GET IN TOUCH
+              {t('sectionLabel')}
             </motion.p>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
-              Let&apos;s create something
+              {t('title')}
             </h2>
             <p className="text-zinc-400 text-base sm:text-lg max-w-2xl mx-auto">
-              Have a question or want to work together? We&apos;d love to hear from you.
+              {t('subtitle')}
             </p>
           </motion.div>
 
@@ -129,18 +131,17 @@ export function ContactUs() {
             {/* Contact info section */}
             <motion.div className="lg:col-span-2 space-y-6" variants={itemVariants}>
               <div className="bg-zinc-950 border border-zinc-800 p-6 md:p-8">
-                <h3 className="text-xl font-semibold text-white mb-6">Contact Information</h3>
+                <h3 className="text-xl font-semibold text-white mb-6">{t('contactInfo')}</h3>
                 <p className="text-zinc-400 leading-relaxed mb-8">
-                  <span className="font-bold text-white">Event Parlour</span> - event platform for everyone.
-                  Contact our dedicated support team for inquiries.
+                  <span className="font-bold text-white">Event Parlour</span> - {t('companyIntro')}
                 </p>
 
                 <div className="space-y-3">
                   {[
-                    { icon: FaMapMarkerAlt, text: "Nairobi, Kenya", link: null },
-                    { icon: FaEnvelope, text: "hello@eventparlour.com", link: "mailto:hello@eventparlour.com" },
-                    { icon: FaPhone, text: "+254 791 482 626", link: "tel:+254791482626" },
-                    { icon: FaClock, text: "Open - 24 hrs", link: null },
+                    { icon: FaMapMarkerAlt, text: t('location'), link: null },
+                    { icon: FaEnvelope, text: t('email'), link: `mailto:${t('email')}` },
+                    { icon: FaPhone, text: t('phone'), link: `tel:${t('phone').replace(/\s/g, '')}` },
+                    { icon: FaClock, text: t('hours'), link: null },
                   ].map((item, index) => (
                     <motion.a
                       key={index}
@@ -165,7 +166,7 @@ export function ContactUs() {
 
                 {/* Social media icons */}
                 <div className="mt-8 pt-6 border-t border-zinc-800">
-                  <h4 className="text-sm font-medium tracking-wider text-zinc-500 mb-4">CONNECT WITH US</h4>
+                  <h4 className="text-sm font-medium tracking-wider text-zinc-500 mb-4">{t('connectWithUs')}</h4>
                   <div className="flex flex-wrap gap-2">
                     {[
                       { icon: FaWhatsapp, url: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R", label: "WhatsApp" },
@@ -223,8 +224,8 @@ export function ContactUs() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       </motion.div>
-                      <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                      <p className="text-zinc-400">We&apos;ll get back to you as soon as possible.</p>
+                      <h3 className="text-2xl font-bold text-white mb-2">{t('messageSent')}</h3>
+                      <p className="text-zinc-400">{t('successMessage')}</p>
                     </motion.div>
                   ) : (
                     <motion.form
@@ -233,13 +234,13 @@ export function ContactUs() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     >
-                      <h2 className="text-xl font-semibold text-white mb-6">Send Us a Message</h2>
+                      <h2 className="text-xl font-semibold text-white mb-6">{t('formTitle')}</h2>
                       
                       <div className="space-y-5">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           {[
-                            { name: "name", label: "Full Name", type: "text", placeholder: "Enter your name" },
-                            { name: "email", label: "Email Address", type: "email", placeholder: "Enter your email" },
+                            { name: "name", label: t('fullName'), type: "text", placeholder: t('namePlaceholder') },
+                            { name: "email", label: t('emailAddress'), type: "email", placeholder: t('emailPlaceholder') },
                           ].map((field) => (
                             <div key={field.name}>
                               <label className="block text-sm font-medium text-zinc-400 mb-2">
@@ -260,7 +261,7 @@ export function ContactUs() {
 
                         <div>
                           <label className="block text-sm font-medium text-zinc-400 mb-2">
-                            Subject <span className="text-white">*</span>
+                            {t('subject')} <span className="text-white">*</span>
                           </label>
                           <input
                             type="text"
@@ -268,21 +269,21 @@ export function ContactUs() {
                             value={formState.subject}
                             onChange={handleInputChange}
                             className="w-full p-4 bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-600 focus:outline-none focus:border-white transition-colors"
-                            placeholder="What's your event about?"
+                            placeholder={t('subjectPlaceholder')}
                             required
                           />
                         </div>
 
                         <div>
                           <label className="block text-sm font-medium text-zinc-400 mb-2">
-                            Message <span className="text-white">*</span>
+                            {t('message')} <span className="text-white">*</span>
                           </label>
                           <textarea
                             name="message"
                             value={formState.message}
                             onChange={handleInputChange}
                             className="w-full p-4 bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-600 focus:outline-none focus:border-white h-32 resize-none transition-colors"
-                            placeholder="Tell us about your event requirements..."
+                            placeholder={t('messagePlaceholder')}
                             required
                           />
                         </div>
@@ -315,10 +316,10 @@ export function ContactUs() {
                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                   ></path>
                                 </svg>
-                                Sending...
+                                {t('sending')}
                               </div>
                             ) : (
-                              "Send Message"
+                              t('sendMessage')
                             )}
                           </Button>
                         </motion.div>

@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect } from "react"
+import { useTranslations } from "@/lib/i18n/translations"
 
 // Define card type for better type safety
 interface Card {
@@ -13,7 +14,7 @@ interface Card {
   statLabel: string
 }
 
-const cards: Card[] = [
+const defaultCards: Card[] = [
   {
     id: 1,
     title: "All-in-One Platform",
@@ -61,6 +62,29 @@ export default function ExpandingCards() {
   // Add responsive state to track vertical or horizontal layout
   const [isVerticalLayout, setIsVerticalLayout] = useState(false)
   const [isMobileView, setIsMobileView] = useState(false)
+  const t = useTranslations('ExpandingCards')
+
+  // Get translated cards
+  const getTranslatedCards = (): Card[] => {
+    try {
+      const cardsData = t('cards')
+      if (cardsData && cardsData !== 'cards') {
+        const parsed = JSON.parse(cardsData)
+        return [
+          { id: 1, ...parsed.allInOne },
+          { id: 2, ...parsed.builtForAfrica },
+          { id: 3, ...parsed.zeroFees },
+          { id: 4, ...parsed.realTimeInsights },
+          { id: 5, ...parsed.instantPayouts },
+        ]
+      }
+    } catch {
+      // Return default cards if parsing fails
+    }
+    return defaultCards
+  }
+
+  const cards = getTranslatedCards()
 
   // Calculate grid template based on active card
   const getGridTemplateColumns = () => {
@@ -109,10 +133,10 @@ export default function ExpandingCards() {
   return (
     <section className="py-8 sm:py-12 md:py-16 dark">
       <div className="container mx-auto px-4 sm:px-6 flex flex-col items-center">
-        <p className="text-xs font-medium tracking-widest text-zinc-500 mb-4">WHY EVENT PARLOUR</p>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-center text-white">The smarter way to run events</h1>
+        <p className="text-xs font-medium tracking-widest text-zinc-500 mb-4">{t('sectionLabel')}</p>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-center text-white">{t('title')}</h1>
         <p className="max-w-[60ch] text-balance text-center mb-8 sm:mb-12 md:mb-16 text-zinc-400 text-sm sm:text-base">
-          We built the platform we wished existed. No complexity, no hidden fees, just powerful tools that work.
+          {t('subtitle')}
         </p>
 
         <ul

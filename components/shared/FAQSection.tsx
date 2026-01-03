@@ -4,35 +4,45 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { useTranslations } from "@/lib/i18n/translations";
+
+const defaultFaqs = [
+  {
+    question: "How do I purchase tickets?",
+    answer:
+      "To purchase tickets, click on the 'Get Tickets' button on any event card. You'll need to sign in or create an account to complete your purchase.",
+  },
+  {
+    question: "Can I get a refund for my tickets?",
+    answer:
+      "Refunds are available up to 24 hours before the event starts, subject to the event organizer's policy. If you're unavailable and unable to attend, you can also transfer your ticket to someone else. Check the event details for more information.",
+  },
+  {
+    question: "Are events available internationally?",
+    answer:
+      "Yes, we feature events from various locations worldwide. Use the filters to find events near you or in specific regions.",
+  },
+  {
+    question: "How can I contact support?",
+    answer:
+      "You can reach our support team via email at support@example.com or through the 'Contact Us' page.",
+  },
+];
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const t = useTranslations('FAQSection');
 
-  const faqs = [
-    {
-      question: "How do I purchase tickets?",
-      answer:
-        "To purchase tickets, click on the 'Get Tickets' button on any event card. You'll need to sign in or create an account to complete your purchase.",
-    },
-
-
-
-    {
-      question: "Can I get a refund for my tickets?",
-      answer:
-        "Refunds are available up to 24 hours before the event starts, subject to the event organizer's policy. If you're unavailable and unable to attend, you can also transfer your ticket to someone else. Check the event details for more information.",
-    },
-    {
-      question: "Are events available internationally?",
-      answer:
-        "Yes, we feature events from various locations worldwide. Use the filters to find events near you or in specific regions.",
-    },
-    {
-      question: "How can I contact support?",
-      answer:
-        "You can reach our support team via email at support@example.com or through the 'Contact Us' page.",
-    },
-  ];
+  // Try to parse FAQs from translations, fallback to defaults
+  let faqs = defaultFaqs;
+  try {
+    const translatedFaqs = t('questions');
+    if (translatedFaqs && translatedFaqs !== 'questions') {
+      faqs = JSON.parse(translatedFaqs);
+    }
+  } catch {
+    // Use default FAQs if parsing fails
+  }
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -58,7 +68,7 @@ export default function FAQSection() {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="flex items-center mb-10"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mr-4">Frequently Asked Questions</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mr-4">{t('title')}</h2>
           <div className="flex-grow h-px bg-gradient-to-r from-gray-50 to-white"></div>
         </motion.div>
 

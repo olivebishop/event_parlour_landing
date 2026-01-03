@@ -2,6 +2,7 @@
     "Navbar": {
   "events": "Veranstaltungen",
   "accommodations": "Unterkünfte",
+  "features": "Funktionen",
   "why us": "Warum Wir",
   "venues": "Veranstaltungsorte",
   "contact": "Kontakt",
@@ -134,5 +135,191 @@
     "NoBeds": {
       "title": "Kein Hotel gefunden",
       "description": "Derzeit gibt es keine Hotels in dieser Kategorie. Schau später wieder vorbei oder erkunde andere Kategorien!"
+    },
+    "ExpandingCards": {
+      "sectionLabel": "WARUM EVENT PARLOUR",
+      "title": "Der intelligentere Weg, Veranstaltungen zu leiten",
+      "subtitle": "Wir haben die Plattform gebaut, die wir uns gewünscht haben. Keine Komplexität, keine versteckten Gebühren, nur leistungsstarke Tools, die funktionieren.",
+      "cards": {
+        "allInOne": {
+          "title": "All-in-One Plattform",
+          "description": "Hör auf, mit mehreren Tools zu jonglieren. Event Parlour vereint Ticketing, Analysen, Referentenmanagement und Auszahlungen in einem nahtlosen Arbeitsbereich.",
+          "stat": "1",
+          "statLabel": "Plattform für alles"
+        },
+        "builtForAfrica": {
+          "title": "Für Afrika gebaut",
+          "description": "Entwickelt mit lokalen Zahlungsmethoden, Mobile-First-Erfahrungen und Infrastruktur, die auf dem gesamten Kontinent funktioniert.",
+          "stat": "KE",
+          "statLabel": "Made in Nairobi"
+        },
+        "zeroFees": {
+          "title": "Null versteckte Gebühren",
+          "description": "Transparente Preisgestaltung ohne Überraschungen. Wissen Sie genau, was Sie zahlen und was Sie von jedem verkauften Ticket verdienen.",
+          "stat": "0%",
+          "statLabel": "Versteckte Gebühren"
+        },
+        "realTimeInsights": {
+          "title": "Echtzeit-Einblicke",
+          "description": "Treffen Sie datengesteuerte Entscheidungen mit Live-Dashboards, die Verkäufe, Demografie und Teilnahmemuster zeigen.",
+          "stat": "Live",
+          "statLabel": "Analyse-Dashboard"
+        },
+        "instantPayouts": {
+          "title": "Sofortige Auszahlungen",
+          "description": "Erhalten Sie Ihr Geld, wenn Sie es brauchen. Schnelle, zuverlässige Auszahlungen direkt auf Ihre bevorzugte Zahlungsmethode.",
+          "stat": "24h",
+          "statLabel": "Auszahlungsverarbeitung"
+        }
+      }
+    },
+    "FeaturesSection": {
+      "sectionLabel": "FÜR WACHSTUM GEBAUT",
+      "title": "Alles was Sie brauchen",
+      "subtitle": "Von der Veranstaltungserstellung bis zu bleibenden Erinnerungen. Alle Tools zum Erstellen, Verwalten und Besuchen unvergesslicher Veranstaltungen.",
+      "tabs": {
+        "organizers": "Für Veranstalter",
+        "attendees": "Für Teilnehmer"
+      },
+      "organizers": {
+        "dashboard": {
+          "label": "ZENTRALISIERTE KONTROLLE",
+          "title": "Verwalten Sie alles von einem Dashboard aus.",
+          "description": "Ihre Veranstaltungen, Team und Ressourcen - alles in einem leistungsstarken Arbeitsbereich.",
+          "capabilities": ["Multi-Event-Management", "Teamzusammenarbeit & Rollen", "Custom Branding", "Aktivitätsprotokolle"]
+        },
+        "speakers": {
+          "label": "TOP-TALENTE BUCHEN",
+          "title": "Finden und verwalten Sie Keynote-Sprecher.",
+          "description": "Suchen, buchen und koordinieren Sie Referenten für Ihre Tech- und Musikveranstaltungen.",
+          "capabilities": ["Referentenverzeichnis", "Buchung & Planung", "Vertragsmanagement", "Sitzungsplanung"]
+        },
+        "events": {
+          "label": "END-TO-END EVENTS",
+          "title": "Erstellen Sie Veranstaltungen, die ausverkauft sind.",
+          "description": "Von der Erstellung bis zum Check-in, verwalten Sie jeden Aspekt Ihrer Veranstaltungen.",
+          "capabilities": ["Event-Erstellungsassistent", "Venue-Management", "Agenda-Builder", "Multi-Ticket-Stufen"]
+        },
+        "analytics": {
+          "label": "DATENGESTEUERTE ENTSCHEIDUNGEN",
+          "title": "Analysen, die Wachstum antreiben.",
+          "description": "Echtzeit-Einblicke, um Ihr Publikum zu verstehen und die Leistung zu optimieren.",
+          "capabilities": ["Verkaufs-Dashboard", "Demografie", "Umsatzverfolgung", "Benutzerdefinierte Berichte"]
+        },
+        "payments": {
+          "label": "NAHTLOSE ZAHLUNGEN",
+          "title": "Verfolgen Sie jeden Verkauf, automatisieren Sie Auszahlungen.",
+          "description": "Vollständige finanzielle Übersicht mit integrierter Zahlungsabwicklung.",
+          "capabilities": ["Echtzeit-Tracking", "Mehrere Gateways", "Automatisierte Auszahlungen", "Rechnungserstellung"]
+        },
+        "postEvent": {
+          "label": "POST-EVENT MAGIE",
+          "title": "Halten Sie die Erinnerungen lebendig.",
+          "description": "Binden Sie Teilnehmer mit Recap-Links, Fotos und unvergesslichen Momenten ein.",
+          "capabilities": ["Recap-E-Mails", "Fotogalerien", "Teilbare Links", "Feedback-Umfragen"]
+        }
+      },
+      "attendees": {
+        "discover": {
+          "label": "ENTDECKE WAS ANGESAGT IST",
+          "title": "Finden Sie Veranstaltungen, die Sie lieben werden.",
+          "description": "Personalisierte Empfehlungen basierend auf Ihren Interessen und Ihrem Standort.",
+          "capabilities": ["Intelligente Empfehlungen", "Standortsuche", "Genre-Filter", "Kalender-Sync"]
+        },
+        "local": {
+          "label": "LOKAL & LIVE",
+          "title": "Veranstaltungen in Ihrer Nähe.",
+          "description": "Verpassen Sie nie lokale Events mit intelligenter standortbasierter Entdeckung.",
+          "capabilities": ["GPS-Finder", "Entfernungsfilter", "Trending Events", "Kartenexploration"]
+        },
+        "tickets": {
+          "label": "IHRE TICKETS, VEREINFACHT",
+          "title": "Alle Ihre Tickets an einem Ort.",
+          "description": "Einfacher Zugang, schnelle Transfers und nahtloser Einlass mit QR-Codes.",
+          "capabilities": ["Digitale Wallet", "QR-Code-Einlass", "Ticket-Transfers", "Kaufhistorie"]
+        },
+        "network": {
+          "label": "BAUEN SIE IHR NETZWERK AUF",
+          "title": "Verbinden Sie sich mit anderen Fans.",
+          "description": "Treffen Sie gleichgesinnte Teilnehmer und erweitern Sie Ihr Event-Netzwerk.",
+          "capabilities": ["Teilnehmerprofile", "In-Event-Messaging", "Gruppenkoordination", "Kontaktaustausch"]
+        },
+        "alerts": {
+          "label": "VERPASSEN SIE NICHTS",
+          "title": "Intelligente Benachrichtigungen für Events, die Sie interessieren.",
+          "description": "Werden Sie über neue Veranstaltungen, Preissenkungen und Check-in-Erinnerungen benachrichtigt.",
+          "capabilities": ["Event-Erinnerungen", "Preisalarme", "Neue Event-Benachrichtigungen", "Check-in-Aufforderungen"]
+        }
+      },
+      "includes": "Enthält",
+      "active": "Aktiv"
+    },
+    "Testimonials": {
+      "title": "Was unsere Kunden sagen",
+      "subtitle": "Von Veranstaltern bis zu Anbietern hat unsere Ticketing-Plattform revolutioniert, wie Veranstaltungen verwaltet und erlebt werden. Sehen Sie, wie unsere Lösung Unternehmen aller Größen befähigt hat, die Teilnahme zu steigern, Abläufe zu rationalisieren und unvergessliche Erlebnisse zu schaffen.",
+      "testimonials": [
+        {
+          "quote": "Diese Ticketing-Plattform hat die Art und Weise, wie wir unsere Musikfestivals verwalten, komplett transformiert. Der nahtlose Check-in-Prozess und die Echtzeit-Analysen haben uns geholfen, die Teilnahme um 30% zu steigern.",
+          "name": "Sarah Johnson",
+          "designation": "Veranstaltungsdirektorin bei SoundWave Festivals"
+        },
+        {
+          "quote": "Als Teilnehmer liebe ich, wie einfach es ist, Tickets zu kaufen, sie an Freunde zu übertragen und alle Veranstaltungsdetails an einem Ort zu finden. Die Mobile-Erfahrung ist makellos!",
+          "name": "Michael Chen",
+          "designation": "Regelmäßiger Tech-Konferenzbesucher"
+        },
+        {
+          "quote": "Als Anbieter bei mehreren Veranstaltungen hat diese Plattform unseren Buchungsprozess rationalisiert. Wir können jetzt unseren Zeitplan, Zahlungen und Kundenkommunikation mühelos verwalten.",
+          "name": "Emily Rodriguez",
+          "designation": "Inhaberin bei Gourmet Food Trucks"
+        },
+        {
+          "quote": "Als Tourmusiker hat diese Plattform revolutioniert, wie wir uns mit Veranstaltungsorten verbinden und Tickets verkaufen. Wir haben seit dem Wechsel zu diesem Service einen 45%igen Anstieg der Vorverkäufe gesehen.",
+          "name": "David Park",
+          "designation": "Leadsänger bei Neon Pulse"
+        },
+        {
+          "quote": "Die umfassenden Analysen haben uns geholfen, unser Publikum besser zu verstehen und unsere Firmenveranstaltungen an ihre Vorlieben anzupassen. Unsere Teilnehmerzufriedenheitswerte waren noch nie höher.",
+          "name": "Priya Sharma",
+          "designation": "Corporate Events Managerin bei TechGlobal"
+        },
+        {
+          "quote": "Das QR-Code-Ticketsystem hat das Einlassmanagement für unsere 5.000-Personen-Konferenz zum Kinderspiel gemacht. Keine langen Schlangen oder frustrierten Teilnehmer mehr!",
+          "name": "James Wilson",
+          "designation": "Operations Director bei DevCon"
+        }
+      ]
+    },
+    "ContactUsSection": {
+      "sectionLabel": "KONTAKT",
+      "title": "Lass uns gemeinsam etwas erschaffen",
+      "subtitle": "Haben Sie eine Frage oder möchten Sie zusammenarbeiten? Wir würden gerne von Ihnen hören.",
+      "contactInfo": "Kontaktinformationen",
+      "companyIntro": "Event Parlour - Veranstaltungsplattform für alle. Kontaktieren Sie unser engagiertes Support-Team für Anfragen.",
+      "location": "Nairobi, Kenia",
+      "email": "hello@eventparlour.com",
+      "phone": "+254 791 482 626",
+      "hours": "Geöffnet - 24 Stunden",
+      "connectWithUs": "VERBINDEN SIE SICH MIT UNS",
+      "formTitle": "Senden Sie uns eine Nachricht",
+      "fullName": "Vollständiger Name",
+      "namePlaceholder": "Geben Sie Ihren Namen ein",
+      "emailAddress": "E-Mail-Adresse",
+      "emailPlaceholder": "Geben Sie Ihre E-Mail ein",
+      "subject": "Betreff",
+      "subjectPlaceholder": "Worum geht es bei Ihrer Veranstaltung?",
+      "message": "Nachricht",
+      "messagePlaceholder": "Erzählen Sie uns von Ihren Veranstaltungsanforderungen...",
+      "sendMessage": "Nachricht senden",
+      "sending": "Wird gesendet...",
+      "messageSent": "Nachricht gesendet!",
+      "successMessage": "Wir werden uns so schnell wie möglich bei Ihnen melden."
+    },
+    "HeroSection": {
+      "title": "Veranstaltungen neu gedacht für",
+      "words": ["Veranstalter", "Teilnehmer", "Referenten", "Anbieter"],
+      "description": "Weil die besten Momente es verdienen, gelebt zu werden.",
+      "descriptionLine2": "Lass deine nächste Veranstaltung unvergesslich werden.",
+      "cta": "Erstelle jetzt deine Veranstaltung"
     }
   }

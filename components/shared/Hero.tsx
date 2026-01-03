@@ -6,6 +6,7 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import ArtGallery from "@/components/shared/ArtGallery"
+import { useTranslations } from "@/lib/i18n/translations"
 
 // Floating avatar images data - positioned around the content
 const avatars = [
@@ -32,9 +33,8 @@ const avatars = [
 ]
 
 // Word Animation Component
-function WordAnimation() {
+function WordAnimation({ words }: { words: string[] }) {
   const [index, setIndex] = useState(0)
-  const words = ["Organizers", "Attendees", "Speakers", "Vendors"]
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -96,6 +96,24 @@ function FloatingAvatar({
 }
 
 export default function Hero() {
+  const t = useTranslations('HeroSection')
+  
+  // Get translated words - handle both JSON string and fallback
+  const getWords = () => {
+    const defaultWords = ["Organizers", "Attendees", "Speakers", "Vendors"]
+    try {
+      const wordsValue = t('words')
+      if (wordsValue && wordsValue !== 'words' && wordsValue.startsWith('[')) {
+        return JSON.parse(wordsValue)
+      }
+      return defaultWords
+    } catch {
+      return defaultWords
+    }
+  }
+  
+  const words = getWords()
+  
   return (
     <section className="relative max-w-7xl mx-auto px-4 pt-32 sm:pt-36 md:pt-40 pb-10 text-center min-h-screen flex flex-col">
       {/* Content with floating avatars */}
@@ -117,9 +135,9 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-4xl sm:text-5xl md:text-6xl font-medium text-white mb-6 max-w-3xl mx-auto"
         >
-          Events reimagined for
+          {t('title')}
           <br />
-          <WordAnimation />
+          <WordAnimation words={words} />
         </motion.h1>
 
         {/* Description */}
@@ -129,9 +147,9 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-zinc-400 text-base sm:text-lg mb-8 max-w-xl mx-auto"
         >
-          Because the best moments deserve to be lived.
+          {t('description')}
           <br />
-          Let your next event be one to remember.
+          {t('descriptionLine2')}
         </motion.p>
 
         {/* Single CTA Button */}
@@ -146,7 +164,7 @@ export default function Hero() {
           }}
         >
           <Button size="lg" className="bg-white text-black hover:bg-zinc-200 px-8 py-6 text-base sm:text-lg font-medium">
-            Create your event now
+            {t('cta')}
           </Button>
         </motion.div>
       </div>

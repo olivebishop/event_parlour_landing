@@ -2,8 +2,9 @@
 
 import { AnimatedTestimonials } from "@/components/shared/animations/animated-testimonials";
 import ScrollReveal from "@/components/shared/animations/scroll-reveal";
+import { useTranslations } from "@/lib/i18n/translations";
 
-const testimonialsData = [
+const defaultTestimonials = [
   {
     quote: "This ticketing platform has completely transformed how we manage our music festivals. The seamless check-in process and real-time analytics have helped us increase attendance by 30%.",
     name: "Sarah Johnson",
@@ -42,14 +43,40 @@ const testimonialsData = [
   }
 ];
 
+const imageSources = [
+  "/images/dummy/z.jpg",
+  "/images/dummy/w.jpg",
+  "/images/dummy/x.jpg",
+  "/images/dummy/y.jpg",
+  "/images/dummy/z.jpg",
+  "/images/dummy/w.jpg"
+];
+
 export default function Testimonials() {
+  const t = useTranslations('Testimonials');
+  
+  // Try to parse testimonials from translations, fallback to defaults
+  let testimonialsData = defaultTestimonials;
+  try {
+    const translatedTestimonials = t('testimonials');
+    if (translatedTestimonials && translatedTestimonials !== 'testimonials') {
+      const parsed = JSON.parse(translatedTestimonials);
+      testimonialsData = parsed.map((item: { quote: string; name: string; designation: string }, index: number) => ({
+        ...item,
+        src: imageSources[index] || imageSources[0]
+      }));
+    }
+  } catch {
+    // Use default testimonials if parsing fails
+  }
+
   return (
     <div className="container mx-auto px-4">
       <ScrollReveal direction="up" duration={0.7} threshold={0.2}>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">What Our Clients Say</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t('title')}</h2>
           <p className="text-gray-100 text-sm md:text-base lg:text-lg max-w-sm md:max-w-xl lg:max-w-2xl mx-auto">
-            From organizers to vendors, our ticketing platform has revolutionized how events are managed and experienced. See how our solution has empowered businesses of all sizes to boost attendance, streamline operations, and create unforgettable experiences.
+            {t('subtitle')}
           </p>
         </div>
       </ScrollReveal>
