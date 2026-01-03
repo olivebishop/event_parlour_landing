@@ -3,80 +3,56 @@
 import type React from "react"
 
 import { useState, useEffect } from "react"
-import Image from "next/image"
 
 // Define card type for better type safety
 interface Card {
   id: number
   title: string
   description: string
-  features: string[]
-  image: string
-  subtext?: string
+  stat: string
+  statLabel: string
 }
 
 const cards: Card[] = [
   {
     id: 1,
-    title: "Organizers",
+    title: "All-in-One Platform",
     description:
-      "Sell tickets, access analytics, manage speaker lists for tech and music events.",
-    features: [
-      "• Ticket Sales",
-      "• Event Analytics",
-      "• Speaker Management",
-      "• Merchandise Sales",
-      "• Profile Customization",
-    ],
-    image: "/images/org.svg",
+      "Stop juggling multiple tools. Event Parlour unifies ticketing, analytics, speaker management, and payouts in one seamless workspace.",
+    stat: "1",
+    statLabel: "Platform for everything",
   },
   {
     id: 2,
-    title: "Attendees",
+    title: "Built for Africa",
     description:
-      "Discover and attend events, manage your tickets, and connect with other attendees. Transfer tickets easily and build your event network.",
-    features: ["• Event Discovery", "• Ticket Transfers", "• Peer Connection", "• Event Calendar", "• Digital Tickets"],
-    image: "/images/attendee.svg",
+      "Designed with local payment methods, mobile-first experiences, and infrastructure that works across the continent.",
+    stat: "KE",
+    statLabel: "Made in Nairobi",
   },
   {
     id: 3,
-    title: "Vendors",
+    title: "Zero Hidden Fees",
     description:
-      "Join our event vendor network to start offering your services for exciting events and create unforgettable experiences.",
-    subtext: "Venue providers • Equipment rentals • Food Vendors",
-    features: [
-      "• Service Listings",
-      "• Payment Processing",
-      "• Event Applications",
-      "• Booking Management & Analytics",
-    ],
-    image: "/images/vendor.svg",
+      "Transparent pricing with no surprises. Know exactly what you pay and what you earn from every ticket sold.",
+    stat: "0%",
+    statLabel: "Hidden charges",
   },
   {
     id: 4,
-    title: "Speakers",
-    description: "Create your speaker profile, connect with event organizers, and manage your speaking engagements.",
-    features: [
-      "• Profile Creation",
-      "• Engagement Calendar",
-      "• Topic Management",
-      "• Direct Booking",
-      "• Performance Analytics",
-    ],
-    image: "/images/speaker.svg",
+    title: "Real-Time Insights",
+    description:
+      "Make data-driven decisions with live dashboards showing sales, demographics, and attendance patterns as they happen.",
+    stat: "Live",
+    statLabel: "Analytics dashboard",
   },
   {
     id: 5,
-    title: "Musicians",
-    description: "Showcase your talent, sell merchandise, and connect with event organizers for live performances.",
-    features: [
-      "• Performance Booking",
-      "• Merchandise Sales",
-      "• Music Samples",
-      "• Tour Management",
-      "• Fan Engagement",
-    ],
-    image: "/images/musician.svg",
+    title: "Instant Payouts",
+    description:
+      "Get your money when you need it. Fast, reliable payouts directly to your preferred payment method.",
+    stat: "24h",
+    statLabel: "Payout processing",
   },
 ]
 
@@ -133,10 +109,10 @@ export default function ExpandingCards() {
   return (
     <section className="py-8 sm:py-12 md:py-16 dark">
       <div className="container mx-auto px-4 sm:px-6 flex flex-col items-center">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-center">Empowering Event Experiences</h1>
-        <p className="max-w-[74ch] text-balance text-center mb-8 sm:mb-12 md:mb-16 opacity-80 text-xs sm:text-sm md:text-base">
-          Unlock the art and science of event management. This isn&apos;t just about organizing events or following schedules
-          — it&apos;s about mastering the tools, understanding the nuances, and shaping experiences with intention.
+        <p className="text-xs font-medium tracking-widest text-zinc-500 mb-4">WHY EVENT PARLOUR</p>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-center text-white">The smarter way to run events</h1>
+        <p className="max-w-[60ch] text-balance text-center mb-8 sm:mb-12 md:mb-16 text-zinc-400 text-sm sm:text-base">
+          We built the platform we wished existed. No complexity, no hidden fees, just powerful tools that work.
         </p>
 
         <ul
@@ -165,45 +141,47 @@ export default function ExpandingCards() {
                 key={card.id}
                 className={`card-item relative overflow-hidden ${
                   isVerticalLayout ? "min-h-[var(--base)]" : "min-w-[var(--base)]"
-                } border border-zinc-800 bg-black ${isActive ? "active" : ""}`}
+                } border border-zinc-800 bg-zinc-950 ${isActive ? "active" : ""}`}
                 data-active={isActive.toString()}
                 onClick={() => handleCardInteraction(card.id)}
                 onMouseEnter={() => !isMobileView ? handleCardInteraction(card.id) : null}
               >
-                {/* Image with overlay for better text readability */}
-                <div className="absolute inset-0 w-full h-full z-0 hidden sm:block">
-                  <Image
-                    src={card.image || "/placeholder.svg"}
-                    alt=""
-                    fill
-                    className={`object-cover pointer-events-none transition-all duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]
-                     ${isActive ? "filter-none scale-100 blur-sm" : "filter grayscale(70%) brightness-50 scale-105 blur-sm"}
-                    `}
+                {/* Background gradient design */}
+                <div className={`
+                  absolute inset-0 transition-all duration-700 ease-out
+                  ${isActive 
+                    ? "opacity-100" 
+                    : "opacity-0"}
+                `}>
+                  {/* Radial gradient from corner */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-zinc-800/50 via-zinc-900/30 to-transparent" />
+                  {/* Subtle grid pattern overlay */}
+                  <div 
+                    className="absolute inset-0 opacity-[0.03]"
                     style={{
-                      maskImage: isActive 
-                        ? "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.5) 100%)" 
-                        : "radial-gradient(100% 100% at 100% 0, rgba(255,255,255,0.5), rgba(0,0,0,0))",
+                      backgroundImage: `linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)`,
+                      backgroundSize: '40px 40px'
                     }}
                   />
-                  {/* Dark overlay for better contrast */}
-                  <div 
-                    className={`absolute inset-0 bg-black transition-opacity duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]
-                      ${isActive ? "opacity-40" : "opacity-60"}
-                    `}
-                  ></div>
+                  {/* Accent glow based on card position */}
+                  <div className={`
+                    absolute w-32 h-32 rounded-full blur-3xl transition-all duration-700
+                    ${card.id === 1 ? "bg-white/10 -top-10 -left-10" : ""}
+                    ${card.id === 2 ? "bg-white/10 -bottom-10 -right-10" : ""}
+                    ${card.id === 3 ? "bg-white/10 top-1/2 -translate-y-1/2 -left-10" : ""}
+                    ${card.id === 4 ? "bg-white/10 -top-10 right-10" : ""}
+                    ${card.id === 5 ? "bg-white/10 -bottom-10 left-1/2 -translate-x-1/2" : ""}
+                  `} />
                 </div>
                 
-                {/* Animated background gradient that rises from bottom - MODIFIED to cover only up to description on larger screens */}
-                <div 
-                  className={`
-                    absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black to-transparent
-                    transition-all duration-700 ease-in-out z-5
-                    ${isVerticalLayout 
-                      ? (isActive ? 'h-full' : 'h-0') 
-                      : (isActive ? 'h-1/3' : 'h-0')}
-                  `}
-                ></div>
-                
+                {/* Bottom fade gradient for text readability */}
+                <div className={`
+                  absolute bottom-0 left-0 right-0 h-2/3 
+                  bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent
+                  transition-opacity duration-500
+                  ${isActive ? "opacity-100" : "opacity-0"}
+                `} />
+
                 <article className={`w-full h-full absolute top-0 left-0 flex flex-col ${isActive && isVerticalLayout ? "justify-start pt-14" : "justify-end"} gap-2 sm:gap-4 p-3 sm:p-4 overflow-hidden font-mono z-10`}>
                   <h3 className={`
                     text-base font-light uppercase text-white transition-all duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]
@@ -216,16 +194,6 @@ export default function ExpandingCards() {
                     {card.title}
                   </h3>
 
-                  {/* Content backdrop for better text visibility - MODIFIED for better text readability */}
-                  <div className={`
-                    absolute bottom-0 left-0 right-0 bg-black bg-opacity-70
-                    transition-all duration-500 ease-in-out
-                    ${isVerticalLayout 
-                      ? (isActive ? 'h-3/4 opacity-70' : 'h-0 opacity-0')
-                      : (isActive ? 'h-1/3 opacity-70' : 'h-0 opacity-0')}
-                    transform ${isActive ? 'translate-y-0' : 'translate-y-full'}
-                  `}></div>
-
                   <div className={`
                     flex flex-col gap-2 
                     ${isActive ? "opacity-100" : "opacity-0"} 
@@ -234,24 +202,16 @@ export default function ExpandingCards() {
                     ${isVerticalLayout && isActive ? "mt-2" : ""}
                     relative z-20
                   `}>
-                    <p className="text-xs sm:text-sm text-balance leading-tight text-white">
+                    <p className="text-xs sm:text-sm text-balance leading-tight text-zinc-300">
                       {card.description}
                     </p>
                     
-                    {/* MODIFIED to only show features on vertical/mobile layout */}
-                    {isActive && isVerticalLayout && (
-                      <ul className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-1 text-xs">
-                        {card.features.slice(0, isMobileView ? 3 : 5).map((feature, index) => (
-                          <li key={index} className="text-zinc-200">{feature}</li>
-                        ))}
-                      </ul>
-                    )}
-                    
-                    {/* MODIFIED to only show subtext on vertical/mobile layout */}
-                    {card.subtext && isActive && isVerticalLayout && (
-                      <p className="text-xs text-zinc-300 mt-1">
-                        {card.subtext}
-                      </p>
+                    {/* Stat highlight */}
+                    {isActive && (
+                      <div className="mt-3 flex items-baseline gap-2">
+                        <span className="text-2xl sm:text-3xl font-bold text-white">{card.stat}</span>
+                        <span className="text-xs text-zinc-400">{card.statLabel}</span>
+                      </div>
                     )}
                   </div>
                 </article>
