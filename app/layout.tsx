@@ -10,6 +10,7 @@ import { NetworkProvider } from "@/lib/providers/network-provider"
 import "./globals.css"
 import TawkToChat from '@/components/shared/TawkToChat';
 import { Toaster } from "@/components/ui/toaster"
+import { ConsentManager } from "./consent-manager";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -96,44 +97,48 @@ export default async function RootLayout({
   const messages = (await import(`../messages/${locale}.json`)).default
 
   return (
-    <html lang={locale}>
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#171717" />
-        <meta name="google-site-verification" content="google-site-verification: google6fd33e29e29c5c47.html" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": ["Organization", "LodgingBusiness", "EventVenue", "Event", "Ticketting"],
-              name: "Event Parlour",
-              url: siteUrl,
-              logo: `${siteUrl}/logo.png`,
-              description:
-                "A platform to discover, host events, and book event-specific accommodations for organizers, attendees, and speakers.",
-              sameAs: [
-                "https://x.com/EventsPalour",
-                "https://www.facebook.com/eventparlour",
-                "https://www.instagram.com/eventparlour",
-              ],
-            }),
-          }}
-        />
-      </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} ${figtree.variable} antialiased bg-[#171717] text-white`}>
-        <TranslationProvider messages={messages} locale={locale}>
-          <NetworkProvider>
-            {children}
-          </NetworkProvider>
-          <Toaster />
-          <GoogleAnalytics gaId="G-VSXHC4Y9YQ" />
-          <SpeedInsights />
-          <Analytics />
-        </TranslationProvider>
-        <TawkToChat />
-      </body>
-    </html>
-  )
+        <html lang={locale}>
+          <head>
+            <link rel="icon" href="/favicon.ico" sizes="any" />
+            <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+            <meta name="theme-color" content="#171717" />
+            <meta name="google-site-verification" content="google-site-verification: google6fd33e29e29c5c47.html" />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": ["Organization", "LodgingBusiness", "EventVenue", "Event", "Ticketting"],
+                  name: "Event Parlour",
+                  url: siteUrl,
+                  logo: `${siteUrl}/logo.png`,
+                  description:
+                    "A platform to discover, host events, and book event-specific accommodations for organizers, attendees, and speakers.",
+                  sameAs: [
+                    "https://x.com/EventsPalour",
+                    "https://www.facebook.com/eventparlour",
+                    "https://www.instagram.com/eventparlour",
+                  ],
+                }),
+              }}
+            />
+          </head>
+          <body className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} ${figtree.variable} antialiased bg-[#171717] text-white`}>
+    		<ConsentManager>
+    			
+            <TranslationProvider messages={messages} locale={locale}>
+              <NetworkProvider>
+                {children}
+              </NetworkProvider>
+              <Toaster />
+              <GoogleAnalytics gaId="G-VSXHC4Y9YQ" />
+              <SpeedInsights />
+              <Analytics />
+            </TranslationProvider>
+            <TawkToChat />
+          
+    		</ConsentManager>
+    	</body>
+        </html>
+      )
 }
