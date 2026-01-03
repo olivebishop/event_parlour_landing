@@ -8,49 +8,38 @@ import {
   BarChart3, 
   CreditCard, 
   Mic2, 
-  Settings, 
+  Settings,
   Ticket, 
   MapPin, 
-  Share2, 
-  Home,
-  Store,
   CheckCircle2,
-  ArrowRight,
-  Sparkles,
-  Image as ImageIcon,
-  Link2,
-  Clock,
   Globe,
   Bell,
-  Wallet,
   LayoutDashboard,
   UserPlus,
-  CalendarDays,
-  FileText,
-  Mail
+  Image as ImageIcon,
+  TrendingUp,
+  Zap,
+  ArrowUpRight,
 } from "lucide-react"
 import ScrollReveal from "@/components/shared/animations/scroll-reveal"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
-// Feature categories
-type CategoryKey = "organizers" | "attendees" | "vendors"
+type CategoryKey = "organizers" | "attendees"
 
 interface Feature {
   icon: React.ReactNode
+  label: string
   title: string
   description: string
   capabilities: string[]
-  comingSoon?: boolean
-  image?: string
+  accent?: string
 }
 
 interface Category {
   id: CategoryKey
   label: string
   icon: React.ReactNode
-  tagline: string
-  description: string
   features: Feature[]
 }
 
@@ -59,79 +48,77 @@ const categories: Category[] = [
     id: "organizers",
     label: "For Organizers",
     icon: <Settings className="w-4 h-4" />,
-    tagline: "Everything you need to run successful events",
-    description: "Powerful tools to manage your events from start to finish. Track sales, manage speakers, analyze performance, and create lasting memories for your attendees.",
     features: [
       {
-        icon: <LayoutDashboard className="w-6 h-6" />,
-        title: "Workspace Management",
-        description: "Centralized dashboard to manage all your events, team members, and resources in one place.",
+        icon: <LayoutDashboard className="w-5 h-5" />,
+        label: "CENTRALIZED CONTROL",
+        title: "Manage everything from one dashboard.",
+        description: "Your events, team, and resources—all in one powerful workspace.",
         capabilities: [
           "Multi-event management",
           "Team collaboration & roles",
-          "Custom branding per workspace",
-          "Resource allocation",
-          "Activity logs & audit trails"
+          "Custom branding",
+          "Activity logs"
         ]
       },
       {
-        icon: <Mic2 className="w-6 h-6" />,
-        title: "Keynote Speaker Management",
-        description: "Find, book, and manage keynote speakers for your tech and music events with ease.",
+        icon: <Mic2 className="w-5 h-5" />,
+        label: "BOOK TOP TALENT",
+        title: "Find and manage keynote speakers.",
+        description: "Search, book, and coordinate speakers for your tech and music events.",
         capabilities: [
-          "Speaker directory & search",
+          "Speaker directory",
           "Booking & scheduling",
           "Contract management",
-          "Speaker travel & logistics",
-          "Session planning & agenda"
+          "Session planning"
         ]
       },
       {
-        icon: <Calendar className="w-6 h-6" />,
-        title: "Event Management",
-        description: "Create, customize, and manage every aspect of your events from a single powerful interface.",
+        icon: <Calendar className="w-5 h-5" />,
+        label: "END-TO-END EVENTS",
+        title: "Create events that sell out.",
+        description: "From creation to check-in, manage every aspect of your events.",
         capabilities: [
           "Event creation wizard",
           "Venue management",
-          "Agenda & schedule builder",
-          "Attendee capacity control",
-          "Multi-ticket types & tiers"
+          "Agenda builder",
+          "Multi-ticket tiers"
         ]
       },
       {
-        icon: <BarChart3 className="w-6 h-6" />,
-        title: "Analytics & Insights",
-        description: "Real-time analytics to understand your audience and optimize your event performance.",
+        icon: <BarChart3 className="w-5 h-5" />,
+        label: "DATA-DRIVEN DECISIONS",
+        title: "Analytics that drive growth.",
+        description: "Real-time insights to understand your audience and optimize performance.",
         capabilities: [
-          "Ticket sales dashboard",
-          "Attendee demographics",
+          "Sales dashboard",
+          "Demographics",
           "Revenue tracking",
-          "Conversion funnels",
-          "Custom reports & exports"
+          "Custom reports"
         ]
       },
       {
-        icon: <CreditCard className="w-6 h-6" />,
-        title: "Track Sales & Payments",
-        description: "Complete financial oversight with integrated payment processing and revenue tracking.",
+        icon: <CreditCard className="w-5 h-5" />,
+        label: "SEAMLESS PAYMENTS",
+        title: "Track every sale, automate payouts.",
+        description: "Complete financial oversight with integrated payment processing.",
         capabilities: [
-          "Real-time sales tracking",
-          "Multiple payment gateways",
+          "Real-time tracking",
+          "Multiple gateways",
           "Automated payouts",
-          "Refund management",
-          "Tax & invoice generation"
+          "Invoice generation"
         ]
       },
       {
-        icon: <ImageIcon className="w-6 h-6" />,
-        title: "Post-Event Memories",
-        description: "Keep attendees engaged after the event with recap links, photos, and memorable moments.",
+        icon: <ImageIcon className="w-5 h-5" />,
+        label: "POST-EVENT MAGIC",
+        title: "Keep the memories alive.",
+        description: "Engage attendees with recap links, photos, and memorable moments.",
         capabilities: [
-          "Event recap emails",
-          "Photo & video galleries",
-          "Shareable memory links",
-          "Attendee feedback surveys",
-          "Event highlights compilation"
+          "Recap emails",
+          "Photo galleries",
+          "Shareable links",
+          "Feedback surveys"
         ]
       }
     ]
@@ -140,215 +127,289 @@ const categories: Category[] = [
     id: "attendees",
     label: "For Attendees",
     icon: <Users className="w-4 h-4" />,
-    tagline: "Discover, attend, and connect",
-    description: "Discover and attend events, manage your tickets, and connect with other attendees. Transfer tickets easily and build your event network.",
     features: [
       {
-        icon: <Globe className="w-6 h-6" />,
-        title: "Discover Events",
-        description: "Find exciting events happening around you based on your interests and location.",
+        icon: <Globe className="w-5 h-5" />,
+        label: "DISCOVER WHAT'S HOT",
+        title: "Find events you'll love.",
+        description: "Personalized recommendations based on your interests and location.",
         capabilities: [
-          "Personalized recommendations",
-          "Location-based search",
-          "Category & genre filters",
-          "Event calendar sync",
-          "Save & bookmark events"
+          "Smart recommendations",
+          "Location search",
+          "Genre filters",
+          "Calendar sync"
         ]
       },
       {
-        icon: <MapPin className="w-6 h-6" />,
-        title: "Events Near You",
-        description: "Never miss local events with smart location-based discovery and notifications.",
+        icon: <MapPin className="w-5 h-5" />,
+        label: "LOCAL & LIVE",
+        title: "Events happening near you.",
+        description: "Never miss local events with smart location-based discovery.",
         capabilities: [
-          "GPS-based event finder",
-          "Radius & distance filters",
-          "Local trending events",
-          "Neighborhood alerts",
-          "Map view exploration"
+          "GPS finder",
+          "Distance filters",
+          "Trending events",
+          "Map exploration"
         ]
       },
       {
-        icon: <Ticket className="w-6 h-6" />,
-        title: "Ticket Management",
-        description: "All your tickets in one place with easy access and transfer capabilities.",
+        icon: <Ticket className="w-5 h-5" />,
+        label: "YOUR TICKETS, SIMPLIFIED",
+        title: "All your tickets in one place.",
+        description: "Easy access, quick transfers, and seamless entry with QR codes.",
         capabilities: [
-          "Digital ticket wallet",
+          "Digital wallet",
           "QR code entry",
           "Ticket transfers",
-          "Purchase history",
-          "Refund requests"
+          "Purchase history"
         ]
       },
       {
-        icon: <UserPlus className="w-6 h-6" />,
-        title: "Connect & Network",
-        description: "Build your event network and connect with like-minded attendees.",
+        icon: <UserPlus className="w-5 h-5" />,
+        label: "BUILD YOUR NETWORK",
+        title: "Connect with fellow fans.",
+        description: "Meet like-minded attendees and grow your event network.",
         capabilities: [
           "Attendee profiles",
           "In-event messaging",
-          "Social connections",
           "Group coordination",
           "Contact exchange"
         ]
       },
       {
-        icon: <Home className="w-6 h-6" />,
-        title: "Event Stays",
-        description: "Book accommodation based on event location for a seamless experience.",
-        capabilities: [
-          "Nearby accommodations",
-          "Event-based booking",
-          "Group lodging options",
-          "Verified listings",
-          "Integrated checkout"
-        ],
-        comingSoon: true
-      },
-      {
-        icon: <Bell className="w-6 h-6" />,
-        title: "Smart Notifications",
-        description: "Stay updated with personalized alerts for events you care about.",
+        icon: <Bell className="w-5 h-5" />,
+        label: "NEVER MISS OUT",
+        title: "Smart alerts for events you care about.",
+        description: "Get notified about new events, price drops, and check-in reminders.",
         capabilities: [
           "Event reminders",
-          "Price drop alerts",
+          "Price alerts",
           "New event notifications",
-          "Check-in prompts",
-          "Post-event updates"
+          "Check-in prompts"
         ]
-      }
-    ]
-  },
-  {
-    id: "vendors",
-    label: "For Vendors",
-    icon: <Store className="w-4 h-4" />,
-    tagline: "Join our event vendor network",
-    description: "Join our event vendor network to start offering your services for exciting events and create unforgettable experiences.",
-    features: [
-      {
-        icon: <FileText className="w-6 h-6" />,
-        title: "Service Listings",
-        description: "Showcase your services with rich profiles and portfolios to attract event organizers.",
-        capabilities: [
-          "Custom service profiles",
-          "Portfolio showcase",
-          "Pricing packages",
-          "Availability calendar",
-          "Reviews & ratings"
-        ],
-        comingSoon: true
-      },
-      {
-        icon: <CalendarDays className="w-6 h-6" />,
-        title: "Booking Management",
-        description: "Manage all your event bookings, schedules, and client communications in one place.",
-        capabilities: [
-          "Booking calendar",
-          "Request management",
-          "Client communication",
-          "Contract templates",
-          "Booking confirmations"
-        ],
-        comingSoon: true
-      },
-      {
-        icon: <Wallet className="w-6 h-6" />,
-        title: "Payment Processing",
-        description: "Secure payment handling with multiple payout options and financial tracking.",
-        capabilities: [
-          "Secure payments",
-          "Multiple payout methods",
-          "Invoice generation",
-          "Payment tracking",
-          "Earning reports"
-        ],
-        comingSoon: true
-      },
-      {
-        icon: <BarChart3 className="w-6 h-6" />,
-        title: "Vendor Analytics",
-        description: "Track your performance, bookings, and revenue with detailed analytics.",
-        capabilities: [
-          "Booking statistics",
-          "Revenue tracking",
-          "Performance metrics",
-          "Client insights",
-          "Growth reports"
-        ],
-        comingSoon: true
-      },
-      {
-        icon: <Mail className="w-6 h-6" />,
-        title: "Event Applications",
-        description: "Apply to participate in events and get discovered by organizers looking for vendors.",
-        capabilities: [
-          "Browse event opportunities",
-          "One-click applications",
-          "Application tracking",
-          "Direct organizer contact",
-          "Event matching"
-        ],
-        comingSoon: true
-      },
-      {
-        icon: <Users className="w-6 h-6" />,
-        title: "Vendor Network",
-        description: "Connect with other vendors, collaborate on events, and grow your network.",
-        capabilities: [
-          "Vendor community",
-          "Collaboration opportunities",
-          "Referral program",
-          "Industry insights",
-          "Networking events"
-        ],
-        comingSoon: true
       }
     ]
   }
 ]
 
-function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
+// Shotgun-style feature block with staggered visuals
+function FeatureBlock({ feature, index, isReversed }: { feature: Feature; index: number; isReversed: boolean }) {
+  const stats = [
+    { value: "98%", label: "Success rate" },
+    { value: "2.5x", label: "Faster setup" },
+    { value: "50K+", label: "Events hosted" },
+  ]
+  
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={cn(
-        "group relative bg-zinc-900/50 border border-zinc-800 rounded-xl p-6 hover:border-zinc-700 transition-all duration-300",
-        feature.comingSoon && "opacity-80"
-      )}
-    >
-      {/* Coming Soon Badge */}
-      {feature.comingSoon && (
-        <div className="absolute top-4 right-4">
-          <Badge className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-400 border-amber-500/30 text-xs">
-            <Sparkles className="w-3 h-3 mr-1" />
-            Coming Soon
-          </Badge>
-        </div>
-      )}
+    <div className="py-20 lg:py-32">
+      <div className={cn(
+        "grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center",
+        isReversed && "lg:[direction:rtl]"
+      )}>
+        {/* Content Side */}
+        <motion.div 
+          className="space-y-6 lg:[direction:ltr]"
+          initial={{ opacity: 0, x: isReversed ? 40 : -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {/* Label */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="flex items-center gap-2"
+          >
+            <div className="w-8 h-8 bg-white flex items-center justify-center">
+              <div className="text-black">{feature.icon}</div>
+            </div>
+            <span className="text-xs font-medium tracking-widest text-zinc-500">
+              {feature.label}
+            </span>
+          </motion.div>
 
-      {/* Icon */}
-      <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center mb-4 group-hover:from-white/15 group-hover:to-white/10 transition-colors">
-        <div className="text-white">
-          {feature.icon}
-        </div>
+          {/* Title */}
+          <motion.h3 
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            {feature.title}
+          </motion.h3>
+
+          {/* Description */}
+          <motion.p 
+            className="text-zinc-400 text-lg leading-relaxed max-w-md"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            {feature.description}
+          </motion.p>
+
+          {/* Capabilities */}
+          <motion.div 
+            className="flex flex-wrap gap-2 pt-2"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
+            {feature.capabilities.map((capability, idx) => (
+              <motion.span 
+                key={idx}
+                className="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-sm text-zinc-400"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 + idx * 0.05, duration: 0.4 }}
+                whileHover={{ 
+                  backgroundColor: "rgb(255 255 255)",
+                  color: "rgb(0 0 0)",
+                  borderColor: "rgb(255 255 255)"
+                }}
+              >
+                {capability}
+              </motion.span>
+            ))}
+          </motion.div>
+        </motion.div>
+
+        {/* Visual Side - Shotgun-style staggered mockup */}
+        <motion.div 
+          className="relative lg:[direction:ltr]"
+          initial={{ opacity: 0, x: isReversed ? -40 : 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="relative">
+            {/* Main card */}
+            <motion.div 
+              className="relative bg-zinc-950 border border-zinc-800 p-6 sm:p-8"
+              whileHover={{ borderColor: "rgb(63 63 70)" }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Header */}
+              <motion.div 
+                className="flex items-center justify-between pb-6 border-b border-zinc-800"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white flex items-center justify-center">
+                    <div className="w-5 h-5 text-black">{feature.icon}</div>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-white">{feature.title.split('.')[0]}</p>
+                    <p className="text-xs text-zinc-500">Active now</p>
+                  </div>
+                </div>
+                <motion.div 
+                  className="w-8 h-8 border border-zinc-700 flex items-center justify-center cursor-pointer"
+                  whileHover={{ backgroundColor: "rgb(255 255 255)", borderColor: "rgb(255 255 255)" }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <ArrowUpRight className="w-4 h-4 text-zinc-400" />
+                </motion.div>
+              </motion.div>
+
+              {/* Stats row */}
+              <div className="grid grid-cols-3 gap-4 py-6">
+                {stats.map((stat, idx) => (
+                  <motion.div 
+                    key={idx}
+                    className="text-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5 + idx * 0.1, duration: 0.5 }}
+                  >
+                    <motion.p 
+                      className="text-2xl sm:text-3xl font-bold text-white"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.7 + idx * 0.1, duration: 0.4 }}
+                    >
+                      {stat.value}
+                    </motion.p>
+                    <p className="text-xs text-zinc-500 mt-1">{stat.label}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Progress bars */}
+              <div className="space-y-4 pt-4 border-t border-zinc-800">
+                {feature.capabilities.slice(0, 3).map((cap, idx) => (
+                  <motion.div 
+                    key={idx}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.6 + idx * 0.1, duration: 0.4 }}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm text-zinc-400">{cap}</span>
+                      <span className="text-sm text-white">{85 + idx * 5}%</span>
+                    </div>
+                    <div className="h-1 bg-zinc-800">
+                      <motion.div 
+                        className="h-full bg-white"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${85 + idx * 5}%` }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.8 + idx * 0.1, duration: 0.8, ease: "easeOut" }}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Floating accent card */}
+            <motion.div 
+              className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-white p-4 sm:p-5 w-32 sm:w-40"
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.9, duration: 0.5, type: "spring", stiffness: 200 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingUp className="w-4 h-4 text-black" />
+                <span className="text-xs font-medium text-zinc-600">Growth</span>
+              </div>
+              <p className="text-2xl font-bold text-black">+127%</p>
+              <p className="text-xs text-zinc-500">vs last month</p>
+            </motion.div>
+
+            {/* Floating status indicator */}
+            <motion.div 
+              className="absolute -top-3 -left-3 sm:-top-4 sm:-left-4 bg-zinc-900 border border-zinc-800 px-3 py-2 flex items-center gap-2"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1, duration: 0.5 }}
+            >
+              <motion.div 
+                className="w-2 h-2 bg-white"
+                animate={{ opacity: [1, 0.4, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              <span className="text-xs text-zinc-400">Live</span>
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
-
-      {/* Title & Description */}
-      <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
-      <p className="text-sm text-zinc-400 mb-4 leading-relaxed">{feature.description}</p>
-
-      {/* Capabilities */}
-      <ul className="space-y-2">
-        {feature.capabilities.map((capability, idx) => (
-          <li key={idx} className="flex items-start gap-2 text-sm text-zinc-300">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-            <span>{capability}</span>
-          </li>
-        ))}
-      </ul>
-    </motion.div>
+    </div>
   )
 }
 
@@ -362,18 +423,21 @@ function CategoryTab({
   onClick: () => void 
 }) {
   return (
-    <button
+    <motion.button
       onClick={onClick}
       className={cn(
-        "flex items-center gap-2 px-4 sm:px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap",
+        "flex items-center gap-2 px-5 sm:px-8 py-3 sm:py-4 text-sm font-medium transition-all duration-300 whitespace-nowrap",
         isActive 
-          ? "bg-white text-black shadow-lg shadow-white/10" 
-          : "bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800 hover:text-white border border-zinc-700/50"
+          ? "bg-white text-black" 
+          : "bg-transparent text-zinc-500 hover:text-white"
       )}
+      whileHover={{ scale: isActive ? 1 : 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 400, damping: 17 }}
     >
       {category.icon}
       <span>{category.label}</span>
-    </button>
+    </motion.button>
   )
 }
 
@@ -383,19 +447,25 @@ export default function FeaturesSection() {
   const currentCategory = categories.find(c => c.id === activeCategory) || categories[0]
 
   return (
-    <section className="py-16 sm:py-20 lg:py-28 dark">
+    <section className="py-20 sm:py-28 lg:py-36 dark overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <ScrollReveal direction="up" duration={0.7} threshold={0.2}>
-          <div className="text-center mb-12 sm:mb-16">
-            <Badge className="mb-4 bg-zinc-800 text-zinc-300 border-zinc-700">
-              Features
-            </Badge>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+          <div className="text-center mb-16 sm:mb-20">
+            <motion.p 
+              className="text-xs font-medium tracking-widest text-zinc-500 mb-4"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              BUILT FOR GROWTH
+            </motion.p>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
               Everything you need
             </h2>
-            <p className="text-zinc-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
-              From event creation to post-event memories. All the tools you need to create, 
+            <p className="text-zinc-400 text-base sm:text-lg max-w-2xl mx-auto">
+              From event creation to lasting memories. All the tools to create, 
               manage, and attend unforgettable events.
             </p>
           </div>
@@ -403,8 +473,8 @@ export default function FeaturesSection() {
 
         {/* Category Tabs */}
         <ScrollReveal direction="up" delay={0.1} duration={0.7} threshold={0.2}>
-          <div className="flex justify-center mb-12">
-            <div className="flex gap-2 sm:gap-3 p-1.5 bg-zinc-900/50 rounded-full border border-zinc-800 overflow-x-auto no-scrollbar">
+          <div className="flex justify-center mb-16">
+            <div className="inline-flex border border-zinc-800">
               {categories.map((category) => (
                 <CategoryTab
                   key={category.id}
@@ -421,79 +491,21 @@ export default function FeaturesSection() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            {/* Category Header */}
-            <div className="text-center mb-10">
-              <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2">
-                {currentCategory.tagline}
-              </h3>
-              <p className="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto">
-                {currentCategory.description}
-              </p>
-            </div>
-
-            {/* Features Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="max-w-7xl mx-auto">
               {currentCategory.features.map((feature, index) => (
-                <FeatureCard key={feature.title} feature={feature} index={index} />
+                <FeatureBlock 
+                  key={feature.title} 
+                  feature={feature} 
+                  index={index}
+                  isReversed={index % 2 === 1}
+                />
               ))}
             </div>
-
-            {/* Vendor CTA for coming soon */}
-            {activeCategory === "vendors" && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-12 text-center"
-              >
-                <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-6 bg-gradient-to-r from-zinc-900/80 to-zinc-800/50 rounded-2xl border border-zinc-700/50">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
-                      <Sparkles className="w-5 h-5 text-amber-400" />
-                    </div>
-                    <div className="text-left">
-                      <p className="text-white font-medium">Vendor Portal Coming Soon</p>
-                      <p className="text-sm text-zinc-400">Be the first to know when we launch</p>
-                    </div>
-                  </div>
-                  <button className="px-6 py-2.5 bg-white text-black font-medium rounded-full hover:bg-zinc-200 transition-colors flex items-center gap-2">
-                    Join Waitlist
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Attendee Airbnb CTA */}
-            {activeCategory === "attendees" && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-12 text-center"
-              >
-                <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-6 bg-gradient-to-r from-zinc-900/80 to-zinc-800/50 rounded-2xl border border-zinc-700/50">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                      <Home className="w-5 h-5 text-emerald-400" />
-                    </div>
-                    <div className="text-left">
-                      <p className="text-white font-medium">Airbnb for Events</p>
-                      <p className="text-sm text-zinc-400">Book stays based on event locations - Coming Soon</p>
-                    </div>
-                  </div>
-                  <button className="px-6 py-2.5 bg-white text-black font-medium rounded-full hover:bg-zinc-200 transition-colors flex items-center gap-2">
-                    Get Notified
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </motion.div>
-            )}
           </motion.div>
         </AnimatePresence>
       </div>

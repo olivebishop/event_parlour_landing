@@ -146,7 +146,7 @@ export default function Hero() {
           }}
         >
           <Button size="lg" className="bg-white text-black hover:bg-zinc-200 px-8 py-6 text-base sm:text-lg font-medium">
-            Get Started
+            Create your event now
           </Button>
         </motion.div>
       </div>
