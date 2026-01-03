@@ -95,7 +95,7 @@ const categories: Category[] = [
           "Revenue tracking",
           "Custom reports"
         ],
-        image: "/images/workspace.png"
+        image: "/images/analytics.svg"
       },
       {
         icon: <CreditCard className="w-5 h-5" />,
@@ -108,7 +108,7 @@ const categories: Category[] = [
           "Automated payouts",
           "Invoice generation"
         ],
-        image: "/images/org.svg"
+        image: "/images/revenue.svg"
       },
       {
         icon: <ImageIcon className="w-5 h-5" />,
@@ -121,7 +121,7 @@ const categories: Category[] = [
           "Shareable links",
           "Feedback surveys"
         ],
-        image: "/images/musician.svg"
+        image: "/images/storage.svg"
       }
     ]
   },
@@ -154,7 +154,7 @@ const categories: Category[] = [
           "Trending events",
           "Map exploration"
         ],
-        image: "/images/near.png"
+        image: "/images/near.svg"
       },
       {
         icon: <Ticket className="w-5 h-5" />,
@@ -167,7 +167,7 @@ const categories: Category[] = [
           "Ticket transfers",
           "Purchase history"
         ],
-        image: "/images/attendee.svg"
+        image: "/images/tickets.svg"
       },
       {
         icon: <UserPlus className="w-5 h-5" />,
@@ -180,7 +180,7 @@ const categories: Category[] = [
           "Group coordination",
           "Contact exchange"
         ],
-        image: "/images/musician.svg"
+        image: "/images/connect.svg"
       },
       {
         icon: <Bell className="w-5 h-5" />,
@@ -193,7 +193,7 @@ const categories: Category[] = [
           "New event notifications",
           "Check-in prompts"
         ],
-        image: "/images/attendee.svg"
+        image: "/images/alerts.svg"
       }
     ]
   }
