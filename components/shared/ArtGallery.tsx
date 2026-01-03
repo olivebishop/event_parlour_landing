@@ -7,11 +7,11 @@ import Image from "next/image"
 // Art gallery cards data - using local images
 const artCards = [
   { image: "/images/concerts.png" },
-  { image: "/images/cycling.png" },
+  { image: "/images/cyclist.png" },
   { image: "/images/hiking.png" },
   { image: "/images/f1.png" },
   { image: "/images/concerts.png" },
-  { image: "/images/cycling.png" },
+  { image: "/images/cyclist.png" },
   { image: "/images/hiking.png" },
 ]
 
