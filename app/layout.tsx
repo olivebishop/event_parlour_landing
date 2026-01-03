@@ -7,7 +7,6 @@ import { Analytics } from "@vercel/analytics/react"
 import { TranslationProvider } from "@/lib/i18n/translations"
 import { cookies } from 'next/headers'
 import { NetworkProvider } from "@/lib/providers/network-provider"
-import LoadingProvider from "@/lib/providers/loadingProvider"
 import "./globals.css"
 import TawkToChat from '@/components/shared/TawkToChat';
 import { Toaster } from "@/components/ui/toaster"
@@ -124,9 +123,7 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} ${figtree.variable} antialiased bg-[#171717] text-white`}>
         <TranslationProvider messages={messages} locale={locale}>
           <NetworkProvider>
-            <LoadingProvider>
-              {children}
-            </LoadingProvider>
+            {children}
           </NetworkProvider>
           <Toaster />
           <GoogleAnalytics gaId="G-VSXHC4Y9YQ" />
