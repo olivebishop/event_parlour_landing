@@ -12,22 +12,22 @@ import { useTranslations } from "@/lib/i18n/translations"
 const avatars = [
   {
     delay: 0.2,
-    img: "/images/dummy/a.jpg",
+    img: "/images/attendee.svg",
     position: "-top-[5%] -left-[1%] sm:top-[20%] sm:left-[5%]",
   },
   {
     delay: 0.3,
-    img: "/images/dummy/b.jpg",
+    img: "/images/speaker.svg",
     position: "top-[45%] left-[5%] sm:left-[15%]",
   },
   {
     delay: 0.4,
-    img: "/images/dummy/c.jpg",
+    img: "/images/vendor.svg",
     position: "top-[15%] right-[2%] sm:top-[20%] sm:right-[5%]",
   },
   {
     delay: 0.5,
-    img: "/images/dummy/four.jpg",
+    img: "/images/org.svg",
     position: "top-[45%] right-[5%] sm:right-[15%]",
   },
 ]
@@ -115,7 +115,7 @@ export default function Hero() {
   const words = getWords()
   
   return (
-    <section className="relative max-w-7xl mx-auto px-4 pt-32 sm:pt-36 md:pt-40 pb-10 text-center min-h-screen flex flex-col">
+    <section className="relative max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 pt-24 xs:pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-6 xs:pb-8 sm:pb-10 text-center min-h-screen flex flex-col">
       {/* Content with floating avatars */}
       <div className="relative flex-1 flex flex-col justify-center">
         {/* Floating Avatars */}
@@ -133,7 +133,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-medium text-white mb-6 max-w-3xl mx-auto"
+          className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-white mb-4 xs:mb-5 sm:mb-6 max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto leading-tight"
         >
           {t('title')}
           <br />
@@ -145,10 +145,11 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-zinc-400 text-base sm:text-lg mb-8 max-w-xl mx-auto"
+          className="text-zinc-400 text-sm xs:text-base sm:text-lg md:text-xl mb-6 xs:mb-7 sm:mb-8 max-w-xs xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto px-2 leading-relaxed"
         >
           {t('description')}
-          <br />
+          <br className="hidden xs:block" />
+          <span className="xs:hidden"> </span>
           {t('descriptionLine2')}
         </motion.p>
 
@@ -163,7 +164,7 @@ export default function Hero() {
             stiffness: 400 
           }}
         >
-          <Button size="lg" className="bg-white text-black hover:bg-zinc-200 px-8 py-6 text-base sm:text-lg font-medium">
+          <Button size="lg" className="bg-white text-black hover:bg-zinc-200 px-5 xs:px-6 sm:px-8 py-4 xs:py-5 sm:py-6 text-sm xs:text-base sm:text-lg font-medium">
             {t('cta')}
           </Button>
         </motion.div>

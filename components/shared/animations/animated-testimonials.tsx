@@ -48,10 +48,10 @@ export const AnimatedTestimonials = ({
   };
 
   return (
-    <div className={cn("max-w-sm md:max-w-4xl mx-auto px-4 md:px-8 lg:px-12 py-20", className)}>
-      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-20">
+    <div className={cn("max-w-xs xs:max-w-sm md:max-w-4xl mx-auto px-2 xs:px-4 md:px-8 lg:px-12 py-10 xs:py-14 sm:py-16 md:py-20", className)}>
+      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 xs:gap-10 sm:gap-12 md:gap-20">
         <div>
-          <div className="relative h-80 w-full">
+          <div className="relative h-56 xs:h-64 sm:h-72 md:h-80 w-full">
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
                 <motion.div
@@ -97,7 +97,7 @@ export const AnimatedTestimonials = ({
             </AnimatePresence>
           </div>
         </div>
-        <div className="flex justify-between flex-col py-4">
+        <div className="flex justify-between flex-col py-2 xs:py-3 sm:py-4">
           <motion.div
             key={active}
             initial={{
@@ -117,13 +117,13 @@ export const AnimatedTestimonials = ({
               ease: "easeInOut",
             }}
           >
-            <h3 className="text-2xl font-bold text-gray-200">
+            <h3 className="text-lg xs:text-xl sm:text-2xl font-bold text-gray-200">
               {testimonials[active].name}
             </h3>
-            <p className="text-sm text-muted-gray-50">
+            <p className="text-xs xs:text-sm text-muted-gray-50">
               {testimonials[active].designation}
             </p>
-            <motion.p className="text-lg text-gray-200 mt-8 ">
+            <motion.p className="text-sm xs:text-base sm:text-lg text-gray-200 mt-4 xs:mt-6 sm:mt-8">
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}
@@ -149,18 +149,18 @@ export const AnimatedTestimonials = ({
               ))}
             </motion.p>
           </motion.div>
-          <div className="flex gap-4 pt-12 md:pt-0">
+          <div className="flex gap-2 xs:gap-3 sm:gap-4 pt-6 xs:pt-8 sm:pt-10 md:pt-0">
             <button
               onClick={handlePrev}
-              className="h-7 w-7 bg-zinc-800 flex items-center justify-center group/button"
+              className="h-6 w-6 xs:h-7 xs:w-7 bg-zinc-800 flex items-center justify-center group/button"
             >
-              <IconArrowLeft className="h-5 w-5 text-foreground group-hover/button:rotate-12 transition-transform duration-300" />
+              <IconArrowLeft className="h-4 w-4 xs:h-5 xs:w-5 text-foreground group-hover/button:rotate-12 transition-transform duration-300" />
             </button>
             <button
               onClick={handleNext}
-              className="h-7 w-7 bg-zinc-800 flex items-center justify-center group/button"
+              className="h-6 w-6 xs:h-7 xs:w-7 bg-zinc-800 flex items-center justify-center group/button"
             >
-              <IconArrowRight className="h-5 w-5 text-foreground group-hover/button:-rotate-12 transition-transform duration-300" />
+              <IconArrowRight className="h-4 w-4 xs:h-5 xs:w-5 text-foreground group-hover/button:-rotate-12 transition-transform duration-300" />
             </button>
           </div>
         </div>

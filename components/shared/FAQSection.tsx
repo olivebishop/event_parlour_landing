@@ -55,24 +55,24 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-16 bg-black">
+    <section className="py-10 xs:py-12 sm:py-16 bg-black">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className="container mx-auto px-4 sm:px-6"
+        className="container mx-auto px-3 xs:px-4 sm:px-6"
       >
         <motion.div
           initial={{ y: 15, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="flex items-center mb-10"
+          className="flex items-center mb-6 xs:mb-8 sm:mb-10"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mr-4">{t('title')}</h2>
+          <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold text-white mr-3 xs:mr-4">{t('title')}</h2>
           <div className="flex-grow h-px bg-gradient-to-r from-gray-50 to-white"></div>
         </motion.div>
 
-        <div className="space-y-4">
+        <div className="space-y-2 xs:space-y-3 sm:space-y-4">
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
@@ -83,14 +83,15 @@ export default function FAQSection() {
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center p-5 text-left text-white hover:bg-zinc-800 transition-colors duration-200"
+                className="w-full flex justify-between items-center p-3 xs:p-4 sm:p-5 text-left text-white hover:bg-zinc-800 transition-colors duration-200"
               >
-                <span className="text-lg font-medium">{faq.question}</span>
+                <span className="text-sm xs:text-base sm:text-lg font-medium pr-4">{faq.question}</span>
                 <motion.div
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.2, ease: "easeInOut" }}
+                  className="flex-shrink-0"
                 >
-                  <ChevronDown className="h-5 w-5 text-gray-300" />
+                  <ChevronDown className="h-4 w-4 xs:h-5 xs:w-5 text-gray-300" />
                 </motion.div>
               </button>
               <AnimatePresence>
@@ -101,7 +102,7 @@ export default function FAQSection() {
                     animate="open"
                     exit="closed"
                     style={{ transformOrigin: "top", willChange: "transform, opacity" }}
-                    className="p-5 bg-zinc-900 text-gray-300 text-sm"
+                    className="p-3 xs:p-4 sm:p-5 bg-zinc-900 text-gray-300 text-xs xs:text-sm"
                   >
                     {faq.answer}
                   </motion.div>

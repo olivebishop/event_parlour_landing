@@ -71,11 +71,11 @@ export default function Testimonials() {
   }
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-3 xs:px-4 sm:px-6">
       <ScrollReveal direction="up" duration={0.7} threshold={0.2}>
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t('title')}</h2>
-          <p className="text-gray-100 text-sm md:text-base lg:text-lg max-w-sm md:max-w-xl lg:max-w-2xl mx-auto">
+        <div className="text-center mb-8 xs:mb-10 sm:mb-12">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-4xl font-bold text-white mb-3 xs:mb-4">{t('title')}</h2>
+          <p className="text-gray-100 text-xs xs:text-sm md:text-base lg:text-lg max-w-xs xs:max-w-sm md:max-w-xl lg:max-w-2xl mx-auto px-2">
             {t('subtitle')}
           </p>
         </div>
