@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
 import { 
   Calendar, 
   Users, 
@@ -11,18 +12,13 @@ import {
   Settings,
   Ticket, 
   MapPin, 
-  CheckCircle2,
   Globe,
   Bell,
   LayoutDashboard,
   UserPlus,
   Image as ImageIcon,
-  TrendingUp,
-  Zap,
-  ArrowUpRight,
 } from "lucide-react"
 import ScrollReveal from "@/components/shared/animations/scroll-reveal"
-import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
 type CategoryKey = "organizers" | "attendees"
@@ -33,7 +29,7 @@ interface Feature {
   title: string
   description: string
   capabilities: string[]
-  accent?: string
+  image: string
 }
 
 interface Category {
@@ -59,7 +55,8 @@ const categories: Category[] = [
           "Team collaboration & roles",
           "Custom branding",
           "Activity logs"
-        ]
+        ],
+        image: "/images/workspace.png"
       },
       {
         icon: <Mic2 className="w-5 h-5" />,
@@ -71,7 +68,8 @@ const categories: Category[] = [
           "Booking & scheduling",
           "Contract management",
           "Session planning"
-        ]
+        ],
+        image: "/images/speaker.svg"
       },
       {
         icon: <Calendar className="w-5 h-5" />,
@@ -83,7 +81,8 @@ const categories: Category[] = [
           "Venue management",
           "Agenda builder",
           "Multi-ticket tiers"
-        ]
+        ],
+        image: "/images/org.svg"
       },
       {
         icon: <BarChart3 className="w-5 h-5" />,
@@ -95,7 +94,8 @@ const categories: Category[] = [
           "Demographics",
           "Revenue tracking",
           "Custom reports"
-        ]
+        ],
+        image: "/images/workspace.png"
       },
       {
         icon: <CreditCard className="w-5 h-5" />,
@@ -107,7 +107,8 @@ const categories: Category[] = [
           "Multiple gateways",
           "Automated payouts",
           "Invoice generation"
-        ]
+        ],
+        image: "/images/org.svg"
       },
       {
         icon: <ImageIcon className="w-5 h-5" />,
@@ -119,7 +120,8 @@ const categories: Category[] = [
           "Photo galleries",
           "Shareable links",
           "Feedback surveys"
-        ]
+        ],
+        image: "/images/musician.svg"
       }
     ]
   },
@@ -138,7 +140,8 @@ const categories: Category[] = [
           "Location search",
           "Genre filters",
           "Calendar sync"
-        ]
+        ],
+        image: "/images/attendee.svg"
       },
       {
         icon: <MapPin className="w-5 h-5" />,
@@ -150,7 +153,8 @@ const categories: Category[] = [
           "Distance filters",
           "Trending events",
           "Map exploration"
-        ]
+        ],
+        image: "/images/near.png"
       },
       {
         icon: <Ticket className="w-5 h-5" />,
@@ -162,7 +166,8 @@ const categories: Category[] = [
           "QR code entry",
           "Ticket transfers",
           "Purchase history"
-        ]
+        ],
+        image: "/images/attendee.svg"
       },
       {
         icon: <UserPlus className="w-5 h-5" />,
@@ -174,7 +179,8 @@ const categories: Category[] = [
           "In-event messaging",
           "Group coordination",
           "Contact exchange"
-        ]
+        ],
+        image: "/images/musician.svg"
       },
       {
         icon: <Bell className="w-5 h-5" />,
@@ -186,19 +192,15 @@ const categories: Category[] = [
           "Price alerts",
           "New event notifications",
           "Check-in prompts"
-        ]
+        ],
+        image: "/images/attendee.svg"
       }
     ]
   }
 ]
 
-// Shotgun-style feature block with staggered visuals
+// Shotgun-style feature block with images
 function FeatureBlock({ feature, index, isReversed }: { feature: Feature; index: number; isReversed: boolean }) {
-  const stats = [
-    { value: "98%", label: "Success rate" },
-    { value: "2.5x", label: "Faster setup" },
-    { value: "50K+", label: "Events hosted" },
-  ]
   
   return (
     <div className="py-20 lg:py-32">
@@ -280,7 +282,7 @@ function FeatureBlock({ feature, index, isReversed }: { feature: Feature; index:
           </motion.div>
         </motion.div>
 
-        {/* Visual Side - Shotgun-style staggered mockup */}
+        {/* Visual Side - Shotgun-style image display */}
         <motion.div 
           className="relative lg:[direction:ltr]"
           initial={{ opacity: 0, x: isReversed ? -40 : 40 }}
@@ -289,122 +291,96 @@ function FeatureBlock({ feature, index, isReversed }: { feature: Feature; index:
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="relative">
-            {/* Main card */}
+            {/* Main image container */}
             <motion.div 
-              className="relative bg-zinc-950 border border-zinc-800 p-6 sm:p-8"
+              className="relative bg-zinc-950 border border-zinc-800 overflow-hidden"
               whileHover={{ borderColor: "rgb(63 63 70)" }}
               transition={{ duration: 0.3 }}
             >
-              {/* Header */}
-              <motion.div 
-                className="flex items-center justify-between pb-6 border-b border-zinc-800"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
+              {/* Image */}
+              <motion.div
+                className="relative aspect-[4/3] w-full"
+                initial={{ scale: 1.1 }}
+                whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.4, duration: 0.5 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-white flex items-center justify-center">
-                    <div className="w-5 h-5 text-black">{feature.icon}</div>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-white">{feature.title.split('.')[0]}</p>
-                    <p className="text-xs text-zinc-500">Active now</p>
-                  </div>
-                </div>
-                <motion.div 
-                  className="w-8 h-8 border border-zinc-700 flex items-center justify-center cursor-pointer"
-                  whileHover={{ backgroundColor: "rgb(255 255 255)", borderColor: "rgb(255 255 255)" }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <ArrowUpRight className="w-4 h-4 text-zinc-400" />
-                </motion.div>
+                <Image
+                  src={feature.image}
+                  alt={feature.title}
+                  fill
+                  className="object-cover"
+                />
+                {/* Overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-60" />
               </motion.div>
 
-              {/* Stats row */}
-              <div className="grid grid-cols-3 gap-4 py-6">
-                {stats.map((stat, idx) => (
-                  <motion.div 
-                    key={idx}
-                    className="text-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.5 + idx * 0.1, duration: 0.5 }}
-                  >
-                    <motion.p 
-                      className="text-2xl sm:text-3xl font-bold text-white"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.7 + idx * 0.1, duration: 0.4 }}
-                    >
-                      {stat.value}
-                    </motion.p>
-                    <p className="text-xs text-zinc-500 mt-1">{stat.label}</p>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Progress bars */}
-              <div className="space-y-4 pt-4 border-t border-zinc-800">
-                {feature.capabilities.slice(0, 3).map((cap, idx) => (
-                  <motion.div 
-                    key={idx}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.6 + idx * 0.1, duration: 0.4 }}
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-zinc-400">{cap}</span>
-                      <span className="text-sm text-white">{85 + idx * 5}%</span>
+              {/* Bottom info bar */}
+              <motion.div 
+                className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-t from-zinc-950 to-transparent"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-white flex items-center justify-center">
+                      <div className="w-4 h-4 text-black">{feature.icon}</div>
                     </div>
-                    <div className="h-1 bg-zinc-800">
-                      <motion.div 
-                        className="h-full bg-white"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${85 + idx * 5}%` }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.8 + idx * 0.1, duration: 0.8, ease: "easeOut" }}
-                      />
-                    </div>
+                    <span className="text-sm font-medium text-white">{feature.title.split('.')[0]}</span>
+                  </div>
+                  <motion.div 
+                    className="flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-sm"
+                    whileHover={{ backgroundColor: "rgb(255 255 255)", color: "rgb(0 0 0)" }}
+                  >
+                    <motion.div 
+                      className="w-2 h-2 bg-white"
+                      animate={{ opacity: [1, 0.4, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    <span className="text-xs text-white">Active</span>
                   </motion.div>
-                ))}
-              </div>
+                </div>
+              </motion.div>
             </motion.div>
 
-            {/* Floating accent card */}
+            {/* Floating capability cards */}
             <motion.div 
-              className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-white p-4 sm:p-5 w-32 sm:w-40"
+              className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-white p-4 max-w-[180px]"
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.9, duration: 0.5, type: "spring", stiffness: 200 }}
+              transition={{ delay: 0.7, duration: 0.5, type: "spring", stiffness: 200 }}
               whileHover={{ scale: 1.05 }}
             >
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="w-4 h-4 text-black" />
-                <span className="text-xs font-medium text-zinc-600">Growth</span>
+              <p className="text-xs font-medium text-zinc-500 mb-2">Includes</p>
+              <div className="space-y-1.5">
+                {feature.capabilities.slice(0, 3).map((cap, idx) => (
+                  <motion.div 
+                    key={idx}
+                    className="flex items-center gap-2"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.8 + idx * 0.1, duration: 0.3 }}
+                  >
+                    <div className="w-1.5 h-1.5 bg-black" />
+                    <span className="text-xs text-zinc-700">{cap}</span>
+                  </motion.div>
+                ))}
               </div>
-              <p className="text-2xl font-bold text-black">+127%</p>
-              <p className="text-xs text-zinc-500">vs last month</p>
             </motion.div>
 
-            {/* Floating status indicator */}
+            {/* Floating label */}
             <motion.div 
-              className="absolute -top-3 -left-3 sm:-top-4 sm:-left-4 bg-zinc-900 border border-zinc-800 px-3 py-2 flex items-center gap-2"
+              className="absolute -top-3 -left-3 sm:-top-4 sm:-left-4 bg-zinc-900 border border-zinc-800 px-3 py-2"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 1, duration: 0.5 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
             >
-              <motion.div 
-                className="w-2 h-2 bg-white"
-                animate={{ opacity: [1, 0.4, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <span className="text-xs text-zinc-400">Live</span>
+              <span className="text-xs font-medium tracking-wider text-zinc-400">{feature.label}</span>
             </motion.div>
           </div>
         </motion.div>
