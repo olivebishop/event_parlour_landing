@@ -219,7 +219,10 @@ export default function Hero() {
               </motion.p>
 
               <motion.div className="flex flex-col sm:flex-row w-full sm:w-auto gap-4" variants={itemVariants}>
-                <button
+                <a
+                  href="https://app.eventparlour.com/auth/sign-up"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full sm:w-auto bg-white hover:bg-gray-100 text-black px-6 sm:px-8 py-3 rounded-md font-medium transition-all duration-300 hover:shadow-lg hover:shadow-white/20 group text-sm sm:text-base"
                   aria-label="Get started with Event Parlour"
                 >
@@ -232,7 +235,7 @@ export default function Hero() {
                       transition={{ duration: 0.2 }}
                     >→</motion.span>
                   </span>
-                </button>
+                </a>
                 <button
                   className="w-full sm:w-auto bg-transparent border border-white/80 text-white px-6 sm:px-8 py-3 rounded-md font-medium hover:bg-white/10 transition-all duration-300 hover:border-white text-sm sm:text-base"
                   aria-label="Explore Event Parlour features"

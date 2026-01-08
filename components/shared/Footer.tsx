@@ -4,6 +4,13 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "@/lib/i18n/translations";
+import { 
+  HugeiconsWhatsapp, 
+  HugeiconsTiktok, 
+  HugeiconsInstagram, 
+  HugeiconsLinkedin01, 
+  HugeiconsNewTwitter 
+} from "./social-icons";
 
 const Footer = () => {
   const [footerVisible, setFooterVisible] = useState(false);
@@ -17,7 +24,7 @@ const Footer = () => {
     }
   }, [isInView]);
 
-  const brandText = ["e", ".", "p", "a", "r", "l", "o", "u", "r"];
+  const brandText = ["e", "v", "e", "n", "t", " ", "p", "a", "r", "l", "o", "u", "r"];
 
   const containerVariants = {
     hidden: {},
@@ -40,85 +47,128 @@ const Footer = () => {
     },
   };
 
-  const quickLinks = [
-    { href: "/", label: t('quickLinks.events') },
-    { href: "/contact", label: t('quickLinks.contact') },
-    { href: "/privacy-policy", label: t('quickLinks.privacyPolicy') },
-    { href: "/terms-and-condition", label: t('quickLinks.termsAndCondition') },
-   
-  ];
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const targetId = href.replace('#', '');
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
+  const navColumns = {
+    product: [
+      { href: "https://app.eventparlour.com/auth/sign-up", label: "List your event" },
+      { href: "https://app.eventparlour.com/auth/sign-in", label: "Explore events" },
+      { href: "#features", label: "Features" },
+    ],
+    company: [
+      { href: "#contact", label: "Contact us" },
+      { href: "/legal", label: "Terms & Conditions" },
+      { href: "/legal", label: "Privacy Policy" },
+    ],
+  };
   
   const socialLinks = [
-    { href: "https://x.com/EventsPalour", label: t('socialLinks.x') },
-    { href: "https://www.tiktok.com/@eventparlour", label: "TikTok" },
-    { href: "https://www.instagram.com/event.parlour", label: t('socialLinks.instagram') },
-    { href: "https://www.linkedin.com/company/eventparlour", label: t('socialLinks.linkedin') },
-    { href: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R", label: t('socialLinks.whatsapp') }
- 
+    { href: "https://x.com/EventsPalour", label: "X (Twitter)", icon: HugeiconsNewTwitter },
+    { href: "https://www.tiktok.com/@eventparlour", label: "TikTok", icon: HugeiconsTiktok },
+    { href: "https://www.instagram.com/event.parlour", label: "Instagram", icon: HugeiconsInstagram },
+    { href: "https://www.linkedin.com/company/eventparlour", label: "LinkedIn", icon: HugeiconsLinkedin01 },
+    { href: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R", label: "WhatsApp", icon: HugeiconsWhatsapp }
   ];
 
   return (
     <footer 
-      className="bg-black w-full" 
+      className="bg-black w-full border-t border-white/10" 
       ref={footerTarget}
     >
-      <div className="container mx-auto px-4 py-12">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {/* Brand Section */}
-          <div className="col-span-1 lg:col-span-1">
-            <h6 className="text-white font-[rejoice-body] text-2xl lg:text-[1.8vw] mb-4">
-              {t('relax')}
-            </h6>
-            <motion.a
-              href="/updates"
-              className="inline-flex items-center space-x-2 text-sm text-white hover:text-gray-200 transition-colors border border-white/80 px-4 py-1 backdrop-blur-sm mb-4"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+      <div className="container mx-auto px-4 sm:px-6">
+        {/* Main Footer Content - Multi Column Layout */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 py-12 md:py-16">
+          {/* Product Column */}
+          <div className="col-span-1">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={footerVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5 }}
             >
-              <span>{t('latestUpdates')}</span>
-              <ArrowRight className="w-4 h-4" />
-            </motion.a>
-            <div className="text-gray-300 text-sm space-y-2">
-              <p>{t('address1')}</p>
-              <p>{t('address2')}</p>
-            </div>
+              <h4 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Product</h4>
+              <ul className="space-y-3">
+                {navColumns.product.map((link, i) => (
+                  <li key={i}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => handleNavClick(e, link.href)}
+                      className="text-gray-400 hover:text-white transition-colors text-sm"
+                      target={link.href.startsWith('http') ? '_blank' : undefined}
+                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
           </div>
 
-          {/* Quick Links Section */}
+          {/* Company Column */}
           <div className="col-span-1">
-            <h6 className="text-white font-[rejoice-body] text-lg mb-4">{t('quickLinksTitle')}</h6>
-            <ul className="space-y-2">
-              {quickLinks.map((link, i) => (
-                <li key={i}>
-                  <Link 
-                    href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={footerVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <h4 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Company</h4>
+              <ul className="space-y-3">
+                {navColumns.company.map((link, i) => (
+                  <li key={i}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => handleNavClick(e, link.href)}
+                      className="text-gray-400 hover:text-white transition-colors text-sm"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
           </div>
 
-          {/* Social Links Section */}
-          <div className="col-span-1">
-            <h6 className="text-white text-lg mb-4 font-[rejoice-body]">{t('followUs')}</h6>
-            <ul className="space-y-2">
-              {socialLinks.map((social, i) => (
-                <li key={i}>
-                  <Link 
-                    href={social.href}
-                    className="text-gray-300 hover:text-white transition-colors text-sm flex items-center gap-2"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {social.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Social Column */}
+          <div className="col-span-2 md:col-span-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={footerVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <h4 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">We are social :)</h4>
+              <div className="flex flex-wrap gap-3">
+                {socialLinks.map((social, i) => {
+                  const IconComponent = social.icon;
+                  return (
+                    <motion.a
+                      key={i}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group"
+                      whileHover={{ y: -3 }}
+                      transition={{ duration: 0.2 }}
+                      aria-label={social.label}
+                    >
+                      <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-gray-400 group-hover:text-white group-hover:border-white transition-all duration-300 bg-white/5 group-hover:bg-white/10">
+                        <IconComponent className="w-5 h-5" />
+                      </div>
+                    </motion.a>
+                  );
+                })}
+              </div>
+              <p className="text-gray-500 text-xs mt-4">Join the community on WhatsApp channel</p>
+            </motion.div>
           </div>
         </div>
 
@@ -127,38 +177,42 @@ const Footer = () => {
           variants={containerVariants}
           initial="hidden"
           animate={footerVisible ? "visible" : "hidden"}
-          className="overflow-hidden my-12"
+          className="overflow-hidden py-8 border-t border-white/10"
         >
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap justify-center">
             {brandText.map((letter, i) => (
               <motion.span
                 key={i}
                 variants={childVariants}
-                className="inline-block text-white text-[15vw] sm:text-[12vw] md:text-[4vw] lg:text-[3vw] font-[rejoice-heading] leading-none"
+                className="inline-block text-white text-[15vw] sm:text-[12vw] md:text-[10vw] lg:text-[8vw] font-[rejoice-heading] leading-none opacity-10"
                 style={{ 
                   display: "inline-block", 
-                  overflow: "hidden"
+                  overflow: "hidden",
+                  marginRight: letter === " " ? "clamp(0.5rem, 1.5vw, 1.5rem)" : "0"
                 }}
               >
-                {letter}
+                {letter === " " ? "\u00A0" : letter}
               </motion.span>
             ))}
           </div>
         </motion.div>
 
-        {/* Copyright Section */}
-        <div className="border-t border-gray-800 pt-8 mt-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center">
-            <p className="text-gray-300  text-sm mb-4 sm:mb-0">
-              ©{new Date().getFullYear()} <span className="font-semibold ">event parlour</span>. {t('copyright').replace('©{year}', '').replace('event parlour.', '')}
+        {/* Bottom Bar */}
+        <div className="border-t border-white/10 py-6">
+          <motion.div 
+            className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-2 text-gray-500 text-xs text-center sm:text-left"
+            initial={{ opacity: 0 }}
+            animate={footerVisible ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <p>©{new Date().getFullYear()} <span className="text-white">Event Parlour</span></p>
+            <span>•</span>
+            <p>{t('address1')}</p>
+            <span className="hidden sm:inline">•</span>
+            <p className="w-full sm:w-auto">
+              {t('copyright').replace('©{year}', '').replace('event parlour.', '').trim()}
             </p>
-            <Link 
-              href="/legal"
-              className="text-gray-300 hover:text-white transition-colors text-sm"
-            >
-              {t('legal')}
-            </Link>
-          </div>
+          </motion.div>
         </div>
       </div>
     </footer>
