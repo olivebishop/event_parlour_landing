@@ -1,3 +1,12 @@
 User-agent: *
 Allow: /
- sitemap: 'https://eventparlour.com/sitemap.xml',
+Disallow: /private/
+Disallow: /eventso/
+Disallow: /beds/
+Disallow: /sign-in/
+Disallow: /events/
+Disallow: /venues/
+Disallow: /why-us/
+Disallow: /contact-us/
+
+Sitemap: https://www.eventparlour.com/sitemap.xml

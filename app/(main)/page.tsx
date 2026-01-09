@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/shared/Hero";
 
 import FAQSection from "@/components/shared/FAQSection";
@@ -5,6 +6,16 @@ import ExpandingCards from "@/components/shared/animations/expanding-cards";
 import Testimonials from "@/components/shared/Testimonials";
 import { ContactUs } from "@/components/shared/contactUs/Contact";
 import FeaturesSection from "@/components/shared/FeaturesSection";
+
+const siteUrl = "https://www.eventparlour.com";
+
+export const metadata: Metadata = {
+  title: "Event Parlour - Events & Accommodation Booking",
+  description: "Connecting organizers, attendees, and vendors in one seamless experience. Discover events, book accommodations, and plan your perfect event experience.",
+  alternates: {
+    canonical: siteUrl,
+  },
+};
 
 export default function Home() {
   return (

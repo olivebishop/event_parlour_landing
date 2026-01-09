@@ -73,9 +73,6 @@ export const metadata: Metadata = {
     images: [`${siteUrl}/twitter-card.jpg`],
   },
   metadataBase: new URL(siteUrl),
-  alternates: {
-    canonical: siteUrl,
-  },
   robots: "index, follow",
 }
 

@@ -1,7 +1,18 @@
+import type { Metadata } from "next";
 import { BannerHero } from "@/components/shared/BannerHero";
 import BedsSection from "@/components/shared/BedSection";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+const siteUrl = "https://www.eventparlour.com";
+
+export const metadata: Metadata = {
+  title: "Event Accommodations - Find Your Perfect Stay | Event Parlour",
+  description: "Find and book event-specific accommodations near your favorite events. Cozy stays, convenient locations, seamless booking.",
+  alternates: {
+    canonical: `${siteUrl}/beds`,
+  },
+};
 
 
 
