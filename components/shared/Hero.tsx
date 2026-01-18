@@ -166,9 +166,17 @@ export default function Hero() {
               stiffness: 400 
             }}
           >
-            <Button size="lg" className="bg-white text-black hover:bg-zinc-200 px-5 xs:px-6 sm:px-8 py-4 xs:py-5 sm:py-6 text-sm xs:text-base sm:text-lg font-medium">
-              {t('cta')}
-            </Button>
+            <a
+              href="https://app.eventparlour.com/auth/sign-up"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Create your event on EventParlour"
+              className="inline-block"
+            >
+              <Button size="lg" className="bg-white text-black hover:bg-zinc-200 px-5 xs:px-6 sm:px-8 py-4 xs:py-5 sm:py-6 text-sm xs:text-base sm:text-lg font-medium">
+                Create your event
+              </Button>
+            </a>
           </motion.div>
         </div>
       </div>
