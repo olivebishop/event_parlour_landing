@@ -3,7 +3,7 @@
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
 
 type Testimonial = {
@@ -23,6 +23,19 @@ export const AnimatedTestimonials = ({
   className?: string;
 }) => {
   const [active, setActive] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Generate consistent rotation values based on index to avoid hydration mismatch
+  const rotationValues = useMemo(() => {
+    return testimonials.map((_, index) => {
+      // Use index-based calculation instead of random for consistent SSR/CSR
+      return ((index * 7) % 21) - 10; // Generates values between -10 and 10
+    });
+  }, [testimonials]);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleNext = () => {
     setActive((prev) => (prev + 1) % testimonials.length);
@@ -37,15 +50,13 @@ export const AnimatedTestimonials = ({
   };
 
   useEffect(() => {
-    if (autoplay) {
-      const interval = setInterval(handleNext, 5000);
+    if (autoplay && isMounted) {
+      const interval = setInterval(() => {
+        setActive((prev) => (prev + 1) % testimonials.length);
+      }, 5000);
       return () => clearInterval(interval);
     }
-  }, [autoplay, handleNext]);
-
-  const randomRotateY = () => {
-    return Math.floor(Math.random() * 21) - 10;
-  };
+  }, [autoplay, isMounted, testimonials.length]);
 
   return (
     <div className={cn("max-w-xs xs:max-w-sm md:max-w-4xl mx-auto px-2 xs:px-4 md:px-8 lg:px-12 py-10 xs:py-14 sm:py-16 md:py-20", className)}>
@@ -53,20 +64,22 @@ export const AnimatedTestimonials = ({
         <div>
           <div className="relative h-56 xs:h-64 sm:h-72 md:h-80 w-full">
             <AnimatePresence>
-              {testimonials.map((testimonial, index) => (
+              {testimonials.map((testimonial, index) => {
+                const rotation = rotationValues[index] || 0;
+                return (
                 <motion.div
                   key={testimonial.src}
                   initial={{
                     opacity: 0,
                     scale: 0.9,
                     z: -100,
-                    rotate: randomRotateY(),
+                    rotate: rotation,
                   }}
                   animate={{
                     opacity: isActive(index) ? 1 : 0.7,
                     scale: isActive(index) ? 1 : 0.95,
                     z: isActive(index) ? 0 : -100,
-                    rotate: isActive(index) ? 0 : randomRotateY(),
+                    rotate: isActive(index) ? 0 : rotation,
                     zIndex: isActive(index)
                       ? 999
                       : testimonials.length + 2 - index,
@@ -76,7 +89,7 @@ export const AnimatedTestimonials = ({
                     opacity: 0,
                     scale: 0.9,
                     z: 100,
-                    rotate: randomRotateY(),
+                    rotate: rotation,
                   }}
                   transition={{
                     duration: 0.4,
@@ -93,7 +106,8 @@ export const AnimatedTestimonials = ({
                     className="h-full w-full object-cover object-center"
                   />
                 </motion.div>
-              ))}
+                );
+              })}
             </AnimatePresence>
           </div>
         </div>

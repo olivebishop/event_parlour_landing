@@ -1,8 +1,6 @@
 "use client"
 import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { useTranslations } from "@/lib/i18n/translations";
 import { 
   HugeiconsWhatsapp, 
@@ -67,8 +65,12 @@ const Footer = () => {
     ],
     company: [
       { href: "#contact", label: "Contact us" },
-      { href: "/legal", label: "Terms & Conditions" },
-      { href: "/legal", label: "Privacy Policy" },
+      { href: "https://app.eventparlour.com/legal/about", label: "About" },
+      { href: "https://app.eventparlour.com/legal/privacy-policy", label: "Privacy Policy" },
+      { href: "https://app.eventparlour.com/legal/terms-of-service", label: "Terms of Service" },
+      { href: "https://app.eventparlour.com/legal/security", label: "Security" },
+      { href: "https://app.eventparlour.com/legal/refund-policy", label: "Refund Policy" },
+      { href: "https://app.eventparlour.com/legal/cookie-policy", label: "Cookie Policy" },
     ],
   };
   
@@ -129,6 +131,8 @@ const Footer = () => {
                       href={link.href}
                       onClick={(e) => handleNavClick(e, link.href)}
                       className="text-gray-400 hover:text-white transition-colors text-sm"
+                      target={link.href.startsWith('http') ? '_blank' : undefined}
+                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     >
                       {link.label}
                     </a>

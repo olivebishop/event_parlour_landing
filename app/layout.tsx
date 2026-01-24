@@ -8,7 +8,7 @@ import { TranslationProvider } from "@/lib/i18n/translations"
 import { cookies } from 'next/headers'
 import { NetworkProvider } from "@/lib/providers/network-provider"
 import "./globals.css"
-import TawkToChat from '@/components/shared/TawkToChat';
+// import TawkToChat from '@/components/shared/TawkToChat';
 import { Toaster } from "@/components/ui/toaster"
 import { ConsentManager } from "./consent-manager";
 
@@ -132,7 +132,7 @@ export default async function RootLayout({
               <SpeedInsights />
               <Analytics />
             </TranslationProvider>
-            <TawkToChat />
+            {/* <TawkToChat /> */}
           
     		</ConsentManager>
     	</body>

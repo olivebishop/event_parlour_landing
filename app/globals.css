@@ -95,3 +95,82 @@
     scrollbar-width: none;
   }
 }
+
+/* Cookie Banner Styling - Match site's black background */
+@layer components {
+  /* Target cookie banner container - c15t library */
+  [data-c15t-banner],
+  [data-c15t-banner] > div,
+  [data-c15t-banner] > section,
+  [data-c15t-banner] > article {
+    background-color: #000000 !important;
+    background: #000000 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+  }
+
+  /* Target all elements within cookie banner */
+  [data-c15t-banner] p,
+  [data-c15t-banner] span,
+  [data-c15t-banner] div:not(button),
+  [data-c15t-banner] h1,
+  [data-c15t-banner] h2,
+  [data-c15t-banner] h3,
+  [data-c15t-banner] h4,
+  [data-c15t-banner] h5,
+  [data-c15t-banner] h6 {
+    color: #ffffff !important;
+  }
+
+  /* Target cookie banner primary buttons (Accept/Allow) */
+  [data-c15t-banner] button[type="button"],
+  [data-c15t-banner] button[type="submit"] {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #ffffff !important;
+  }
+
+  [data-c15t-banner] button[type="button"]:hover,
+  [data-c15t-banner] button[type="submit"]:hover {
+    background-color: #f5f5f5 !important;
+    color: #000000 !important;
+  }
+
+  /* Target secondary buttons (Reject/Decline) */
+  [data-c15t-banner] button[aria-label*="reject" i],
+  [data-c15t-banner] button[aria-label*="decline" i],
+  [data-c15t-banner] button:not([aria-label*="accept" i]):not([aria-label*="allow" i]):not([aria-label*="save" i]) {
+    background-color: transparent !important;
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+  }
+
+  [data-c15t-banner] button[aria-label*="reject" i]:hover,
+  [data-c15t-banner] button[aria-label*="decline" i]:hover,
+  [data-c15t-banner] button:not([aria-label*="accept" i]):not([aria-label*="allow" i]):not([aria-label*="save" i]):hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  /* Target links in cookie banner */
+  [data-c15t-banner] a {
+    color: #ffffff !important;
+    text-decoration: underline !important;
+  }
+
+  [data-c15t-banner] a:hover {
+    color: #e5e5e5 !important;
+  }
+
+  /* Fallback for any other cookie banner classes - more specific */
+  [class*="cookie-banner"],
+  [class*="consent-banner"],
+  [class*="cookieBanner"],
+  [class*="consentBanner"],
+  [id*="cookie-banner"],
+  [id*="consent-banner"] {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+  }
+}

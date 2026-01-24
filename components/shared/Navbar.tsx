@@ -148,15 +148,15 @@ export function Navbar() {
             ? 'bg-black/90 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/30' 
             : 'bg-transparent'}`}
       >
-        <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-5">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-5">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center group relative z-[60]">
+            <Link href="/" className="flex items-center group relative z-[60] touch-manipulation" style={{ WebkitTapHighlightColor: 'transparent' }}>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
-                <p className="font-extrabold text-xl sm:text-xl md:text-2xl lg:text-2xl text-white">
+                <p className="font-extrabold text-lg sm:text-xl md:text-2xl lg:text-2xl text-white">
                   Event Parlour.
                 </p>
               </motion.div>
-              <span className="ml-3 inline-flex items-center px-2 py-1 text-xs font-semibold uppercase border border-white rounded-none text-emerald-400">
+              <span className="ml-2 sm:ml-3 inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold uppercase border border-white rounded-none text-emerald-400">
                 Beta
               </span>
             </Link>
@@ -183,7 +183,7 @@ export function Navbar() {
               ))}
             </div>
 
-            <div className="flex items-center space-x-2 sm:space-x-4">
+            <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4">
               {/* Language selector - desktop only */}
               {isMounted && (
                 <div className="relative language-dropdown-container hidden lg:block">
@@ -236,55 +236,49 @@ export function Navbar() {
       <div className="lg:hidden">
         <motion.div
           animate={{
-            width: isOpen ? 'calc(100% - 32px)' : '48px',
-            height: isOpen ? 'calc(100vh - 32px)' : '48px',
+            width: isOpen ? '100vw' : '48px',
+            height: isOpen ? '100vh' : '48px',
           }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="fixed z-[60] rounded-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 shadow-2xl shadow-black/50 overflow-hidden"
+          className="fixed top-0 right-0 z-[60] bg-gradient-to-br from-zinc-800 to-zinc-900 shadow-2xl shadow-black/50 overflow-hidden"
           style={{
-            top: '16px',
-            right: '16px',
+            borderRadius: isOpen ? '0' : '0 0 0 1rem',
           }}
         >
           {/* Hamburger Button */}
           <button
-            className="absolute right-0 top-0 z-[70] size-12 bg-transparent transition-all hover:bg-white/10 rounded-xl flex items-center justify-center"
+            className="absolute right-0 top-0 z-[70] w-12 h-12 min-w-[48px] min-h-[48px] bg-transparent transition-all active:bg-white/20 hover:bg-white/10 flex items-center justify-center touch-manipulation"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <motion.span
-              animate={{
-                top: isOpen ? '50%' : '35%',
-                rotate: isOpen ? 45 : 0,
-              }}
-              className="absolute block h-0.5 w-6 bg-white"
-              style={{
-                left: '50%',
-                transform: 'translateX(-50%) translateY(-50%)',
-              }}
-            />
-            <motion.span
-              animate={{
-                opacity: isOpen ? 0 : 1,
-              }}
-              className="absolute block h-0.5 w-6 bg-white"
-              style={{
-                left: '50%',
-                top: '50%',
-                transform: 'translateX(-50%) translateY(-50%)',
-              }}
-            />
-            <motion.span
-              animate={{
-                bottom: isOpen ? '45%' : '35%',
-                left: isOpen ? '50%' : '60%',
-                rotate: isOpen ? -45 : 0,
-                width: isOpen ? 24 : 12,
-              }}
-              className="absolute block h-0.5 bg-white"
-              style={{
-                transform: 'translateX(-50%) translateY(50%)',
-              }}
-            />
+            <div className="relative w-6 h-5 flex flex-col justify-center items-center">
+              <motion.span
+                animate={{
+                  rotate: isOpen ? 45 : 0,
+                  y: isOpen ? 0 : -8,
+                }}
+                className="absolute block h-0.5 w-6 bg-white rounded-full"
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              />
+              <motion.span
+                animate={{
+                  opacity: isOpen ? 0 : 1,
+                  x: isOpen ? 20 : 0,
+                }}
+                className="absolute block h-0.5 w-6 bg-white rounded-full"
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              />
+              <motion.span
+                animate={{
+                  rotate: isOpen ? -45 : 0,
+                  y: isOpen ? 0 : 8,
+                }}
+                className="absolute block h-0.5 w-6 bg-white rounded-full"
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              />
+            </div>
           </button>
 
           {/* Mobile Menu Content */}
@@ -295,9 +289,9 @@ export function Navbar() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ delay: 0.1 }}
-                className="h-full w-full overflow-y-auto pt-20 px-8 pb-8"
+                className="h-full w-full overflow-y-auto pt-16 sm:pt-20 px-4 sm:px-6 md:px-8 pb-24 sm:pb-8"
               >
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {/* Nav Links */}
                   {navLinks.map((link, index) => (
                     <motion.div
@@ -309,7 +303,8 @@ export function Navbar() {
                       <a
                         href={link.href}
                         onClick={(e) => handleNavClick(e, link.href)}
-                        className="block text-4xl sm:text-5xl font-semibold text-zinc-400 transition-colors hover:text-white cursor-pointer"
+                        className="block text-3xl sm:text-4xl md:text-5xl font-semibold text-zinc-400 transition-colors active:text-white hover:text-white cursor-pointer py-3 sm:py-4 px-2 -mx-2 rounded-lg active:bg-white/10 touch-manipulation min-h-[60px] flex items-center"
+                        style={{ WebkitTapHighlightColor: 'transparent' }}
                       >
                         {link.label}.
                       </a>
@@ -327,7 +322,8 @@ export function Navbar() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setIsOpen(false)}
-                      className="block text-4xl sm:text-5xl font-semibold text-zinc-400 transition-colors hover:text-white"
+                      className="block text-3xl sm:text-4xl md:text-5xl font-semibold text-zinc-400 transition-colors active:text-white hover:text-white py-3 sm:py-4 px-2 -mx-2 rounded-lg active:bg-white/10 touch-manipulation min-h-[60px] flex items-center"
+                      style={{ WebkitTapHighlightColor: 'transparent' }}
                     >
                       {t('signIn')}.
                     </Link>
@@ -340,20 +336,21 @@ export function Navbar() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="mt-12"
+                    className="mt-8 sm:mt-12"
                   >
-                    <p className="text-sm text-zinc-500 mb-4">Language</p>
-                    <div className="grid grid-cols-3 gap-2">
+                    <p className="text-xs sm:text-sm text-zinc-500 mb-3 sm:mb-4">Language</p>
+                    <div className="grid grid-cols-3 gap-2 sm:gap-3">
                       {(languages as unknown as Language[]).slice(0, 6).map((lang) => (
                         <button
                           key={lang.code}
                           onClick={() => handleLanguageChange(lang.code)}
                           className={cn(
-                            "px-3 py-2 text-sm rounded-lg transition-all duration-200",
+                            "px-2 sm:px-3 py-2.5 sm:py-2 text-xs sm:text-sm rounded-lg transition-all duration-200 touch-manipulation min-h-[44px] flex items-center justify-center",
                             selectedLanguage === lang.code 
                               ? "bg-white text-black font-medium" 
-                              : "text-zinc-400 hover:text-white hover:bg-white/10"
+                              : "text-zinc-400 active:text-white active:bg-white/10 hover:text-white hover:bg-white/10"
                           )}
+                          style={{ WebkitTapHighlightColor: 'transparent' }}
                         >
                           {lang.name}
                         </button>
@@ -367,34 +364,37 @@ export function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
-                  className="absolute bottom-8 left-8 flex gap-4"
+                  className="absolute bottom-4 sm:bottom-8 left-4 sm:left-6 md:left-8 flex gap-3 sm:gap-4"
                 >
                   <a 
                     href="https://x.com/EventsPalour" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-zinc-400 hover:text-white transition-colors"
+                    className="text-zinc-400 active:text-white hover:text-white transition-colors p-2 -m-2 rounded-lg active:bg-white/10 touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
                     aria-label="Follow us on X (Twitter)"
+                    style={{ WebkitTapHighlightColor: 'transparent' }}
                   >
-                    <HugeiconsNewTwitter className="w-6 h-6" />
+                    <HugeiconsNewTwitter className="w-5 h-5 sm:w-6 sm:h-6" />
                   </a>
                   <a 
                     href="https://www.instagram.com/event.parlour" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-zinc-400 hover:text-white transition-colors"
+                    className="text-zinc-400 active:text-white hover:text-white transition-colors p-2 -m-2 rounded-lg active:bg-white/10 touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
                     aria-label="Follow us on Instagram"
+                    style={{ WebkitTapHighlightColor: 'transparent' }}
                   >
-                    <HugeiconsInstagram className="w-6 h-6" />
+                    <HugeiconsInstagram className="w-5 h-5 sm:w-6 sm:h-6" />
                   </a>
                   <a 
                     href="https://www.linkedin.com/company/eventparlour" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-zinc-400 hover:text-white transition-colors"
+                    className="text-zinc-400 active:text-white hover:text-white transition-colors p-2 -m-2 rounded-lg active:bg-white/10 touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
                     aria-label="Follow us on LinkedIn"
+                    style={{ WebkitTapHighlightColor: 'transparent' }}
                   >
-                    <HugeiconsLinkedin01 className="w-6 h-6" />
+                    <HugeiconsLinkedin01 className="w-5 h-5 sm:w-6 sm:h-6" />
                   </a>
                 </motion.div>
               </motion.nav>
