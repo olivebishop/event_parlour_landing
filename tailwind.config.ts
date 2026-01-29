@@ -139,6 +139,15 @@ module.exports = {
                     '0%': { transform: 'scale(0)', opacity: '0' },
                     '50%': { transform: 'scale(1)', opacity: '1' },
                     '100%': { transform: 'scale(0)', opacity: '0' }
+                },
+                // Horizontal marquee for testimonials
+                'hrtl-scroll': {
+                    '0%': { transform: 'translateX(0)' },
+                    '100%': { transform: 'translateX(-50%)' }
+                },
+                'hrtl-scroll-reverse': {
+                    '0%': { transform: 'translateX(-50%)' },
+                    '100%': { transform: 'translateX(0)' }
                 }
     		},
     		animation: {
@@ -156,7 +165,10 @@ module.exports = {
                 'delay-300': 'sparkle 2s ease-in-out 300ms infinite',
                 'delay-700': 'sparkle 2s ease-in-out 700ms infinite',
                 'delay-1000': 'sparkle 2s ease-in-out 1000ms infinite',
-                'delay-1500': 'sparkle 2s ease-in-out 1500ms infinite'
+                'delay-1500': 'sparkle 2s ease-in-out 1500ms infinite',
+                // Horizontal marquee for testimonials
+                'hrtl-scroll': 'hrtl-scroll linear infinite',
+                'hrtl-scroll-reverse': 'hrtl-scroll-reverse linear infinite'
     		},
             perspective: {
                 'none': 'none',

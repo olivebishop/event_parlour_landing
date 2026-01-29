@@ -255,8 +255,9 @@
       "active": "Active"
     },
     "Testimonials": {
-      "title": "What Our Clients Say",
-      "subtitle": "From organizers to vendors, our ticketing platform has revolutionized how events are managed and experienced. See how our solution has empowered businesses of all sizes to boost attendance, streamline operations, and create unforgettable experiences.",
+      "title": "Loved by the people who run great events",
+      "subtitle": "Events that just work.",
+      "description": "Loved by organizers, vendors, and attendees who want events to just work.",
       "testimonials": [
         {
           "quote": "This ticketing platform has completely transformed how we manage our music festivals. The seamless check-in process and real-time analytics have helped us increase attendance by 30%.",

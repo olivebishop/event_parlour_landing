@@ -1,92 +1,259 @@
 "use client";
 
-import { AnimatedTestimonials } from "@/components/shared/animations/animated-testimonials";
+import Link from "next/link";
+import { Suspense } from "react";
 import ScrollReveal from "@/components/shared/animations/scroll-reveal";
 import { useTranslations } from "@/lib/i18n/translations";
+import { cn } from "@/lib/utils";
+import { HugeiconsNewTwitter } from "./social-icons";
 
-const defaultTestimonials = [
+// Local placeholder to mirror the `noSSR` API without requiring an external dependency.
+const noSSR = () => {};
+
+const testimonials = [
   {
-    quote: "This ticketing platform has completely transformed how we manage our music festivals. The seamless check-in process and real-time analytics have helped us increase attendance by 30%.",
-    name: "Sarah Johnson",
-    designation: "Event Director at SoundWave Festivals",
-    src: "/images/dummy/z.jpg"
+    name: "Brian Martin",
+    profession: "Back End Engineer",
+    link: "https://x.com/Br1anMartin/status/2016462343069106487?s=20",
+    description: "Clean UI, BETTER UX",
+    avatar: "/people-say/brian.jpg",
+    image: "",
+    social: <HugeiconsNewTwitter className="w-6 h-6" />,
   },
   {
-    quote: "As an attendee, I love how easy it is to purchase tickets, transfer them to friends, and access event details all in one place. The mobile experience is flawless!",
-    name: "Michael Chen",
-    designation: "Tech Conference Regular",
-    src: "/images/dummy/w.jpg"
+    name: "Stanley Masinde",
+    profession: "Software Engineer and Event Organizer",
+    link: "https://x.com/StanleyMasinde_/status/2013182135658574117?s=20",
+    description:
+      "Congratulations on your milestone. Guys, if you're looking for a home for your events, check out Event Parlour.",
+    avatar: "/people-say/masinde.jpg",
+    image: "",
+    social: <HugeiconsNewTwitter className="w-6 h-6" />,
   },
   {
-    quote: "Being a vendor at multiple events, this platform has streamlined our booking process. We can now manage our schedule, payments, and client communications effortlessly.",
-    name: "Emily Rodriguez",
-    designation: "Owner at Gourmet Food Trucks",
-    src: "/images/dummy/x.jpg"
+    name: "Ndegwa",
+    profession: "Software Engineer",
+    link: "https://x.com/ndegwa_official/status/2013313456405909784?s=20",
+    description: "This UI looks so good!",
+    avatar: "/people-say/ndegwa.jpg",
+    image: "",
+    social: <HugeiconsNewTwitter className="w-6 h-6" />,
   },
   {
-    quote: "As a touring musician, this platform has revolutionized how we connect with venues and sell tickets. We've seen a 45% increase in pre-sales since switching to this service.",
-    name: "David Park",
-    designation: "Lead Singer at Neon Pulse",
-    src: "/images/dummy/y.jpg"
+    name: "Tech Fabrizoo",
+    profession: "Tech creator",
+    link: "https://x.com/TechFabrizoo/status/2013315566560260380?s=20",
+    description: "Amazing work.",
+    avatar: "/people-say/kitze.jpg",
+    image: "",
+    social: <HugeiconsNewTwitter className="w-6 h-6" />,
   },
   {
-    quote: "The comprehensive analytics helped us understand our audience better and tailor our corporate events to their preferences. Our attendee satisfaction scores have never been higher.",
-    name: "Priya Sharma",
-    designation: "Corporate Events Manager at TechGlobal",
-    src: "/images/dummy/z.jpg"
+    name: "Eric Muturi",
+    profession: "Founder at Jepaks",
+    link: "https://x.com/MuturiEric_W/status/2015088832350151149?s=20",
+    description:
+      "I do not own it, but I like the project so far. A solid one 💯💯 and more to come. Platform for events, organizers, speakers, and attendees.",
+    avatar: "/people-say/erick.jpg",
+    image: "",
+    social: <HugeiconsNewTwitter className="w-6 h-6" />,
   },
   {
-    quote: "The QR code ticketing system made entry management a breeze for our 5,000-person conference. No more long lines or frustrated attendees!",
-    name: "James Wilson",
-    designation: "Operations Director at DevCon",
-    src: "/images/dummy/w.jpg"
+    name: "David Amunga",
+    profession: "Software Engineer",
+    link: "https://x.com/davidamunga_/status/1903552861746712822?s=20",
+    description: "Looks good!!!",
+    avatar: "/people-say/amuga.jpg",
+    image: "",
+    social: <HugeiconsNewTwitter className="w-6 h-6" />,
+  },
+  {
+    name: "Mongare",
+    profession: "Product thinker",
+    link: "https://x.com/msnmongare/status/1903542538654646529?s=20",
+    description:
+      'Clear value proposition: "Event platform for everyone". Nice showcase of events and their details. Clear call-to-action buttons like "Create Your Event".',
+    avatar: "/people-say/xavier-pladevall.jpg",
+    image: "",
+    social: <HugeiconsNewTwitter className="w-6 h-6" />,
+  },
+];
+
+type TestimonialProps = (typeof testimonials)[number];
+
+const TestimonialItem = ({
+  reverse = false,
+  testimonials,
+  noSsr,
+}: {
+  reverse?: boolean;
+  testimonials: TestimonialProps[];
+  noSsr?: boolean;
+}) => {
+  if (noSsr) {
+    noSSR();
   }
-];
 
-const imageSources = [
-  "/images/dummy/z.jpg",
-  "/images/dummy/w.jpg",
-  "/images/dummy/x.jpg",
-  "/images/dummy/y.jpg",
-  "/images/dummy/z.jpg",
-  "/images/dummy/w.jpg"
-];
+  const animeSeconds = testimonials.length * 10;
+
+  return (
+    <div className="max-w-full mx-auto">
+      <div
+        className={`[--anime-duration:${animeSeconds}s] px-10 mx-auto w-full`}
+      >
+        <div
+          style={{
+            animationDuration: `${animeSeconds}s`,
+          }}
+          className={cn(
+            "scroller flex flex-nowrap w-max min-w-full duration-[1000s] hover:[animation-play-state:paused] overflow-hidden relative gap-5 justify-around shrink-0",
+            reverse ? "animate-hrtl-scroll-reverse" : "animate-hrtl-scroll",
+          )}
+        >
+          {testimonials.map((testimonial, indx) => {
+            return (
+              <div
+                key={indx}
+                className={cn(
+                  "flex flex-col justify-between h-[220px] rounded-none border-[1.2px] border-white/10 shrink-0 grow-0 w-[450px] bg-black/40",
+                )}
+              >
+                <p className="px-5 py-5 font-sans tracking-tight text-sm font-extralight sm:text-base md:text-lg text-pretty text-white/90">
+                  &quot;{testimonial.description}&quot;
+                </p>
+                <div className="flex overflow-hidden h-[28%] gap-1 w-full border-t-[1.2px] border-white/10">
+                  <div className="flex items-center w-3/4 gap-3 px-4 py-3">
+                    <img
+                      src={testimonial.avatar}
+                      className="w-10 h-10 rounded-full object-cover"
+                      alt={`${testimonial.name} avatar`}
+                    />
+                    <div className="flex flex-col items-start justify-start flex-1 gap-0">
+                      <h5 className="text-base font-medium md:text-md text-white">
+                        {testimonial.name}
+                      </h5>
+                      <p className="text-xs md:text-sm text-white/60 mt-[-4px]">
+                        {testimonial.profession}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-[1px] bg-white/10" />
+                  <div className="flex items-center justify-center max-w-full mx-auto px-4">
+                    <Link
+                      href={testimonial.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`View ${testimonial.name}'s testimonial on X`}
+                      className="text-white/70 hover:text-white transition-colors"
+                    >
+                      {testimonial.social}
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TestimonialScroller = () => {
+  return (
+    <div className="max-w-full py-5 mx-auto overflow-hidden">
+      <div className="flex flex-col gap-3">
+        <div
+          style={{
+            maskImage:
+              "linear-gradient(to left, transparent 0%, black 20%, black 80%, transparent 95%)",
+          }}
+          className="relative flex justify-around gap-5 overflow-hidden shrink-0"
+        >
+          <Suspense
+            fallback={
+              <TestimonialItem
+                testimonials={Array(15)
+                  .fill(
+                    testimonials.slice(
+                      Math.floor(testimonials.length / 2) + 1,
+                      testimonials.length - 1,
+                    ),
+                  )
+                  .flat()}
+              />
+            }
+          >
+            <TestimonialItem
+              noSsr
+              reverse
+              testimonials={Array(15)
+                .sort(() => Math.random() - 0.5)
+                .fill(
+                  testimonials.slice(0, Math.floor(testimonials.length / 2)),
+                )
+                .flat()}
+            />
+          </Suspense>
+        </div>
+        <div
+          style={{
+            maskImage:
+              "linear-gradient(to left, transparent 0%, black 20%, black 80%, transparent 95%)",
+          }}
+          className="relative flex justify-around gap-5 overflow-hidden shrink-0"
+        >
+          <Suspense
+            fallback={
+              <TestimonialItem
+                testimonials={Array(15)
+                  .fill(
+                    testimonials.slice(
+                      Math.floor(testimonials.length / 2) + 1,
+                      testimonials.length - 1,
+                    ),
+                  )
+                  .flat()}
+              />
+            }
+          >
+            <TestimonialItem
+              noSsr
+              testimonials={Array(15)
+                .sort(() => Math.random() - 0.5)
+                .fill(
+                  testimonials.slice(
+                    Math.floor(testimonials.length / 2) + 1,
+                    testimonials.length - 1,
+                  ),
+                )
+                .flat()}
+            />
+          </Suspense>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default function Testimonials() {
-  const t = useTranslations('Testimonials');
-  
-  // Try to parse testimonials from translations, fallback to defaults
-  let testimonialsData = defaultTestimonials;
-  try {
-    const translatedTestimonials = t('testimonials');
-    if (translatedTestimonials && translatedTestimonials !== 'testimonials') {
-      const parsed = JSON.parse(translatedTestimonials);
-      testimonialsData = parsed.map((item: { quote: string; name: string; designation: string }, index: number) => ({
-        ...item,
-        src: imageSources[index] || imageSources[0]
-      }));
-    }
-  } catch {
-    // Use default testimonials if parsing fails
-  }
+  const t = useTranslations("Testimonials");
 
   return (
     <div className="container mx-auto px-3 xs:px-4 sm:px-6">
       <ScrollReveal direction="up" duration={0.7} threshold={0.2}>
         <div className="text-center mb-8 xs:mb-10 sm:mb-12">
-          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-4xl font-bold text-white mb-3 xs:mb-4">{t('title')}</h2>
-          <p className="text-gray-100 text-xs xs:text-sm md:text-base lg:text-lg max-w-xs xs:max-w-sm md:max-w-xl lg:max-w-2xl mx-auto px-2">
-            {t('subtitle')}
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white max-w-xs xs:max-w-sm md:max-w-xl lg:max-w-2xl mx-auto px-2 mb-3 xs:mb-4">
+            {t("subtitle")}
+          </h2>
+          <p className="text-zinc-400 text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm md:max-w-xl lg:max-w-2xl mx-auto px-2">
+            {t("description")}
           </p>
         </div>
       </ScrollReveal>
       
       <ScrollReveal direction="up" delay={0.2} duration={0.8} threshold={0.1}>
-        <AnimatedTestimonials
-          testimonials={testimonialsData}
-          autoplay={true}
-          className="bg-black backdrop-blur-sm"
-        />
+        <TestimonialScroller />
       </ScrollReveal>
     </div>
   );

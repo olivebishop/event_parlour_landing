@@ -154,9 +154,9 @@ function FeatureBlock({ feature, index, isReversed, includesText, activeText }: 
               </motion.div>
             </motion.div>
 
-            {/* Floating capability cards - WHITE BOX */}
+            {/* Floating capability cards - WHITE BOX (only on large screens to avoid covering text on smaller devices) */}
             <motion.div 
-              className="absolute -bottom-3 -right-2 xs:-bottom-4 xs:-right-3 sm:-bottom-5 sm:-right-4 md:-bottom-6 md:-right-6 bg-white p-2.5 xs:p-3 sm:p-3.5 md:p-4 max-w-[140px] xs:max-w-[150px] sm:max-w-[160px] md:max-w-[180px] shadow-xl"
+              className="hidden lg:block absolute -bottom-3 -right-2 sm:-bottom-5 sm:-right-4 md:-bottom-6 md:-right-6 bg-white p-2.5 xs:p-3 sm:p-3.5 md:p-4 max-w-[140px] xs:max-w-[150px] sm:max-w-[160px] md:max-w-[180px] shadow-xl"
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
@@ -222,8 +222,13 @@ function CategoryTab({
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 400, damping: 17 }}
     >
-      <span className="text-sm xs:text-base">{category.icon}</span>
-      <span className="hidden xs:inline">{translatedLabel}</span>
+      {/* Hide icon on small devices to avoid confusion; show text label instead */}
+      <span className="hidden sm:inline text-sm sm:text-base">
+        {category.icon}
+      </span>
+      <span className="text-xs xs:text-sm sm:text-base">
+        {translatedLabel}
+      </span>
     </motion.button>
   )
 }

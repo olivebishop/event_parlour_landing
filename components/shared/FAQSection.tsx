@@ -68,7 +68,9 @@ export default function FAQSection() {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="flex items-center mb-6 xs:mb-8 sm:mb-10"
         >
-          <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold text-white mr-3 xs:mr-4">{t('title')}</h2>
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mr-3 xs:mr-4">
+            {t('title')}
+          </h2>
           <div className="flex-grow h-px bg-gradient-to-r from-gray-50 to-white"></div>
         </motion.div>
 

@@ -27,27 +27,39 @@ export default function Home() {
       
       
         {/* User Types Section - Expanding Cards */}
-        <section id="user-types" className="relative z-20 mt-8 xs:mt-10 sm:mt-12 md:mt-16 lg:mt-24 scroll-mt-24">
+        <section
+          id="user-types"
+          className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16 scroll-mt-24"
+        >
           <ExpandingCards />
         </section>
         
         {/* Features Section */}
-        <section id="features" className="relative z-20 mt-8 xs:mt-10 sm:mt-12 md:mt-16 lg:mt-24 scroll-mt-24">
+        <section
+          id="features"
+          className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16 scroll-mt-24"
+        >
           <FeaturesSection />
         </section>
         
         {/* Why Us Section */}
-        <section id="why-us" className="relative z-20 mt-8 xs:mt-10 sm:mt-12 md:mt-16 lg:mt-24 scroll-mt-24">
+        <section
+          id="why-us"
+          className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16 scroll-mt-24"
+        >
           <Testimonials />
         </section>
         
         {/* FAQ Section */}
-        <section className="relative z-20 mt-8 xs:mt-10 sm:mt-12 md:mt-16 lg:mt-24">
+        <section className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16">
           <FAQSection />
         </section>
         
         {/* Contact Section */}
-        <section id="contact" className="relative z-20 mt-8 xs:mt-10 sm:mt-12 md:mt-16 lg:mt-24 pb-10 xs:pb-12 sm:pb-16 md:pb-20 lg:pb-32 scroll-mt-24">
+        <section
+          id="contact"
+          className="relative z-20 mt-10 sm:mt-12 md:mt-14 lg:mt-16 pb-10 sm:pb-14 md:pb-16 lg:pb-20 scroll-mt-24"
+        >
           <ContactUs />
         </section>
     </main>

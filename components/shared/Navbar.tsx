@@ -145,7 +145,7 @@ export function Navbar() {
         transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 
           ${hasScrolled 
-            ? 'bg-black/90 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/30' 
+            ? 'bg-black/90 backdrop-blur-md shadow-lg shadow-black/30' 
             : 'bg-transparent'}`}
       >
         <div className="container mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-5">
@@ -181,6 +181,24 @@ export function Navbar() {
                   />
                 </a>
               ))}
+
+              {/* Blogs - external link */}
+              <Link
+                href="https://app.eventparlour.com/blogs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative px-3 py-2 text-white text-sm lg:text-base transition-colors duration-300 cursor-pointer"
+                onMouseEnter={() => setIsHovering("blogs")}
+                onMouseLeave={() => setIsHovering(null)}
+              >
+                <span className="relative z-10">Blogs</span>
+                <motion.span 
+                  className="absolute bottom-0 left-0 w-full h-[2px] bg-white"
+                  initial={{ scaleX: 0, originX: 0 }}
+                  animate={{ scaleX: isHovering === "blogs" ? 1 : 0 }}
+                  transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                />
+              </Link>
             </div>
 
             <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4">
@@ -310,7 +328,25 @@ export function Navbar() {
                       </a>
                     </motion.div>
                   ))}
-                  
+
+                  {/* Blogs Link */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + navLinks.length * 0.1 }}
+                  >
+                    <Link
+                      href="https://app.eventparlour.com/blogs"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsOpen(false)}
+                      className="block text-3xl sm:text-4xl md:text-5xl font-semibold text-zinc-400 transition-colors active:text-white hover:text-white py-3 sm:py-4 px-2 -mx-2 rounded-lg active:bg-white/10 touch-manipulation min-h-[60px] flex items-center"
+                      style={{ WebkitTapHighlightColor: 'transparent' }}
+                    >
+                      Blogs.
+                    </Link>
+                  </motion.div>
+
                   {/* Sign In Link */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}

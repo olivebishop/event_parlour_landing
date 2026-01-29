@@ -133,8 +133,12 @@ export default function ExpandingCards() {
   return (
     <section className="py-6 xs:py-8 sm:py-12 md:py-16 dark">
       <div className="container mx-auto px-3 xs:px-4 sm:px-6 flex flex-col items-center">
-        <p className="text-[10px] xs:text-xs font-medium tracking-widest text-zinc-500 mb-2 xs:mb-3 sm:mb-4">{t('sectionLabel')}</p>
-        <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-2 xs:mb-3 sm:mb-4 text-center text-white">{t('title')}</h1>
+        <p className="text-[10px] xs:text-xs font-medium tracking-widest text-zinc-500 mb-2 xs:mb-3 sm:mb-4">
+          {t('sectionLabel')}
+        </p>
+        <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-white mb-2 xs:mb-3 sm:mb-4">
+          {t('title')}
+        </h1>
         <p className="max-w-[60ch] text-balance text-center mb-6 xs:mb-8 sm:mb-12 md:mb-16 text-zinc-400 text-xs xs:text-sm sm:text-base px-2">
           {t('subtitle')}
         </p>
