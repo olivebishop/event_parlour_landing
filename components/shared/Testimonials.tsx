@@ -22,7 +22,7 @@ const testimonials = [
   },
   {
     name: "Stanley Masinde",
-    profession: "Software Engineer and Event Organizer",
+    profession: "Software Engineer",
     link: "https://x.com/StanleyMasinde_/status/2013182135658574117?s=20",
     description:
       "Congratulations on your milestone. Guys, if you're looking for a home for your events, check out Event Parlour.",
