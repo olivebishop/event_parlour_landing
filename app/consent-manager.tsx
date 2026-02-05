@@ -53,7 +53,8 @@ export function ConsentManager({ children }: { children: ReactNode }) {
 				consentCategories: ['necessary', 'marketing'], // Optional: Specify which consent categories to show in the banner. 
 			}}
 		>
-			<CookieBanner />
+			{/* Cookie banner disabled per request */}
+			{/* <CookieBanner /> */}
 			<ConsentManagerDialog />
 			<ConsentManagerClient>{children}</ConsentManagerClient>
 		</ConsentManagerProvider>

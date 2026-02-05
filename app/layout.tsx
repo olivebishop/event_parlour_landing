@@ -8,7 +8,6 @@ import { TranslationProvider } from "@/lib/i18n/translations"
 import { cookies } from 'next/headers'
 import { NetworkProvider } from "@/lib/providers/network-provider"
 import "./globals.css"
-// import TawkToChat from '@/components/shared/TawkToChat';
 import { Toaster } from "@/components/ui/toaster"
 import { ConsentManager } from "./consent-manager";
 
@@ -37,7 +36,7 @@ const figtree = Figtree({
 const siteUrl = "https://www.eventparlour.com"
 
 export const metadata: Metadata = {
-  title: "Event Parlour - Events & Accommodation Booking",
+  title: "Event Parlour - Events Marketplace for Organizers, Attendees, and Vendors",
   description:
     "Connecting organizers, attendees, and vendors in one seamless experience.",
   keywords:
@@ -132,8 +131,6 @@ export default async function RootLayout({
               <SpeedInsights />
               <Analytics />
             </TranslationProvider>
-            {/* <TawkToChat /> */}
-          
     		</ConsentManager>
     	</body>
         </html>
