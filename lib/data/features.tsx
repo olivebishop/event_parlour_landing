@@ -13,6 +13,8 @@ import {
   LayoutDashboard,
   UserPlus,
   Image as ImageIcon,
+  TrendingUp,
+  Search,
 } from "lucide-react"
 
 export type CategoryKey = "organizers" | "attendees"
@@ -39,6 +41,45 @@ export const categories: Category[] = [
     label: "For Organizers",
     icon: <Settings className="w-4 h-4" />,
     features: [
+      {
+        icon: <TrendingUp className="w-5 h-5" />,
+        label: "REACH YOUR AUDIENCE",
+        title: "Get discovered by thousands of event-goers.",
+        description: "Your events appear in our marketplace where active attendees search by category and location. No marketing needed—we bring the audience to you.",
+        capabilities: [
+          "Marketplace visibility",
+          "Category-based discovery",
+          "Location targeting",
+          "Active attendee base"
+        ],
+        image: "/images/workspace.png"
+      },
+      {
+        icon: <Search className="w-5 h-5" />,
+        label: "GET FOUND BY THE RIGHT PEOPLE",
+        title: "Events that match attendee interests.",
+        description: "When someone in Nairobi searches for tech events or music festivals, your event shows up. We connect organizers with people actively looking for experiences.",
+        capabilities: [
+          "Smart matching",
+          "Interest-based discovery",
+          "Local search optimization",
+          "Trending events boost"
+        ],
+        image: "/images/analytics.svg"
+      },
+      {
+        icon: <Calendar className="w-5 h-5" />,
+        label: "END-TO-END EVENTS",
+        title: "Create events that sell out.",
+        description: "From creation to check-in, manage every aspect of your events.",
+        capabilities: [
+          "Event creation wizard",
+          "Venue management",
+          "Agenda builder",
+          "Multi-ticket tiers"
+        ],
+        image: "/images/org.svg"
+      },
       {
         icon: <LayoutDashboard className="w-5 h-5" />,
         label: "CENTRALIZED CONTROL",

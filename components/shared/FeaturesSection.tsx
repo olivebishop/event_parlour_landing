@@ -248,7 +248,7 @@ export default function FeaturesSection() {
         const parsed = JSON.parse(featuresData)
         // Map the translated data back to the features with icons from original
         return currentCategory.features.map((feature, index) => {
-          const featureKeys = ['dashboard', 'speakers', 'events', 'analytics', 'payments', 'postEvent']
+          const featureKeys = ['reach', 'discovery', 'events', 'dashboard', 'speakers', 'analytics', 'payments', 'postEvent']
           const attendeeKeys = ['discover', 'local', 'tickets', 'network', 'alerts']
           const keys = categoryKey === 'organizers' ? featureKeys : attendeeKeys
           const translatedFeature = parsed[keys[index]]

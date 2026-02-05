@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Hero from "@/components/shared/Hero";
-
+import DistributionMetrics from "@/components/shared/DistributionMetrics";
 import FAQSection from "@/components/shared/FAQSection";
 import ExpandingCards from "@/components/shared/animations/expanding-cards";
 import Testimonials from "@/components/shared/Testimonials";
@@ -10,8 +10,8 @@ import FeaturesSection from "@/components/shared/FeaturesSection";
 const siteUrl = "https://www.eventparlour.com";
 
 export const metadata: Metadata = {
-  title: "Event Parlour - Events & Accommodation Booking",
-  description: "Connecting organizers, attendees, and vendors in one seamless experience. Discover events, book accommodations, and plan your perfect event experience.",
+  title: "Event Parlour - Reach Thousands of Event-Goers in Nairobi",
+  description: "Get your events in front of the right audience. We connect organizers with active event-goers looking for experiences like yours. Distribution first. Management included.",
   alternates: {
     canonical: siteUrl,
   },
@@ -25,6 +25,10 @@ export default function Home() {
         <Hero />
       </section>
       
+      {/* Distribution Metrics Section */}
+      <section className="relative z-20">
+        <DistributionMetrics />
+      </section>
       
         {/* User Types Section - Expanding Cards */}
         <section
