@@ -26,6 +26,11 @@
 .DS_Store
 *.pem
 
+# IDE/Editor
+.agents
+.cursor
+.github
+
 # debug
 npm-debug.log*
 yarn-debug.log*
