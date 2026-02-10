@@ -62,6 +62,7 @@ const Footer = () => {
       { href: "https://app.eventparlour.com/auth/sign-up", label: "List your event" },
       { href: "https://app.eventparlour.com/auth/sign-in", label: "Explore events" },
       { href: "#features", label: "Features" },
+      { href: "https://app.eventparlour.com/roadmap", label: "Roadmap" },
     ],
     company: [
       { href: "#contact", label: "Contact us" },
