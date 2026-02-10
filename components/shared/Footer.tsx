@@ -7,7 +7,8 @@ import {
   HugeiconsTiktok, 
   HugeiconsInstagram, 
   HugeiconsLinkedin01, 
-  HugeiconsNewTwitter 
+  HugeiconsNewTwitter,
+  SimpleIconsTanstack, 
 } from "./social-icons";
 
 const Footer = () => {
@@ -173,6 +174,15 @@ const Footer = () => {
                 })}
               </div>
               <p className="text-gray-500 text-xs mt-4">Join the community on WhatsApp channel</p>
+              <a
+                href="https://tanstack.com/showcase/3c337dc8-cc31-40ee-adfc-413e9bdf041b"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-4 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.02] text-[11px] text-gray-400 hover:text-white hover:border-white/40 hover:bg-white/[0.04] transition-colors"
+              >
+                <SimpleIconsTanstack className="w-4 h-4" />
+                <span>Featured in TanStack Showcase</span>
+              </a>
             </motion.div>
           </div>
         </div>
