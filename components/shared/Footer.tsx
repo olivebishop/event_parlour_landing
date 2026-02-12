@@ -227,6 +227,15 @@ const Footer = () => {
             <p className="w-full sm:w-auto">
               {t('copyright').replace('©{year}', '').replace('event parlour.', '').trim()}
             </p>
+            <span>•</span>
+            <a
+              href="https://event-parlour.openstatus.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-white transition-colors"
+            >
+              System Status: <span className="text-green-500 font-semibold">Operational</span>
+            </a>
           </motion.div>
         </div>
       </div>
