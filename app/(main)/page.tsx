@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-   <main className="relative overflow-hidden bg-black">
+   <main className="relative overflow-hidden bg-background">
       {/* Hero Section */}
       <section className="relative z-10">
         <Hero />

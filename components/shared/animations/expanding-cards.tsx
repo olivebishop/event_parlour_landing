@@ -131,15 +131,15 @@ export default function ExpandingCards() {
   }
 
   return (
-    <section className="py-6 xs:py-8 sm:py-12 md:py-16 dark">
+    <section className="py-6 xs:py-8 sm:py-12 md:py-16 bg-background">
       <div className="container mx-auto px-3 xs:px-4 sm:px-6 flex flex-col items-center">
-        <p className="text-[10px] xs:text-xs font-medium tracking-widest text-zinc-500 mb-2 xs:mb-3 sm:mb-4">
+        <p className="text-[10px] xs:text-xs font-medium tracking-widest text-muted-foreground mb-2 xs:mb-3 sm:mb-4">
           {t('sectionLabel')}
         </p>
-        <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-white mb-2 xs:mb-3 sm:mb-4">
+        <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-foreground mb-2 xs:mb-3 sm:mb-4">
           {t('title')}
         </h1>
-        <p className="max-w-[60ch] text-balance text-center mb-6 xs:mb-8 sm:mb-12 md:mb-16 text-zinc-400 text-xs xs:text-sm sm:text-base px-2">
+        <p className="max-w-[60ch] text-balance text-center mb-6 xs:mb-8 sm:mb-12 md:mb-16 text-muted-foreground text-xs xs:text-sm sm:text-base px-2">
           {t('subtitle')}
         </p>
 
@@ -169,7 +169,7 @@ export default function ExpandingCards() {
                 key={card.id}
                 className={`card-item relative overflow-hidden ${
                   isVerticalLayout ? "min-h-[var(--base)]" : "min-w-[var(--base)]"
-                } border border-zinc-800 bg-zinc-950 ${isActive ? "active" : ""}`}
+                } border border-zinc-300 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 ${isActive ? "active" : ""}`}
                 data-active={isActive.toString()}
                 onClick={() => handleCardInteraction(card.id)}
                 onMouseEnter={() => !isMobileView ? handleCardInteraction(card.id) : null}
@@ -182,37 +182,44 @@ export default function ExpandingCards() {
                     : "opacity-0"}
                 `}>
                   {/* Radial gradient from corner */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-zinc-800/50 via-zinc-900/30 to-transparent" />
-                  {/* Subtle grid pattern overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-zinc-200/50 via-zinc-100/30 to-transparent dark:from-zinc-800/50 dark:via-zinc-900/30" />
+                  {/* Subtle grid pattern overlay - black for light mode, white for dark mode */}
                   <div 
-                    className="absolute inset-0 opacity-[0.03]"
+                    className="absolute inset-0 opacity-[0.03] dark:opacity-[0.03]"
                     style={{
-                      backgroundImage: `linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)`,
+                      backgroundImage: `linear-gradient(to right, rgb(0,0,0) 1px, transparent 1px), linear-gradient(to bottom, rgb(0,0,0) 1px, transparent 1px)`,
+                      backgroundSize: '40px 40px'
+                    }}
+                  />
+                  <div 
+                    className="absolute inset-0 opacity-0 dark:opacity-[0.03]"
+                    style={{
+                      backgroundImage: `linear-gradient(to right, rgb(255,255,255) 1px, transparent 1px), linear-gradient(to bottom, rgb(255,255,255) 1px, transparent 1px)`,
                       backgroundSize: '40px 40px'
                     }}
                   />
                   {/* Accent glow based on card position */}
                   <div className={`
                     absolute w-32 h-32 rounded-full blur-3xl transition-all duration-700
-                    ${card.id === 1 ? "bg-white/10 -top-10 -left-10" : ""}
-                    ${card.id === 2 ? "bg-white/10 -bottom-10 -right-10" : ""}
-                    ${card.id === 3 ? "bg-white/10 top-1/2 -translate-y-1/2 -left-10" : ""}
-                    ${card.id === 4 ? "bg-white/10 -top-10 right-10" : ""}
-                    ${card.id === 5 ? "bg-white/10 -bottom-10 left-1/2 -translate-x-1/2" : ""}
+                    ${card.id === 1 ? "bg-black/10 dark:bg-white/10 -top-10 -left-10" : ""}
+                    ${card.id === 2 ? "bg-black/10 dark:bg-white/10 -bottom-10 -right-10" : ""}
+                    ${card.id === 3 ? "bg-black/10 dark:bg-white/10 top-1/2 -translate-y-1/2 -left-10" : ""}
+                    ${card.id === 4 ? "bg-black/10 dark:bg-white/10 -top-10 right-10" : ""}
+                    ${card.id === 5 ? "bg-black/10 dark:bg-white/10 -bottom-10 left-1/2 -translate-x-1/2" : ""}
                   `} />
                 </div>
                 
                 {/* Bottom fade gradient for text readability */}
                 <div className={`
                   absolute bottom-0 left-0 right-0 h-2/3 
-                  bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent
+                  bg-gradient-to-t from-zinc-50 via-zinc-50/80 to-transparent dark:from-zinc-950 dark:via-zinc-950/80
                   transition-opacity duration-500
                   ${isActive ? "opacity-100" : "opacity-0"}
                 `} />
 
                 <article className={`w-full h-full absolute top-0 left-0 flex flex-col ${isActive && isVerticalLayout ? "justify-start pt-14" : "justify-end"} gap-2 sm:gap-4 p-3 sm:p-4 overflow-hidden font-mono z-10`}>
                   <h3 className={`
-                    text-base font-light uppercase text-white transition-all duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]
+                    text-base font-light uppercase text-foreground transition-all duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]
                     ${isVerticalLayout 
                       ? (isActive ? "opacity-100 top-2 left-4" : "opacity-60 top-[50%] left-4 -translate-y-1/2") 
                       : (isActive ? "opacity-100 top-4 left-4 rotate-0" : "opacity-60 top-4 left-[calc(var(--base)*0.5)] origin-[0_50%] rotate-90")}
@@ -230,15 +237,15 @@ export default function ExpandingCards() {
                     ${isVerticalLayout && isActive ? "mt-2" : ""}
                     relative z-20
                   `}>
-                    <p className="text-xs sm:text-sm text-balance leading-tight text-zinc-300">
+                    <p className="text-xs sm:text-sm text-balance leading-tight text-muted-foreground">
                       {card.description}
                     </p>
                     
                     {/* Stat highlight */}
                     {isActive && (
                       <div className="mt-3 flex items-baseline gap-2">
-                        <span className="text-2xl sm:text-3xl font-bold text-white">{card.stat}</span>
-                        <span className="text-xs text-zinc-400">{card.statLabel}</span>
+                        <span className="text-2xl sm:text-3xl font-bold text-foreground">{card.stat}</span>
+                        <span className="text-xs text-muted-foreground">{card.statLabel}</span>
                       </div>
                     )}
                   </div>
@@ -250,12 +257,6 @@ export default function ExpandingCards() {
       </div>
 
       <style jsx global>{`
-        .dark {
-          color-scheme: dark;
-          background-color: #000;
-          color: #fff;
-        }
-        
         .cards-container {
           min-height: 60vh;
           max-height: 90vh;
@@ -273,10 +274,6 @@ export default function ExpandingCards() {
             max-height: 500px;
             height: auto;
             transition: min-height 0.6s ease;
-          }
-          
-          .card-item {
-            background-color: #111;
           }
         }
         

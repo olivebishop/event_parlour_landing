@@ -53,7 +53,7 @@ function WordAnimation({ words }: { words: string[] }) {
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: -30, opacity: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className="inline-block text-white"
+        className="inline-block text-foreground"
       >
         {currentWord}
       </motion.span>
@@ -81,7 +81,7 @@ function FloatingAvatar({
       <motion.div
         whileHover={{ rotate: 15, scale: 2.5 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className="relative w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 xl:w-24 xl:h-24 overflow-hidden rounded-lg border-2 border-white/50 sm:border-white bg-zinc-800 shadow-lg cursor-pointer"
+        className="relative w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 xl:w-24 xl:h-24 overflow-hidden rounded-lg border-2 border-foreground/50 sm:border-foreground bg-muted shadow-lg cursor-pointer"
       >
         <Image
           src={img}
@@ -135,7 +135,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-white mb-4 xs:mb-5 sm:mb-6 max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto leading-tight"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-foreground mb-4 xs:mb-5 sm:mb-6 max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto leading-tight"
           >
             {t('title')}
             <br />
@@ -147,7 +147,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-zinc-400 text-sm xs:text-base sm:text-lg md:text-xl mb-6 xs:mb-7 sm:mb-8 max-w-[280px] xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto px-4 leading-relaxed"
+            className="text-muted-foreground text-sm xs:text-base sm:text-lg md:text-xl mb-6 xs:mb-7 sm:mb-8 max-w-[280px] xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto px-4 leading-relaxed"
           >
             {t('description')}
             <br className="hidden sm:block" />
@@ -173,7 +173,7 @@ export default function Hero() {
               aria-label="Create your event on EventParlour"
               className="inline-block"
             >
-              <Button size="lg" className="bg-white text-black hover:bg-zinc-200 px-5 xs:px-6 sm:px-8 py-4 xs:py-5 sm:py-6 text-sm xs:text-base sm:text-lg font-medium">
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-5 xs:px-6 sm:px-8 py-4 xs:py-5 sm:py-6 text-sm xs:text-base sm:text-lg font-medium">
                 Create your event
               </Button>
             </a>

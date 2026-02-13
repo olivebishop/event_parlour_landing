@@ -6,7 +6,8 @@
       "why us": "Why Us",
       "venues": "Venues",
       "contact": "Contact",
-      "signIn": "Sign In"
+      "signIn": "Sign In",
+      "blogs": "Blogs"
     },
     "BedsPage": {
       "ctaBanner": {
@@ -82,19 +83,19 @@
       "questions": [
         {
           "question": "How do I purchase tickets?",
-          "answer": "To purchase tickets, click on the 'Get Tickets' button on any event card. You'll need to sign in or create an account to complete your purchase."
+          "answer": "Login to the app and look for events in the sidebar. Explore events of your choice and purchase tickets directly from the event page."
         },
         {
           "question": "Can I get a refund for my tickets?",
-          "answer": "Refunds are available up to 24 hours before the event starts, subject to the event organizer's policy. If you're unavailable and unable to attend, you can also transfer your ticket to someone else. Check the event details for more information."
+          "answer": "Refund policies depend on the event organizer. Refunds are typically available up to 24 hours before the event starts, subject to the event organizer's policy. If you're unavailable and unable to attend, you can also transfer your ticket to someone else. For more information, please refer to our refund policy at https://app.eventparlour.com/legal/refund-policy"
         },
         {
           "question": "Are events available internationally?",
-          "answer": "Yes, we feature events from various locations worldwide. Use the filters to find events near you or in specific regions."
+          "answer": "Currently supporting Kenya and Europe. Support for more regions coming soon. Follow our roadmap at https://app.eventparlour.com/roadmap for updates on new regions."
         },
         {
           "question": "How can I contact support?",
-          "answer": "You can reach our support team via email at support@example.com or through the 'Contact Us' page."
+          "answer": "You can reach our support team via email at hello@eventparlour.com or through the #contact section."
         }
       ]
     },
@@ -119,7 +120,26 @@
         "whatsapp": "WhatsApp Channel"
       },
       "copyright": "©{year} event parlour. All rights reserved.",
-      "legal": "Legal"
+      "legal": "Legal",
+      "product": "Product",
+      "company": "Company",
+      "weAreSocial": "We are social :)",
+      "listYourEvent": "List your event",
+      "exploreEvents": "Explore events",
+      "features": "Features",
+      "roadmap": "Roadmap",
+      "contactUs": "Contact us",
+      "about": "About",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "security": "Security",
+      "refundPolicy": "Refund Policy",
+      "cookiePolicy": "Cookie Policy",
+      "joinCommunity": "Join the community on WhatsApp channel",
+      "featuredInTanStack": "Featured in TanStack Showcase",
+      "theme": "Theme",
+      "systemStatus": "System Status:",
+      "operational": "Operational"
     },
     "Hero": {
       "updateLink": "🎉 | Get Event Updates",
@@ -268,7 +288,7 @@
     },
     "Testimonials": {
       "title": "Loved by the people who run great events",
-      "subtitle": "Events that just work.",
+      "subtitle": "Events that work.",
       "description": "Loved by organizers, vendors, and attendees who want events to just work.",
       "testimonials": [
         {

@@ -17,7 +17,7 @@ const artCards = [
 
 export default function ArtGallery() {
   return (
-    <div className="relative h-[200px] xs:h-[240px] sm:h-[280px] md:h-[320px] lg:h-[360px] xl:h-[400px] w-full mx-auto mt-6 xs:mt-8 sm:mt-10 md:mt-14 lg:mt-16">
+    <div data-art-gallery className="relative h-[200px] xs:h-[240px] sm:h-[280px] md:h-[320px] lg:h-[360px] xl:h-[400px] w-full mx-auto mt-6 xs:mt-8 sm:mt-10 md:mt-14 lg:mt-16">
       {/* Container with centered positioning */}
       <div className="relative w-full h-full flex items-center justify-center overflow-hidden px-2">
         {artCards.map((card, index) => {

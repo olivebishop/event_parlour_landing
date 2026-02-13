@@ -50,7 +50,7 @@ export default function DistributionMetrics() {
   return (
     <section
       ref={sectionRef}
-      className="py-8 xs:py-10 sm:py-12 md:py-16 bg-gradient-to-b from-black via-zinc-950 to-black border-y border-zinc-900"
+      className="py-8 xs:py-10 sm:py-12 md:py-16 bg-gradient-to-b from-background via-muted/30 to-background"
     >
       <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -60,10 +60,10 @@ export default function DistributionMetrics() {
           transition={{ duration: 0.6 }}
           className="text-center mb-6 xs:mb-8 sm:mb-10"
         >
-          <p className="text-zinc-400 text-sm xs:text-base sm:text-lg mb-2">
+          <p className="text-muted-foreground text-sm xs:text-base sm:text-lg mb-2">
             {t('subtitle')}
           </p>
-          <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+          <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
             {t('title')}
           </h2>
         </motion.div>
@@ -94,22 +94,20 @@ export default function DistributionMetrics() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={cn(
                   "relative rounded-lg text-center p-4 xs:p-6 sm:p-8",
-                  // Index 0: dark on small, white on large
-                  index === 0 && "bg-zinc-950 text-white lg:bg-white lg:text-black",
-                  // Index 1: white on small, dark on large
-                  index === 1 && "bg-white text-black lg:bg-zinc-950 lg:text-white",
-                  // Index 2: white on both
-                  index === 2 && "bg-white text-black",
-                  // Index 3: dark on both
-                  index === 3 && "bg-zinc-950 text-white"
+                  // Small devices: checkerboard pattern (0,3 dark; 1,2 light)
+                  // Large devices: alternating pattern (0,2 light; 1,3 dark)
+                  index === 0 && "bg-zinc-100 dark:bg-muted text-foreground lg:bg-background dark:lg:bg-background lg:border lg:border-border",
+                  index === 1 && "bg-background text-foreground border border-border lg:bg-zinc-100 dark:lg:bg-muted lg:border-0",
+                  index === 2 && "bg-background text-foreground border border-border lg:bg-background dark:lg:bg-background lg:border lg:border-border",
+                  index === 3 && "bg-zinc-100 dark:bg-muted text-foreground lg:bg-zinc-100 dark:lg:bg-muted"
                 )}
               >
                 {/* Vercel-style edge borders */}
                 <div className="absolute inset-0 rounded-lg">
-                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-zinc-700/50 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-zinc-700/50 to-transparent" />
-                  <div className="absolute top-0 bottom-0 left-0 w-px bg-gradient-to-b from-transparent via-zinc-700/50 to-transparent" />
-                  <div className="absolute top-0 bottom-0 right-0 w-px bg-gradient-to-b from-transparent via-zinc-700/50 to-transparent" />
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+                  <div className="absolute top-0 bottom-0 left-0 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
+                  <div className="absolute top-0 bottom-0 right-0 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
                 </div>
                 {/* Mesh-like effect only on edges */}
                 <div className="pointer-events-none absolute inset-0 rounded-lg overflow-hidden">
@@ -151,24 +149,10 @@ export default function DistributionMetrics() {
                   />
                 </div>
                 <div className="relative">
-                <div className={cn(
-                  "flex justify-center mb-3 xs:mb-4",
-                  index === 0 && "text-white lg:text-black",
-                  index === 1 && "text-black lg:text-white",
-                  index === 2 && "text-black",
-                  index === 3 && "text-white"
-                )}>
+                <div className="flex justify-center mb-3 xs:mb-4 text-foreground">
                   <IconComponent className="w-6 h-6 sm:w-8 sm:h-8" />
                 </div>
-                <div
-                  className={cn(
-                    "text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-2",
-                    index === 0 && "text-white lg:text-black",
-                    index === 1 && "text-black lg:text-white",
-                    index === 2 && "text-black",
-                    index === 3 && "text-white"
-                  )}
-                >
+                <div className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-2 text-foreground">
                   {!Number.isNaN(numericValue) ? (
                     <NumberFlow
                       value={hasAnimated ? numericValue : 0}
@@ -178,13 +162,7 @@ export default function DistributionMetrics() {
                     metric.value
                   )}
                 </div>
-                <div className={cn(
-                  "text-xs xs:text-sm sm:text-base",
-                  index === 0 && "text-zinc-400 lg:text-zinc-700",
-                  index === 1 && "text-zinc-700 lg:text-zinc-400",
-                  index === 2 && "text-zinc-700",
-                  index === 3 && "text-zinc-400"
-                )}>
+                <div className="text-xs xs:text-sm sm:text-base text-muted-foreground">
                   {metric.label}
                 </div>
                 </div>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import ScrollReveal from "@/components/shared/animations/scroll-reveal";
-import { useTranslations } from "@/lib/i18n/translations";
+import { useTranslations, useLocale } from "@/lib/i18n/translations";
 import { cn } from "@/lib/utils";
 import { HugeiconsNewTwitter } from "./social-icons";
 
@@ -115,13 +115,13 @@ const TestimonialItem = ({
               <div
                 key={indx}
                 className={cn(
-                  "flex flex-col justify-between h-[220px] rounded-none border-[1.2px] border-white/10 shrink-0 grow-0 w-[450px] bg-black/40",
+                  "flex flex-col justify-between h-[220px] rounded-none border-[1.2px] border-border shrink-0 grow-0 w-[450px] bg-muted/40",
                 )}
               >
-                <p className="px-5 py-5 font-sans tracking-tight text-sm font-extralight sm:text-base md:text-lg text-pretty text-white/90">
+                <p className="px-5 py-5 font-sans tracking-tight text-sm font-extralight sm:text-base md:text-lg text-pretty text-foreground/90">
                   &quot;{testimonial.description}&quot;
                 </p>
-                <div className="flex overflow-hidden h-[28%] gap-1 w-full border-t-[1.2px] border-white/10">
+                <div className="flex overflow-hidden h-[28%] gap-1 w-full border-t-[1.2px] border-border">
                   <div className="flex items-center w-3/4 gap-3 px-4 py-3">
                     <img
                       src={testimonial.avatar}
@@ -129,22 +129,22 @@ const TestimonialItem = ({
                       alt={`${testimonial.name} avatar`}
                     />
                     <div className="flex flex-col items-start justify-start flex-1 gap-0">
-                      <h5 className="text-base font-medium md:text-md text-white">
+                      <h5 className="text-base font-medium md:text-md text-foreground">
                         {testimonial.name}
                       </h5>
-                      <p className="text-xs md:text-sm text-white/60 mt-[-4px]">
+                      <p className="text-xs md:text-sm text-muted-foreground mt-[-4px]">
                         {testimonial.profession}
                       </p>
                     </div>
                   </div>
-                  <div className="w-[1px] bg-white/10" />
+                  <div className="w-[1px] bg-border" />
                   <div className="flex items-center justify-center max-w-full mx-auto px-4">
                     <Link
                       href={testimonial.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`View ${testimonial.name}'s testimonial on X`}
-                      className="text-white/70 hover:text-white transition-colors"
+                      className="text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {testimonial.social}
                     </Link>
@@ -238,17 +238,20 @@ const TestimonialScroller = () => {
 
 export default function Testimonials() {
   const t = useTranslations("Testimonials");
+  const locale = useLocale();
 
   return (
     <div className="container mx-auto px-3 xs:px-4 sm:px-6">
       <ScrollReveal direction="up" duration={0.7} threshold={0.2}>
         <div className="text-center mb-8 xs:mb-10 sm:mb-12">
-          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white max-w-xs xs:max-w-sm md:max-w-xl lg:max-w-2xl mx-auto px-2 mb-3 xs:mb-4">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground max-w-xs xs:max-w-sm md:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto px-2 mb-3 xs:mb-4 break-words leading-tight">
             {t("subtitle")}
           </h2>
-          <p className="text-zinc-400 text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm md:max-w-xl lg:max-w-2xl mx-auto px-2">
-            {t("description")}
-          </p>
+          {locale === 'en' && (
+            <p className="text-muted-foreground text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm md:max-w-xl lg:max-w-2xl mx-auto px-2">
+              {t("description")}
+            </p>
+          )}
         </div>
       </ScrollReveal>
       

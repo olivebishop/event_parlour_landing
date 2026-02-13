@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/react"
 import { TranslationProvider } from "@/lib/i18n/translations"
 import { cookies } from 'next/headers'
 import { NetworkProvider } from "@/lib/providers/network-provider"
+import { ThemeProvider } from "@/lib/providers/theme-provider"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { ConsentManager } from "./consent-manager";
@@ -93,11 +94,12 @@ export default async function RootLayout({
   const messages = (await import(`../messages/${locale}.json`)).default
 
   return (
-        <html lang={locale}>
+        <html lang={locale} suppressHydrationWarning>
           <head>
             <link rel="icon" href="/favicon.ico" sizes="any" />
             <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-            <meta name="theme-color" content="#171717" />
+            <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)" />
+            <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
             <meta name="google-site-verification" content="google-site-verification: google6fd33e29e29c5c47.html" />
             <script
               type="application/ld+json"
@@ -119,7 +121,13 @@ export default async function RootLayout({
               }}
             />
           </head>
-          <body className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} ${figtree.variable} antialiased bg-[#171717] text-white`}>
+          <body className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} ${figtree.variable} antialiased bg-background text-foreground`}>
+    		<ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
     		<ConsentManager>
     			
             <TranslationProvider messages={messages} locale={locale}>
@@ -132,6 +140,7 @@ export default async function RootLayout({
               <Analytics />
             </TranslationProvider>
     		</ConsentManager>
+    		</ThemeProvider>
     	</body>
         </html>
       )
