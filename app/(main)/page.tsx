@@ -6,6 +6,7 @@ import ExpandingCards from "@/components/shared/animations/expanding-cards";
 import Testimonials from "@/components/shared/Testimonials";
 import { ContactUs } from "@/components/shared/contactUs/Contact";
 import FeaturesSection from "@/components/shared/FeaturesSection";
+import InteractiveDemo from "@/components/shared/InteractiveDemo";
 
 const siteUrl = "https://www.eventparlour.com";
 
@@ -25,47 +26,55 @@ export default function Home() {
         <Hero />
       </section>
       
-      {/* Distribution Metrics Section */}
-      <section className="relative z-20">
+      {/* Interactive Demo Section */}
+      <section
+        id="demo"
+        className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16 scroll-mt-24"
+      >
+        <InteractiveDemo />
+      </section>
+      
+      {/* User Types Section - Expanding Cards */}
+      <section
+        id="user-types"
+        className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16 scroll-mt-24"
+      >
+        <ExpandingCards />
+      </section>
+      
+      {/* Features Section */}
+      <section
+        id="features"
+        className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16 scroll-mt-24"
+      >
+        <FeaturesSection />
+      </section>
+      
+      {/* Distribution Metrics Section - Social Proof */}
+      <section className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16">
         <DistributionMetrics />
       </section>
       
-        {/* User Types Section - Expanding Cards */}
-        <section
-          id="user-types"
-          className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16 scroll-mt-24"
-        >
-          <ExpandingCards />
-        </section>
-        
-        {/* Features Section */}
-        <section
-          id="features"
-          className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16 scroll-mt-24"
-        >
-          <FeaturesSection />
-        </section>
-        
-        {/* Why Us Section */}
-        <section
-          id="why-us"
-          className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16 scroll-mt-24"
-        >
-          <Testimonials />
-        </section>
-        
-        {/* FAQ Section */}
-        <section className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16">
-          <FAQSection />
-        </section>
-        
-        {/* Contact Section */}
-        <section
-          id="contact"
-          className="relative z-20 mt-10 sm:mt-12 md:mt-14 lg:mt-16 pb-10 sm:pb-14 md:pb-16 lg:pb-20 scroll-mt-24"
-        >
-          <ContactUs />
-        </section>
+      {/* Why Us Section - Testimonials */}
+      <section
+        id="why-us"
+        className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16 scroll-mt-24"
+      >
+        <Testimonials />
+      </section>
+      
+      {/* FAQ Section */}
+      <section className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16">
+        <FAQSection />
+      </section>
+      
+      {/* Contact Section */}
+      <section
+        id="contact"
+        className="relative z-20 mt-10 sm:mt-12 md:mt-14 lg:mt-16 pb-10 sm:pb-14 md:pb-16 lg:pb-20 scroll-mt-24"
+      >
+        <ContactUs />
+      </section>
     </main>
   );
 }
