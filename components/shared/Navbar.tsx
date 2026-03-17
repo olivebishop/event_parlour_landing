@@ -160,9 +160,9 @@ export function Navbar() {
                   Event Parlour.
                 </p>
               </motion.div>
-              <span className="ml-2 sm:ml-3 inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold uppercase border border-foreground rounded-none text-emerald-400 dark:text-emerald-400">
+              {/* <span className="ml-2 sm:ml-3 inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold uppercase border border-foreground rounded-none text-emerald-400 dark:text-emerald-400">
                 Beta
-              </span>
+              </span> */}
             </Link>
 
             {/* Desktop Navigation Links */}
