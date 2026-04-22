@@ -106,7 +106,7 @@ const Footer = () => {
             alt={t("brandName")}
             width={200}
             height={56}
-            className="h-10 md:h-12 w-auto object-contain object-left"
+            className="h-10 md:h-12 w-auto object-contain object-left [filter:invert(1)_hue-rotate(180deg)_brightness(2.5)_saturate(2)] dark:[filter:none]"
             priority={false}
           />
         </motion.div>

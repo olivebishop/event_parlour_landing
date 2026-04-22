@@ -620,3 +620,38 @@ pre,
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes hrtl-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes hrtl-scroll-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-hrtl-scroll {
+  animation: hrtl-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-hrtl-scroll-reverse {
+  animation: hrtl-scroll-reverse 40s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hrtl-scroll,
+  .animate-hrtl-scroll-reverse {
+    animation: none;
+  }
+}

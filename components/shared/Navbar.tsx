@@ -160,9 +160,10 @@ export function Navbar() {
                 <Image
                   src="/logo.png"
                   alt={t("brandName")}
-                  width={180}
-                  height={50}
-                  className="h-8 sm:h-9 md:h-10 w-auto object-contain object-left"
+                  width={240}
+                  height={64}
+                  sizes="(max-width: 640px) 112px, (max-width: 1024px) 140px, 160px"
+                  className="h-7 xs:h-8 sm:h-9 md:h-10 lg:h-11 w-auto object-contain object-left [filter:invert(1)_hue-rotate(180deg)_brightness(2.5)_saturate(2)_drop-shadow(0_1px_1px_rgba(0,0,0,0.35))] dark:[filter:drop-shadow(0_0_6px_rgba(43,248,6,0.25))]"
                   priority
                 />
               </motion.div>
