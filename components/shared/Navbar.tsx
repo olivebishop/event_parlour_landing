@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Languages, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -155,10 +156,15 @@ export function Navbar() {
         <div className="container mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-5">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center group relative z-[60] touch-manipulation" style={{ WebkitTapHighlightColor: 'transparent' }}>
-              <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
-                <p className="font-extrabold text-lg sm:text-xl md:text-2xl lg:text-2xl text-foreground">
-                  Event Parlour.
-                </p>
+              <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} className="flex items-center">
+                <Image
+                  src="/logo.png"
+                  alt={t("brandName")}
+                  width={180}
+                  height={50}
+                  className="h-8 sm:h-9 md:h-10 w-auto object-contain object-left"
+                  priority
+                />
               </motion.div>
               {/* <span className="ml-2 sm:ml-3 inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold uppercase border border-foreground rounded-none text-emerald-400 dark:text-emerald-400">
                 Beta

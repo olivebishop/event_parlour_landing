@@ -121,7 +121,10 @@ export default async function RootLayout({
               }}
             />
           </head>
-          <body className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} ${figtree.variable} antialiased bg-background text-foreground`}>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} ${figtree.variable} antialiased bg-background text-foreground`}
+            suppressHydrationWarning
+          >
     		<ThemeProvider
             attribute="class"
             defaultTheme="system"

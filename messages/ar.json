@@ -6,7 +6,8 @@
   "why us": "لماذا نحن",
   "venues": "المواقع",
   "contact": "اتصل بنا",
-  "signIn": "تسجيل الدخول"
+  "signIn": "تسجيل الدخول",
+  "brandName": "CircleUp"
 },
     "BedsPage": {
       "ctaBanner": {
@@ -118,7 +119,8 @@
         "linkedin": "لينكدإن",
         "whatsapp": "قناة واتساب"
       },
-      "copyright": "©{year} event parlour. جميع الحقوق محفوظة.",
+      "copyright": "©{year} circleup. جميع الحقوق محفوظة.",
+      "brandName": "CircleUp",
       "legal": "قانوني"
     },
     "Hero": {

@@ -6,7 +6,8 @@
   "why us": "Pourquoi Nous",
   "venues": "Lieux",
   "contact": "Contact",
-  "signIn": "Connexion"
+  "signIn": "Connexion",
+  "brandName": "CircleUp"
 },
     "BedsPage": {
       "ctaBanner": {
@@ -118,7 +119,8 @@
         "linkedin": "LinkedIn",
         "whatsapp": "Canal WhatsApp"
       },
-      "copyright": "©{year} event parlour. Tous droits réservés.",
+      "copyright": "©{year} circleup. Tous droits réservés.",
+      "brandName": "CircleUp",
       "legal": "Légal"
     },
     "Hero": {

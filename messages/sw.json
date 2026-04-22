@@ -5,7 +5,8 @@
   "why us": "Kwa Nini Sisi",
   "venues": "Maeneo Ya Tukio",
   "contact": "Wasiliana Nasi",
-  "signIn": "Ingia "
+  "signIn": "Ingia ",
+  "brandName": "CircleUp"
 },
     "BedsPage": {
       "ctaBanner": {
@@ -117,7 +118,8 @@
         "linkedin": "LinkedIn",
         "whatsapp": "Kituo cha WhatsApp"
       },
-      "copyright": "©{year} event parlour. Haki Zote Zimehifadhiwa.",
+      "copyright": "©{year} circleup. Haki Zote Zimehifadhiwa.",
+      "brandName": "CircleUp",
       "legal": "Kisheria"
     },
     "Hero": {
