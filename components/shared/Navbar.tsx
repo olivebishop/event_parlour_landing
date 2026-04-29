@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Languages, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -157,7 +156,7 @@ export function Navbar() {
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center group relative z-[60] touch-manipulation" style={{ WebkitTapHighlightColor: 'transparent' }}>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} className="flex items-center">
-                <Image
+                {/* <Image
                   src="/logo.png"
                   alt={t("brandName")}
                   width={240}
@@ -165,7 +164,10 @@ export function Navbar() {
                   sizes="(max-width: 640px) 112px, (max-width: 1024px) 140px, 160px"
                   className="h-7 xs:h-8 sm:h-9 md:h-10 lg:h-11 w-auto object-contain object-left [filter:invert(1)_hue-rotate(180deg)_brightness(2.5)_saturate(2)_drop-shadow(0_1px_1px_rgba(0,0,0,0.35))] dark:[filter:drop-shadow(0_0_6px_rgba(43,248,6,0.25))]"
                   priority
-                />
+                /> */}
+                <span className="text-lg sm:text-xl md:text-2xl font-heading font-semibold text-foreground tracking-wide">
+                  Event Parlour
+                </span>
               </motion.div>
               {/* <span className="ml-2 sm:ml-3 inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold uppercase border border-foreground rounded-none text-emerald-400 dark:text-emerald-400">
                 Beta

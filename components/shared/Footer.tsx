@@ -1,6 +1,5 @@
 "use client"
 import React, { useRef, useState, useMemo } from "react";
-import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useTranslations, useLocale } from "@/lib/i18n/translations";
 import { ThemeSwitcher } from "@/components/kibo-ui/theme-switcher";
@@ -26,7 +25,7 @@ const Footer = () => {
     }
   }, [isInView]);
 
-  const brandText = ["C", "i", "r", "c", "l", "e", "U", "p"];
+  const brandText = "Event Parlour".split("");
 
   const containerVariants = {
     hidden: {},
@@ -101,14 +100,17 @@ const Footer = () => {
           transition={{ duration: 0.45 }}
           className="flex justify-center md:justify-start pt-10 md:pt-12 pb-2"
         >
-          <Image
+          {/* <Image
             src="/logo.png"
             alt={t("brandName")}
             width={200}
             height={56}
             className="h-10 md:h-12 w-auto object-contain object-left [filter:invert(1)_hue-rotate(180deg)_brightness(2.5)_saturate(2)] dark:[filter:none]"
             priority={false}
-          />
+          /> */}
+          <span className="text-2xl md:text-3xl font-heading font-semibold tracking-wide text-foreground">
+            Event Parlour
+          </span>
         </motion.div>
 
         {/* Main Footer Content - Multi Column Layout */}
@@ -245,7 +247,7 @@ const Footer = () => {
             animate={footerVisible ? { opacity: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <span className="flex items-center">©{new Date().getFullYear()} <span className="text-foreground font-heading ml-1">{t("brandName")}</span></span>
+            <span className="flex items-center">©{new Date().getFullYear()} <span className="text-foreground font-heading ml-1">Event Parlour</span></span>
             <span className="hidden sm:inline mx-0 sm:mx-1">•</span>
             <span className="flex items-center">{t('address2')}</span>
             <span className="hidden sm:inline mx-0 sm:mx-1">•</span>
@@ -256,6 +258,8 @@ const Footer = () => {
                 .replace("circleup.", "")
                 .trim()}
             </span>
+            <span className="hidden sm:inline mx-0 sm:mx-1">•</span>
+            <span className="flex items-center">Powered by Circle Up</span>
             <span className="hidden sm:inline mx-0 sm:mx-1">•</span>
             <a
               href="https://event-parlour.openstatus.dev/"
