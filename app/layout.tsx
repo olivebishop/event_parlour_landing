@@ -100,6 +100,7 @@ export default async function RootLayout({
             <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
             <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)" />
             <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+            <meta name='dmca-site-verification' content='ZG0rMlhORGRZZlhkYnZQc1dxT2pSL3Awb3FFTkpIelBFRE96SHVEbmJBRT01' />
             <meta name="google-site-verification" content="google-site-verification: google6fd33e29e29c5c47.html" />
             <script
               type="application/ld+json"
