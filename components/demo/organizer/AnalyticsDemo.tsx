@@ -8,7 +8,7 @@ import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import { ChartConfig, ChartContainer } from "@/components/ui/chart"
 import { Badge } from "@/components/ui/badge"
 import { useRef, useState } from "react"
-import { useSpring, useMotionValueEvent } from "motion/react"
+import { useSpring, useMotionValueEvent } from "framer-motion"
 
 const chartData = [
   { month: "Jan", revenue: 2.1 },

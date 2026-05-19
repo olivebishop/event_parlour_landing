@@ -2,7 +2,23 @@
 import React, { useRef, useState, useMemo } from "react";
 import { motion, useInView } from "framer-motion";
 import { useTranslations, useLocale } from "@/lib/i18n/translations";
-import { ThemeSwitcher } from "@/components/kibo-ui/theme-switcher";
+import dynamic from "next/dynamic";
+
+const ThemeSwitcher = dynamic(
+  () =>
+    import("@/components/kibo-ui/theme-switcher").then((m) => ({
+      default: m.ThemeSwitcher,
+    })),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        aria-hidden
+        className="h-8 sm:h-9 w-[7.5rem] rounded-full bg-muted/50 animate-pulse"
+      />
+    ),
+  }
+);
 import { 
   HugeiconsWhatsapp, 
   HugeiconsTiktok, 

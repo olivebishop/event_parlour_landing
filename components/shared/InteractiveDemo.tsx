@@ -33,21 +33,67 @@ import {
   Moon,
 } from "lucide-react"
 import { useTheme } from "next-themes"
-// Import demo components
-import EventsDemoOrganizer from "@/components/demo/organizer/EventsDemo"
-import KYCDemo from "@/components/demo/organizer/KYCDemo"
-import ChannelsDemoOrganizer from "@/components/demo/organizer/ChannelsDemo"
-import SpeakersDemo from "@/components/demo/organizer/SpeakersDemo"
-import TicketsDemoOrganizer from "@/components/demo/organizer/TicketsDemo"
-import AnalyticsDemoOrganizer from "@/components/demo/organizer/AnalyticsDemo"
-import SettingsDemoOrganizer from "@/components/demo/organizer/SettingsDemo"
-import SupportDemoOrganizer from "@/components/demo/organizer/SupportDemo"
-import EventsDemoAttendee from "@/components/demo/attendee/EventsDemo"
-import ChannelsDemoAttendee from "@/components/demo/attendee/ChannelsDemo"
-import TicketsDemoAttendee from "@/components/demo/attendee/TicketsDemo"
-import AnalyticsDemoAttendee from "@/components/demo/attendee/AnalyticsDemo"
-import SettingsDemoAttendee from "@/components/demo/attendee/SettingsDemo"
-import SupportDemoAttendee from "@/components/demo/attendee/SupportDemo"
+import dynamic from "next/dynamic"
+
+function DemoPaneSkeleton() {
+  return <div className="flex-1 animate-pulse bg-muted/30 m-6 rounded-lg min-h-[400px]" />
+}
+
+const EventsDemoOrganizer = dynamic(
+  () => import("@/components/demo/organizer/EventsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const KYCDemo = dynamic(() => import("@/components/demo/organizer/KYCDemo"), {
+  loading: DemoPaneSkeleton,
+})
+const ChannelsDemoOrganizer = dynamic(
+  () => import("@/components/demo/organizer/ChannelsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const SpeakersDemo = dynamic(
+  () => import("@/components/demo/organizer/SpeakersDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const TicketsDemoOrganizer = dynamic(
+  () => import("@/components/demo/organizer/TicketsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const AnalyticsDemoOrganizer = dynamic(
+  () => import("@/components/demo/organizer/AnalyticsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const SettingsDemoOrganizer = dynamic(
+  () => import("@/components/demo/organizer/SettingsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const SupportDemoOrganizer = dynamic(
+  () => import("@/components/demo/organizer/SupportDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const EventsDemoAttendee = dynamic(
+  () => import("@/components/demo/attendee/EventsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const ChannelsDemoAttendee = dynamic(
+  () => import("@/components/demo/attendee/ChannelsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const TicketsDemoAttendee = dynamic(
+  () => import("@/components/demo/attendee/TicketsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const AnalyticsDemoAttendee = dynamic(
+  () => import("@/components/demo/attendee/AnalyticsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const SettingsDemoAttendee = dynamic(
+  () => import("@/components/demo/attendee/SettingsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const SupportDemoAttendee = dynamic(
+  () => import("@/components/demo/attendee/SupportDemo"),
+  { loading: DemoPaneSkeleton }
+)
 import {
   mockAttendeeEvents,
   mockRecentActivity,
