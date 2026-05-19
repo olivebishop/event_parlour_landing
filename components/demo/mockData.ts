@@ -90,27 +90,6 @@ export const mockSpeakers = [
   },
 ]
 
-export const mockTickets = [
-  {
-    id: 1,
-    event: "Nairobi Tech Summit 2025",
-    type: "VIP",
-    quantity: 2,
-    price: "KES 10,000",
-    status: "active",
-    qrCode: "QR123456",
-  },
-  {
-    id: 2,
-    event: "Music Festival Weekend",
-    type: "General",
-    quantity: 1,
-    price: "KES 3,500",
-    status: "active",
-    qrCode: "QR789012",
-  },
-]
-
 export const mockChannels = [
   {
     id: "1",

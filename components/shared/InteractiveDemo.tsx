@@ -48,56 +48,12 @@ import TicketsDemoAttendee from "@/components/demo/attendee/TicketsDemo"
 import AnalyticsDemoAttendee from "@/components/demo/attendee/AnalyticsDemo"
 import SettingsDemoAttendee from "@/components/demo/attendee/SettingsDemo"
 import SupportDemoAttendee from "@/components/demo/attendee/SupportDemo"
-import { mockRecentActivity, mockUpcomingEvents } from "@/components/demo/mockData"
+import {
+  mockAttendeeEvents,
+  mockRecentActivity,
+  mockUpcomingEvents,
+} from "@/components/demo/mockData"
 import { format } from "date-fns"
-
-// Mock data for demo
-const mockEvents = [
-  {
-    id: 1,
-    title: "Nairobi Tech Summit 2025",
-    date: "Mar 15, 2025",
-    location: "Nairobi, Kenya",
-    attendees: 450,
-    status: "active",
-    revenue: "KES 2.4M",
-  },
-  {
-    id: 2,
-    title: "Music Festival Weekend",
-    date: "Apr 20, 2025",
-    location: "Mombasa, Kenya",
-    attendees: 1200,
-    status: "active",
-    revenue: "KES 5.8M",
-  },
-  {
-    id: 3,
-    title: "Startup Pitch Night",
-    date: "Feb 28, 2025",
-    location: "Nairobi, Kenya",
-    attendees: 180,
-    status: "draft",
-    revenue: "KES 0",
-  },
-]
-
-const mockAttendeeEvents = [
-  {
-    id: 1,
-    title: "Nairobi Tech Summit 2025",
-    date: "Mar 15, 2025",
-    tickets: 2,
-    status: "confirmed",
-  },
-  {
-    id: 2,
-    title: "Music Festival Weekend",
-    date: "Apr 20, 2025",
-    tickets: 1,
-    status: "confirmed",
-  },
-]
 
 type DemoMode = "organizer" | "attendee"
 
