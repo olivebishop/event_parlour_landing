@@ -16,12 +16,20 @@ function generateSitemap() {
     priority: page.priority,
   }));
 
-  // Combine all URLs - only homepage
   const allUrls = [...staticPages];
 
-  // Generate sitemap XML
+  const langs = ["en", "sw", "fr", "ar", "de", "es", "x-default"] as const;
+
+  const alternateLinksFor = (canonical: string) =>
+    langs
+      .map(
+        (code) => `
+      <xhtml:link rel="alternate" hreflang="${code}" href="${canonical}" />`
+      )
+      .join("");
+
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   ${allUrls
     .map(
       (page) => `
@@ -29,7 +37,7 @@ function generateSitemap() {
       <loc>${page.url}</loc>
       <lastmod>${page.lastModified}</lastmod>
       <changefreq>${page.changeFrequency}</changefreq>
-      <priority>${page.priority}</priority>
+      <priority>${page.priority}</priority>${alternateLinksFor(page.url)}
     </url>`
     )
     .join("\n")}

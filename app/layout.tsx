@@ -11,6 +11,7 @@ import { ThemeProvider } from "@/lib/providers/theme-provider"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { ConsentManager } from "./consent-manager";
+import { getSiteStructuredDataGraph } from "@/lib/seo/structured-data"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,21 +37,41 @@ const figtree = Figtree({
 
 const siteUrl = "https://www.eventparlour.com"
 
+const seoDescription =
+  "Event Parlour connects organizers with event-goers in Nairobi and beyond—distribution-first discovery, ticketing, and event management."
+
 export const metadata: Metadata = {
-  title: "Event Parlour - Events Marketplace for Organizers, Attendees, and Vendors",
-  description:
-    "Connecting organizers, attendees, and vendors in one seamless experience.",
-  keywords:
-    "event accommodations, event booking, event management, ticketing, concerts, festivals, conferences, Airbnb for events",
+  title: {
+    default: "Event Parlour — Events marketplace for organizers, attendees & vendors",
+    template: "%s | Event Parlour",
+  },
+  description: seoDescription,
+  keywords: [
+    "Event Parlour",
+    "event ticketing Kenya",
+    "Nairobi events",
+    "event organizers",
+    "event marketplace",
+    "event discovery",
+    "event distribution",
+    "Paystack ticketing",
+    "event management Kenya",
+    "sell event tickets Africa",
+    "music festivals Kenya",
+    "conferences Nairobi",
+    "meetup ticketing",
+    "event platform",
+    "ticket sales online",
+    "circleup.eventparlour",
+  ],
   authors: [{ name: "Event Parlour", url: siteUrl }],
   applicationName: "Event Parlour",
   generator: "Next.js",
   creator: "Event Parlour",
   publisher: "Event Parlour",
   openGraph: {
-    title: "Event Parlour - Events & Accommodation Booking",
-    description:
-      "Plan events and book tailored accommodations with Event Parlour—like Airbnb for organizers, attendees, and speakers.",
+    title: "Event Parlour — Reach event-goers. Sell tickets. Run events.",
+    description: seoDescription,
     url: siteUrl,
     siteName: "Event Parlour",
     images: [
@@ -58,7 +79,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "Event Parlour - Events & Accommodation Booking",
+        alt: "Event Parlour — Events marketplace",
       },
     ],
     locale: "en_US",
@@ -66,14 +87,47 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Event Parlour - Events & Accommodation Booking",
-    description: "Host events and book event-specific stays with Event Parlour—Airbnb for the event world.",
+    title: "Event Parlour — Events marketplace",
+    description: seoDescription,
     site: "@EventsPalour",
     creator: "@EventsPalour",
     images: [`${siteUrl}/twitter-card.jpg`],
   },
   metadataBase: new URL(siteUrl),
-  robots: "index, follow",
+  alternates: {
+    canonical: siteUrl,
+    languages: {
+      en: siteUrl,
+      sw: siteUrl,
+      fr: siteUrl,
+      ar: siteUrl,
+      de: siteUrl,
+      es: siteUrl,
+      "x-default": siteUrl,
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  verification: {
+    /** HTML file `/google*.html` covers Google Search Console; Bing follows GSC import. */
+    yandex: process.env.YANDEX_VERIFICATION ?? "3a8c635554bf9160",
+  },
+  formatDetection: {
+    telephone: false,
+    email: false,
+    address: false,
+    date: false,
+  },
 }
 
 export const viewport: Viewport = {
@@ -101,24 +155,16 @@ export default async function RootLayout({
             <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)" />
             <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
             <meta name='dmca-site-verification' content='ZG0rMlhORGRZZlhkYnZQc1dxT2pSL3Awb3FFTkpIelBFRE96SHVEbmJBRT01' />
-            <meta name="google-site-verification" content="google-site-verification: google6fd33e29e29c5c47.html" />
+            <link
+              rel="alternate"
+              type="text/plain"
+              href="/llms.txt"
+              title="llms.txt"
+            />
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{
-                __html: JSON.stringify({
-                  "@context": "https://schema.org",
-                  "@type": ["Organization", "LodgingBusiness", "EventVenue", "Event", "Ticketting"],
-                  name: "Event Parlour",
-                  url: siteUrl,
-                  logo: `${siteUrl}/logo.png`,
-                  description:
-                    "A platform to discover, host events, and book event-specific accommodations for organizers, attendees, and speakers.",
-                  sameAs: [
-                    "https://x.com/EventsPalour",
-                    "https://www.facebook.com/eventparlour",
-                    "https://www.instagram.com/eventparlour",
-                  ],
-                }),
+                __html: JSON.stringify(getSiteStructuredDataGraph()),
               }}
             />
           </head>

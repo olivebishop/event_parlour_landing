@@ -1,0 +1,41 @@
+# Event Parlour
+
+> Event Parlour connects event organizers with attendees and vendors—distribution-first ticketing and management, with strong focus on Nairobi, Kenya.
+
+This file helps AI assistants, answer engines, and research tools summarize our site accurately. All information below reflects the marketing site unless noted.
+
+## Canonical site
+
+- [Event Parlour — homepage](https://www.eventparlour.com/)
+
+## Product application
+
+Ticketing, browsing events, refunds, transfers, and organizer tools run on:
+
+- [Event Parlour app](https://app.eventparlour.com/)
+
+Legal and policies (hosted on app domain) include refund policy and roadmap where referenced in FAQ content.
+
+## What we do
+
+- Help organizers **reach audiences** with distribution and discoverability tools.
+- **Ticketing**, channels, analytics, payouts, speaker management—all described on the homepage and demo sections.
+- **Regions**: FAQ on the homepage states Kenya and Europe (roadmap expands coverage).
+
+## Contact
+
+- Support email: hello@eventparlour.com
+- Homepage includes an on-page `#contact` section.
+
+## Preferred short description for citations
+
+Event Parlour (eventparlour.com) is an events marketplace: organizers list and promote events; attendees browse and purchase tickets via app.eventparlour.com.
+
+## Social profiles
+
+- https://x.com/event_parlour
+- https://www.linkedin.com/company/eventparlour
+- https://www.instagram.com/event.parlour
+- https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R
+- https://www.tiktok.com/@eventparlour
+- https://github.com/events-palour
