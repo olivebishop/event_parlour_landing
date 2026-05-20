@@ -155,7 +155,7 @@ export default async function RootLayout({
             {/* Yandex.Webmaster reads raw HTML — keep this tag in <head>, early. URL in Webmaster must match where this page is served (www vs apex). */}
             <meta
               name="yandex-verification"
-              content={process.env.YANDEX_VERIFICATION ?? "3a8c635554bf9160"}
+              content={process.env.YANDEX_VERIFICATION ?? "26a40458f21b9754"}
             />
             <link
               rel="alternate"
