@@ -4,59 +4,74 @@ export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Use default export for Next.js OG image generation
-export default async function OGImage() {
+/** Used by link previews (Reddit, Slack, iMessage, etc.) via Open Graph. */
+export default function OGImage() {
   return new ImageResponse(
     (
       <div
         style={{
           display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
+          flexDirection: "column",
+          justifyContent: "center",
           width: "1200px",
           height: "630px",
-          backgroundColor: "#000",
-          color: "#fff",
-          fontFamily: "Arial, sans-serif",
-          padding: "40px",
+          background: "linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #111 100%)",
+          color: "#fafafa",
+          fontFamily: "system-ui, sans-serif",
+          padding: "64px",
         }}
       >
-        {/* Left Section - Text */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          <h1 style={{ fontSize: "60px", fontWeight: "bold", marginBottom: "20px" }}>
-            Events & Stays, <br /> Made Simple.
-          </h1>
-          <p style={{ fontSize: "28px", maxWidth: "500px", lineHeight: "1.4" }}>
-            Discover events and book accommodations—like Airbnb for organizers, attendees & speakers.
-          </p>
-        </div>
-
-        {/* Right Section - Image */}
-        <div style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-          <img
-            src="https://epalour.vercel.app/images/login.svg" // Update to an image showing events + lodging if possible
-            alt="Event & Accommodation Preview"
-            style={{ width: "500px", height: "auto", borderRadius: "12px" }}
-          />
-        </div>
-
-        {/* Footer - Brand URL */}
-        <div
+        <p
           style={{
-            position: "absolute",
-            bottom: "20px",
-            left: "40px",
-            fontSize: "22px",
-            opacity: 0.8,
+            fontSize: "28px",
+            fontWeight: 600,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "rgba(250,250,250,0.55)",
+            margin: 0,
+            marginBottom: "16px",
           }}
         >
-          eventparlour.com
-        </div>
+          Event Parlour
+        </p>
+        <h1
+          style={{
+            fontSize: "64px",
+            fontWeight: 800,
+            lineHeight: 1.1,
+            margin: 0,
+            marginBottom: "28px",
+            maxWidth: "900px",
+          }}
+        >
+          Reach event-goers. Sell tickets. Run events.
+        </h1>
+        <p
+          style={{
+            fontSize: "30px",
+            lineHeight: 1.45,
+            color: "rgba(250,250,250,0.78)",
+            margin: 0,
+            maxWidth: "820px",
+          }}
+        >
+          Distribution-first event marketplace for organizers, attendees & vendors — Nairobi & beyond.
+        </p>
+        <p
+          style={{
+            position: "absolute",
+            bottom: "48px",
+            left: "64px",
+            fontSize: "26px",
+            fontWeight: 600,
+            color: "rgba(250,250,250,0.9)",
+            margin: 0,
+          }}
+        >
+          www.eventparlour.com
+        </p>
       </div>
     ),
-    {
-      width: 1200,
-      height: 630,
-    }
+    { ...size }
   );
 }

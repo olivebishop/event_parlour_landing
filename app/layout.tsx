@@ -74,9 +74,10 @@ export const metadata: Metadata = {
     description: seoDescription,
     url: siteUrl,
     siteName: "Event Parlour",
+    // Dynamic route — works for Reddit, LinkedIn, Discord, etc. (not a missing static jpg)
     images: [
       {
-        url: `${siteUrl}/og-image.jpg`,
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Event Parlour — Events marketplace",
@@ -91,7 +92,7 @@ export const metadata: Metadata = {
     description: seoDescription,
     site: "@EventsPalour",
     creator: "@EventsPalour",
-    images: [`${siteUrl}/twitter-card.jpg`],
+    images: [`${siteUrl}/opengraph-image`],
   },
   metadataBase: new URL(siteUrl),
   alternates: {
@@ -117,10 +118,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
       "max-video-preview": -1,
     },
-  },
-  verification: {
-    /** HTML file `/google*.html` covers Google Search Console; Bing follows GSC import. */
-    yandex: process.env.YANDEX_VERIFICATION ?? "3a8c635554bf9160",
   },
   formatDetection: {
     telephone: false,
@@ -155,6 +152,11 @@ export default async function RootLayout({
             <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)" />
             <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
             <meta name='dmca-site-verification' content='ZG0rMlhORGRZZlhkYnZQc1dxT2pSL3Awb3FFTkpIelBFRE96SHVEbmJBRT01' />
+            {/* Yandex.Webmaster reads raw HTML — keep this tag in <head>, early. URL in Webmaster must match where this page is served (www vs apex). */}
+            <meta
+              name="yandex-verification"
+              content={process.env.YANDEX_VERIFICATION ?? "3a8c635554bf9160"}
+            />
             <link
               rel="alternate"
               type="text/plain"
