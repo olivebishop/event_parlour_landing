@@ -10,8 +10,6 @@
     "dev": "bun run --bun next dev --turbopack",
     "build": "bun run --bun next build",
     "start": "bun run --bun next start",
-    "generate-sitemap": "bunx tsx scripts/generate-sitemap.ts",
-    "postbuild": "bun run generate-sitemap",
     "lint": "bun run --bun next lint"
   },
   "dependencies": {
@@ -85,7 +83,6 @@
     "eslint-config-next": "16.2.10",
     "postcss": "^8",
     "tailwindcss": "^4.1.18",
-    "tsx": "^4.19.4",
     "typescript": "^5"
   }
 }
