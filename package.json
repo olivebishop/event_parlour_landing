@@ -7,10 +7,10 @@
     "bun": ">=1.2.0"
   },
   "scripts": {
-    "dev": "bun run --bun next dev --turbopack",
-    "build": "bun run --bun next build",
-    "start": "bun run --bun next start",
-    "lint": "bun run --bun next lint"
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@c15t/nextjs": "^1.8.2",
