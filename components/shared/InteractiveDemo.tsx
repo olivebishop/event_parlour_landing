@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import ScrollReveal from "@/components/shared/animations/scroll-reveal"
-import { useTranslations } from "@/lib/i18n/translations"
+import content from "@/lib/content"
 import {
   Calendar,
   Ticket,
@@ -992,7 +992,6 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
 export default function InteractiveDemo() {
   const [demoMode, setDemoMode] = useState<DemoMode>("organizer")
   const [activeView, setActiveView] = useState<string>("dashboard")
-  const t = useTranslations("InteractiveDemo")
 
   // Reset active view when switching modes
   const handleModeSwitch = (newMode: DemoMode) => {

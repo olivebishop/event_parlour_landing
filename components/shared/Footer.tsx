@@ -1,7 +1,7 @@
 "use client"
 import React, { useRef, useState, useMemo } from "react";
 import { motion, useInView } from "framer-motion";
-import { useTranslations, useLocale } from "@/lib/i18n/translations";
+import content from "@/lib/content";
 import dynamic from "next/dynamic";
 
 const ThemeSwitcher = dynamic(
@@ -32,8 +32,7 @@ const Footer = () => {
   const [footerVisible, setFooterVisible] = useState(false);
   const footerTarget = useRef(null);
   const isInView = useInView(footerTarget, { once: true, amount: 0.1 });
-  const t = useTranslations('Footer');
-  const locale = useLocale(); // Make component reactive to language changes
+  const copy = content.Footer;
 
   React.useEffect(() => {
     if (isInView) {
@@ -59,7 +58,7 @@ const Footer = () => {
       opacity: 1,
       transition: {
         duration: 0.6,
-        ease: "easeInOut",
+        ease: "easeInOut" as const,
       },
     },
   };
@@ -76,24 +75,23 @@ const Footer = () => {
     }
   };
 
-  // Recalculate navColumns when locale changes - this ensures translations update
   const navColumns = useMemo(() => ({
     product: [
-      { href: "https://app.eventparlour.com/auth/sign-up", label: t('listYourEvent') },
-      { href: "https://app.eventparlour.com/auth/sign-in", label: t('exploreEvents') },
-      { href: "#features", label: t('features') },
-      { href: "https://app.eventparlour.com/roadmap", label: t('roadmap') },
+      { href: "https://app.eventparlour.com/auth/sign-up", label: copy.listYourEvent },
+      { href: "https://app.eventparlour.com/auth/sign-in", label: copy.exploreEvents },
+      { href: "#features", label: copy.features },
+      { href: "https://app.eventparlour.com/roadmap", label: copy.roadmap },
     ],
     company: [
-      { href: "#contact", label: t('contactUs') },
-      { href: "https://app.eventparlour.com/legal/about", label: t('about') },
-      { href: "https://app.eventparlour.com/legal/privacy-policy", label: t('privacyPolicy') },
-      { href: "https://app.eventparlour.com/legal/terms-of-service", label: t('termsOfService') },
-      { href: "https://app.eventparlour.com/legal/security", label: t('security') },
-      { href: "https://app.eventparlour.com/legal/refund-policy", label: t('refundPolicy') },
-      { href: "https://app.eventparlour.com/legal/cookie-policy", label: t('cookiePolicy') },
+      { href: "#contact", label: copy.contactUs },
+      { href: "https://app.eventparlour.com/legal/about", label: copy.about },
+      { href: "https://app.eventparlour.com/legal/privacy-policy", label: copy.privacyPolicy },
+      { href: "https://app.eventparlour.com/legal/terms-of-service", label: copy.termsOfService },
+      { href: "https://app.eventparlour.com/legal/security", label: copy.security },
+      { href: "https://app.eventparlour.com/legal/refund-policy", label: copy.refundPolicy },
+      { href: "https://app.eventparlour.com/legal/cookie-policy", label: copy.cookiePolicy },
     ],
-  }), [locale, t]);
+  }), [copy]);
   
   const socialLinks = [
     { href: "https://x.com/EventsPalour", label: "X (Twitter)", icon: HugeiconsNewTwitter },
@@ -105,7 +103,6 @@ const Footer = () => {
 
   return (
     <footer 
-      key={locale}
       className="bg-background w-full border-t border-border" 
       ref={footerTarget}
     >
@@ -138,7 +135,7 @@ const Footer = () => {
               animate={footerVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
             >
-              <h4 className="text-foreground text-sm font-heading font-semibold mb-4 uppercase tracking-wider">{t('product')}</h4>
+              <h4 className="text-foreground text-sm font-heading font-semibold mb-4 uppercase tracking-wider">{copy.product}</h4>
               <ul className="space-y-3">
                 {navColumns.product.map((link, i) => (
                   <li key={i}>
@@ -164,7 +161,7 @@ const Footer = () => {
               animate={footerVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <h4 className="text-foreground text-sm font-heading font-semibold mb-4 uppercase tracking-wider">{t('company')}</h4>
+              <h4 className="text-foreground text-sm font-heading font-semibold mb-4 uppercase tracking-wider">{copy.company}</h4>
               <ul className="space-y-3">
                 {navColumns.company.map((link, i) => (
                   <li key={i}>
@@ -190,7 +187,7 @@ const Footer = () => {
               animate={footerVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <h4 className="text-foreground text-sm font-heading font-semibold mb-4 uppercase tracking-wider">{t('weAreSocial')}</h4>
+              <h4 className="text-foreground text-sm font-heading font-semibold mb-4 uppercase tracking-wider">{copy.weAreSocial}</h4>
               <div className="flex flex-wrap gap-3">
                 {socialLinks.map((social, i) => {
                   const IconComponent = social.icon;
@@ -212,7 +209,7 @@ const Footer = () => {
                   );
                 })}
               </div>
-              <p className="text-muted-foreground text-xs mt-4 font-body">{t('joinCommunity')}</p>
+              <p className="text-muted-foreground text-xs mt-4 font-body">{copy.joinCommunity}</p>
               <a
                 href="https://tanstack.com/showcase/3c337dc8-cc31-40ee-adfc-413e9bdf041b"
                 target="_blank"
@@ -220,10 +217,10 @@ const Footer = () => {
                 className="inline-flex items-center gap-1.5 mt-4 px-2 py-1 rounded-full border border-border/50 bg-muted/30 text-[10px] text-muted-foreground hover:text-foreground hover:border-border hover:bg-muted/50 transition-colors"
               >
                 <SimpleIconsTanstack className="w-3 h-3" />
-                <span className="font-body">{t('featuredInTanStack')}</span>
+                <span className="font-body">{copy.featuredInTanStack}</span>
               </a>
               <div className="mt-6">
-                <p className="text-muted-foreground text-xs mb-2 font-body">{t('theme')}</p>
+                <p className="text-muted-foreground text-xs mb-2 font-body">{copy.theme}</p>
                 <ThemeSwitcher />
               </div>
             </motion.div>
@@ -265,10 +262,10 @@ const Footer = () => {
           >
             <span className="flex items-center">©{new Date().getFullYear()} <span className="text-foreground font-heading ml-1">Event Parlour</span></span>
             <span className="hidden sm:inline mx-0 sm:mx-1">•</span>
-            <span className="flex items-center">{t('address2')}</span>
+            <span className="flex items-center">{copy.address2}</span>
             <span className="hidden sm:inline mx-0 sm:mx-1">•</span>
             <span className="flex items-center w-full sm:w-auto justify-center sm:justify-start">
-              {t("copyright")
+              {copy.copyright
                 .replace("©{year}", "")
                 .replace("event parlour.", "")
                 .replace("circleup.", "")
@@ -283,7 +280,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors flex items-center"
             >
-              {t('systemStatus')} <span className="text-green-500 dark:text-green-400 font-semibold ml-1">{t('operational')}</span>
+              {copy.systemStatus} <span className="text-green-500 dark:text-green-400 font-semibold ml-1">{copy.operational}</span>
             </a>
           </motion.div>
         </div>

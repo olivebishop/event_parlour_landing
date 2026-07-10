@@ -6,7 +6,9 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import ArtGallery from "@/components/shared/ArtGallery"
-import { useTranslations } from "@/lib/i18n/translations"
+import content from "@/lib/content"
+
+const { title, words, description, descriptionLine2 } = content.HeroSection
 
 // Floating avatar images data - positioned around the content (pushed further out on mobile)
 const avatars = [
@@ -96,24 +98,6 @@ function FloatingAvatar({
 }
 
 export default function Hero() {
-  const t = useTranslations('HeroSection')
-  
-  // Get translated words - handle both JSON string and fallback
-  const getWords = () => {
-    const defaultWords = ["Organizers", "Attendees", "Speakers", "Vendors"]
-    try {
-      const wordsValue = t('words')
-      if (wordsValue && wordsValue !== 'words' && wordsValue.startsWith('[')) {
-        return JSON.parse(wordsValue)
-      }
-      return defaultWords
-    } catch {
-      return defaultWords
-    }
-  }
-  
-  const words = getWords()
-  
   return (
     <section className="relative max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 pt-24 xs:pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-6 xs:pb-8 sm:pb-10 text-center min-h-screen flex flex-col">
       {/* Content with floating avatars */}
@@ -137,7 +121,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-foreground mb-4 xs:mb-5 sm:mb-6 max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto leading-tight"
           >
-            {t('title')}
+            {title}
             <br />
             <WordAnimation words={words} />
           </motion.h1>
@@ -149,10 +133,10 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-muted-foreground text-sm xs:text-base sm:text-lg md:text-xl mb-6 xs:mb-7 sm:mb-8 max-w-[280px] xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto px-4 leading-relaxed"
           >
-            {t('description')}
+            {description}
             <br className="hidden sm:block" />
             <span className="sm:hidden"> </span>
-            {t('descriptionLine2')}
+            {descriptionLine2}
           </motion.p>
 
           {/* Single CTA Button */}

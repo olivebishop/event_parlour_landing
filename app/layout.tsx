@@ -4,8 +4,6 @@ import { Geist, Geist_Mono, Bricolage_Grotesque, Figtree } from "next/font/googl
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
-import { TranslationProvider } from "@/lib/i18n/translations"
-import { cookies } from 'next/headers'
 import { NetworkProvider } from "@/lib/providers/network-provider"
 import { ThemeProvider } from "@/lib/providers/theme-provider"
 import "./globals.css"
@@ -97,15 +95,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: siteUrl,
-    languages: {
-      en: siteUrl,
-      sw: siteUrl,
-      fr: siteUrl,
-      ar: siteUrl,
-      de: siteUrl,
-      es: siteUrl,
-      "x-default": siteUrl,
-    },
   },
   robots: {
     index: true,
@@ -133,19 +122,13 @@ export const viewport: Viewport = {
   maximumScale: 1,
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const cookieStore = await cookies()
-  const supportedLocales = ['en', 'sw', 'fr', 'ar', 'de', 'es']
-  const requestedLocale = cookieStore.get('language')?.value || 'en'
-  const locale = supportedLocales.includes(requestedLocale) ? requestedLocale : 'en'
-  const messages = (await import(`../messages/${locale}.json`)).default
-
   return (
-        <html lang={locale} suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning>
           <head>
             <link rel="icon" href="/favicon.ico" sizes="any" />
             <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -181,8 +164,6 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
     		<ConsentManager>
-    			
-            <TranslationProvider messages={messages} locale={locale}>
               <NetworkProvider>
                 {children}
               </NetworkProvider>
@@ -190,7 +171,6 @@ export default async function RootLayout({
               <GoogleAnalytics gaId="G-VSXHC4Y9YQ" />
               <SpeedInsights />
               <Analytics />
-            </TranslationProvider>
     		</ConsentManager>
     		</ThemeProvider>
     	</body>

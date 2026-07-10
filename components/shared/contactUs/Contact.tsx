@@ -8,7 +8,7 @@ import { useState } from "react"
 import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaWhatsapp, FaInstagram, FaTiktok, FaLinkedin } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
 import { toast } from "sonner"
-import { useTranslations } from "@/lib/i18n/translations"
+import content from "@/lib/content"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -28,7 +28,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.22, 1, 0.36, 1] as const,
     },
   },
 }
@@ -42,7 +42,7 @@ export function ContactUs() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const t = useTranslations('ContactUsSection')
+  const copy = content.ContactUsSection
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -117,13 +117,13 @@ export function ContactUs() {
               className="text-[10px] xs:text-xs font-medium tracking-widest text-muted-foreground mb-2 xs:mb-3 sm:mb-4"
               variants={itemVariants}
             >
-              {t('sectionLabel')}
+              {copy.sectionLabel}
             </motion.p>
             <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 xs:mb-5 sm:mb-6">
-              {t('title')}
+              {copy.title}
             </h2>
             <p className="text-muted-foreground text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl mx-auto px-2">
-              {t('subtitle')}
+              {copy.subtitle}
             </p>
           </motion.div>
 
@@ -131,17 +131,17 @@ export function ContactUs() {
             {/* Contact info section */}
             <motion.div className="lg:col-span-2 space-y-4 xs:space-y-6" variants={itemVariants}>
               <div className="bg-muted border border-border p-4 xs:p-5 sm:p-6 md:p-8">
-                <h3 className="text-lg xs:text-xl font-semibold text-foreground mb-4 xs:mb-5 sm:mb-6">{t('contactInfo')}</h3>
+                <h3 className="text-lg xs:text-xl font-semibold text-foreground mb-4 xs:mb-5 sm:mb-6">{copy.contactInfo}</h3>
                 <p className="text-muted-foreground leading-relaxed mb-6 xs:mb-8 text-sm xs:text-base">
-                  <span className="font-bold text-foreground">Event Parlour</span> - {t('companyIntro')}
+                  <span className="font-bold text-foreground">Event Parlour</span> - {copy.companyIntro}
                 </p>
 
                 <div className="space-y-2 xs:space-y-3">
                   {[
-                    { icon: FaMapMarkerAlt, text: t('location'), link: null },
-                    { icon: FaEnvelope, text: t('email'), link: `mailto:${t('email')}` },
-                    { icon: FaPhone, text: t('phone'), link: `tel:${t('phone').replace(/\s/g, '')}` },
-                    { icon: FaClock, text: t('hours'), link: null },
+                    { icon: FaMapMarkerAlt, text: copy.location, link: null },
+                    { icon: FaEnvelope, text: copy.email, link: `mailto:${copy.email}` },
+                    { icon: FaPhone, text: copy.phone, link: `tel:${copy.phone.replace(/\s/g, '')}` },
+                    { icon: FaClock, text: copy.hours, link: null },
                   ].map((item, index) => (
                     <motion.a
                       key={index}
@@ -166,7 +166,7 @@ export function ContactUs() {
 
                 {/* Social media icons */}
                 <div className="mt-6 xs:mt-8 pt-4 xs:pt-6 border-t border-border">
-                  <h4 className="text-xs xs:text-sm font-medium tracking-wider text-muted-foreground mb-3 xs:mb-4">{t('connectWithUs')}</h4>
+                  <h4 className="text-xs xs:text-sm font-medium tracking-wider text-muted-foreground mb-3 xs:mb-4">{copy.connectWithUs}</h4>
                   <div className="flex flex-wrap gap-1.5 xs:gap-2">
                     {[
                       { icon: FaWhatsapp, url: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R", label: "WhatsApp" },
@@ -224,8 +224,8 @@ export function ContactUs() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       </motion.div>
-                      <h3 className="text-xl xs:text-2xl font-bold text-foreground mb-2">{t('messageSent')}</h3>
-                      <p className="text-muted-foreground text-sm xs:text-base">{t('successMessage')}</p>
+                      <h3 className="text-xl xs:text-2xl font-bold text-foreground mb-2">{copy.messageSent}</h3>
+                      <p className="text-muted-foreground text-sm xs:text-base">{copy.successMessage}</p>
                     </motion.div>
                   ) : (
                     <motion.form
@@ -234,13 +234,13 @@ export function ContactUs() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     >
-                      <h2 className="text-lg xs:text-xl font-semibold text-foreground mb-4 xs:mb-5 sm:mb-6">{t('formTitle')}</h2>
+                      <h2 className="text-lg xs:text-xl font-semibold text-foreground mb-4 xs:mb-5 sm:mb-6">{copy.formTitle}</h2>
                       
                       <div className="space-y-3 xs:space-y-4 sm:space-y-5">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 xs:gap-4 sm:gap-5">
                           {[
-                            { name: "name", label: t('fullName'), type: "text", placeholder: t('namePlaceholder') },
-                            { name: "email", label: t('emailAddress'), type: "email", placeholder: t('emailPlaceholder') },
+                            { name: "name", label: copy.fullName, type: "text", placeholder: copy.namePlaceholder },
+                            { name: "email", label: copy.emailAddress, type: "email", placeholder: copy.emailPlaceholder },
                           ].map((field) => (
                             <div key={field.name}>
                               <label className="block text-xs xs:text-sm font-medium text-muted-foreground mb-1.5 xs:mb-2">
@@ -261,7 +261,7 @@ export function ContactUs() {
 
                         <div>
                           <label className="block text-xs xs:text-sm font-medium text-muted-foreground mb-1.5 xs:mb-2">
-                            {t('subject')} <span className="text-foreground">*</span>
+                            {copy.subject} <span className="text-foreground">*</span>
                           </label>
                           <input
                             type="text"
@@ -269,21 +269,21 @@ export function ContactUs() {
                             value={formState.subject}
                             onChange={handleInputChange}
                             className="w-full p-3 xs:p-3.5 sm:p-4 bg-background border border-border text-foreground placeholder-muted-foreground focus:outline-none focus:border-foreground transition-colors text-sm xs:text-base"
-                            placeholder={t('subjectPlaceholder')}
+                            placeholder={copy.subjectPlaceholder}
                             required
                           />
                         </div>
 
                         <div>
                           <label className="block text-xs xs:text-sm font-medium text-muted-foreground mb-1.5 xs:mb-2">
-                            {t('message')} <span className="text-foreground">*</span>
+                            {copy.message} <span className="text-foreground">*</span>
                           </label>
                           <textarea
                             name="message"
                             value={formState.message}
                             onChange={handleInputChange}
                             className="w-full p-3 xs:p-3.5 sm:p-4 bg-background border border-border text-foreground placeholder-muted-foreground focus:outline-none focus:border-foreground h-24 xs:h-28 sm:h-32 resize-none transition-colors text-sm xs:text-base"
-                            placeholder={t('messagePlaceholder')}
+                            placeholder={copy.messagePlaceholder}
                             required
                           />
                         </div>
@@ -316,10 +316,10 @@ export function ContactUs() {
                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                   ></path>
                                 </svg>
-                                {t('sending')}
+                                {copy.sending}
                               </div>
                             ) : (
-                              t('sendMessage')
+                              copy.sendMessage
                             )}
                           </Button>
                         </motion.div>

@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import ScrollReveal from "@/components/shared/animations/scroll-reveal"
 import { cn } from "@/lib/utils"
+import content from "@/lib/content"
 import { categories, type CategoryKey, type Feature, type Category } from "@/lib/data/features"
-import { useTranslations, useLocale } from "@/lib/i18n/translations"
 
 // Shotgun-style feature block with images
 function FeatureBlock({ feature, index, isReversed, includesText, activeText }: { feature: Feature; index: number; isReversed: boolean; includesText: string; activeText: string }) {
@@ -235,44 +235,39 @@ function CategoryTab({
 
 export default function FeaturesSection() {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("organizers")
-  const t = useTranslations('FeaturesSection')
-  const locale = useLocale() // Make component reactive to language changes
+  const copy = content.FeaturesSection
   
   const currentCategory = categories.find(c => c.id === activeCategory) || categories[0]
   
-  // Get translated features for the current category
   const getTranslatedFeatures = (): Feature[] => {
-    try {
-      const categoryKey = activeCategory
-      const featuresData = t(`${categoryKey}`)
-      if (featuresData && featuresData !== categoryKey && featuresData.startsWith('{')) {
-        const parsed = JSON.parse(featuresData)
-        // Map the translated data back to the features with icons from original
-        return currentCategory.features.map((feature, index) => {
-          const featureKeys = ['reach', 'discovery', 'events', 'dashboard', 'speakers', 'analytics', 'payments', 'postEvent']
-          const attendeeKeys = ['discover', 'local', 'tickets', 'network', 'alerts']
-          const keys = categoryKey === 'organizers' ? featureKeys : attendeeKeys
-          const translatedFeature = parsed[keys[index]]
-          if (translatedFeature) {
-            return {
-              ...feature,
-              label: translatedFeature.label || feature.label,
-              title: translatedFeature.title || feature.title,
-              description: translatedFeature.description || feature.description,
-              capabilities: translatedFeature.capabilities || feature.capabilities,
-            }
-          }
-          return feature
-        })
+    const categoryKey = activeCategory
+    const parsed = copy[categoryKey]
+    const featureKeys = categoryKey === 'organizers'
+      ? ['reach', 'discovery', 'events', 'dashboard', 'speakers', 'analytics', 'payments', 'postEvent']
+      : ['discover', 'local', 'tickets', 'network', 'alerts']
+
+    return currentCategory.features.map((feature, index) => {
+      const translatedFeature = parsed[featureKeys[index] as keyof typeof parsed] as {
+        label?: string
+        title?: string
+        description?: string
+        capabilities?: string[]
+      } | undefined
+
+      if (translatedFeature) {
+        return {
+          ...feature,
+          label: translatedFeature.label || feature.label,
+          title: translatedFeature.title || feature.title,
+          description: translatedFeature.description || feature.description,
+          capabilities: translatedFeature.capabilities || feature.capabilities,
+        }
       }
-    } catch {
-      // Return original features if parsing fails
-    }
-    return currentCategory.features
+      return feature
+    })
   }
   
-  // Recalculate translations when locale changes
-  const translatedFeatures = useMemo(() => getTranslatedFeatures(), [locale, activeCategory, t])
+  const translatedFeatures = useMemo(() => getTranslatedFeatures(), [activeCategory, currentCategory.features])
 
   return (
     <section className="py-12 xs:py-16 sm:py-20 md:py-28 lg:py-36 bg-background overflow-hidden">
@@ -287,13 +282,13 @@ export default function FeaturesSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              {t('sectionLabel')}
+              {copy.sectionLabel}
             </motion.p>
             <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 xs:mb-5 sm:mb-6">
-              {t('title')}
+              {copy.title}
             </h2>
             <p className="text-muted-foreground text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl mx-auto px-2">
-              {t('subtitle')}
+              {copy.subtitle}
             </p>
           </div>
         </ScrollReveal>
@@ -308,7 +303,7 @@ export default function FeaturesSection() {
                   category={category}
                   isActive={activeCategory === category.id}
                   onClick={() => setActiveCategory(category.id)}
-                  translatedLabel={t(`tabs.${category.id}`)}
+                  translatedLabel={copy.tabs[category.id]}
                 />
               ))}
             </div>
@@ -331,8 +326,8 @@ export default function FeaturesSection() {
                   feature={feature} 
                   index={index}
                   isReversed={index % 2 === 1}
-                  includesText={t('includes')}
-                  activeText={t('active')}
+                  includesText={copy.includes}
+                  activeText={copy.active}
                 />
               ))}
             </div>

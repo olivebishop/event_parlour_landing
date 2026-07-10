@@ -2,13 +2,17 @@
   "name": "event_palour_landing",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "bun@1.3.14",
+  "engines": {
+    "bun": ">=1.2.0"
+  },
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "generate-sitemap": "tsx scripts/generate-sitemap.ts",
-    "postbuild": "pnpm run generate-sitemap",
-    "lint": "next lint"
+    "dev": "bun run --bun next dev --turbopack",
+    "build": "bun run --bun next build",
+    "start": "bun run --bun next start",
+    "generate-sitemap": "bunx tsx scripts/generate-sitemap.ts",
+    "postbuild": "bun run generate-sitemap",
+    "lint": "bun run --bun next lint"
   },
   "dependencies": {
     "@c15t/nextjs": "^1.8.2",
@@ -53,9 +57,8 @@
     "embla-carousel-react": "^8.5.2",
     "framer-motion": "^12.4.5",
     "input-otp": "^1.4.2",
-    "js-cookie": "^3.0.5",
     "lucide-react": "^0.475.0",
-    "next": "16.1.6",
+    "next": "16.2.10",
     "next-themes": "^0.4.4",
     "nodemailer": "^6.10.0",
     "react": "^19.2.3",
@@ -74,13 +77,12 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "4.2.2",
-    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.1.6",
+    "eslint-config-next": "16.2.10",
     "postcss": "^8",
     "tailwindcss": "^4.1.18",
     "tsx": "^4.19.4",

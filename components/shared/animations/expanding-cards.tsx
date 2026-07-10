@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { useState, useEffect } from "react"
-import { useTranslations } from "@/lib/i18n/translations"
 
 // Define card type for better type safety
 interface Card {
@@ -14,77 +13,23 @@ interface Card {
   statLabel: string
 }
 
-const defaultCards: Card[] = [
-  {
-    id: 1,
-    title: "All-in-One Platform",
-    description:
-      "Stop juggling multiple tools. Event Parlour unifies ticketing, analytics, speaker management, and payouts in one seamless workspace.",
-    stat: "1",
-    statLabel: "Platform for everything",
-  },
-  {
-    id: 2,
-    title: "Built for Africa",
-    description:
-      "Designed with local payment methods, mobile-first experiences, and infrastructure that works across the continent.",
-    stat: "KE",
-    statLabel: "Made in Nairobi",
-  },
-  {
-    id: 3,
-    title: "Zero Hidden Fees",
-    description:
-      "Transparent pricing with no surprises. Know exactly what you pay and what you earn from every ticket sold.",
-    stat: "0%",
-    statLabel: "Hidden charges",
-  },
-  {
-    id: 4,
-    title: "Real-Time Insights",
-    description:
-      "Make data-driven decisions with live dashboards showing sales, demographics, and attendance patterns as they happen.",
-    stat: "Live",
-    statLabel: "Analytics dashboard",
-  },
-  {
-    id: 5,
-    title: "Instant Payouts",
-    description:
-      "Get your money when you need it. Fast, reliable payouts directly to your preferred payment method.",
-    stat: "24h",
-    statLabel: "Payout processing",
-  },
+import content from "@/lib/content"
+
+const copy = content.ExpandingCards
+const cardData = copy.cards
+
+const cards: Card[] = [
+  { id: 1, ...cardData.allInOne },
+  { id: 2, ...cardData.builtForAfrica },
+  { id: 3, ...cardData.zeroFees },
+  { id: 4, ...cardData.realTimeInsights },
+  { id: 5, ...cardData.instantPayouts },
 ]
 
 export default function ExpandingCards() {
   const [activeCard, setActiveCard] = useState(1)
-  // Add responsive state to track vertical or horizontal layout
   const [isVerticalLayout, setIsVerticalLayout] = useState(false)
   const [isMobileView, setIsMobileView] = useState(false)
-  const t = useTranslations('ExpandingCards')
-
-  // Get translated cards
-  const getTranslatedCards = (): Card[] => {
-    try {
-      const cardsData = t('cards')
-      if (cardsData && cardsData !== 'cards') {
-        const parsed = JSON.parse(cardsData)
-        return [
-          { id: 1, ...parsed.allInOne },
-          { id: 2, ...parsed.builtForAfrica },
-          { id: 3, ...parsed.zeroFees },
-          { id: 4, ...parsed.realTimeInsights },
-          { id: 5, ...parsed.instantPayouts },
-        ]
-      }
-    } catch {
-      // Return default cards if parsing fails
-    }
-    return defaultCards
-  }
-
-  const cards = getTranslatedCards()
 
   // Calculate grid template based on active card
   const getGridTemplateColumns = () => {
@@ -134,13 +79,13 @@ export default function ExpandingCards() {
     <section className="py-6 xs:py-8 sm:py-12 md:py-16 bg-background">
       <div className="container mx-auto px-3 xs:px-4 sm:px-6 flex flex-col items-center">
         <p className="text-[10px] xs:text-xs font-medium tracking-widest text-muted-foreground mb-2 xs:mb-3 sm:mb-4">
-          {t('sectionLabel')}
+          {copy.sectionLabel}
         </p>
         <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-foreground mb-2 xs:mb-3 sm:mb-4">
-          {t('title')}
+          {copy.title}
         </h1>
         <p className="max-w-[60ch] text-balance text-center mb-6 xs:mb-8 sm:mb-12 md:mb-16 text-muted-foreground text-xs xs:text-sm sm:text-base px-2">
-          {t('subtitle')}
+          {copy.subtitle}
         </p>
 
         <ul

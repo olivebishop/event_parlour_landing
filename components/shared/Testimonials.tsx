@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import ScrollReveal from "@/components/shared/animations/scroll-reveal";
-import { useTranslations, useLocale } from "@/lib/i18n/translations";
+import content from "@/lib/content"
 import { cn } from "@/lib/utils";
 import { HugeiconsNewTwitter } from "./social-icons";
 
@@ -237,21 +237,18 @@ const TestimonialScroller = () => {
 };
 
 export default function Testimonials() {
-  const t = useTranslations("Testimonials");
-  const locale = useLocale();
+  const copy = content.Testimonials
 
   return (
     <div className="container mx-auto px-3 xs:px-4 sm:px-6">
       <ScrollReveal direction="up" duration={0.7} threshold={0.2}>
         <div className="text-center mb-8 xs:mb-10 sm:mb-12">
           <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground max-w-xs xs:max-w-sm md:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto px-2 mb-3 xs:mb-4 break-words leading-tight">
-            {t("subtitle")}
+            {copy.subtitle}
           </h2>
-          {locale === 'en' && (
-            <p className="text-muted-foreground text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm md:max-w-xl lg:max-w-2xl mx-auto px-2">
-              {t("description")}
-            </p>
-          )}
+          <p className="text-muted-foreground text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm md:max-w-xl lg:max-w-2xl mx-auto px-2">
+            {copy.description}
+          </p>
         </div>
       </ScrollReveal>
       

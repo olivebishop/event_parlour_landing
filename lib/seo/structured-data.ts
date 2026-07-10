@@ -1,18 +1,18 @@
-import en from "@/messages/en.json"
+import content from "@/lib/content"
 
 const SITE_URL = "https://www.eventparlour.com"
 const APP_URL = "https://app.eventparlour.com"
 
 /** JSON-LD @graph for search engines & generative systems (GEO). */
 export function getSiteStructuredDataGraph() {
-  const faqQuestions = en.FAQSection.questions ?? []
+  const faqQuestions = content.FAQSection.questions ?? []
 
   const faqPage = faqQuestions.length
     ? {
         "@type": "FAQPage" as const,
         "@id": `${SITE_URL}/#faq`,
         url: SITE_URL,
-        name: en.FAQSection.title,
+        name: content.FAQSection.title,
         mainEntity: faqQuestions.map((item) => ({
           "@type": "Question" as const,
           name: item.question,

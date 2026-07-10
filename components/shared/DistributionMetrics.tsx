@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
 import NumberFlow from "@number-flow/react"
-import { useTranslations } from "@/lib/i18n/translations"
+import content from "@/lib/content"
 import {
   HugeiconsWhatsapp,
   HugeiconsInstagram,
@@ -12,8 +12,9 @@ import {
 } from "./social-icons"
 import { cn } from "@/lib/utils"
 
+const copy = content.DistributionMetrics
+
 export default function DistributionMetrics() {
-  const t = useTranslations('DistributionMetrics')
   const [hasAnimated, setHasAnimated] = useState(false)
   const sectionRef = useRef<HTMLElement | null>(null)
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
@@ -27,23 +28,23 @@ export default function DistributionMetrics() {
   const metrics = [
     {
       icon: HugeiconsWhatsapp,
-      value: t('whatsappUsers'),
-      label: t('whatsappUsersLabel')
+      value: copy.whatsappUsers,
+      label: copy.whatsappUsersLabel
     },
     {
       icon: HugeiconsInstagram,
-      value: t('instagramFollowers'),
-      label: t('instagramFollowersLabel')
+      value: copy.instagramFollowers,
+      label: copy.instagramFollowersLabel
     },
     {
       icon: LsiconMarketplaceOutline,
-      value: t('eventsHosted'),
-      label: t('eventsHostedLabel')
+      value: copy.eventsHosted,
+      label: copy.eventsHostedLabel
     },
     {
       icon: HugeiconsTicket02,
-      value: t('ticketsSold'),
-      label: t('ticketsSoldLabel')
+      value: copy.ticketsSold,
+      label: copy.ticketsSoldLabel
     }
   ]
 
@@ -61,10 +62,10 @@ export default function DistributionMetrics() {
           className="text-center mb-6 xs:mb-8 sm:mb-10"
         >
           <p className="text-muted-foreground text-sm xs:text-base sm:text-lg mb-2">
-            {t('subtitle')}
+            {copy.subtitle}
           </p>
           <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-            {t('title')}
+            {copy.title}
           </h2>
         </motion.div>
 
@@ -72,18 +73,10 @@ export default function DistributionMetrics() {
           {metrics.map((metric, index) => {
             const IconComponent = metric.icon
 
-            // Try to derive a numeric value for animated NumberFlow.
-            // If value is non-numeric (e.g. "Growing"), fall back to text.
             const numericMatch = String(metric.value).match(/-?\d[\d.,]*/)
             const numericValue = numericMatch
               ? Number(numericMatch[0].replace(/,/g, ""))
               : Number.NaN
-            // Small devices: checkerboard (index 1 and 2 are white)
-            // Large devices: alternating (index 0 and 2 are white)
-            // Index 0: dark on small, white on large
-            // Index 1: white on small, dark on large
-            // Index 2: white on both
-            // Index 3: dark on both
             
             return (
               <motion.div
@@ -94,24 +87,19 @@ export default function DistributionMetrics() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={cn(
                   "relative rounded-lg text-center p-4 xs:p-6 sm:p-8",
-                  // Small devices: checkerboard pattern (0,3 dark; 1,2 light)
-                  // Large devices: alternating pattern (0,2 light; 1,3 dark)
                   index === 0 && "bg-zinc-100 dark:bg-muted text-foreground lg:bg-background dark:lg:bg-background lg:border lg:border-border",
                   index === 1 && "bg-background text-foreground border border-border lg:bg-zinc-100 dark:lg:bg-muted lg:border-0",
                   index === 2 && "bg-background text-foreground border border-border lg:bg-background dark:lg:bg-background lg:border lg:border-border",
                   index === 3 && "bg-zinc-100 dark:bg-muted text-foreground lg:bg-zinc-100 dark:lg:bg-muted"
                 )}
               >
-                {/* Vercel-style edge borders */}
                 <div className="absolute inset-0 rounded-lg">
                   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
                   <div className="absolute top-0 bottom-0 left-0 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
                   <div className="absolute top-0 bottom-0 right-0 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
                 </div>
-                {/* Mesh-like effect only on edges */}
                 <div className="pointer-events-none absolute inset-0 rounded-lg overflow-hidden">
-                  {/* Top edge mesh */}
                   <div 
                     className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-zinc-800/20 to-transparent"
                     style={{
@@ -120,7 +108,6 @@ export default function DistributionMetrics() {
                       maskImage: "linear-gradient(to bottom, black, transparent)",
                     }}
                   />
-                  {/* Bottom edge mesh */}
                   <div 
                     className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-zinc-800/20 to-transparent"
                     style={{
@@ -129,7 +116,6 @@ export default function DistributionMetrics() {
                       maskImage: "linear-gradient(to top, black, transparent)",
                     }}
                   />
-                  {/* Left edge mesh */}
                   <div 
                     className="absolute top-0 bottom-0 left-0 w-12 bg-gradient-to-r from-zinc-800/20 to-transparent"
                     style={{
@@ -138,7 +124,6 @@ export default function DistributionMetrics() {
                       maskImage: "linear-gradient(to right, black, transparent)",
                     }}
                   />
-                  {/* Right edge mesh */}
                   <div 
                     className="absolute top-0 bottom-0 right-0 w-12 bg-gradient-to-l from-zinc-800/20 to-transparent"
                     style={{
