@@ -104,6 +104,23 @@ export function Navbar() {
               ))}
 
               <Link
+                href="https://app.eventparlour.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative px-3 py-2 text-foreground text-sm lg:text-base transition-colors duration-300 cursor-pointer"
+                onMouseEnter={() => setIsHovering("events")}
+                onMouseLeave={() => setIsHovering(null)}
+              >
+                <span className="relative z-10">{copy.events}</span>
+                <motion.span 
+                  className="absolute bottom-0 left-0 w-full h-[2px] bg-foreground"
+                  initial={{ scaleX: 0, originX: 0 }}
+                  animate={{ scaleX: isHovering === "events" ? 1 : 0 }}
+                  transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                />
+              </Link>
+
+              <Link
                 href="https://app.eventparlour.com/blogs"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -215,6 +232,23 @@ export function Navbar() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 + navLinks.length * 0.1 }}
+                  >
+                    <Link
+                      href="https://app.eventparlour.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsOpen(false)}
+                      className="block text-3xl sm:text-4xl md:text-5xl font-semibold text-zinc-400 transition-colors active:text-white hover:text-white py-3 sm:py-4 px-2 -mx-2 rounded-lg active:bg-white/10 touch-manipulation min-h-[60px] flex items-center"
+                      style={{ WebkitTapHighlightColor: 'transparent' }}
+                    >
+                      {copy.events}.
+                    </Link>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + (navLinks.length + 1) * 0.1 }}
                   >
                     <Link
                       href="https://app.eventparlour.com/blogs"

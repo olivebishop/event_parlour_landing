@@ -21,6 +21,16 @@ const testimonials = [
     social: <HugeiconsNewTwitter className="w-6 h-6" />,
   },
   {
+    name: "Dennis",
+    profession: "X user",
+    link: "https://x.com/_realDennis_/status/2077330550172287327?s=20",
+    description:
+      "Hebu mjaribu @event_parlour eventparlour.com these new products may suprise you, try them",
+    avatar: "/people-say/denis.jpg",
+    image: "",
+    social: <HugeiconsNewTwitter className="w-6 h-6" />,
+  },
+  {
     name: "Stanley Masinde",
     profession: "Software Engineer",
     link: "https://x.com/StanleyMasinde_/status/2013182135658574117?s=20",
