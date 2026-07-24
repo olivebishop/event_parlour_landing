@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import ArtGallery from "@/components/shared/ArtGallery"
 import { HeroWordCycle } from "@/components/shared/HeroWordCycle"
 import content from "@/lib/content"
@@ -84,14 +85,15 @@ export default function Hero() {
           </p>
 
           <div className="mt-6 xs:mt-7 sm:mt-8 md:mt-10 animate-hero-in [animation-delay:140ms] flex justify-center">
-            <a
-              href="https://app.eventparlour.com/auth/sign-up"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 font-body font-medium transition-colors touch-manipulation w-full max-w-[15.5rem] xs:max-w-[16.5rem] sm:w-auto sm:max-w-none min-h-11 sm:min-h-12 md:min-h-14 px-5 xs:px-6 sm:px-8 md:px-10 lg:px-12 py-3 sm:py-3.5 md:py-4 text-sm xs:text-[0.9375rem] sm:text-base md:text-lg lg:text-xl"
-            >
-              Create your event
-            </a>
+            <Button asChild size="cta">
+              <a
+                href="https://app.eventparlour.com/auth/sign-up"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Create your event
+              </a>
+            </Button>
           </div>
         </div>
       </div>

@@ -151,9 +151,7 @@ export function Navbar() {
             <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4">
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} className="hidden lg:block">
                 <Link href="https://app.eventparlour.com/auth/sign-in" target="_blank" rel="noopener noreferrer">
-                  <Button
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300"
-                  >
+                  <Button size="default" className="transition-all duration-300">
                     {copy.signIn}
                   </Button>
                 </Link>

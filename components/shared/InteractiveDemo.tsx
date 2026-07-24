@@ -1136,17 +1136,17 @@ export default function InteractiveDemo() {
             viewport={{ once: true }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            <a
-              href="https://app.eventparlour.com/auth/sign-up"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Create your account on EventParlour"
-            >
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 sm:px-8 py-6 sm:py-7 text-base sm:text-lg font-medium gap-2">
+            <Button asChild size="cta" className="gap-2">
+              <a
+                href="https://app.eventparlour.com/auth/sign-up"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Create your account on Event Parlour"
+              >
                 Create Your Account
-                <ArrowRight className="h-5 w-5" />
-              </Button>
-            </a>
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </Button>
             <p className="text-xs sm:text-sm text-muted-foreground mt-4">
               Start creating events or discovering experiences in seconds
             </p>
