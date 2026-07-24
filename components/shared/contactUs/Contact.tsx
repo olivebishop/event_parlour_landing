@@ -114,12 +114,12 @@ export function ContactUs() {
           {/* Section Header */}
           <motion.div className="text-center mb-10 xs:mb-12 sm:mb-16 md:mb-20" variants={itemVariants}>
             <motion.p 
-              className="text-[10px] xs:text-xs font-medium tracking-widest text-muted-foreground mb-2 xs:mb-3 sm:mb-4"
+              className="text-[10px] xs:text-xs font-body font-medium tracking-widest uppercase text-muted-foreground mb-2 xs:mb-3 sm:mb-4"
               variants={itemVariants}
             >
               {copy.sectionLabel}
             </motion.p>
-            <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 xs:mb-5 sm:mb-6">
+            <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 xs:mb-5 sm:mb-6 px-1 text-balance">
               {copy.title}
             </h2>
             <p className="text-muted-foreground text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl mx-auto px-2">

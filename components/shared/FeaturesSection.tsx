@@ -36,7 +36,7 @@ function FeatureBlock({ feature, index, isReversed, includesText, activeText }: 
             <div className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 bg-background border border-border flex items-center justify-center">
               <div className="text-foreground text-xs xs:text-sm sm:text-base">{feature.icon}</div>
             </div>
-            <span className="text-[10px] xs:text-xs font-medium tracking-widest text-muted-foreground">
+            <span className="text-[10px] xs:text-xs font-body font-medium tracking-widest uppercase text-muted-foreground">
               {feature.label}
             </span>
           </motion.div>
@@ -276,7 +276,7 @@ export default function FeaturesSection() {
         <ScrollReveal direction="up" duration={0.7} threshold={0.2}>
           <div className="text-center mb-10 xs:mb-12 sm:mb-16 md:mb-20">
             <motion.p 
-              className="text-[10px] xs:text-xs font-medium tracking-widest text-muted-foreground mb-3 xs:mb-4"
+              className="text-[10px] xs:text-xs font-body font-medium tracking-widest uppercase text-muted-foreground mb-3 xs:mb-4"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -284,7 +284,7 @@ export default function FeaturesSection() {
             >
               {copy.sectionLabel}
             </motion.p>
-            <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 xs:mb-5 sm:mb-6">
+            <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 xs:mb-5 sm:mb-6 px-1 text-balance">
               {copy.title}
             </h2>
             <p className="text-muted-foreground text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl mx-auto px-2">
@@ -295,8 +295,8 @@ export default function FeaturesSection() {
 
         {/* Category Tabs */}
         <ScrollReveal direction="up" delay={0.1} duration={0.7} threshold={0.2}>
-          <div className="flex justify-center mb-10 xs:mb-12 sm:mb-16">
-            <div className="inline-flex border border-border">
+          <div className="flex justify-center mb-10 xs:mb-12 sm:mb-16 px-1">
+            <div className="inline-flex max-w-full overflow-x-auto overscroll-x-contain border border-border [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {categories.map((category) => (
                 <CategoryTab
                   key={category.id}

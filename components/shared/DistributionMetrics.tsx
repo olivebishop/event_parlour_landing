@@ -64,7 +64,7 @@ export default function DistributionMetrics() {
           <p className="text-muted-foreground text-sm xs:text-base sm:text-lg mb-2">
             {copy.subtitle}
           </p>
-          <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
+          <h2 className="text-lg xs:text-xl sm:text-3xl md:text-4xl font-bold text-foreground px-1 text-balance">
             {copy.title}
           </h2>
         </motion.div>
@@ -137,7 +137,7 @@ export default function DistributionMetrics() {
                 <div className="flex justify-center mb-3 xs:mb-4 text-foreground">
                   <IconComponent className="w-6 h-6 sm:w-8 sm:h-8" />
                 </div>
-                <div className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-2 text-foreground">
+                <div className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-foreground font-numbers tabular-nums leading-none break-all">
                   {!Number.isNaN(numericValue) ? (
                     <NumberFlow
                       value={hasAnimated ? numericValue : 0}

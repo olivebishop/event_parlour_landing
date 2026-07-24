@@ -1,171 +1,101 @@
-"use client"
-
-import React, { useState, useEffect } from "react"
-import { motion } from "framer-motion"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import ArtGallery from "@/components/shared/ArtGallery"
+import { HeroWordCycle } from "@/components/shared/HeroWordCycle"
 import content from "@/lib/content"
 
 const { title, words, description, descriptionLine2 } = content.HeroSection
 
-// Floating avatar images data - positioned around the content (pushed further out on mobile)
 const avatars = [
   {
-    delay: 0.2,
     img: "/images/attendee.svg",
-    position: "top-[5%] -left-[5%] sm:top-[20%] sm:left-[5%]",
+    position: "top-[10%] left-1 sm:top-[16%] sm:left-[3%] md:left-[6%] lg:left-[8%]",
+    alt: "Attendee",
   },
   {
-    delay: 0.3,
     img: "/images/speaker.svg",
-    position: "top-[65%] -left-[3%] sm:top-[45%] sm:left-[15%]",
+    position: "bottom-[6%] left-1 sm:top-[52%] sm:bottom-auto sm:left-[10%] md:left-[14%] lg:left-[16%]",
+    alt: "Speaker",
   },
   {
-    delay: 0.4,
     img: "/images/vendor.svg",
-    position: "top-[5%] -right-[5%] sm:top-[20%] sm:right-[5%]",
+    position: "top-[10%] right-1 sm:top-[16%] sm:right-[3%] md:right-[6%] lg:right-[8%]",
+    alt: "Vendor",
   },
   {
-    delay: 0.5,
     img: "/images/org.svg",
-    position: "top-[65%] -right-[3%] sm:top-[45%] sm:right-[15%]",
+    position: "bottom-[6%] right-1 sm:top-[52%] sm:bottom-auto sm:right-[10%] md:right-[14%] lg:right-[16%]",
+    alt: "Organizer",
   },
 ]
 
-// Word Animation Component
-function WordAnimation({ words }: { words: string[] }) {
-  const [index, setIndex] = useState(0)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % words.length)
-    }, 2500)
-    return () => clearInterval(interval)
-  }, [words.length])
-
-  const currentWord = words[index]
-
-  return (
-    <span className="inline-block overflow-hidden">
-      <motion.span
-        key={currentWord}
-        initial={{ y: 30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: -30, opacity: 0 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-        className="inline-block text-foreground"
-      >
-        {currentWord}
-      </motion.span>
-    </span>
-  )
-}
-
-// Floating Avatar Component
-function FloatingAvatar({ 
-  img, 
-  delay, 
-  position 
-}: { 
-  img: string
-  delay: number
-  position: string
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.5 }}
-      className={cn("absolute z-10 opacity-60 sm:opacity-100", position)}
-    >
-      <motion.div
-        whileHover={{ rotate: 15, scale: 2.5 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className="relative w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 xl:w-24 xl:h-24 overflow-hidden rounded-lg border-2 border-foreground/50 sm:border-foreground bg-muted shadow-lg cursor-pointer"
-      >
-        <Image
-          src={img}
-          alt="Event moment"
-          fill
-          className="object-cover"
-          sizes="(max-width: 640px) 40px, (max-width: 768px) 64px, (max-width: 1024px) 80px, 96px"
-        />
-      </motion.div>
-    </motion.div>
-  )
-}
-
 export default function Hero() {
   return (
-    <section className="relative max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 pt-24 xs:pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-6 xs:pb-8 sm:pb-10 text-center min-h-screen flex flex-col">
-      {/* Content with floating avatars */}
-      <div className="relative flex-1 flex flex-col justify-center">
-        {/* Floating Avatars */}
-        {avatars.map((avatar, index) => (
-          <FloatingAvatar
-            key={index}
-            img={avatar.img}
-            delay={avatar.delay}
-            position={avatar.position}
-          />
+    <section
+      aria-labelledby="hero-heading"
+      className="relative w-full max-w-7xl mx-auto px-5 xs:px-6 sm:px-8 lg:px-10 pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-6 sm:pb-8 md:pb-10 text-center flex flex-col overflow-x-clip"
+    >
+      {/*
+        Content is a self-contained centered column.
+        Avatars are decorative only and never affect text measure/spacing.
+      */}
+      <div className="relative flex flex-col items-center justify-center py-6 sm:py-10 md:py-14">
+        {avatars.map((avatar) => (
+          <div
+            key={avatar.alt}
+            className={cn(
+              "absolute z-10 pointer-events-none opacity-25 sm:opacity-70 md:opacity-100",
+              "max-[359px]:hidden",
+              avatar.position
+            )}
+            aria-hidden="true"
+          >
+            <div className="relative size-7 xs:size-8 sm:size-12 md:size-16 lg:size-20 xl:size-24 overflow-hidden rounded-lg border border-foreground/30 sm:border-2 sm:border-foreground/80 bg-muted shadow-md">
+              <Image
+                src={avatar.img}
+                alt=""
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 32px, (max-width: 1024px) 64px, 96px"
+              />
+            </div>
+          </div>
         ))}
 
-        {/* Main Content - z-30 to ensure it's above floating avatars */}
-        <div className="relative z-30">
-          {/* Main Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-foreground mb-4 xs:mb-5 sm:mb-6 max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto leading-tight"
+        <div className="@container relative z-30 w-full max-w-[18.5rem] xs:max-w-[21rem] sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto">
+          <h1
+            id="hero-heading"
+            className="text-foreground mx-auto animate-hero-in flex flex-col items-center gap-1 xs:gap-1.5 sm:gap-2 font-heading font-bold tracking-normal text-[length:clamp(1.2rem,calc(100cqi/14),3.35rem)]"
           >
-            {title}
-            <br />
-            <WordAnimation words={words} />
-          </motion.h1>
+            {/* Base size on h1; word is 1.3em so the gap stays ~1.3× on every breakpoint */}
+            <span className="block text-[1em] leading-[1.2] text-balance">
+              {title}
+            </span>
+            <HeroWordCycle words={words} />
+          </h1>
 
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-muted-foreground text-sm xs:text-base sm:text-lg md:text-xl mb-6 xs:mb-7 sm:mb-8 max-w-[280px] xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto px-4 leading-relaxed"
-          >
-            {description}
-            <br className="hidden sm:block" />
-            <span className="sm:hidden"> </span>
-            {descriptionLine2}
-          </motion.p>
+          <p className="font-body font-normal text-muted-foreground mx-auto mt-5 xs:mt-6 sm:mt-7 md:mt-8 max-w-[17.5rem] xs:max-w-[20rem] sm:max-w-md md:max-w-lg animate-hero-in [animation-delay:80ms]">
+            <span className="block text-[0.9375rem] xs:text-base sm:text-lg md:text-xl leading-[1.55] sm:leading-[1.6] text-pretty">
+              {description}
+            </span>
+            <span className="block mt-2 sm:mt-2.5 text-[0.9375rem] xs:text-base sm:text-lg md:text-xl leading-[1.55] sm:leading-[1.6] text-pretty">
+              {descriptionLine2}
+            </span>
+          </p>
 
-          {/* Single CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-              duration: 0.6, 
-              delay: 0.6, 
-              type: "spring", 
-              stiffness: 400 
-            }}
-          >
+          <div className="mt-6 xs:mt-7 sm:mt-8 md:mt-10 animate-hero-in [animation-delay:140ms] flex justify-center">
             <a
               href="https://app.eventparlour.com/auth/sign-up"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Create your event on EventParlour"
-              className="inline-block"
+              className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 font-body font-medium transition-colors touch-manipulation w-full max-w-[15.5rem] xs:max-w-[16.5rem] sm:w-auto sm:max-w-none min-h-11 sm:min-h-12 md:min-h-14 px-5 xs:px-6 sm:px-8 md:px-10 lg:px-12 py-3 sm:py-3.5 md:py-4 text-sm xs:text-[0.9375rem] sm:text-base md:text-lg lg:text-xl"
             >
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-5 xs:px-6 sm:px-8 py-4 xs:py-5 sm:py-6 text-sm xs:text-base sm:text-lg font-medium">
-                Create your event
-              </Button>
+              Create your event
             </a>
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Art Gallery */}
       <ArtGallery />
     </section>
   )

@@ -137,6 +137,7 @@ function TeamDropdown({ isExpanded }: { isExpanded: boolean }) {
     <div className="w-full relative">
       <button
         type="button"
+        aria-label="Switch workspace"
         onClick={() => setIsActive(!isActive)}
         className="w-full flex items-center justify-center p-2 rounded transition-colors hover:bg-accent"
       >
@@ -284,7 +285,9 @@ function Sidebar({ activeView, mode, onNavigate }: { activeView: string; mode: D
           return (
             <button
               key={item.id}
+              type="button"
               onClick={() => onNavigate(item.id)}
+              aria-label={item.label}
               className={cn(
                 "w-full flex items-center justify-center p-3 rounded-lg transition-colors",
                 isActive
@@ -478,6 +481,7 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
             <div className="relative">
               <button
                 type="button"
+                aria-label="Open profile menu"
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 className="rounded-full p-0 bg-transparent border-0 outline-none"
               >
@@ -634,9 +638,9 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
               <div className="flex-shrink-0">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <div>
-                    <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
                       Welcome back, Olive
-                    </h1>
+                    </h2>
                     <p className="text-sm sm:text-base text-muted-foreground mt-1">
                       Here&apos;s what&apos;s happening with your workspace
                     </p>
@@ -655,7 +659,7 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
                     <Calendar className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
-                    <div className="text-xl sm:text-2xl font-bold">12</div>
+                    <div className="text-xl sm:text-2xl font-bold font-numbers tabular-nums">12</div>
                     <p className="text-[10px] sm:text-xs text-muted-foreground">
                       3 active this month
                     </p>
@@ -668,7 +672,7 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
                     <Users className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
-                    <div className="text-xl sm:text-2xl font-bold">8</div>
+                    <div className="text-xl sm:text-2xl font-bold font-numbers tabular-nums">8</div>
                     <p className="text-[10px] sm:text-xs text-muted-foreground">
                       Active members
                     </p>
@@ -681,7 +685,7 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
                     <Ticket className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
-                    <div className="text-xl sm:text-2xl font-bold">2,450</div>
+                    <div className="text-xl sm:text-2xl font-bold font-numbers tabular-nums">2,450</div>
                     <p className="text-[10px] sm:text-xs text-muted-foreground">
                       +15 free registrations
                     </p>
@@ -694,7 +698,7 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
                     <TrendingUp className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
-                    <div className="text-xl sm:text-2xl font-bold">KES 8.2M</div>
+                    <div className="text-xl sm:text-2xl font-bold font-numbers tabular-nums">KES 8.2M</div>
                     <p className="text-[10px] sm:text-xs text-muted-foreground">
                       From 245 purchases
                     </p>
@@ -886,7 +890,7 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
                 <Ticket className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent className="px-4 pb-4">
-                <div className="text-2xl font-bold">8</div>
+                <div className="text-2xl font-bold font-numbers tabular-nums">8</div>
                 <p className="text-xs text-muted-foreground">From 3 purchases</p>
               </CardContent>
             </Card>
@@ -897,7 +901,7 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
                 <CalendarCheck className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent className="px-4 pb-4">
-                <div className="text-2xl font-bold">5</div>
+                <div className="text-2xl font-bold font-numbers tabular-nums">5</div>
                 <p className="text-xs text-muted-foreground">Upcoming events</p>
               </CardContent>
             </Card>
@@ -908,7 +912,7 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
                 <Calendar className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent className="px-4 pb-4">
-                <div className="text-2xl font-bold">7</div>
+                <div className="text-2xl font-bold font-numbers tabular-nums">7</div>
                 <p className="text-xs text-muted-foreground">In the next 30 days</p>
               </CardContent>
             </Card>
@@ -919,7 +923,7 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
                 <TrendingUp className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent className="px-4 pb-4">
-                <div className="text-2xl font-bold">KES 12.5K</div>
+                <div className="text-2xl font-bold font-numbers tabular-nums">KES 12.5K</div>
                 <p className="text-xs text-muted-foreground">This year</p>
               </CardContent>
             </Card>
@@ -1040,7 +1044,7 @@ export default function InteractiveDemo() {
         <ScrollReveal direction="up" duration={0.7} threshold={0.2}>
           <div className="text-center mb-10 xs:mb-12 sm:mb-16 md:mb-20">
             <motion.p
-              className="text-[10px] xs:text-xs font-medium tracking-widest text-muted-foreground mb-3 xs:mb-4"
+              className="text-[10px] xs:text-xs font-body font-medium tracking-widest uppercase text-muted-foreground mb-3 xs:mb-4"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -1048,7 +1052,7 @@ export default function InteractiveDemo() {
             >
               TRY IT YOURSELF
             </motion.p>
-            <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 xs:mb-5 sm:mb-6">
+            <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 xs:mb-5 sm:mb-6 px-1 text-balance">
               See Event Parlour in Action
             </h2>
             <p className="text-muted-foreground text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl mx-auto px-2">
@@ -1090,8 +1094,8 @@ export default function InteractiveDemo() {
             </Card>
           </div>
           {/* Small devices - interactive */}
-          <div className="lg:hidden overflow-hidden">
-            <div className="scale-50 origin-top-left w-[200%] h-[300px]">
+          <div className="lg:hidden overflow-hidden w-full">
+            <div className="origin-top-left scale-[0.48] min-[390px]:scale-[0.52] min-[430px]:scale-[0.55] sm:scale-[0.62] md:scale-[0.72] w-[208%] min-[390px]:w-[192%] min-[430px]:w-[182%] sm:w-[161%] md:w-[139%] h-[clamp(16rem,55vw,26rem)]">
               <Card className="border-2 border-border bg-[#ffffff] dark:bg-background">
                 <CardContent className="p-4 xs:p-6 sm:p-8 md:p-10">
                   <AnimatePresence mode="wait">

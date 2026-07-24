@@ -68,7 +68,7 @@ export default function AnalyticsDemo() {
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold">12</div>
+              <div className="text-2xl font-bold font-numbers tabular-nums">12</div>
               <p className="text-xs text-muted-foreground">This year</p>
             </CardContent>
           </Card>
@@ -79,7 +79,7 @@ export default function AnalyticsDemo() {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold">KES 45K</div>
+              <div className="text-2xl font-bold font-numbers tabular-nums">KES 45K</div>
               <p className="text-xs text-muted-foreground">This year</p>
             </CardContent>
           </Card>
@@ -90,7 +90,7 @@ export default function AnalyticsDemo() {
               <BarChart3 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold">18</div>
+              <div className="text-2xl font-bold font-numbers tabular-nums">18</div>
               <p className="text-xs text-muted-foreground">All time</p>
             </CardContent>
           </Card>
@@ -101,7 +101,7 @@ export default function AnalyticsDemo() {
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold">5</div>
+              <div className="text-2xl font-bold font-numbers tabular-nums">5</div>
               <p className="text-xs text-muted-foreground">Next 30 days</p>
             </CardContent>
           </Card>
@@ -114,7 +114,7 @@ export default function AnalyticsDemo() {
               {springY.get().toFixed(0)} Events
               <Badge variant="secondary" className="ml-2">
                 <TrendingUp className="h-4 w-4" />
-                <span>+15%</span>
+                <span className="font-numbers tabular-nums">+15%</span>
               </Badge>
             </CardTitle>
             <p className="text-sm text-muted-foreground">Event participation for last year</p>

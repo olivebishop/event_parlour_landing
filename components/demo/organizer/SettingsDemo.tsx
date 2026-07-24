@@ -169,7 +169,7 @@ export default function SettingsDemo() {
                           <div className="text-2xl font-bold">
                             KES {Number.parseFloat("410000").toLocaleString()}
                           </div>
-                          <p className="text-xs text-muted-foreground">5% commission</p>
+                          <p className="text-xs text-muted-foreground"><span className="font-numbers tabular-nums">5%</span> commission</p>
                         </CardContent>
                       </Card>
 

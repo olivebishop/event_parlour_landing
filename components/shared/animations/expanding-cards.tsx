@@ -78,10 +78,10 @@ export default function ExpandingCards() {
   return (
     <section className="py-6 xs:py-8 sm:py-12 md:py-16 bg-background">
       <div className="container mx-auto px-3 xs:px-4 sm:px-6 flex flex-col items-center">
-        <p className="text-[10px] xs:text-xs font-medium tracking-widest text-muted-foreground mb-2 xs:mb-3 sm:mb-4">
+        <p className="text-[10px] xs:text-xs font-body font-medium tracking-widest uppercase text-muted-foreground mb-2 xs:mb-3 sm:mb-4">
           {copy.sectionLabel}
         </p>
-        <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-foreground mb-2 xs:mb-3 sm:mb-4">
+        <h1 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-foreground mb-2 xs:mb-3 sm:mb-4 px-1 text-balance">
           {copy.title}
         </h1>
         <p className="max-w-[60ch] text-balance text-center mb-6 xs:mb-8 sm:mb-12 md:mb-16 text-muted-foreground text-xs xs:text-sm sm:text-base px-2">
@@ -162,7 +162,7 @@ export default function ExpandingCards() {
                   ${isActive ? "opacity-100" : "opacity-0"}
                 `} />
 
-                <article className={`w-full h-full absolute top-0 left-0 flex flex-col ${isActive && isVerticalLayout ? "justify-start pt-14" : "justify-end"} gap-2 sm:gap-4 p-3 sm:p-4 overflow-hidden font-mono z-10`}>
+                <article className={`w-full h-full absolute top-0 left-0 flex flex-col ${isActive && isVerticalLayout ? "justify-start pt-14" : "justify-end"} gap-2 sm:gap-4 p-3 sm:p-4 overflow-hidden font-body z-10`}>
                   <h3 className={`
                     text-base font-light uppercase text-foreground transition-all duration-[calc(var(--speed)*1.2)] ease-[var(--easing)]
                     ${isVerticalLayout 
@@ -189,7 +189,7 @@ export default function ExpandingCards() {
                     {/* Stat highlight */}
                     {isActive && (
                       <div className="mt-3 flex items-baseline gap-2">
-                        <span className="text-2xl sm:text-3xl font-bold text-foreground">{card.stat}</span>
+                        <span className="text-2xl sm:text-3xl font-bold text-foreground font-numbers tabular-nums">{card.stat}</span>
                         <span className="text-xs text-muted-foreground">{card.statLabel}</span>
                       </div>
                     )}

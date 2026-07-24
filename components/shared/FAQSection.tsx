@@ -1,111 +1,88 @@
-// components/shared/FAQSection.tsx
-"use client";
+import content from "@/lib/content"
 
-import { useState } from "react";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { ChevronDown } from "lucide-react";
-import content from "@/lib/content";
+const faqs = content.FAQSection.questions
 
-const faqs = content.FAQSection.questions;
+function AnswerText({ answer }: { answer: string }) {
+  return (
+    <>
+      {answer.split(/(https?:\/\/[^\s]+|#[^\s]+)/g).map((part, i) => {
+        if (part.match(/^https?:\/\//)) {
+          return (
+            <a
+              key={i}
+              href={part}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline underline-offset-2 hover:opacity-80"
+            >
+              {part}
+            </a>
+          )
+        }
+        if (part.match(/^#/)) {
+          return (
+            <a
+              key={i}
+              href={part}
+              className="text-foreground underline underline-offset-2 hover:opacity-80"
+            >
+              {part}
+            </a>
+          )
+        }
+        return <span key={i}>{part}</span>
+      })}
+    </>
+  )
+}
 
 export default function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
-  const variants: Variants = {
-    open: { scaleY: 1, opacity: 1, transition: { duration: 0.2, ease: "easeInOut" } },
-    closed: { scaleY: 0, opacity: 0, transition: { duration: 0.2, ease: "easeInOut" } },
-  };
-
   return (
-    <section className="py-10 xs:py-12 sm:py-16 bg-background">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        className="container mx-auto px-3 xs:px-4 sm:px-6"
-      >
-        <motion.div
-          initial={{ y: 15, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="flex items-center mb-6 xs:mb-8 sm:mb-10"
-        >
-          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mr-3 xs:mr-4">
+    <section
+      aria-labelledby="faq-heading"
+      className="py-10 xs:py-12 sm:py-16 bg-background"
+    >
+      <div className="container mx-auto px-3 xs:px-4 sm:px-6">
+        <div className="flex items-center mb-6 xs:mb-8 sm:mb-10">
+          <h2
+            id="faq-heading"
+            className="text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mr-2 xs:mr-3 sm:mr-4 shrink-0 max-w-[70%] sm:max-w-none"
+          >
             {content.FAQSection.title}
           </h2>
-          <div className="flex-grow h-px bg-gradient-to-r from-border to-foreground"></div>
-        </motion.div>
+          <div className="flex-grow h-px bg-gradient-to-r from-border to-foreground" />
+        </div>
 
         <div className="space-y-2 xs:space-y-3 sm:space-y-4">
-          {faqs.map((faq, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, ease: "easeOut", delay: index * 0.05 }}
-              className="bg-muted border border-border shadow-lg overflow-hidden"
+          {faqs.map((faq) => (
+            <details
+              key={faq.question}
+              className="group bg-muted border border-border shadow-lg overflow-hidden"
             >
-              <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center p-3 xs:p-4 sm:p-5 text-left text-foreground hover:bg-muted/80 transition-colors duration-200"
-              >
-                <span className="text-sm xs:text-base sm:text-lg font-medium pr-4">{faq.question}</span>
-                <motion.div
-                  animate={{ rotate: openIndex === index ? 180 : 0 }}
-                  transition={{ duration: 0.2, ease: "easeInOut" }}
-                  className="flex-shrink-0"
+              <summary className="w-full flex justify-between items-center gap-4 p-3 xs:p-4 sm:p-5 text-left text-foreground hover:bg-muted/80 transition-colors duration-200 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                <span className="text-sm xs:text-base sm:text-lg font-medium pr-2">
+                  {faq.question}
+                </span>
+                <svg
+                  aria-hidden="true"
+                  className="h-4 w-4 xs:h-5 xs:w-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  <ChevronDown className="h-4 w-4 xs:h-5 xs:w-5 text-muted-foreground" />
-                </motion.div>
-              </button>
-              <AnimatePresence>
-                {openIndex === index && (
-                  <motion.div
-                    variants={variants}
-                    initial="closed"
-                    animate="open"
-                    exit="closed"
-                    style={{ transformOrigin: "top", willChange: "transform, opacity" }}
-                    className="p-3 xs:p-4 sm:p-5 bg-muted text-muted-foreground text-xs xs:text-sm"
-                  >
-                    {faq.answer.split(/(https?:\/\/[^\s]+|#[^\s]+)/g).map((part, i) => {
-                      if (part.match(/^https?:\/\//)) {
-                        return (
-                          <a
-                            key={i}
-                            href={part}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-primary hover:underline"
-                          >
-                            {part}
-                          </a>
-                        );
-                      }
-                      if (part.match(/^#/)) {
-                        return (
-                          <a
-                            key={i}
-                            href={part}
-                            className="text-primary hover:underline"
-                          >
-                            {part}
-                          </a>
-                        );
-                      }
-                      return <span key={i}>{part}</span>;
-                    })}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </summary>
+              <div className="p-3 xs:p-4 sm:p-5 pt-0 bg-muted text-muted-foreground text-xs xs:text-sm leading-relaxed">
+                <AnswerText answer={faq.answer} />
+              </div>
+            </details>
           ))}
         </div>
-      </motion.div>
+      </div>
     </section>
-  );
+  )
 }

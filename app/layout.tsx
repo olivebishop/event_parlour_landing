@@ -1,38 +1,15 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Geist, Geist_Mono, Bricolage_Grotesque, Figtree } from "next/font/google"
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { NetworkProvider } from "@/lib/providers/network-provider"
 import { ThemeProvider } from "@/lib/providers/theme-provider"
+import { geistFontVariables } from "./fonts"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
-import { ConsentManager } from "./consent-manager";
+import { ConsentManager } from "./consent-manager"
 import { getSiteStructuredDataGraph } from "@/lib/seo/structured-data"
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-})
-
-const bricolageGrotesque = Bricolage_Grotesque({
-  variable: "--font-bricolage",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-})
-
-const figtree = Figtree({
-  variable: "--font-figtree",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-})
-
 const siteUrl = "https://www.eventparlour.com"
 
 const seoDescription =
@@ -117,9 +94,12 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#171717" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  ],
 }
 
 export default function RootLayout({
@@ -154,7 +134,7 @@ export default function RootLayout({
             />
           </head>
           <body
-            className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} ${figtree.variable} antialiased bg-background text-foreground`}
+            className={`${geistFontVariables} font-sans font-normal antialiased bg-background text-foreground`}
             suppressHydrationWarning
           >
     		<ThemeProvider

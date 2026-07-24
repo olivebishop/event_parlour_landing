@@ -31,11 +31,27 @@ export function Navbar() {
   ];
 
   useEffect(() => {
+    let ticking = false
+
+    const update = () => {
+      setHasScrolled(window.scrollY > 20)
+      ticking = false
+    }
+
     const handleScroll = () => {
-      setHasScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+      if (!ticking) {
+        ticking = true
+        window.requestAnimationFrame(update)
+      }
+    }
+
+    // Defer first measurement until after paint
+    const idle = window.requestAnimationFrame(update)
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => {
+      window.cancelAnimationFrame(idle)
+      window.removeEventListener("scroll", handleScroll)
+    }
   }, []);
 
   useEffect(() => {
@@ -49,21 +65,14 @@ export function Navbar() {
     };
   }, [isOpen]);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const targetId = href.replace('#', '');
-    const targetElement = document.getElementById(targetId);
-    
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setIsOpen(false);
-    }
+  const handleNavClick = () => {
+    setIsOpen(false);
   };
 
   return (
     <>
       <motion.nav 
-        initial={{ y: -100, opacity: 0 }}
+        initial={false}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
         className={cn(
@@ -72,13 +81,14 @@ export function Navbar() {
             ? 'bg-background/90 dark:bg-black/90 backdrop-blur-md shadow-lg dark:shadow-black/30' 
             : 'bg-transparent'
         )}
+        aria-label="Primary"
       >
         <div className="container mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-5">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center group relative z-[60] touch-manipulation" style={{ WebkitTapHighlightColor: 'transparent' }}>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} className="flex items-center">
-                <span className="text-lg sm:text-xl md:text-2xl font-heading font-semibold text-foreground tracking-wide">
-                  Event Parlour
+                <span className="text-base sm:text-xl md:text-2xl font-heading font-semibold text-foreground tracking-tight whitespace-nowrap lowercase">
+                  event parlour
                 </span>
               </motion.div>
             </Link>
@@ -88,7 +98,7 @@ export function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
+                  onClick={handleNavClick}
                   className="relative px-3 py-2 text-foreground text-sm lg:text-base transition-colors duration-300 cursor-pointer"
                   onMouseEnter={() => setIsHovering(link.href)}
                   onMouseLeave={() => setIsHovering(null)}
@@ -219,7 +229,7 @@ export function Navbar() {
                     >
                       <a
                         href={link.href}
-                        onClick={(e) => handleNavClick(e, link.href)}
+                        onClick={handleNavClick}
                         className="block text-3xl sm:text-4xl md:text-5xl font-semibold text-muted-foreground transition-colors active:text-foreground hover:text-foreground cursor-pointer py-3 sm:py-4 px-2 -mx-2 rounded-lg active:bg-accent touch-manipulation min-h-[60px] flex items-center"
                         style={{ WebkitTapHighlightColor: 'transparent' }}
                       >

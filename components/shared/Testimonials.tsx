@@ -125,7 +125,7 @@ const TestimonialItem = ({
               <div
                 key={indx}
                 className={cn(
-                  "flex flex-col justify-between h-[220px] rounded-none border-[1.2px] border-border shrink-0 grow-0 w-[450px] bg-muted/40",
+                  "flex flex-col justify-between h-[200px] sm:h-[220px] rounded-none border-[1.2px] border-border shrink-0 grow-0 w-[min(85vw,450px)] sm:w-[450px] bg-muted/40",
                 )}
               >
                 <p className="px-5 py-5 font-sans tracking-tight text-sm font-extralight sm:text-base md:text-lg text-pretty text-foreground/90">
@@ -253,7 +253,7 @@ export default function Testimonials() {
     <div className="container mx-auto px-3 xs:px-4 sm:px-6">
       <ScrollReveal direction="up" duration={0.7} threshold={0.2}>
         <div className="text-center mb-8 xs:mb-10 sm:mb-12">
-          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground max-w-xs xs:max-w-sm md:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto px-2 mb-3 xs:mb-4 break-words leading-tight">
+          <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground max-w-[20rem] xs:max-w-sm md:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto px-2 mb-3 xs:mb-4 text-balance leading-tight">
             {copy.subtitle}
           </h2>
           <p className="text-muted-foreground text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm md:max-w-xl lg:max-w-2xl mx-auto px-2">

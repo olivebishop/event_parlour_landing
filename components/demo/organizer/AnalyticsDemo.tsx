@@ -69,7 +69,7 @@ export default function AnalyticsDemo() {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold">{mockAnalytics.revenue.total}</div>
+              <div className="text-2xl font-bold font-numbers tabular-nums">{mockAnalytics.revenue.total}</div>
               <p className="text-xs text-muted-foreground">{mockAnalytics.revenue.growth} from last month</p>
             </CardContent>
           </Card>
@@ -80,7 +80,7 @@ export default function AnalyticsDemo() {
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold">{mockAnalytics.attendees.total.toLocaleString()}</div>
+              <div className="text-2xl font-bold font-numbers tabular-nums">{mockAnalytics.attendees.total.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">{mockAnalytics.attendees.growth} from last quarter</p>
             </CardContent>
           </Card>
@@ -91,7 +91,7 @@ export default function AnalyticsDemo() {
               <BarChart3 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold">{mockAnalytics.events.total}</div>
+              <div className="text-2xl font-bold font-numbers tabular-nums">{mockAnalytics.events.total}</div>
               <p className="text-xs text-muted-foreground">{mockAnalytics.events.active} active this month</p>
             </CardContent>
           </Card>
@@ -102,7 +102,7 @@ export default function AnalyticsDemo() {
               <Ticket className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold">{mockAnalytics.tickets.sold.toLocaleString()}</div>
+              <div className="text-2xl font-bold font-numbers tabular-nums">{mockAnalytics.tickets.sold.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">{mockAnalytics.tickets.available} available</p>
             </CardContent>
           </Card>
@@ -112,10 +112,10 @@ export default function AnalyticsDemo() {
         <Card className="flex-1 flex flex-col min-h-0">
           <CardHeader>
             <CardTitle>
-              KES {springY.get().toFixed(1)}M
+              <span className="font-numbers tabular-nums">KES {springY.get().toFixed(1)}M</span>
               <Badge variant="secondary" className="ml-2">
                 <TrendingUp className="h-4 w-4" />
-                <span>{mockAnalytics.revenue.growth}</span>
+                <span className="font-numbers tabular-nums">{mockAnalytics.revenue.growth}</span>
               </Badge>
             </CardTitle>
             <p className="text-sm text-muted-foreground">Total revenue for last year</p>

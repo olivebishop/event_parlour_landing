@@ -40,39 +40,27 @@ const Footer = () => {
     }
   }, [isInView]);
 
-  const brandText = "Event Parlour".split("");
+  const closingLines = [copy.closingLine1, copy.closingLine2]
 
   const containerVariants = {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.08,
+        staggerChildren: 0.12,
       },
     },
   };
 
   const childVariants = {
-    hidden: { y: "100%", opacity: 0 },
+    hidden: { y: "110%", opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.6,
+        duration: 0.55,
         ease: "easeInOut" as const,
       },
     },
-  };
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('#')) {
-      e.preventDefault();
-      const targetId = href.replace('#', '');
-      const targetElement = document.getElementById(targetId);
-      
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
   };
 
   const navColumns = useMemo(() => ({
@@ -121,8 +109,8 @@ const Footer = () => {
             className="h-10 md:h-12 w-auto object-contain object-left [filter:invert(1)_hue-rotate(180deg)_brightness(2.5)_saturate(2)] dark:[filter:none]"
             priority={false}
           /> */}
-          <span className="text-2xl md:text-3xl font-heading font-semibold tracking-wide text-foreground">
-            Event Parlour
+          <span className="text-2xl md:text-3xl font-heading font-semibold tracking-tight text-foreground lowercase">
+            {copy.brandWordmark}
           </span>
         </motion.div>
 
@@ -141,7 +129,6 @@ const Footer = () => {
                   <li key={i}>
                     <a
                       href={link.href}
-                      onClick={(e) => handleNavClick(e, link.href)}
                       className="text-muted-foreground hover:text-foreground transition-colors text-sm font-body"
                       target={link.href.startsWith('http') ? '_blank' : undefined}
                       rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
@@ -161,13 +148,12 @@ const Footer = () => {
               animate={footerVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <h4 className="text-foreground text-sm font-heading font-semibold mb-4 uppercase tracking-wider">{copy.company}</h4>
+              <h4 className="text-foreground text-sm font-pixel font-semibold mb-4 uppercase tracking-wider">{copy.company}</h4>
               <ul className="space-y-3">
                 {navColumns.company.map((link, i) => (
                   <li key={i}>
                     <a
                       href={link.href}
-                      onClick={(e) => handleNavClick(e, link.href)}
                       className="text-muted-foreground hover:text-foreground transition-colors text-sm font-body"
                       target={link.href.startsWith('http') ? '_blank' : undefined}
                       rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
@@ -187,7 +173,7 @@ const Footer = () => {
               animate={footerVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <h4 className="text-foreground text-sm font-heading font-semibold mb-4 uppercase tracking-wider">{copy.weAreSocial}</h4>
+              <h4 className="text-foreground text-sm font-pixel font-semibold mb-4 uppercase tracking-wider">{copy.weAreSocial}</h4>
               <div className="flex flex-wrap gap-3">
                 {socialLinks.map((social, i) => {
                   const IconComponent = social.icon;
@@ -227,27 +213,24 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Brand Text Animation */}
+        {/* Closing tagline — Ramp-style convert line for events */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={footerVisible ? "visible" : "hidden"}
-          className="overflow-hidden py-8"
+          className="overflow-hidden px-2 sm:px-4 py-10 sm:py-12 md:py-14 lg:py-16"
+          aria-label={`${copy.closingLine1} ${copy.closingLine2}`}
         >
-          <div className="flex flex-wrap justify-center">
-            {brandText.map((letter, i) => (
-              <motion.span
-                key={i}
-                variants={childVariants}
-                className="inline-block text-black dark:text-white text-[10vw] xs:text-[9vw] sm:text-[8vw] md:text-[7vw] lg:text-[6vw] xl:text-[5vw] 2xl:text-[4vw] font-heading leading-none opacity-10"
-                style={{ 
-                  display: "inline-block", 
-                  overflow: "hidden",
-                  marginRight: letter === " " ? "clamp(0.3rem, 1vw, 1rem)" : "0"
-                }}
-              >
-                {letter === " " ? "\u00A0" : letter}
-              </motion.span>
+          <div className="flex flex-col items-center justify-center text-center gap-2 sm:gap-3 md:gap-4 max-w-5xl mx-auto">
+            {closingLines.map((line) => (
+              <div key={line} className="overflow-hidden w-full">
+                <motion.p
+                  variants={childVariants}
+                  className="font-heading font-bold text-foreground leading-[1.08] sm:leading-[1.05] tracking-tight text-balance text-[clamp(1.5rem,7.2vw,5rem)]"
+                >
+                  {line}
+                </motion.p>
+              </div>
             ))}
           </div>
         </motion.div>
@@ -260,7 +243,7 @@ const Footer = () => {
             animate={footerVisible ? { opacity: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <span className="flex items-center">©{new Date().getFullYear()} <span className="text-foreground font-heading ml-1">Event Parlour</span></span>
+            <span className="flex items-center">©<span className="font-numbers tabular-nums">{new Date().getFullYear()}</span> <span className="text-foreground font-heading ml-1 lowercase">{copy.brandWordmark}</span></span>
             <span className="hidden sm:inline mx-0 sm:mx-1">•</span>
             <span className="flex items-center">{copy.address2}</span>
             <span className="hidden sm:inline mx-0 sm:mx-1">•</span>
@@ -271,8 +254,6 @@ const Footer = () => {
                 .replace("circleup.", "")
                 .trim()}
             </span>
-            <span className="hidden sm:inline mx-0 sm:mx-1">•</span>
-            <span className="flex items-center">Powered by Circle Up</span>
             <span className="hidden sm:inline mx-0 sm:mx-1">•</span>
             <a
               href="https://event-parlour.openstatus.dev/"
