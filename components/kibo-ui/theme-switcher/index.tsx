@@ -1,24 +1,18 @@
 "use client";
 
-import { Monitor, Moon, Sun } from "lucide-react";
-import { motion } from "framer-motion";
+import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
 const themes = [
   {
-    key: "system",
-    icon: Monitor,
-    label: "System theme",
-  },
-  {
-    key: "light",
+    key: "light" as const,
     icon: Sun,
     label: "Light theme",
   },
   {
-    key: "dark",
+    key: "dark" as const,
     icon: Moon,
     label: "Dark theme",
   },
@@ -28,70 +22,59 @@ export type ThemeSwitcherProps = {
   className?: string;
 };
 
-export const ThemeSwitcher = ({
-  className,
-}: ThemeSwitcherProps) => {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+export const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Prevent hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const activeTheme = resolvedTheme === "dark" ? "dark" : "light";
 
   if (!mounted) {
     return (
       <div
         className={cn(
-          "relative isolate inline-flex h-8 sm:h-9 w-fit rounded-full bg-background p-1 border border-border/50",
-          className
+          "inline-flex rounded-none border border-border bg-background",
+          className,
         )}
+        aria-hidden
       >
-        {themes.map(({ key, icon: Icon }) => (
-          <div
-            key={key}
-            className="relative h-6 w-6 sm:h-7 sm:w-7 rounded-full"
-          >
-            <Icon className="relative z-10 m-auto h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
-          </div>
+        {themes.map(({ key }) => (
+          <div key={key} className="h-8 w-8" />
         ))}
       </div>
     );
   }
 
-  const currentTheme = theme || "system";
-
   return (
     <div
       className={cn(
-        "relative isolate inline-flex h-8 sm:h-9 w-fit rounded-full bg-background p-1 border border-border/50",
-        className
+        "inline-flex rounded-none border border-border bg-background",
+        className,
       )}
+      role="group"
+      aria-label="Theme"
     >
       {themes.map(({ key, icon: Icon, label }) => {
-        const isActive = currentTheme === key;
+        const isActive = activeTheme === key;
 
         return (
           <button
             aria-label={label}
-            className="relative h-6 w-6 sm:h-7 sm:w-7 rounded-full"
+            aria-pressed={isActive}
+            className={cn(
+              "flex h-8 w-8 items-center justify-center rounded-none transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+              isActive
+                ? "bg-foreground text-background"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground",
+            )}
             key={key}
             onClick={() => setTheme(key)}
             type="button"
           >
-            {isActive && (
-              <motion.div
-                className="absolute inset-0 rounded-full bg-secondary"
-                layoutId="activeTheme"
-                transition={{ type: "spring", duration: 0.5 }}
-              />
-            )}
-            <Icon
-              className={cn(
-                "relative z-10 m-auto h-4 w-4 sm:h-5 sm:w-5",
-                isActive ? "text-foreground" : "text-muted-foreground"
-              )}
-            />
+            <Icon className="h-4 w-4 shrink-0" aria-hidden />
           </button>
         );
       })}
