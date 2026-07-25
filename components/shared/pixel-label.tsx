@@ -36,8 +36,10 @@ export function PixelLabel({
 }: PixelLabelProps) {
   return (
     <Tag
+      data-allow-radius={variant === "circle" ? "" : undefined}
       className={cn(
-        "font-numbers text-xs font-medium uppercase tracking-[0.12em]",
+        "text-xs font-medium uppercase tracking-[0.12em]",
+        variant === "circle" ? "font-pixel-circle" : "font-numbers",
         variantClass[variant],
         toneClass[tone],
         className,

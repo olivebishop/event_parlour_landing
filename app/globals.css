@@ -376,6 +376,10 @@ html.paystack-modal-open {
   font-variant-numeric: tabular-nums;
 }
 
+.font-pixel-circle {
+  font-family: var(--font-geist-pixel-circle), ui-sans-serif, system-ui, sans-serif;
+}
+
 /* Metrics, prices, counts — Pixel Square anywhere these utility classes appear */
 .font-stat,
 [data-font="numbers"] {

@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { ChevronDown } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState, type ReactNode } from "react"
 import content from "@/lib/content"
 import {
   categoryHubHref,
@@ -13,12 +13,26 @@ import {
   platformFeatureCatalog,
   platformFeatureHref,
 } from "@/lib/platform-feature-catalog"
+import { BrandGrainOverlay } from "@/components/grain-overlay"
+import { PixelLabel } from "@/components/shared/pixel-label"
 import { cn } from "@/lib/utils"
 
 const MENU_FEATURES = platformFeatureCatalog
 
 const MENU_LEFT = MENU_FEATURES.slice(0, 3)
 const MENU_RIGHT = MENU_FEATURES.slice(3, 6)
+
+/** DiceBear avatars — https://www.dicebear.com/ (deterministic by seed). */
+const ATTENDEE_AVATAR_SEEDS = ["Amina", "Brian", "Chioma", "Derek", "Elena"] as const
+
+function dicebearAvatarUrl(seed: string) {
+  const params = new URLSearchParams({
+    seed,
+    size: "96",
+    radius: "50",
+  })
+  return `https://api.dicebear.com/9.x/lorelei/png?${params.toString()}`
+}
 
 const featureMegaMenuItemClass =
   "group block w-full min-h-[4.25rem] px-3 py-2.5 transition-colors hover:bg-background/80 focus-visible:bg-background/80 dark:hover:bg-background/15 dark:focus-visible:bg-background/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted"
@@ -101,18 +115,18 @@ export function FeaturesNavPanel({
               <AudiencePreviewCard
                 href={categoryHubHref("organizers")}
                 onNavigate={close}
-                title="For organizers"
-                description="Workspace tools to list, sell, and run events."
-                imageSrc="/images/org.svg"
-                imageAlt=""
+                title="For music organizers"
+                description="List shows, sell tickets, pack the room."
+                imageSrc="/images/banner_one.png"
+                imageAlt="DJ and crowd at a live music event"
+                imageFit="cover"
               />
               <AudiencePreviewCard
                 href={categoryHubHref("attendees")}
                 onNavigate={close}
                 title="For attendees"
-                description="Discover events, tickets, and your community."
-                imageSrc="/images/attendee.svg"
-                imageAlt=""
+                description="Find nights out. Keep your tickets."
+                media={<AttendeesAvatarsMedia />}
               />
             </div>
           </div>
@@ -151,6 +165,48 @@ function PlatformFeatureLinkColumn({
   )
 }
 
+function AttendeesAvatarsMedia() {
+  return (
+    <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-muted/40 px-5 text-center">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        aria-hidden
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, color-mix(in oklch, var(--border) 70%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--border) 70%, transparent) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+          maskImage:
+            "radial-gradient(ellipse 80% 70% at 50% 45%, black 25%, transparent 75%)",
+        }}
+      />
+      <BrandGrainOverlay fixed={false} intensity="subtle" className="z-[1]" />
+
+      <div className="relative z-[2] flex flex-col items-center gap-3">
+        <div className="flex items-center justify-center -space-x-2.5" data-allow-radius>
+          {ATTENDEE_AVATAR_SEEDS.map((seed, i) => (
+            <span
+              key={seed}
+              className="relative inline-block size-12 overflow-hidden rounded-full border-2 border-background bg-muted ring-1 ring-border"
+              style={{ zIndex: ATTENDEE_AVATAR_SEEDS.length - i }}
+            >
+              <Image
+                src={dicebearAvatarUrl(seed)}
+                alt=""
+                fill
+                className="object-cover"
+                sizes="48px"
+              />
+            </span>
+          ))}
+        </div>
+        <p className="font-body text-[11px] leading-snug text-foreground/60">
+          Your crowd, in one place
+        </p>
+      </div>
+    </div>
+  )
+}
+
 function AudiencePreviewCard({
   href,
   onNavigate,
@@ -158,34 +214,65 @@ function AudiencePreviewCard({
   description,
   imageSrc,
   imageAlt,
+  imageFit = "contain",
+  media,
 }: {
   href: string
   onNavigate: () => void
   title: string
   description: string
-  imageSrc: string
-  imageAlt: string
+  imageSrc?: string
+  imageAlt?: string
+  imageFit?: "contain" | "cover"
+  media?: ReactNode
 }) {
+  const isCover = imageFit === "cover"
+
   return (
     <Link
       href={href}
       onClick={onNavigate}
       className="flex h-auto min-h-[240px] w-full min-w-0 flex-col overflow-hidden border border-border bg-background transition-colors hover:border-foreground/25 hover:bg-muted/40 xl:h-[277px] xl:w-[280px] xl:shrink-0 2xl:w-[320px]"
     >
-      <div className="relative flex h-[168px] shrink-0 items-center justify-center bg-muted/20 p-6">
-        <div className="relative h-full w-full max-h-[120px] max-w-[160px]">
-          <Image
-            src={imageSrc}
-            alt={imageAlt}
-            fill
-            className="object-contain object-center"
-            sizes="160px"
-          />
-        </div>
+      <div
+        className={cn(
+          "relative h-[168px] shrink-0 overflow-hidden bg-muted/20",
+          !media && !isCover && "flex items-center justify-center p-6",
+        )}
+      >
+        {media ? (
+          media
+        ) : isCover && imageSrc ? (
+          <>
+            <Image
+              src={imageSrc}
+              alt={imageAlt ?? ""}
+              fill
+              className="object-cover object-center contrast-[1.08] brightness-[0.85] saturate-[0.45] grayscale"
+              sizes="(max-width: 1280px) 100vw, 320px"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-t from-foreground/35 via-transparent to-transparent"
+            />
+          </>
+        ) : imageSrc ? (
+          <div className="relative h-full w-full max-h-[120px] max-w-[160px]">
+            <Image
+              src={imageSrc}
+              alt={imageAlt ?? ""}
+              fill
+              className="object-contain object-center"
+              sizes="160px"
+            />
+          </div>
+        ) : null}
       </div>
       <div className="flex flex-1 flex-col justify-center border-t border-border p-4">
-        <p className="font-body text-sm font-medium text-foreground">{title}</p>
-        <p className="mt-1 font-body text-xs leading-relaxed text-foreground/70 sm:text-sm">
+        <PixelLabel variant="circle" tone="foreground" as="p">
+          {title}
+        </PixelLabel>
+        <p className="mt-1.5 font-body text-xs leading-relaxed text-foreground/70 sm:text-sm">
           {description}
         </p>
       </div>
