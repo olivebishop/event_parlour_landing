@@ -28,7 +28,7 @@ export function PlatformFeatureDetail({
   const otherLinks = platformFeatureCatalog.filter((e) => e.slug !== slug)
 
   return (
-    <section className="overflow-hidden bg-background pb-12 xs:pb-16 sm:pb-20 md:pb-28 lg:pb-36">
+    <section className="overflow-x-clip bg-background pb-12 xs:pb-16 sm:pb-20 md:pb-28 lg:pb-36">
       <div className="container mx-auto px-3 xs:px-4 sm:px-6">
         <nav
           aria-label="Other platform features"
@@ -59,6 +59,8 @@ export function PlatformFeatureDetail({
             isReversed={false}
             includesText={copy.includes}
             activeText={copy.active}
+            omitIntroCopy
+            useDesignedVisual
           />
         </div>
 
@@ -87,7 +89,7 @@ export function PlatformFeaturesIndex() {
   const features = getAllPlatformFeatures()
 
   return (
-    <section className="overflow-hidden bg-background pt-4 pb-12 xs:pb-16 sm:pt-6 sm:pb-20 md:pb-28 lg:pb-36">
+    <section className="overflow-x-clip bg-background pt-4 pb-12 xs:pb-16 sm:pt-6 sm:pb-20 md:pb-28 lg:pb-36">
       <div className="container mx-auto px-3 xs:px-4 sm:px-6">
         <ul className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-2 sm:gap-5 lg:gap-6">
           {platformFeatureCatalog.map((entry, index) => {

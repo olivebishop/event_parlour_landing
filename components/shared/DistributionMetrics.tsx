@@ -69,7 +69,7 @@ export default function DistributionMetrics() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 xs:gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 gap-4 xs:grid-cols-2 xs:gap-6 sm:gap-8 lg:grid-cols-4">
           {metrics.map((metric, index) => {
             const IconComponent = metric.icon
 
@@ -137,7 +137,7 @@ export default function DistributionMetrics() {
                 <div className="flex justify-center mb-3 xs:mb-4 text-foreground">
                   <IconComponent className="w-6 h-6 sm:w-8 sm:h-8" />
                 </div>
-                <div className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-foreground font-numbers tabular-nums leading-none break-all">
+                <div className="mb-2 text-balance break-words font-numbers text-xl font-bold leading-none tabular-nums text-foreground xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                   {!Number.isNaN(numericValue) ? (
                     <NumberFlow
                       value={hasAnimated ? numericValue : 0}

@@ -35,6 +35,7 @@ import {
 import { useTheme } from "next-themes"
 import dynamic from "next/dynamic"
 import { demoCardClass, demoStatValueClass } from "@/components/demo/demo-chrome"
+import { BrandGrainOverlay } from "@/components/grain-overlay"
 
 /** Flat, product-like surfaces — tokens: white canvas (light), near-black canvas (dark). */
 const demoShellClass =
@@ -277,13 +278,13 @@ function Sidebar({ activeView, mode, onNavigate }: { activeView: string; mode: D
   const navItems = mode === "organizer" ? organizerNavItems : attendeeNavItems
 
   return (
-    <div className="flex flex-col h-full w-16 rounded-l-lg border-r border-border bg-muted/50 dark:bg-muted/40">
-      <div className="p-4 border-b border-border">
-        <div className="w-8 h-8 rounded-lg bg-primary dark:bg-primary flex items-center justify-center">
-          <span className="text-primary-foreground text-xs font-bold">EP</span>
+    <div className="hidden h-full w-16 shrink-0 flex-col border-r border-border bg-muted/50 dark:bg-muted/40 md:flex">
+      <div className="border-b border-border p-4">
+        <div className="flex h-8 w-8 items-center justify-center bg-primary dark:bg-primary">
+          <span className="text-xs font-bold text-primary-foreground">EP</span>
         </div>
       </div>
-      <nav className="flex-1 py-4 space-y-1 overflow-hidden">
+      <nav className="flex-1 space-y-1 overflow-y-auto overscroll-contain py-4">
         {navItems.map((item) => {
           const Icon = item.icon
           const isActive = activeView === item.id
@@ -295,10 +296,10 @@ function Sidebar({ activeView, mode, onNavigate }: { activeView: string; mode: D
               onClick={() => onNavigate(item.id)}
               aria-label={item.label}
               className={cn(
-                "w-full flex items-center justify-center p-3 rounded-lg transition-colors",
+                "flex w-full items-center justify-center p-3 transition-colors",
                 isActive
                   ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
               )}
               title={item.label}
             >
@@ -407,24 +408,24 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
 
   return (
     <>
-      <div className="h-14 md:h-16 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex items-center justify-between px-4 md:px-6 rounded-tr-lg">
+      <div className="flex h-14 items-center justify-between gap-1 border-b border-border bg-background/95 px-2 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:gap-2 sm:px-4 md:h-16 md:px-6">
         {/* Left side - Search button */}
-        <div className="flex-1 flex justify-start ml-4 md:ml-0 mr-4 max-w-none">
-          <div className="w-full max-w-sm flex items-center gap-2">
+        <div className="mr-2 flex min-w-0 flex-1 justify-start max-w-none sm:mr-4">
+          <div className="flex w-full min-w-0 max-w-none items-center gap-2 md:max-w-sm">
             <Button
               variant="outline"
               size="sm"
-              className="w-full max-w-sm justify-start text-muted-foreground"
+              className="w-full max-w-[2.5rem] justify-start px-2 text-muted-foreground sm:max-w-sm sm:px-3"
             >
-              <Search className="mr-2 h-4 w-4" />
+              <Search className="h-4 w-4 sm:mr-2" />
               <span className="hidden sm:inline">Search...</span>
             </Button>
           </div>
         </div>
         {/* Right side - Date, Notifications, View switch, Profile */}
-        <div className="flex items-center space-x-2 ml-auto">
-          <div className="flex items-center space-x-1.5">
-            <div className="hidden sm:flex items-center text-xs text-muted-foreground font-normal whitespace-nowrap">
+        <div className="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1.5">
+          <div className="flex items-center gap-0.5 sm:gap-1.5">
+            <div className="hidden items-center whitespace-nowrap text-xs font-normal text-muted-foreground lg:flex">
               {formatDate()}
             </div>
             {/* Notifications */}
@@ -437,14 +438,17 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
               >
                 <Bell className="h-4 w-4" />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary text-primary-foreground text-[10px] flex items-center justify-center">
+                  <span
+                    data-allow-radius
+                    className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] text-primary-foreground"
+                  >
                     {unreadCount}
                   </span>
                 )}
               </Button>
               {/* Notification Panel */}
               {isNotificationOpen && (
-                <div className="absolute right-0 top-full mt-2 w-80 bg-popover border border-border rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
+                <div className="absolute right-0 top-full z-50 mt-2 max-h-96 w-[min(100vw-2rem,20rem)] max-w-[calc(100vw-2rem)] overflow-y-auto border border-border bg-popover shadow-lg sm:w-80">
                   <div className="p-4 border-b border-border">
                     <div className="flex items-center justify-between">
                       <h3 className="font-semibold text-sm">Notifications</h3>
@@ -479,9 +483,15 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
               variant="ghost"
               size="sm"
               onClick={onSwitch}
-              className="text-xs"
+              className="px-2 text-xs sm:px-3"
+              aria-label={
+                mode === "organizer" ? "View as Attendee" : "View as Organizer"
+              }
             >
-              {mode === "organizer" ? "View as Attendee" : "View as Organizer"}
+              <Users className="h-4 w-4 lg:hidden" aria-hidden />
+              <span className="hidden lg:inline">
+                {mode === "organizer" ? "View as Attendee" : "View as Organizer"}
+              </span>
             </Button>
             {/* Profile Dropdown */}
             <div className="relative">
@@ -489,15 +499,18 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
                 type="button"
                 aria-label="Open profile menu"
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="rounded-full p-0 bg-transparent border-0 outline-none"
+                className="border-0 bg-transparent p-0 outline-none"
               >
-                <div className="rounded-full w-8 h-8 cursor-pointer border-2 border-border overflow-hidden flex items-center justify-center bg-gradient-to-br from-secondary to-secondary/70">
+                <div
+                  data-allow-radius
+                  className="flex h-8 w-8 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-border bg-gradient-to-br from-secondary to-secondary/70"
+                >
                   <span className="text-xs font-semibold text-foreground">{initials}</span>
                 </div>
               </button>
               {/* Profile Dropdown Menu */}
               {isProfileOpen && (
-                <div className="absolute right-0 top-full mt-2 w-[240px] bg-popover border border-border rounded-lg shadow-lg z-50">
+                <div className="absolute right-0 top-full z-50 mt-2 w-[min(100vw-2rem,15rem)] max-w-[calc(100vw-2rem)] border border-border bg-popover shadow-lg sm:w-[240px]">
                   <div className="p-3 border-b border-border">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg border-2 border-border overflow-hidden flex items-center justify-center bg-gradient-to-br from-secondary to-secondary/70">
@@ -603,14 +616,88 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
   )
 }
 
+function MobileDemoNav({
+  activeView,
+  mode,
+  onNavigate,
+}: {
+  activeView: string
+  mode: DemoMode
+  onNavigate: (view: string) => void
+}) {
+  const organizerItems = [
+    { icon: LayoutDashboard, label: "Dashboard", id: "dashboard" },
+    { icon: Calendar, label: "Events", id: "events" },
+    { icon: ShieldCheck, label: "KYC", id: "kyc" },
+    { icon: MessageSquare, label: "Channels", id: "channels" },
+    { icon: Mic, label: "Speakers", id: "speakers" },
+    { icon: Ticket, label: "Tickets", id: "tickets" },
+    { icon: BarChart3, label: "Analytics", id: "analytics" },
+    { icon: Settings, label: "Settings", id: "settings" },
+    { icon: HelpCircle, label: "Support", id: "support" },
+  ]
+  const attendeeItems = [
+    { icon: LayoutDashboard, label: "Dashboard", id: "dashboard" },
+    { icon: Calendar, label: "Events", id: "events" },
+    { icon: MessageSquare, label: "Channels", id: "channels" },
+    { icon: Ticket, label: "Tickets", id: "tickets" },
+    { icon: BarChart3, label: "Analytics", id: "analytics" },
+    { icon: Settings, label: "Settings", id: "settings" },
+    { icon: HelpCircle, label: "Support", id: "support" },
+  ]
+  const items = mode === "organizer" ? organizerItems : attendeeItems
+
+  return (
+    <nav
+      aria-label="Demo views"
+      className="flex shrink-0 gap-1 overflow-x-auto overscroll-contain border-t border-border bg-muted/40 px-2 py-2 md:hidden"
+    >
+      {items.map((item) => {
+        const Icon = item.icon
+        const isActive = activeView === item.id
+        return (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => onNavigate(item.id)}
+            aria-label={item.label}
+            aria-current={isActive ? "page" : undefined}
+            className={cn(
+              "flex min-w-[3.25rem] shrink-0 flex-col items-center gap-0.5 px-2 py-1.5 transition-colors",
+              isActive
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground",
+            )}
+          >
+            <Icon className="h-4 w-4" aria-hidden />
+            <span className="font-body text-[9px] leading-none">{item.label}</span>
+          </button>
+        )
+      })}
+    </nav>
+  )
+}
+
 // Organizer Dashboard Wrapper
 function OrganizerDashboardWrapper({ onSwitch, activeView, setActiveView }: { onSwitch: () => void; activeView: string; setActiveView: (view: string) => void }) {
   return (
-    <div className={cn("flex h-[600px] max-h-[70vh] min-h-[480px] overflow-hidden", demoShellClass)}>
+    <div
+      className={cn(
+        "flex h-auto min-h-[360px] max-h-[min(680px,78dvh)] flex-col overflow-hidden md:h-[600px] md:min-h-[480px] md:max-h-[70vh] md:flex-row",
+        demoShellClass,
+      )}
+    >
       <Sidebar activeView={activeView} mode="organizer" onNavigate={setActiveView} />
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
         <TopHeader onSwitch={onSwitch} mode="organizer" />
-        <OrganizerDashboardContent activeView={activeView} />
+        <div className="min-h-0 flex-1 overflow-auto">
+          <OrganizerDashboardContent activeView={activeView} />
+        </div>
+        <MobileDemoNav
+          activeView={activeView}
+          mode="organizer"
+          onNavigate={setActiveView}
+        />
       </div>
     </div>
   )
@@ -638,11 +725,11 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
         return <SupportDemoOrganizer />
       default:
         return (
-          <div className="flex-1 overflow-hidden p-6">
-            <div className="h-full flex flex-col gap-4">
+          <div className="flex-1 overflow-hidden p-3 xs:p-4 sm:p-6">
+            <div className="flex h-full flex-col gap-4">
               {/* Header */}
               <div className="flex-shrink-0">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
                       Welcome back, Olive
@@ -852,11 +939,23 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
 // Attendee Dashboard Wrapper
 function AttendeeDashboardWrapper({ onSwitch, activeView, setActiveView }: { onSwitch: () => void; activeView: string; setActiveView: (view: string) => void }) {
   return (
-    <div className={cn("flex h-[600px] max-h-[70vh] min-h-[480px] overflow-hidden", demoShellClass)}>
+    <div
+      className={cn(
+        "flex h-auto min-h-[360px] max-h-[min(680px,78dvh)] flex-col overflow-hidden md:h-[600px] md:min-h-[480px] md:max-h-[70vh] md:flex-row",
+        demoShellClass,
+      )}
+    >
       <Sidebar activeView={activeView} mode="attendee" onNavigate={setActiveView} />
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
         <TopHeader onSwitch={onSwitch} mode="attendee" />
-        <AttendeeDashboardContent activeView={activeView} />
+        <div className="min-h-0 flex-1 overflow-auto">
+          <AttendeeDashboardContent activeView={activeView} />
+        </div>
+        <MobileDemoNav
+          activeView={activeView}
+          mode="attendee"
+          onNavigate={setActiveView}
+        />
       </div>
     </div>
   )
@@ -880,8 +979,8 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
         return <SupportDemoAttendee />
       default:
         return (
-          <div className="flex-1 overflow-hidden p-6">
-          <div className="h-full flex flex-col gap-4">
+          <div className="flex-1 overflow-hidden p-3 xs:p-4 sm:p-6">
+          <div className="flex h-full flex-col gap-4">
             {/* Header */}
             <div className="flex-shrink-0">
               <h3 className="mb-1 text-lg font-semibold text-foreground">My Dashboard</h3>
@@ -1033,10 +1132,15 @@ export default function InteractiveDemo() {
 
         {/* Demo Container — gradient stage + 1:1 product shell */}
         <ScrollReveal direction="up" delay={0.2} duration={0.7} threshold={0.2}>
-          <div className="relative mx-auto w-full max-w-6xl">
+          <div className="relative mx-auto w-full max-w-6xl overflow-hidden">
+            <BrandGrainOverlay
+              fixed={false}
+              intensity="subtle"
+              className="z-0 -inset-3 sm:-inset-4 md:-inset-6"
+            />
             {/* Light: black gradients / Dark: white gradients */}
             <div
-              className="pointer-events-none absolute -inset-3 rounded-none sm:-inset-4 md:-inset-6 dark:hidden"
+              className="pointer-events-none absolute -inset-3 z-0 rounded-none sm:-inset-4 md:-inset-6 dark:hidden"
               aria-hidden
               style={{
                 background: [
@@ -1048,7 +1152,7 @@ export default function InteractiveDemo() {
               }}
             />
             <div
-              className="pointer-events-none absolute -inset-3 hidden rounded-none sm:-inset-4 md:-inset-6 dark:block"
+              className="pointer-events-none absolute -inset-3 z-0 hidden rounded-none sm:-inset-4 md:-inset-6 dark:block"
               aria-hidden
               style={{
                 background: [

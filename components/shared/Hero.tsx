@@ -34,7 +34,7 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative w-full max-w-7xl mx-auto px-5 xs:px-6 sm:px-8 lg:px-10 pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-6 sm:pb-8 md:pb-10 text-center flex flex-col overflow-x-clip"
+      className="relative w-full max-w-7xl mx-auto overflow-x-clip px-5 xs:px-6 sm:px-8 lg:px-10 pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-6 sm:pb-8 md:pb-10 text-center flex flex-col"
     >
       {/*
         Content is a self-contained centered column.
@@ -45,13 +45,15 @@ export default function Hero() {
           <div
             key={avatar.alt}
             className={cn(
-              "absolute z-10 pointer-events-none opacity-25 sm:opacity-70 md:opacity-100",
-              "max-[359px]:hidden",
+              "pointer-events-none absolute z-10 hidden opacity-70 md:block md:opacity-100",
               avatar.position
             )}
             aria-hidden="true"
           >
-            <div className="relative size-7 xs:size-8 sm:size-12 md:size-16 lg:size-20 xl:size-24 overflow-hidden rounded-lg border border-foreground/30 sm:border-2 sm:border-foreground/80 bg-muted shadow-md">
+            <div
+              data-allow-radius
+              className="relative size-12 overflow-hidden rounded-lg border-2 border-foreground/80 bg-muted shadow-md md:size-16 lg:size-20 xl:size-24"
+            >
               <Image
                 src={avatar.img}
                 alt=""

@@ -1,6 +1,5 @@
 import type React from "react"
 import { PixelLabel } from "@/components/shared/pixel-label"
-import { MarketingGridPattern } from "@/components/marketing/marketing-grid-pattern"
 import { cn } from "@/lib/utils"
 
 type MarketingPageHeroProps = {
@@ -27,7 +26,6 @@ export function MarketingPageHero({
         className,
       )}
     >
-      <MarketingGridPattern />
       <div className="container relative mx-auto px-4 sm:px-6">
         <div className="grid gap-10 pb-12 sm:pb-16 md:pb-20 lg:grid-cols-2 lg:items-end lg:gap-16">
           <div className="max-w-xl space-y-4 sm:space-y-5">

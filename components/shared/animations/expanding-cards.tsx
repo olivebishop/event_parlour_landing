@@ -239,7 +239,7 @@ export default function ExpandingCards() {
   useEffect(() => {
     const checkScreenSize = () => {
       const width = window.innerWidth
-      setIsVerticalLayout(width < 768) // Switch to vertical layout below md breakpoint
+      setIsVerticalLayout(width < 1024) // Vertical until lg — horizontal spines are too tight at md
       setIsMobileView(width < 640) // Extra small devices
     }
 
@@ -374,7 +374,7 @@ export default function ExpandingCards() {
           background: transparent;
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 1023px) {
           .cards-container {
             min-height: auto;
             max-height: none;
@@ -411,7 +411,7 @@ export default function ExpandingCards() {
           }
         }
         
-        @media (min-width: 768px) {
+        @media (min-width: 1024px) {
           .card-item[data-active="true"] .card-text-scrim > div:first-child {
             animation: rise-up-desktop 0.7s ease-out forwards;
           }

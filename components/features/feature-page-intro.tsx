@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { PixelLabel } from "@/components/shared/pixel-label"
-import { MarketingGridPattern } from "@/components/marketing/marketing-grid-pattern"
 import type { CategoryKey } from "@/lib/data/features"
 import {
   attendeeFeatureCatalog,
@@ -27,7 +26,6 @@ export function FeaturePageIntro({
 
   return (
     <div className="relative pt-24 sm:pt-28 md:pt-32">
-      <MarketingGridPattern className="opacity-60" />
       <div className="container relative mx-auto px-4 pb-10 sm:px-6 sm:pb-14 md:pb-16">
         <div className="max-w-3xl space-y-4 sm:space-y-5">
           <PixelLabel tone="soft">
@@ -74,7 +72,6 @@ export function FeatureDetailIntro({
 
   return (
     <div className="relative pt-24 sm:pt-28 md:pt-32">
-      <MarketingGridPattern className="opacity-60" />
       <div className="container relative mx-auto px-4 pb-8 sm:px-6 sm:pb-10">
         <div className="max-w-3xl space-y-4">
           <PixelLabel tone="soft">

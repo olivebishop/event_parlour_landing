@@ -28,7 +28,7 @@ export function FeatureCategoryView({
       : attendeeFeatureCatalog
 
   return (
-    <section className="overflow-hidden bg-background py-12 xs:py-16 sm:py-20 md:py-28 lg:py-36">
+    <section className="overflow-x-clip bg-background py-12 xs:py-16 sm:py-20 md:py-28 lg:py-36">
       <div className="container mx-auto px-3 xs:px-4 sm:px-6">
         {showOverviewHeader ? (
           <div className="mb-10 text-center xs:mb-12 sm:mb-16 md:mb-20">
@@ -50,13 +50,13 @@ export function FeatureCategoryView({
 
         <nav
           aria-label={`${copy.tabs[category]} sections`}
-          className="mb-10 flex flex-wrap gap-2 xs:mb-12 sm:mb-14"
+          className="-mx-1 mb-10 flex flex-wrap gap-1.5 px-1 xs:mb-12 xs:gap-2 sm:mb-14"
         >
           {catalog.map((entry) => (
             <Link
               key={entry.slug}
               href={featureHref(category, entry.slug)}
-              className="border border-border bg-background px-2.5 py-1.5 font-body text-xs text-foreground/75 transition-[border-color,color,background-color] duration-200 hover:border-foreground/30 hover:bg-muted/50 hover:text-foreground sm:text-sm"
+              className="border border-border bg-background px-2 py-1 font-body text-[11px] text-foreground/75 transition-[border-color,color,background-color] duration-200 hover:border-foreground/30 hover:bg-muted/50 hover:text-foreground xs:px-2.5 xs:py-1.5 xs:text-xs sm:text-sm"
             >
               {entry.navTitle}
             </Link>

@@ -108,7 +108,7 @@ const TestimonialItem = ({
   return (
     <div className="max-w-full mx-auto">
       <div
-        className={`[--anime-duration:${animeSeconds}s] px-10 mx-auto w-full`}
+        className={`[--anime-duration:${animeSeconds}s] mx-auto w-full px-4 sm:px-10`}
       >
         <div
           style={{
@@ -124,7 +124,7 @@ const TestimonialItem = ({
               <div
                 key={indx}
                 className={cn(
-                  "flex flex-col justify-between h-[200px] sm:h-[220px] rounded-none border-[1.2px] border-border shrink-0 grow-0 w-[min(85vw,450px)] sm:w-[450px] bg-muted/40",
+                  "flex h-[200px] w-[min(88vw,450px)] shrink-0 grow-0 flex-col justify-between rounded-none border-[1.2px] border-border bg-muted/40 sm:h-[220px]",
                 )}
               >
                 <p className="px-5 py-5 font-body text-sm font-normal leading-snug sm:text-base md:text-lg text-pretty text-foreground">
@@ -134,7 +134,8 @@ const TestimonialItem = ({
                   <div className="flex items-center w-3/4 gap-3 px-4 py-3">
                     <img
                       src={testimonial.avatar}
-                      className="w-10 h-10 rounded-full object-cover"
+                      data-allow-radius
+                      className="h-10 w-10 rounded-full object-cover"
                       alt={`${testimonial.name} avatar`}
                     />
                     <div className="flex flex-col items-start justify-start flex-1 gap-0">

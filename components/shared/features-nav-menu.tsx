@@ -97,7 +97,7 @@ export function FeaturesNavPanel({
               </div>
             </div>
 
-            <div className="flex w-full shrink-0 flex-row gap-4 lg:w-auto">
+            <div className="flex w-full min-w-0 shrink-0 flex-col gap-4 xl:w-auto xl:flex-row">
               <AudiencePreviewCard
                 href={categoryHubHref("organizers")}
                 onNavigate={close}
@@ -170,7 +170,7 @@ function AudiencePreviewCard({
     <Link
       href={href}
       onClick={onNavigate}
-      className="flex h-[277px] w-full max-w-[320px] shrink-0 flex-col overflow-hidden border border-border bg-background transition-colors hover:border-foreground/25 hover:bg-muted/40 sm:w-[320px]"
+      className="flex h-auto min-h-[240px] w-full min-w-0 flex-col overflow-hidden border border-border bg-background transition-colors hover:border-foreground/25 hover:bg-muted/40 xl:h-[277px] xl:w-[280px] xl:shrink-0 2xl:w-[320px]"
     >
       <div className="relative flex h-[168px] shrink-0 items-center justify-center bg-muted/20 p-6">
         <div className="relative h-full w-full max-h-[120px] max-w-[160px]">
@@ -202,7 +202,7 @@ export function MobileFeaturesLinks({ onNavigate }: { onNavigate: () => void }) 
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <div className="border-b border-border pb-4">
+    <div>
       <button
         type="button"
         className="flex w-full items-center justify-between py-2"
@@ -227,13 +227,13 @@ export function MobileFeaturesLinks({ onNavigate }: { onNavigate: () => void }) 
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <ul className="space-y-2.5 pt-3">
+            <ul className="space-y-1 pb-1 pt-2">
               {platformFeatureCatalog.map((entry) => (
                 <li key={entry.slug}>
                   <Link
                     href={platformFeatureHref(entry.slug)}
                     onClick={onNavigate}
-                    className="block py-1 font-body text-sm text-foreground"
+                    className="block py-2 font-body text-sm text-foreground/80"
                   >
                     {entry.navTitle}
                   </Link>

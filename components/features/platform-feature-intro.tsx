@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { MarketingGridPattern } from "@/components/marketing/marketing-grid-pattern"
 import { PixelLabel } from "@/components/shared/pixel-label"
 import { getPlatformFeatureBySlug } from "@/lib/platform-features-content"
 import { platformFeatureHref } from "@/lib/platform-feature-catalog"
@@ -12,7 +11,6 @@ export function PlatformFeatureIntro({ slug }: { slug: string }) {
 
   return (
     <div className="relative pt-24 sm:pt-28 md:pt-32">
-      <MarketingGridPattern className="opacity-60" />
       <div className="container relative mx-auto px-4 pb-8 sm:px-6 sm:pb-10">
         <div className="max-w-3xl space-y-4">
           <PixelLabel tone="soft">{feature.label}</PixelLabel>

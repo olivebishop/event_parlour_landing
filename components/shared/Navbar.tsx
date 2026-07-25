@@ -13,6 +13,7 @@ import {
   FeaturesNavPanel,
   MobileFeaturesLinks,
 } from "@/components/shared/features-nav-menu";
+import { categoryHubHref } from "@/lib/feature-catalog";
 import {
   HugeiconsNewTwitter,
   HugeiconsInstagram,
@@ -26,10 +27,18 @@ const secondaryLinks = [
   { href: "/contact", label: copy.contact },
 ] as const;
 
+/** Audience hubs — peer links in the mobile drawer (not nested under Features). */
+const audienceLinks = [
+  { href: categoryHubHref("organizers"), label: "For organizers" },
+  { href: categoryHubHref("attendees"), label: "For attendees" },
+] as const;
+
 const externalLinks = [
   { href: "https://app.eventparlour.com", label: copy.events },
   { href: "https://app.eventparlour.com/blogs", label: copy.blogs },
 ] as const;
+
+const SIGN_IN_HREF = "https://app.eventparlour.com/auth/sign-in";
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
@@ -116,7 +125,7 @@ export function Navbar() {
           setFeaturesOpen(false);
         }}
       >
-        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-8 px-5 sm:px-8 lg:h-16 lg:px-10 xl:max-w-[90rem] xl:px-12">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:gap-6 sm:px-8 lg:h-16 lg:gap-8 lg:px-10 xl:max-w-[90rem] xl:px-12">
           <BrandLogoLink logoClassName="shrink-0 text-base font-semibold lowercase tracking-tight sm:text-lg" />
 
           <nav
@@ -173,7 +182,7 @@ export function Navbar() {
                 className="h-8 shrink-0 rounded-none px-3.5 text-xs shadow-none xl:px-4 xl:text-sm"
               >
                 <Link
-                  href="https://app.eventparlour.com/auth/sign-in"
+                  href={SIGN_IN_HREF}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -183,28 +192,43 @@ export function Navbar() {
             </div>
           </nav>
 
-          <button
-            type="button"
-            className="flex h-10 w-10 shrink-0 items-center justify-center lg:hidden"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isOpen}
-          >
-            <div className="relative flex h-5 w-6 flex-col items-center justify-center">
-              <motion.span
-                animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 0 : -7 }}
-                className="absolute block h-0.5 w-6 bg-foreground"
-              />
-              <motion.span
-                animate={{ opacity: isOpen ? 0 : 1 }}
-                className="absolute block h-0.5 w-6 bg-foreground"
-              />
-              <motion.span
-                animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? 0 : 7 }}
-                className="absolute block h-0.5 w-6 bg-foreground"
-              />
-            </div>
-          </button>
+          <div className="flex shrink-0 items-center gap-2 lg:hidden">
+            <Button
+              asChild
+              size="sm"
+              className="h-8 rounded-none px-3 text-xs shadow-none"
+            >
+              <Link
+                href={SIGN_IN_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {copy.signIn}
+              </Link>
+            </Button>
+            <button
+              type="button"
+              className="flex h-10 w-10 shrink-0 items-center justify-center"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+            >
+              <div className="relative flex h-5 w-6 flex-col items-center justify-center">
+                <motion.span
+                  animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 0 : -7 }}
+                  className="absolute block h-0.5 w-6 bg-foreground"
+                />
+                <motion.span
+                  animate={{ opacity: isOpen ? 0 : 1 }}
+                  className="absolute block h-0.5 w-6 bg-foreground"
+                />
+                <motion.span
+                  animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? 0 : 7 }}
+                  className="absolute block h-0.5 w-6 bg-foreground"
+                />
+              </div>
+            </button>
+          </div>
         </div>
 
         <div onMouseEnter={() => setFeaturesOpen(true)}>
@@ -233,10 +257,10 @@ export function Navbar() {
               exit={{ opacity: 0, y: -6 }}
               className="fixed left-0 right-0 top-14 z-[60] max-h-[calc(100dvh-3.5rem)] overflow-y-auto bg-background px-5 py-6 sm:px-8 lg:hidden"
             >
-              <MobileFeaturesLinks onNavigate={closeMobile} />
+              <div className="space-y-1 border-b border-border pb-4">
+                <MobileFeaturesLinks onNavigate={closeMobile} />
 
-              <div className="mt-4 space-y-1">
-                {secondaryLinks.map((link) => (
+                {[...audienceLinks, ...secondaryLinks].map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -251,10 +275,8 @@ export function Navbar() {
                     {link.label}.
                   </Link>
                 ))}
-                {[...externalLinks, {
-                  href: "https://app.eventparlour.com/auth/sign-in",
-                  label: copy.signIn,
-                }].map((link) => (
+
+                {externalLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -266,6 +288,23 @@ export function Navbar() {
                     {link.label}.
                   </Link>
                 ))}
+              </div>
+
+              <div className="mt-6">
+                <Button
+                  asChild
+                  size="cta"
+                  className="h-11 w-full rounded-none text-sm shadow-none"
+                >
+                  <Link
+                    href={SIGN_IN_HREF}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={closeMobile}
+                  >
+                    {copy.signIn}
+                  </Link>
+                </Button>
               </div>
 
               <div className="mt-8 flex gap-2 border-t border-border pt-6">

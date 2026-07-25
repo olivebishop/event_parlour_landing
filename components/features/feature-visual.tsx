@@ -17,6 +17,7 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react"
+import { BrandGrainOverlay } from "@/components/grain-overlay"
 import { cn } from "@/lib/utils"
 
 const COLLAB = {
@@ -45,6 +46,7 @@ function Face({
 }) {
   return (
     <span
+      data-allow-radius
       className={cn(
         "relative shrink-0 overflow-hidden rounded-full bg-muted ring-2",
         ring,
@@ -63,12 +65,12 @@ function AppChrome({
   trailing,
 }: {
   children: React.ReactNode
-  title: string
+  title: React.ReactNode
   trailing?: React.ReactNode
 }) {
   return (
     <div className="flex h-full w-full max-w-lg overflow-hidden border border-border bg-background text-foreground shadow-none">
-      <aside className="flex w-11 shrink-0 flex-col border-r border-border bg-background sm:w-12">
+      <aside className="hidden w-11 shrink-0 flex-col border-r border-border bg-background sm:flex sm:w-12">
         <div className="flex h-10 items-center justify-center border-b border-border sm:h-11">
           <span className="flex size-6 items-center justify-center border border-border bg-background font-heading text-[9px] font-bold sm:size-7 sm:text-[10px]">
             EP
@@ -97,7 +99,7 @@ function AppChrome({
         </div>
       </aside>
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex h-10 items-center justify-between gap-2 border-b border-border px-2.5 sm:h-11 sm:px-3">
+        <header className="flex h-10 items-center justify-between gap-2 border-b border-border px-2 sm:h-11 sm:px-3">
           <span className="truncate font-body text-xs font-medium">{title}</span>
           <div className="flex shrink-0 items-center gap-1.5">{trailing}</div>
         </header>
@@ -115,30 +117,18 @@ export type FeatureVisualKey =
   | "community"
   | "analytics"
 
-/** Map platform + hub feature slugs to a designed layout. */
+/** Map platform pillar slugs (/features/[slug]) to a designed layout.
+ *  Organizer/attendee hub pages use images — do not alias those slugs here. */
 export function resolveFeatureVisualKey(
   slug?: string,
 ): FeatureVisualKey | null {
   if (!slug) return null
   const map: Record<string, FeatureVisualKey> = {
     distribution: "distribution",
-    reach: "distribution",
-    discovery: "distribution",
-    discover: "distribution",
-    local: "distribution",
     workspace: "workspace",
-    dashboard: "workspace",
-    events: "workspace",
     pricing: "pricing",
-    payments: "pricing",
     "tickets-and-channels": "tickets-and-channels",
-    tickets: "tickets-and-channels",
-    network: "tickets-and-channels",
-    channels: "tickets-and-channels",
     community: "community",
-    speakers: "community",
-    "post-event": "community",
-    alerts: "community",
     analytics: "analytics",
   }
   return map[slug] ?? null
@@ -154,7 +144,7 @@ function Stage({
   return (
     <div
       className={cn(
-        "relative aspect-[4/3] w-full overflow-hidden border border-border bg-muted/40",
+        "relative aspect-[4/3] w-full max-h-[22rem] overflow-hidden border border-border bg-muted/40 sm:max-h-none sm:aspect-[4/3]",
         className,
       )}
     >
@@ -169,7 +159,8 @@ function Stage({
             "radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 75%)",
         }}
       />
-      <div className="relative flex h-full items-center justify-center p-4 sm:p-6 md:p-8">
+      <BrandGrainOverlay fixed={false} intensity="subtle" className="z-[1]" />
+      <div className="relative z-[2] flex h-full items-center justify-center p-2 xs:p-3 sm:p-5 md:p-8">
         {children}
       </div>
     </div>
@@ -281,7 +272,7 @@ function DistributionEventRow({
           <p className="truncate font-heading text-[13px] font-semibold tracking-tight sm:text-sm">
             {title}
           </p>
-          <span className="shrink-0 border border-border bg-foreground px-1.5 py-0.5 font-body text-[9px] font-medium uppercase tracking-wide text-background">
+          <span className="max-w-[42%] shrink-0 truncate border border-border bg-foreground px-1.5 py-0.5 font-body text-[9px] font-medium uppercase tracking-wide text-background sm:max-w-[48%] md:max-w-none">
             {status}
           </span>
         </div>
@@ -301,7 +292,7 @@ function DistributionVisual() {
 
   return (
     <Stage>
-      <div className="h-[min(100%,22rem)] w-full max-w-lg">
+      <div className="h-full w-full max-w-lg">
         <AppChrome title="Discover events" trailing={<LiveDot label="Feed" />}>
           <div className="flex h-full flex-col">
             <motion.div
@@ -418,7 +409,7 @@ function CollabCursor({
       </svg>
       <span
         className={cn(
-          "ml-3.5 -mt-1 inline-flex items-center gap-1 whitespace-nowrap py-0.5 pl-0.5 pr-1.5 font-body text-[10px] font-medium leading-none",
+          "ml-3.5 -mt-1 inline-flex max-w-[5.5rem] items-center gap-1 truncate py-0.5 pl-0.5 pr-1.5 font-body text-[10px] font-medium leading-none sm:max-w-none sm:whitespace-nowrap sm:overflow-visible",
           invert
             ? "border border-foreground bg-background text-foreground"
             : "bg-foreground text-background",
@@ -430,7 +421,7 @@ function CollabCursor({
           size={14}
           ring={invert ? "ring-foreground/25" : "ring-background/50"}
         />
-        {person.name}
+        <span className="truncate">{person.name}</span>
       </span>
     </motion.div>
   )
@@ -453,7 +444,7 @@ function WorkspaceVisual() {
 
   return (
     <Stage>
-      <div className="relative h-[min(100%,22rem)] w-full max-w-lg">
+      <div className="relative h-full w-full max-w-lg">
         <AppChrome
           title="Workspace · Members"
           trailing={
@@ -580,7 +571,11 @@ function PricingVisual() {
             <p className="mb-1.5 font-body text-[10px] uppercase tracking-wider text-foreground/55">
               Pick a ticket
             </p>
-            <div className="grid grid-cols-3 gap-1.5" role="tablist" aria-label="Ticket tiers">
+            <div
+              className="grid grid-cols-1 gap-1.5 sm:grid-cols-3"
+              role="tablist"
+              aria-label="Ticket tiers"
+            >
               {PRICING_TIERS.map((t) => {
                 const selected = t.id === tierId
                 return (
@@ -591,13 +586,13 @@ function PricingVisual() {
                     aria-selected={selected}
                     onClick={() => setTierId(t.id)}
                     className={cn(
-                      "border px-2 py-2 text-left transition-colors",
+                      "min-w-0 border px-2 py-2 text-left transition-colors",
                       selected
                         ? "border-foreground bg-foreground text-background"
                         : "border-border bg-background text-foreground hover:bg-muted",
                     )}
                   >
-                    <span className="block font-body text-[11px] font-medium sm:text-xs">
+                    <span className="block truncate font-body text-[11px] font-medium sm:text-xs">
                       {t.label}
                     </span>
                     <span
@@ -897,7 +892,7 @@ function WaChannelBubble({
               animate={{ opacity: 1, scale: 1 }}
               exit={reduce ? undefined : { opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.45, ease: CHAT_EASE }}
-              className="absolute bottom-0 right-2 z-[3] translate-y-1/2"
+              className="absolute bottom-1 right-2 z-[3] translate-y-0 sm:bottom-0 sm:translate-y-1/2"
             >
               <div
                 data-allow-radius
@@ -960,35 +955,45 @@ function TicketsChannelsVisual() {
 
   return (
     <Stage>
-      <div className="h-[min(100%,22rem)] w-full max-w-lg">
-        <AppChrome title="Tickets · Channels" trailing={<LiveDot />}>
-          <div className="grid h-full grid-cols-[0.95fr_1.15fr] gap-0">
+      <div className="h-full w-full max-w-lg">
+        <AppChrome
+          title={
+            <>
+              <span className="sm:hidden">Channels</span>
+              <span className="hidden sm:inline">Tickets · Channels</span>
+            </>
+          }
+          trailing={<LiveDot />}
+        >
+          <div className="grid h-full grid-cols-1 gap-0 sm:grid-cols-[0.95fr_1.15fr]">
             <motion.div
               initial={reduce ? false : { opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="flex flex-col border-r border-border p-2.5 sm:p-3"
+              className="hidden min-w-0 flex-col border-b border-border p-2 sm:flex sm:border-b-0 sm:border-r sm:p-3"
             >
               <div className="flex items-center gap-1.5 font-body text-[10px] uppercase tracking-wider text-foreground/60">
                 <Ticket className="h-3 w-3" aria-hidden />
                 Entry pass
               </div>
-              <div className="mt-2 flex flex-1 flex-col items-center justify-center border border-border bg-white p-2.5 dark:bg-background sm:p-3">
+              <div className="mt-2 flex flex-1 flex-col items-center justify-center gap-0 border border-border bg-white p-3 dark:bg-background">
                 <div className="border border-border bg-white p-1.5 dark:bg-background">
-                  <EntryQrMark className="h-[4.75rem] w-[4.75rem] sm:h-[5.5rem] sm:w-[5.5rem]" />
+                  <EntryQrMark className="h-[5.5rem] w-[5.5rem]" />
                 </div>
-                <p className="mt-2 font-body text-[10px] font-medium tracking-wide">
-                  GA · Afrobeats Night
-                </p>
-                <p className="mt-0.5 font-numbers text-[10px] tabular-nums text-foreground/60">
-                  EP-7F3A-91C2
-                </p>
+                <div className="mt-2 min-w-0 text-center">
+                  <p className="font-body text-[10px] font-medium tracking-wide">
+                    GA · Afrobeats Night
+                  </p>
+                  <p className="mt-0.5 font-numbers text-[10px] tabular-nums text-foreground/60">
+                    EP-7F3A-91C2
+                  </p>
+                  <p className="mt-1 font-body text-[10px] text-foreground/65">
+                    Show this QR at entry · Transfer ready
+                  </p>
+                </div>
               </div>
-              <p className="mt-2 text-center font-body text-[10px] text-foreground/65">
-                Show this QR at entry · Transfer ready
-              </p>
             </motion.div>
-            <div className="flex min-w-0 flex-col bg-[#efeae2] dark:bg-muted/40">
+            <div className="flex min-h-0 min-w-0 flex-col bg-[#efeae2] dark:bg-muted/40">
               <div className="flex items-center gap-2 border-b border-border bg-background px-2.5 py-2">
                 <Face
                   src={COLLAB.blackie.src}
@@ -1008,7 +1013,7 @@ function TicketsChannelsVisual() {
                   </p>
                 </div>
               </div>
-              <div className="flex min-h-[10.5rem] flex-1 flex-col gap-3 overflow-hidden px-2 py-2.5 sm:px-2.5">
+              <div className="flex min-h-[12rem] flex-1 flex-col gap-3 overflow-hidden px-2 py-2.5 pb-3 sm:min-h-[10.5rem] sm:px-2.5">
                 <AnimatePresence mode="sync" initial={false}>
                   {showTypingFirst ? (
                     <WaTypingIndicator key="typing-1" reduce={reduce} />
@@ -1304,7 +1309,7 @@ function AnalyticsVisual() {
 
   return (
     <Stage>
-      <div className="h-[min(100%,22rem)] w-full max-w-lg">
+      <div className="h-full w-full max-w-lg">
         <AppChrome
           title="Deep analytics"
           trailing={
@@ -1323,7 +1328,7 @@ function AnalyticsVisual() {
           }
         >
           <div className="flex h-full flex-col overflow-hidden">
-            <div className="flex items-center gap-1 border-b border-border px-2 py-1.5">
+            <div className="flex flex-wrap items-center gap-1 border-b border-border px-2 py-1.5">
               {(Object.keys(ANALYTICS_RANGES) as AnalyticsRangeKey[]).map((key) => {
                 const selected = key === range
                 return (
@@ -1332,7 +1337,7 @@ function AnalyticsVisual() {
                     type="button"
                     onClick={() => setRange(key)}
                     className={cn(
-                      "border px-2 py-1 font-body text-[10px] font-medium uppercase tracking-wide transition-colors",
+                      "border px-1.5 py-0.5 font-body text-[9px] font-medium uppercase tracking-wide transition-colors sm:px-2 sm:py-1 sm:text-[10px]",
                       selected
                         ? "border-foreground bg-foreground text-background"
                         : "border-border bg-background text-foreground/70 hover:bg-muted",
@@ -1349,7 +1354,7 @@ function AnalyticsVisual() {
                 <div className="border-b border-border bg-muted/40 px-2.5 py-1 font-body text-[9px] font-medium uppercase tracking-wider text-foreground/60">
                   Traffic
                 </div>
-                <div className="grid grid-cols-2 divide-x divide-border sm:grid-cols-4">
+                <div className="grid grid-cols-2 divide-x divide-y divide-border lg:grid-cols-4 lg:divide-y-0">
                   <AnalyticsMetricCell
                     label="Page views"
                     value={data.pageViews}
@@ -1382,7 +1387,7 @@ function AnalyticsVisual() {
                 <div className="border-t border-border bg-muted/40 px-2.5 py-1 font-body text-[9px] font-medium uppercase tracking-wider text-foreground/60">
                   Tickets
                 </div>
-                <div className="grid grid-cols-2 divide-x divide-y divide-border sm:grid-cols-4 sm:divide-y-0">
+                <div className="grid grid-cols-2 divide-x divide-y divide-border lg:grid-cols-4 lg:divide-y-0">
                   <AnalyticsMetricCell
                     label="Revenue"
                     value={data.revenue}
@@ -1419,8 +1424,8 @@ function AnalyticsVisual() {
               </div>
             </NumberFlowGroup>
 
-            <div className="grid min-h-0 flex-1 grid-cols-1 sm:grid-cols-[1.15fr_0.95fr]">
-              <div className="flex min-h-0 flex-col border-b border-border p-2.5 sm:border-b-0 sm:border-r sm:p-3">
+            <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[1.15fr_0.95fr]">
+              <div className="flex min-h-0 flex-col border-b border-border p-2 sm:p-2.5 lg:border-b-0 lg:border-r lg:p-3">
                 <div className="mb-1.5 flex items-center justify-between">
                   <span className="font-body text-[9px] font-medium uppercase tracking-wider text-foreground/55">
                     Views by day
@@ -1471,7 +1476,7 @@ function AnalyticsVisual() {
                 </p>
               </div>
 
-              <div className="flex min-h-0 flex-col p-2.5 sm:p-3">
+              <div className="hidden min-h-0 flex-col p-2.5 lg:flex lg:p-3">
                 <div className="mb-1.5 flex items-center gap-1 font-body text-[9px] font-medium uppercase tracking-wider text-foreground/55">
                   <MapPin className="h-3 w-3" aria-hidden />
                   Geo

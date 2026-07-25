@@ -1,5 +1,4 @@
 import type React from "react"
-import { BrandGrainOverlay } from "@/components/grain-overlay"
 import { cn } from "@/lib/utils"
 
 export function MarketingPageShell({
@@ -12,11 +11,10 @@ export function MarketingPageShell({
   return (
     <main
       className={cn(
-        "relative overflow-hidden bg-background",
+        "relative overflow-x-clip bg-background",
         className,
       )}
     >
-      <BrandGrainOverlay intensity="subtle" />
       <div className="relative z-10">{children}</div>
     </main>
   )

@@ -301,7 +301,7 @@ const Footer = () => {
             <div className="overflow-hidden">
               <motion.p
                 variants={closingLineVariants}
-                className="whitespace-nowrap font-heading text-[clamp(1.5rem,7.2vw,5rem)] font-bold leading-[1.08] tracking-tight text-foreground sm:leading-[1.05]"
+                className="whitespace-normal font-heading text-[clamp(1.35rem,7.2vw,5rem)] font-bold leading-[1.08] tracking-tight text-foreground xs:whitespace-nowrap sm:leading-[1.05]"
               >
                 {FOOTER_CLOSING_LINES[0]}
               </motion.p>
@@ -309,7 +309,7 @@ const Footer = () => {
             <div className="mt-3 overflow-hidden sm:mt-0">
               <motion.p
                 variants={closingLineVariants}
-                className="whitespace-nowrap text-right font-heading text-[clamp(1.5rem,7.2vw,5rem)] font-bold leading-[1.08] tracking-tight text-foreground sm:leading-[1.05]"
+                className="whitespace-normal text-right font-heading text-[clamp(1.35rem,7.2vw,5rem)] font-bold leading-[1.08] tracking-tight text-foreground xs:whitespace-nowrap sm:leading-[1.05]"
               >
                 {FOOTER_CLOSING_LINES[1]}
               </motion.p>

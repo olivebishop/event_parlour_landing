@@ -46,14 +46,14 @@ export default function Home() {
 
       <section
         id="demo"
-        className="relative z-20 mt-8 scroll-mt-24 sm:mt-10 md:mt-12 lg:mt-16"
+        className="relative z-20 mt-8 scroll-mt-[4.5rem] sm:mt-10 sm:scroll-mt-24 md:mt-12 lg:mt-16"
       >
         <InteractiveDemo />
       </section>
 
       <section
         id="user-types"
-        className="relative z-20 mt-8 scroll-mt-24 sm:mt-10 md:mt-12 lg:mt-16"
+        className="relative z-20 mt-8 scroll-mt-[4.5rem] sm:mt-10 sm:scroll-mt-24 md:mt-12 lg:mt-16"
       >
         <ExpandingCards />
       </section>
