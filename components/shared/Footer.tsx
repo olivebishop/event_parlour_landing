@@ -1,8 +1,22 @@
-"use client"
-import React, { useRef, useState, useMemo } from "react";
-import { motion, useInView } from "framer-motion";
-import content from "@/lib/content";
+"use client";
+
 import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
+import {
+  HugeiconsWhatsapp,
+  HugeiconsTiktok,
+  HugeiconsGithub,
+  HugeiconsInstagram,
+  HugeiconsLinkedin01,
+  HugeiconsNewTwitter,
+  SimpleIconsTanstack,
+} from "./social-icons";
+import { BrandGrainOverlay } from "@/components/grain-overlay";
+import { BrandLogoLink } from "@/components/shared/brand-logo-link";
+import { PixelLabel } from "@/components/shared/pixel-label";
+import { Button } from "@/components/ui/button";
+import { FooterSystemStatus } from "@/components/shared/footer-system-status";
+import { appHref } from "@/lib/app-url";
 
 const ThemeSwitcher = dynamic(
   () =>
@@ -13,257 +27,326 @@ const ThemeSwitcher = dynamic(
     ssr: false,
     loading: () => (
       <div
+        className="h-8 w-16 rounded-none border border-border bg-muted/30"
         aria-hidden
-        className="h-8 sm:h-9 w-[7.5rem] rounded-full bg-muted/50 animate-pulse"
       />
     ),
-  }
+  },
 );
-import { 
-  HugeiconsWhatsapp, 
-  HugeiconsTiktok, 
-  HugeiconsInstagram, 
-  HugeiconsLinkedin01, 
-  HugeiconsNewTwitter,
-  SimpleIconsTanstack, 
-} from "./social-icons";
+
+function resolveFooterHref(href: string): string {
+  if (href.startsWith("http") || href.startsWith("#")) {
+    return href;
+  }
+  return appHref(href);
+}
+
+const FOOTER_CLOSING_LINES = ["You know the drill.", "Sell out."] as const;
+
+const closingContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const closingLineVariants = {
+  hidden: { y: "110%", opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.55,
+      ease: "easeInOut" as const,
+    },
+  },
+};
+
+const footerLinkClass =
+  "inline-flex min-h-9 items-center font-body text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
+
+function FooterNavColumn({
+  title,
+  links,
+  onNavClick,
+}: {
+  title: string;
+  links: { href: string; label: string }[];
+  onNavClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void;
+}) {
+  return (
+    <div className="min-w-0">
+      <PixelLabel
+        variant="plain"
+        tone="foreground"
+        as="h2"
+        className="mb-4 block"
+      >
+        {title}
+      </PixelLabel>
+      <ul className="space-y-0.5">
+        {links.map((link) => {
+          const href = resolveFooterHref(link.href);
+          return (
+            <li key={link.href}>
+              <a
+                href={href}
+                onClick={(e) => onNavClick(e, href)}
+                className={footerLinkClass}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={
+                  href.startsWith("http") ? "noopener noreferrer" : undefined
+                }
+              >
+                {link.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
 
 const Footer = () => {
-  const [footerVisible, setFooterVisible] = useState(false);
-  const footerTarget = useRef(null);
-  const isInView = useInView(footerTarget, { once: true, amount: 0.1 });
-  const copy = content.Footer;
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.replace("#", "");
+      const targetElement = document.getElementById(targetId);
 
-  React.useEffect(() => {
-    if (isInView) {
-      setFooterVisible(true);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
-  }, [isInView]);
-
-  const closingLines = [copy.closingLine1, copy.closingLine2]
-
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.12,
-      },
-    },
   };
 
-  const childVariants = {
-    hidden: { y: "110%", opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.55,
-        ease: "easeInOut" as const,
-      },
-    },
-  };
+  const listEventHref = appHref("/auth/sign-up");
+  const exploreHref = appHref("/auth/sign-in");
 
-  const navColumns = useMemo(() => ({
+  const navColumns = {
     product: [
-      { href: "https://app.eventparlour.com/auth/sign-up", label: copy.listYourEvent },
-      { href: "https://app.eventparlour.com/auth/sign-in", label: copy.exploreEvents },
-      { href: "#features", label: copy.features },
-      { href: "https://app.eventparlour.com/roadmap", label: copy.roadmap },
+      { href: "/auth/sign-up", label: "List Your Event" },
+      { href: "/auth/sign-in", label: "Explore Events" },
+      { href: "/pricing", label: "Pricing" },
+      { href: "/changelog", label: "Changelog" },
+      { href: "#features", label: "Features" },
+      { href: "/roadmap", label: "Roadmap" },
+      { href: "/docs", label: "Docs" },
+      { href: "/partnership", label: "Partners" },
     ],
     company: [
-      { href: "#contact", label: copy.contactUs },
-      { href: "https://app.eventparlour.com/legal/about", label: copy.about },
-      { href: "https://app.eventparlour.com/legal/privacy-policy", label: copy.privacyPolicy },
-      { href: "https://app.eventparlour.com/legal/terms-of-service", label: copy.termsOfService },
-      { href: "https://app.eventparlour.com/legal/security", label: copy.security },
-      { href: "https://app.eventparlour.com/legal/refund-policy", label: copy.refundPolicy },
-      { href: "https://app.eventparlour.com/legal/cookie-policy", label: copy.cookiePolicy },
+      { href: "#contact", label: "Contact Us" },
+      { href: "/legal/about", label: "About" },
+      { href: "/brand", label: "Brand" },
+      { href: "/legal", label: "Legal" },
+      { href: "/legal/privacy-policy", label: "Privacy Policy" },
+      { href: "/legal/terms-of-service", label: "Terms of Service" },
+      { href: "/legal/security", label: "Security" },
+      { href: "/legal/refund-policy", label: "Refund Policy" },
+      { href: "/legal/cookie-policy", label: "Cookie Policy" },
     ],
-  }), [copy]);
-  
+  };
+
   const socialLinks = [
-    { href: "https://x.com/EventsPalour", label: "X (Twitter)", icon: HugeiconsNewTwitter },
-    { href: "https://www.tiktok.com/@eventparlour", label: "TikTok", icon: HugeiconsTiktok },
-    { href: "https://www.instagram.com/event.parlour", label: "Instagram", icon: HugeiconsInstagram },
-    { href: "https://www.linkedin.com/company/eventparlour", label: "LinkedIn", icon: HugeiconsLinkedin01 },
-    { href: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R", label: "WhatsApp", icon: HugeiconsWhatsapp }
+    {
+      href: "https://x.com/event_parlour",
+      label: "X (Twitter)",
+      icon: HugeiconsNewTwitter,
+    },
+    {
+      href: "https://www.tiktok.com/@eventparlour",
+      label: "TikTok",
+      icon: HugeiconsTiktok,
+    },
+    {
+      href: "https://www.instagram.com/event.parlour",
+      label: "Instagram",
+      icon: HugeiconsInstagram,
+    },
+    {
+      href: "https://www.linkedin.com/company/eventparlour",
+      label: "LinkedIn",
+      icon: HugeiconsLinkedin01,
+    },
+    {
+      href: "https://www.whatsapp.com/channel/0029ValLxITAO7RActotOX3R",
+      label: "WhatsApp",
+      icon: HugeiconsWhatsapp,
+    },
+    {
+      href: "https://github.com/events-palour",
+      label: "GitHub",
+      icon: HugeiconsGithub,
+    },
   ];
 
   return (
-    <footer 
-      className="bg-background w-full border-t border-border" 
-      ref={footerTarget}
-    >
-      <div className="container mx-auto px-4 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={footerVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.45 }}
-          className="flex justify-center md:justify-start pt-10 md:pt-12 pb-2"
+    <footer className="footer-inverted relative w-full overflow-hidden bg-background text-foreground">
+      <BrandGrainOverlay fixed={false} intensity="subtle" className="z-0" />
+      <div className="container relative z-10 mx-auto px-4 sm:px-6">
+        <section
+          aria-labelledby="footer-brand"
+          className="grid gap-8 py-12 sm:py-14 lg:grid-cols-12 lg:items-end lg:gap-12 lg:py-16"
         >
-          {/* <Image
-            src="/logo.png"
-            alt={t("brandName")}
-            width={200}
-            height={56}
-            className="h-10 md:h-12 w-auto object-contain object-left [filter:invert(1)_hue-rotate(180deg)_brightness(2.5)_saturate(2)] dark:[filter:none]"
-            priority={false}
-          /> */}
-          <span className="text-2xl md:text-3xl font-heading font-semibold tracking-tight text-foreground lowercase">
-            {copy.brandWordmark}
-          </span>
-        </motion.div>
-
-        {/* Main Footer Content - Multi Column Layout */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 py-10 md:py-14">
-          {/* Product Column */}
-          <div className="col-span-1">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={footerVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-            >
-              <h4 className="text-foreground text-sm font-heading font-semibold mb-4 uppercase tracking-wider">{copy.product}</h4>
-              <ul className="space-y-3">
-                {navColumns.product.map((link, i) => (
-                  <li key={i}>
-                    <a
-                      href={link.href}
-                      className="text-muted-foreground hover:text-foreground transition-colors text-sm font-body"
-                      target={link.href.startsWith('http') ? '_blank' : undefined}
-                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+          <div className="space-y-4 lg:col-span-6 xl:col-span-5">
+            <BrandLogoLink logoClassName="h-5 w-auto sm:h-6 text-foreground" />
+            <div className="space-y-2.5">
+              <PixelLabel
+                id="footer-brand"
+                variant="plain"
+                tone="foreground"
+                as="p"
+                className="mb-0 text-foreground/80"
+              >
+                Tickets Events Vibes
+              </PixelLabel>
+              <p className="max-w-md font-body text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">
+                Sell out the room. Check them in at the door. Payout when the
+                night ends.
+              </p>
+            </div>
           </div>
 
-          {/* Company Column */}
-          <div className="col-span-1">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={footerVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 }}
+          <div className="flex flex-col gap-2.5 sm:flex-row lg:col-span-6 lg:justify-end xl:col-span-7">
+            <Button
+              asChild
+              size="sm"
+              className="h-10 w-full rounded-none shadow-none sm:w-auto sm:min-w-[9.5rem]"
             >
-              <h4 className="text-foreground text-sm font-pixel font-semibold mb-4 uppercase tracking-wider">{copy.company}</h4>
-              <ul className="space-y-3">
-                {navColumns.company.map((link, i) => (
-                  <li key={i}>
-                    <a
-                      href={link.href}
-                      className="text-muted-foreground hover:text-foreground transition-colors text-sm font-body"
-                      target={link.href.startsWith('http') ? '_blank' : undefined}
-                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+              <a href={listEventHref}>List your event</a>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="h-10 w-full rounded-none shadow-none sm:w-auto sm:min-w-[9.5rem]"
+            >
+              <a href={exploreHref}>Explore events</a>
+            </Button>
           </div>
+        </section>
 
-          {/* Social Column */}
-          <div className="col-span-2 md:col-span-2">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={footerVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.2 }}
+        <section
+          aria-label="Footer navigation"
+          className="grid grid-cols-2 gap-x-6 gap-y-10 pb-12 sm:gap-x-10 sm:gap-y-12 sm:pb-14 lg:grid-cols-12 lg:gap-x-12 lg:pb-16"
+        >
+          <div className="col-span-1 lg:col-span-3">
+            <FooterNavColumn
+              title="Product"
+              links={navColumns.product}
+              onNavClick={handleNavClick}
+            />
+          </div>
+          <div className="col-span-1 lg:col-span-3">
+            <FooterNavColumn
+              title="Company"
+              links={navColumns.company}
+              onNavClick={handleNavClick}
+            />
+          </div>
+          <div className="col-span-2 lg:col-span-6">
+            <PixelLabel
+              variant="plain"
+              tone="foreground"
+              as="h2"
+              className="mb-4 block"
             >
-              <h4 className="text-foreground text-sm font-pixel font-semibold mb-4 uppercase tracking-wider">{copy.weAreSocial}</h4>
-              <div className="flex flex-wrap gap-3">
-                {socialLinks.map((social, i) => {
-                  const IconComponent = social.icon;
-                  return (
-                    <motion.a
-                      key={i}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group"
-                      whileHover={{ y: -3 }}
-                      transition={{ duration: 0.2 }}
-                      aria-label={social.label}
-                    >
-                      <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground group-hover:text-foreground group-hover:border-foreground transition-all duration-300 bg-muted/50 group-hover:bg-muted">
-                        <IconComponent className="w-5 h-5" />
-                      </div>
-                    </motion.a>
-                  );
-                })}
-              </div>
-              <p className="text-muted-foreground text-xs mt-4 font-body">{copy.joinCommunity}</p>
+              We Are Social :)
+            </PixelLabel>
+            <p className="mb-6 max-w-sm font-body text-sm leading-relaxed text-muted-foreground">
+              Join our community.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {socialLinks.map((social) => {
+                const IconComponent = social.icon;
+                return (
+                  <a
+                    key={social.href}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex shrink-0"
+                    aria-label={social.label}
+                  >
+                    <span className="flex h-10 w-10 items-center justify-center rounded-none border border-solid border-foreground/20 bg-background text-muted-foreground shadow-none transition-[border-color,background-color,color,transform] duration-200 group-hover:border-foreground group-hover:bg-muted group-hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 group-active:scale-[0.97]">
+                      <IconComponent className="h-4 w-4" aria-hidden />
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+            <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-center sm:gap-8">
               <a
                 href="https://tanstack.com/showcase/3c337dc8-cc31-40ee-adfc-413e9bdf041b"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 mt-4 px-2 py-1 rounded-full border border-border/50 bg-muted/30 text-[10px] text-muted-foreground hover:text-foreground hover:border-border hover:bg-muted/50 transition-colors"
+                className="inline-flex min-h-9 items-center gap-1.5 self-start rounded-none border border-solid border-foreground/20 bg-background px-2.5 py-1.5 font-body text-xs text-muted-foreground transition-[border-color,color] duration-200 hover:border-foreground hover:text-foreground sm:self-auto"
               >
-                <SimpleIconsTanstack className="w-3 h-3" />
-                <span className="font-body">{copy.featuredInTanStack}</span>
+                <SimpleIconsTanstack
+                  className="h-3.5 w-3.5 shrink-0"
+                  aria-hidden
+                />
+                Featured in TanStack
               </a>
-              <div className="mt-6">
-                <p className="text-muted-foreground text-xs mb-2 font-body">{copy.theme}</p>
+              <div className="flex items-center gap-3">
+                <PixelLabel variant="square" tone="soft" as="span">
+                  Theme
+                </PixelLabel>
                 <ThemeSwitcher />
               </div>
-            </motion.div>
+            </div>
           </div>
-        </div>
+        </section>
 
-        {/* Closing tagline — Ramp-style convert line for events */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={footerVisible ? "visible" : "hidden"}
-          className="overflow-hidden px-2 sm:px-4 py-10 sm:py-12 md:py-14 lg:py-16"
-          aria-label={`${copy.closingLine1} ${copy.closingLine2}`}
+        <section
+          aria-label={`${FOOTER_CLOSING_LINES[0]} ${FOOTER_CLOSING_LINES[1]}`}
+          className="border-t border-border pb-12 pt-10 sm:pb-14 sm:pt-12 lg:pb-16 lg:pt-14"
         >
-          <div className="flex flex-col items-center justify-center text-center gap-2 sm:gap-3 md:gap-4 max-w-5xl mx-auto">
-            {closingLines.map((line) => (
-              <div key={line} className="overflow-hidden w-full">
-                <motion.p
-                  variants={childVariants}
-                  className="font-heading font-bold text-foreground leading-[1.08] sm:leading-[1.05] tracking-tight text-balance text-[clamp(1.5rem,7.2vw,5rem)]"
-                >
-                  {line}
-                </motion.p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Bottom Bar */}
-        <div className="border-t border-border py-6">
-          <motion.div 
-            className="flex flex-col sm:flex-row flex-wrap items-center justify-center sm:justify-start gap-y-1.5 sm:gap-y-0 gap-x-0 sm:gap-x-3 text-muted-foreground text-xs text-center sm:text-left font-body"
-            initial={{ opacity: 0 }}
-            animate={footerVisible ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.4 }}
+          <motion.div
+            variants={closingContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
           >
-            <span className="flex items-center">©<span className="font-numbers tabular-nums">{new Date().getFullYear()}</span> <span className="text-foreground font-heading ml-1 lowercase">{copy.brandWordmark}</span></span>
-            <span className="hidden sm:inline mx-0 sm:mx-1">•</span>
-            <span className="flex items-center">{copy.address2}</span>
-            <span className="hidden sm:inline mx-0 sm:mx-1">•</span>
-            <span className="flex items-center w-full sm:w-auto justify-center sm:justify-start">
-              {copy.copyright
-                .replace("©{year}", "")
-                .replace("event parlour.", "")
-                .replace("circleup.", "")
-                .trim()}
-            </span>
-            <span className="hidden sm:inline mx-0 sm:mx-1">•</span>
-            <a
-              href="https://event-parlour.openstatus.dev/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-foreground transition-colors flex items-center"
-            >
-              {copy.systemStatus} <span className="text-green-500 dark:text-green-400 font-semibold ml-1">{copy.operational}</span>
-            </a>
+            <div className="overflow-hidden">
+              <motion.p
+                variants={closingLineVariants}
+                className="whitespace-nowrap font-heading text-[clamp(1.5rem,7.2vw,5rem)] font-bold leading-[1.08] tracking-tight text-foreground sm:leading-[1.05]"
+              >
+                {FOOTER_CLOSING_LINES[0]}
+              </motion.p>
+            </div>
+            <div className="mt-3 overflow-hidden sm:mt-0">
+              <motion.p
+                variants={closingLineVariants}
+                className="whitespace-nowrap text-right font-heading text-[clamp(1.5rem,7.2vw,5rem)] font-bold leading-[1.08] tracking-tight text-foreground sm:leading-[1.05]"
+              >
+                {FOOTER_CLOSING_LINES[1]}
+              </motion.p>
+            </div>
           </motion.div>
+        </section>
+
+        <div className="flex flex-col items-center gap-4 border-t border-border py-8 text-center font-body text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:py-9 sm:text-left">
+          <p className="flex flex-col flex-wrap items-center gap-1 sm:flex-row sm:gap-x-3">
+            <span>
+              ©{new Date().getFullYear()}{" "}
+              <span className="font-heading text-foreground">
+                Event Parlour
+              </span>
+            </span>
+            <span className="hidden sm:inline" aria-hidden>
+              ·
+            </span>
+            <span>All rights reserved</span>
+          </p>
+          <FooterSystemStatus />
         </div>
       </div>
     </footer>
