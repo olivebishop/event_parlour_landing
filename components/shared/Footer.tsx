@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import {
   HugeiconsWhatsapp,
@@ -14,25 +13,10 @@ import {
 import { BrandGrainOverlay } from "@/components/grain-overlay";
 import { BrandLogoLink } from "@/components/shared/brand-logo-link";
 import { PixelLabel } from "@/components/shared/pixel-label";
+import { ThemeSwitcher as FooterThemeSwitcher } from "@/components/kibo-ui/theme-switcher";
 import { Button } from "@/components/ui/button";
 import { FooterSystemStatus } from "@/components/shared/footer-system-status";
 import { appHref } from "@/lib/app-url";
-
-const ThemeSwitcher = dynamic(
-  () =>
-    import("@/components/kibo-ui/theme-switcher").then((m) => ({
-      default: m.ThemeSwitcher,
-    })),
-  {
-    ssr: false,
-    loading: () => (
-      <div
-        className="h-8 w-16 rounded-none border border-border bg-muted/30"
-        aria-hidden
-      />
-    ),
-  },
-);
 
 function resolveFooterHref(href: string): string {
   if (href.startsWith("http") || href.startsWith("#")) {
@@ -135,13 +119,13 @@ const Footer = () => {
       { href: "/auth/sign-in", label: "Explore Events" },
       { href: "/pricing", label: "Pricing" },
       { href: "/changelog", label: "Changelog" },
-      { href: "#features", label: "Features" },
+      { href: "/features/organizers", label: "Features" },
       { href: "/roadmap", label: "Roadmap" },
       { href: "/docs", label: "Docs" },
       { href: "/partnership", label: "Partners" },
     ],
     company: [
-      { href: "#contact", label: "Contact Us" },
+      { href: "/contact", label: "Contact Us" },
       { href: "/legal/about", label: "About" },
       { href: "/brand", label: "Brand" },
       { href: "/legal", label: "Legal" },
@@ -206,7 +190,7 @@ const Footer = () => {
               >
                 Tickets Events Vibes
               </PixelLabel>
-              <p className="max-w-md font-body text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">
+              <p className="max-w-md font-body text-[0.9375rem] leading-relaxed text-foreground/75 sm:text-base">
                 Sell out the room. Check them in at the door. Payout when the
                 night ends.
               </p>
@@ -298,7 +282,7 @@ const Footer = () => {
                 <PixelLabel variant="square" tone="soft" as="span">
                   Theme
                 </PixelLabel>
-                <ThemeSwitcher />
+                <FooterThemeSwitcher inverted />
               </div>
             </div>
           </div>

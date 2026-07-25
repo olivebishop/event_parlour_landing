@@ -107,19 +107,6 @@ export const categories: Category[] = [
         image: "/images/speaker.svg"
       },
       {
-        icon: <Calendar className="w-5 h-5" />,
-        label: "END-TO-END EVENTS",
-        title: "Create events that sell out.",
-        description: "From creation to check-in, manage every aspect of your events.",
-        capabilities: [
-          "Event creation wizard",
-          "Venue management",
-          "Agenda builder",
-          "Multi-ticket tiers"
-        ],
-        image: "/images/org.svg"
-      },
-      {
         icon: <BarChart3 className="w-5 h-5" />,
         label: "DATA-DRIVEN DECISIONS",
         title: "Analytics that drive growth.",

@@ -59,7 +59,7 @@ export default function ChannelsDemo() {
 
                       {/* Channel Logo/Avatar - Overlapping banner */}
                       <div className="relative -mt-12 ml-4 mb-4">
-                        <div className="w-16 h-16 rounded-lg bg-background border-2 border-background shadow-lg flex items-center justify-center overflow-hidden">
+                        <div className="w-16 h-16 rounded-none bg-background border border-border flex items-center justify-center overflow-hidden">
                           {channel.imageUrl ? (
                             <img
                               src={channel.imageUrl}

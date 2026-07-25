@@ -34,34 +34,34 @@ const collapsedSpineGradients: Record<
   { base: string; accent: string; glow: string }
 > = {
   1: {
-    base: "bg-gradient-to-b from-zinc-300/95 via-zinc-100/55 to-zinc-200 dark:from-zinc-600 dark:via-zinc-900/70 dark:to-zinc-800",
+    base: "bg-gradient-to-b from-zinc-400/90 via-zinc-200/70 to-zinc-300/85 dark:from-zinc-600 dark:via-zinc-800/90 dark:to-zinc-700",
     accent:
-      "bg-gradient-to-br from-foreground/10 via-transparent to-foreground/5 dark:from-white/12 dark:to-white/5",
-    glow: "bg-[radial-gradient(ellipse_80%_120%_at_30%_0%,color-mix(in_oklch,var(--foreground)_18%,transparent),transparent_60%)]",
+      "bg-gradient-to-br from-foreground/14 via-transparent to-foreground/8 dark:from-white/16 dark:to-white/6",
+    glow: "bg-[radial-gradient(ellipse_80%_120%_at_30%_0%,color-mix(in_oklch,var(--foreground)_22%,transparent),transparent_60%)] dark:bg-[radial-gradient(ellipse_80%_120%_at_30%_0%,color-mix(in_oklch,white_18%,transparent),transparent_60%)]",
   },
   2: {
-    base: "bg-gradient-to-b from-zinc-200/90 via-zinc-50/50 to-zinc-300/70 dark:from-zinc-700 dark:via-zinc-950/65 dark:to-zinc-800/90",
+    base: "bg-gradient-to-b from-zinc-300/85 via-zinc-100/60 to-zinc-300/80 dark:from-zinc-700 dark:via-zinc-900/80 dark:to-zinc-800",
     accent:
-      "bg-gradient-to-tl from-foreground/8 via-transparent to-foreground/12 dark:from-white/10 dark:to-white/8",
-    glow: "bg-[radial-gradient(ellipse_90%_100%_at_80%_100%,color-mix(in_oklch,var(--foreground)_16%,transparent),transparent_55%)]",
+      "bg-gradient-to-tl from-foreground/12 via-transparent to-foreground/10 dark:from-white/14 dark:to-white/8",
+    glow: "bg-[radial-gradient(ellipse_90%_100%_at_80%_100%,color-mix(in_oklch,var(--foreground)_20%,transparent),transparent_55%)]",
   },
   3: {
-    base: "bg-gradient-to-b from-zinc-300/85 via-zinc-100/65 to-zinc-200/80 dark:from-zinc-700 dark:via-zinc-900/75 dark:to-zinc-800",
+    base: "bg-gradient-to-b from-zinc-400/80 via-zinc-200/70 to-zinc-300/75 dark:from-zinc-700 dark:via-zinc-900/85 dark:to-zinc-800",
     accent:
-      "bg-gradient-to-r from-transparent via-foreground/6 to-transparent dark:via-white/8",
-    glow: "bg-[radial-gradient(circle_at_50%_45%,color-mix(in_oklch,var(--foreground)_14%,transparent),transparent_58%)]",
+      "bg-gradient-to-r from-transparent via-foreground/10 to-transparent dark:via-white/12",
+    glow: "bg-[radial-gradient(circle_at_50%_45%,color-mix(in_oklch,var(--foreground)_18%,transparent),transparent_58%)]",
   },
   4: {
-    base: "bg-gradient-to-b from-zinc-300/75 via-zinc-100/50 to-zinc-200/85 dark:from-zinc-700/90 dark:via-zinc-900/60 dark:to-zinc-800/85",
+    base: "bg-gradient-to-b from-zinc-300/80 via-zinc-100/55 to-zinc-300/80 dark:from-zinc-700/95 dark:via-zinc-900/70 dark:to-zinc-800/90",
     accent:
-      "bg-gradient-to-bl from-foreground/9 via-transparent to-foreground/7 dark:from-white/11 dark:to-white/6",
-    glow: "bg-[radial-gradient(ellipse_70%_110%_at_10%_95%,color-mix(in_oklch,var(--foreground)_15%,transparent),transparent_50%)]",
+      "bg-gradient-to-bl from-foreground/11 via-transparent to-foreground/9 dark:from-white/14 dark:to-white/7",
+    glow: "bg-[radial-gradient(ellipse_70%_110%_at_10%_95%,color-mix(in_oklch,var(--foreground)_19%,transparent),transparent_50%)]",
   },
   5: {
-    base: "bg-gradient-to-b from-zinc-200/90 via-zinc-100/60 to-zinc-300/70 dark:from-zinc-800/90 dark:via-zinc-950/70 dark:to-zinc-700/80",
+    base: "bg-gradient-to-b from-zinc-300/85 via-zinc-200/65 to-zinc-400/75 dark:from-zinc-800/95 dark:via-zinc-950/75 dark:to-zinc-700/85",
     accent:
-      "bg-gradient-to-tr from-foreground/7 via-transparent to-foreground/10 dark:from-white/9 dark:to-white/10",
-    glow: "bg-[radial-gradient(ellipse_85%_90%_at_75%_15%,color-mix(in_oklch,var(--foreground)_17%,transparent),transparent_52%)]",
+      "bg-gradient-to-tr from-foreground/10 via-transparent to-foreground/12 dark:from-white/12 dark:to-white/11",
+    glow: "bg-[radial-gradient(ellipse_85%_90%_at_75%_15%,color-mix(in_oklch,var(--foreground)_20%,transparent),transparent_52%)]",
   },
 }
 
@@ -144,34 +144,34 @@ const activePanelGradients: Record<
   { wash: string; depth: string; highlight: string }
 > = {
   1: {
-    wash: "bg-gradient-to-br from-black/[0.09] via-white/50 to-white dark:from-white/[0.12] dark:via-black/55 dark:to-black",
-    depth: "bg-gradient-to-t from-black/[0.07] via-transparent to-transparent dark:from-white/[0.08]",
+    wash: "bg-gradient-to-br from-muted/90 via-card to-background dark:from-zinc-900 dark:via-card dark:to-background",
+    depth: "bg-gradient-to-t from-foreground/[0.08] via-transparent to-transparent dark:from-white/[0.1]",
     highlight:
-      "bg-[radial-gradient(ellipse_90%_80%_at_15%_10%,color-mix(in_oklch,black_10%,transparent),transparent_58%)] dark:bg-[radial-gradient(ellipse_90%_80%_at_15%_10%,color-mix(in_oklch,white_12%,transparent),transparent_58%)]",
+      "bg-[radial-gradient(ellipse_90%_80%_at_15%_10%,color-mix(in_oklch,var(--foreground)_14%,transparent),transparent_58%)] dark:bg-[radial-gradient(ellipse_90%_80%_at_15%_10%,color-mix(in_oklch,white_14%,transparent),transparent_58%)]",
   },
   2: {
-    wash: "bg-gradient-to-bl from-black/[0.08] via-white/45 to-white dark:from-white/[0.1] dark:via-black/50 dark:to-black",
-    depth: "bg-gradient-to-r from-black/[0.06] via-transparent to-black/[0.04] dark:from-white/[0.07] dark:to-white/[0.05]",
+    wash: "bg-gradient-to-bl from-muted/85 via-card to-background dark:from-zinc-900/95 dark:via-card dark:to-background",
+    depth: "bg-gradient-to-r from-foreground/[0.07] via-transparent to-foreground/[0.05] dark:from-white/[0.08] dark:to-white/[0.06]",
     highlight:
-      "bg-[radial-gradient(ellipse_85%_75%_at_90%_85%,color-mix(in_oklch,black_11%,transparent),transparent_55%)] dark:bg-[radial-gradient(ellipse_85%_75%_at_90%_85%,color-mix(in_oklch,white_11%,transparent),transparent_55%)]",
+      "bg-[radial-gradient(ellipse_85%_75%_at_90%_85%,color-mix(in_oklch,var(--foreground)_12%,transparent),transparent_55%)] dark:bg-[radial-gradient(ellipse_85%_75%_at_90%_85%,color-mix(in_oklch,white_12%,transparent),transparent_55%)]",
   },
   3: {
-    wash: "bg-gradient-to-b from-white via-white/70 to-black/[0.06] dark:from-black dark:via-black/70 dark:to-white/[0.08]",
-    depth: "bg-gradient-to-r from-transparent via-black/[0.05] to-transparent dark:via-white/[0.06]",
+    wash: "bg-gradient-to-b from-card via-muted/80 to-background dark:from-card dark:via-zinc-900/80 dark:to-background",
+    depth: "bg-gradient-to-r from-transparent via-foreground/[0.06] to-transparent dark:via-white/[0.07]",
     highlight:
-      "bg-[radial-gradient(circle_at_50%_40%,color-mix(in_oklch,black_8%,transparent),transparent_60%)] dark:bg-[radial-gradient(circle_at_50%_40%,color-mix(in_oklch,white_10%,transparent),transparent_60%)]",
+      "bg-[radial-gradient(circle_at_50%_40%,color-mix(in_oklch,var(--foreground)_10%,transparent),transparent_60%)] dark:bg-[radial-gradient(circle_at_50%_40%,color-mix(in_oklch,white_11%,transparent),transparent_60%)]",
   },
   4: {
-    wash: "bg-gradient-to-tr from-black/[0.07] via-white/55 to-white dark:from-white/[0.11] dark:via-black/45 dark:to-black",
-    depth: "bg-gradient-to-bl from-black/[0.05] to-transparent dark:from-white/[0.07]",
+    wash: "bg-gradient-to-tr from-muted/80 via-card to-background dark:from-zinc-900/90 dark:via-card dark:to-background",
+    depth: "bg-gradient-to-bl from-foreground/[0.06] to-transparent dark:from-white/[0.08]",
     highlight:
-      "bg-[radial-gradient(ellipse_80%_90%_at_10%_90%,color-mix(in_oklch,black_9%,transparent),transparent_52%)] dark:bg-[radial-gradient(ellipse_80%_90%_at_10%_90%,color-mix(in_oklch,white_10%,transparent),transparent_52%)]",
+      "bg-[radial-gradient(ellipse_80%_90%_at_10%_90%,color-mix(in_oklch,var(--foreground)_11%,transparent),transparent_52%)] dark:bg-[radial-gradient(ellipse_80%_90%_at_10%_90%,color-mix(in_oklch,white_11%,transparent),transparent_52%)]",
   },
   5: {
-    wash: "bg-gradient-to-tl from-black/[0.08] via-white/48 to-white dark:from-white/[0.1] dark:via-black/52 dark:to-black",
-    depth: "bg-gradient-to-t from-transparent via-black/[0.04] to-black/[0.06] dark:via-white/[0.05] dark:to-white/[0.07]",
+    wash: "bg-gradient-to-tl from-muted/88 via-card to-background dark:from-zinc-900 dark:via-card dark:to-background",
+    depth: "bg-gradient-to-t from-transparent via-foreground/[0.05] to-foreground/[0.08] dark:via-white/[0.06] dark:to-white/[0.09]",
     highlight:
-      "bg-[radial-gradient(ellipse_75%_85%_at_75%_15%,color-mix(in_oklch,black_10%,transparent),transparent_50%)] dark:bg-[radial-gradient(ellipse_75%_85%_at_75%_15%,color-mix(in_oklch,white_12%,transparent),transparent_50%)]",
+      "bg-[radial-gradient(ellipse_75%_85%_at_75%_15%,color-mix(in_oklch,var(--foreground)_12%,transparent),transparent_50%)] dark:bg-[radial-gradient(ellipse_75%_85%_at_75%_15%,color-mix(in_oklch,white_13%,transparent),transparent_50%)]",
   },
 }
 
@@ -197,7 +197,7 @@ function CollapsedCardFace({ cardId }: { cardId: number }) {
 
   return (
     <div className="absolute inset-0 z-0 p-[3px]" aria-hidden>
-      <div className="relative h-full w-full overflow-hidden border border-foreground/20 bg-background shadow-[inset_0_0_0_1px_color-mix(in_oklch,var(--foreground)_6%,transparent)] dark:border-white/15 dark:shadow-[inset_0_0_0_1px_color-mix(in_oklch,white_8%,transparent)]">
+      <div className="relative h-full w-full overflow-hidden border border-foreground/30 bg-card shadow-[inset_0_1px_0_0_color-mix(in_oklch,var(--foreground)_8%,transparent)] dark:border-white/25 dark:bg-card dark:shadow-[inset_0_1px_0_0_color-mix(in_oklch,white_10%,transparent)]">
         <div className={`absolute inset-0 ${spine.base}`} />
         <div className={`absolute inset-0 ${spine.accent}`} />
         <div className={`absolute inset-0 ${spine.glow}`} />
@@ -261,30 +261,31 @@ export default function ExpandingCards() {
   }
 
   return (
-    <section className="py-6 xs:py-8 sm:py-12 md:py-16 bg-background">
-      <div className="container mx-auto px-3 xs:px-4 sm:px-6 flex flex-col items-center">
-        <p className="text-[10px] xs:text-xs font-body font-medium tracking-widest uppercase text-muted-foreground mb-2 xs:mb-3 sm:mb-4">
-          {copy.sectionLabel}
-        </p>
-        <h1 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-foreground mb-2 xs:mb-3 sm:mb-4 px-1 text-balance">
-          {copy.title}
-        </h1>
-        <p className="max-w-[60ch] text-balance text-center mb-6 xs:mb-8 sm:mb-10 text-muted-foreground text-xs xs:text-sm sm:text-base px-2">
-          {copy.subtitle}
-        </p>
+    <section className="relative bg-background py-10 xs:py-12 sm:py-16 md:py-20">
+      <div className="container mx-auto flex flex-col items-center px-3 xs:px-4 sm:px-6">
+        <div className="mb-8 max-w-3xl text-center xs:mb-10 sm:mb-12">
+          <p className="mb-2 font-body text-[10px] font-medium uppercase tracking-widest text-foreground/70 xs:mb-3 xs:text-xs sm:mb-4">
+            {copy.sectionLabel}
+          </p>
+          <h2 className="font-heading mb-3 px-1 text-balance text-2xl font-bold tracking-tight text-foreground xs:text-3xl sm:mb-4 sm:text-4xl md:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
+            {copy.title}
+          </h2>
+          <p className="mx-auto max-w-[42rem] text-balance px-2 text-[0.9375rem] leading-relaxed text-foreground/80 sm:text-base md:text-lg">
+            {copy.subtitle}
+          </p>
+        </div>
 
         <div
           aria-hidden
-          className="pointer-events-none relative mb-4 h-9 w-full overflow-hidden border border-border/50 bg-gradient-to-r from-black/[0.03] via-transparent to-black/[0.03] dark:from-white/[0.05] dark:to-white/[0.05] md:max-w-[820px]"
-        >
-          <CardDitherOverlay />
-        </div>
+          className="pointer-events-none relative mb-5 h-px w-full max-w-[820px] bg-border md:mb-6"
+        />
 
+        <div className="w-full border border-foreground/15 bg-card/60 p-2 shadow-[4px_4px_0_0] shadow-foreground/10 dark:border-white/15 dark:bg-card/90 dark:shadow-[4px_4px_0_0_rgba(255,255,255,0.06)] sm:p-3 md:max-w-[836px]">
         <ul
           className={`cards-container list-none p-0 m-0 w-full transition-all duration-600 ${
             isVerticalLayout 
               ? "grid grid-cols-1 gap-3 md:max-w-[640px]" 
-              : "grid gap-3 h-[clamp(250px,40vh,474px)] md:max-w-[820px]"
+              : "grid h-[clamp(260px,42vh,480px)] gap-2 sm:gap-3 md:max-w-[820px]"
           }`}
           style={
             {
@@ -308,8 +309,8 @@ export default function ExpandingCards() {
                   "card-item relative isolate overflow-hidden bg-background transition-[border-color,box-shadow]",
                   isVerticalLayout ? "min-h-[var(--base)]" : "min-w-[var(--base)]",
                   isActive
-                    ? "z-10 border border-border"
-                    : "border border-foreground/20 shadow-[0_0_0_1px_color-mix(in_oklch,var(--background)_100%,transparent)] dark:border-white/18 dark:shadow-[0_0_0_1px_var(--background)]",
+                    ? "z-10 border-2 border-foreground shadow-[5px_5px_0_0] shadow-foreground/15 dark:border-white/35 dark:shadow-[5px_5px_0_0_rgba(255,255,255,0.1)]"
+                    : "border border-foreground/30 dark:border-white/22",
                 )}
                 data-active={isActive.toString()}
                 aria-label={card.title}
@@ -333,24 +334,24 @@ export default function ExpandingCards() {
                     isActive ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-t from-background from-[32%] via-background/92 to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/25 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background from-[28%] via-background/95 to-transparent dark:from-card dark:via-card/95" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/[0.04] via-transparent to-transparent dark:from-black/30" />
                 </div>
 
                 {isActive && (
-                <article className={`w-full h-full absolute top-0 left-0 z-10 flex flex-col ${isVerticalLayout ? "justify-start pt-14" : "justify-end"} gap-2 sm:gap-4 p-3 sm:p-4 overflow-hidden font-body`}>
-                  <h3 className="text-lg font-medium uppercase text-foreground relative z-20 drop-shadow-[0_1px_0_color-mix(in_oklch,var(--background)_80%,transparent)]">
+                <article className={`absolute left-0 top-0 z-10 flex h-full w-full flex-col overflow-hidden p-4 font-body sm:p-5 ${isVerticalLayout ? "justify-start pt-14" : "justify-end"} gap-2 sm:gap-3`}>
+                  <h3 className="relative z-20 font-heading text-base font-semibold uppercase tracking-wide text-foreground drop-shadow-sm sm:text-lg">
                     {card.title}
                   </h3>
 
-                  <div className={`flex flex-col gap-2 opacity-100 relative z-20 ${isVerticalLayout ? "mt-2" : ""}`}>
-                    <p className="text-xs sm:text-sm text-balance leading-tight text-muted-foreground">
+                  <div className={`relative z-20 flex flex-col gap-2 opacity-100 ${isVerticalLayout ? "mt-2" : ""}`}>
+                    <p className="text-balance text-sm leading-relaxed text-foreground/85 sm:text-[0.9375rem]">
                       {card.description}
                     </p>
 
-                    <div className="mt-3 flex items-baseline gap-2">
-                      <span className="text-2xl sm:text-3xl font-bold text-foreground font-numbers tabular-nums">{card.stat}</span>
-                      <span className="text-xs text-muted-foreground">{card.statLabel}</span>
+                    <div className="mt-2 flex items-baseline gap-2 border-t border-foreground/10 pt-3 dark:border-white/15">
+                      <span className="font-numbers text-2xl font-bold tabular-nums text-foreground sm:text-3xl">{card.stat}</span>
+                      <span className="text-xs text-foreground/75 sm:text-sm">{card.statLabel}</span>
                     </div>
                   </div>
                 </article>
@@ -359,17 +360,18 @@ export default function ExpandingCards() {
             )
           })}
         </ul>
+        </div>
       </div>
 
       <style jsx global>{`
         .cards-container {
-          min-height: 60vh;
-          max-height: 90vh;
-          background: var(--background);
+          min-height: 52vh;
+          max-height: 88vh;
+          background: transparent;
         }
 
         .card-item[data-active="false"] {
-          background: var(--background);
+          background: transparent;
         }
         
         @media (max-width: 768px) {

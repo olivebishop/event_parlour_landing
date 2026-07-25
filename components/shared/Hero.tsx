@@ -75,7 +75,7 @@ export default function Hero() {
             <HeroWordCycle words={words} />
           </h1>
 
-          <p className="font-body font-normal text-muted-foreground mx-auto mt-5 xs:mt-6 sm:mt-7 md:mt-8 max-w-[17.5rem] xs:max-w-[20rem] sm:max-w-md md:max-w-lg animate-hero-in [animation-delay:80ms]">
+          <p className="font-body font-normal text-foreground/75 mx-auto mt-5 xs:mt-6 sm:mt-7 md:mt-8 max-w-[17.5rem] xs:max-w-[20rem] sm:max-w-md md:max-w-lg animate-hero-in [animation-delay:80ms]">
             <span className="block text-[0.9375rem] xs:text-base sm:text-lg md:text-xl leading-[1.55] sm:leading-[1.6] text-pretty">
               {description}
             </span>

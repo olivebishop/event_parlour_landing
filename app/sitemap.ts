@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next"
+import { getAllPlatformFeatureSlugs } from "@/lib/platform-feature-catalog"
 
 const siteUrl = "https://www.eventparlour.com"
 const appUrl = "https://app.eventparlour.com"
@@ -7,37 +8,27 @@ const appUrl = "https://app.eventparlour.com"
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
 
+  const platformFeaturePaths = getAllPlatformFeatureSlugs().map(
+    (slug) => `/features/${slug}`,
+  )
+
+  const marketingPages: MetadataRoute.Sitemap = [
+    "",
+    "/why-us",
+    "/contact",
+    "/features",
+    ...platformFeaturePaths,
+    "/features/organizers",
+    "/features/attendees",
+  ].map((path) => ({
+    url: `${siteUrl}${path}`,
+    lastModified: now,
+    changeFrequency: path === "" ? "weekly" : "monthly",
+    priority: path === "" ? 1 : path.startsWith("/features/") ? 0.85 : 0.85,
+  }))
+
   return [
-    {
-      url: siteUrl,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${siteUrl}/#features`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/#why-us`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${siteUrl}/#demo`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${siteUrl}/#contact`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
+    ...marketingPages,
     {
       url: `${appUrl}/`,
       lastModified: now,

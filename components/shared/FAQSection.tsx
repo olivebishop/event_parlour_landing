@@ -5,7 +5,7 @@ const faqs = content.FAQSection.questions
 function AnswerText({ answer }: { answer: string }) {
   return (
     <>
-      {answer.split(/(https?:\/\/[^\s]+|#[^\s]+)/g).map((part, i) => {
+      {answer.split(/(https?:\/\/[^\s]+|#[^\s]+|\/contact(?:#faq)?)/g).map((part, i) => {
         if (part.match(/^https?:\/\//)) {
           return (
             <a
@@ -16,6 +16,17 @@ function AnswerText({ answer }: { answer: string }) {
               className="text-foreground underline underline-offset-2 hover:opacity-80"
             >
               {part}
+            </a>
+          )
+        }
+        if (part.match(/^\/contact/)) {
+          return (
+            <a
+              key={i}
+              href={part.startsWith("/contact#") ? part : "/contact#faq"}
+              className="text-foreground underline underline-offset-2 hover:opacity-80"
+            >
+              contact page
             </a>
           )
         }

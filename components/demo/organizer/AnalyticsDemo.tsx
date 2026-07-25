@@ -4,9 +4,11 @@ import React from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BarChart3, TrendingUp, Users, Ticket, DollarSign } from "lucide-react"
 import { mockAnalytics } from "../mockData"
+import { demoCardClass, demoStatValueClass } from "@/components/demo/demo-chrome"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import { ChartConfig, ChartContainer } from "@/components/ui/chart"
 import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
 import { useRef, useState } from "react"
 import { useSpring, useMotionValueEvent } from "framer-motion"
 
@@ -63,53 +65,53 @@ export default function AnalyticsDemo() {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 flex-shrink-0">
-          <Card>
+          <Card className={demoCardClass}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
               <CardTitle className="text-xs font-medium">Total Revenue</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold font-numbers tabular-nums">{mockAnalytics.revenue.total}</div>
+              <div className={demoStatValueClass}>{mockAnalytics.revenue.total}</div>
               <p className="text-xs text-muted-foreground">{mockAnalytics.revenue.growth} from last month</p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className={demoCardClass}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
               <CardTitle className="text-xs font-medium">Total Attendees</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold font-numbers tabular-nums">{mockAnalytics.attendees.total.toLocaleString()}</div>
+              <div className={demoStatValueClass}>{mockAnalytics.attendees.total.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">{mockAnalytics.attendees.growth} from last quarter</p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className={demoCardClass}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
               <CardTitle className="text-xs font-medium">Total Events</CardTitle>
               <BarChart3 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold font-numbers tabular-nums">{mockAnalytics.events.total}</div>
+              <div className={demoStatValueClass}>{mockAnalytics.events.total}</div>
               <p className="text-xs text-muted-foreground">{mockAnalytics.events.active} active this month</p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className={demoCardClass}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
               <CardTitle className="text-xs font-medium">Tickets Sold</CardTitle>
               <Ticket className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold font-numbers tabular-nums">{mockAnalytics.tickets.sold.toLocaleString()}</div>
+              <div className={demoStatValueClass}>{mockAnalytics.tickets.sold.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">{mockAnalytics.tickets.available} available</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Chart */}
-        <Card className="flex-1 flex flex-col min-h-0">
+        <Card className={cn(demoCardClass, "flex-1 flex flex-col min-h-0")}>
           <CardHeader>
             <CardTitle>
               <span className="font-numbers tabular-nums">KES {springY.get().toFixed(1)}M</span>

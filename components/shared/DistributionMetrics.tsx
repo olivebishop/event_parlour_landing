@@ -61,7 +61,7 @@ export default function DistributionMetrics() {
           transition={{ duration: 0.6 }}
           className="text-center mb-6 xs:mb-8 sm:mb-10"
         >
-          <p className="text-muted-foreground text-sm xs:text-base sm:text-lg mb-2">
+          <p className="mb-2 text-[0.9375rem] text-foreground/75 xs:text-base sm:text-lg">
             {copy.subtitle}
           </p>
           <h2 className="text-lg xs:text-xl sm:text-3xl md:text-4xl font-bold text-foreground px-1 text-balance">
@@ -147,7 +147,7 @@ export default function DistributionMetrics() {
                     metric.value
                   )}
                 </div>
-                <div className="text-xs xs:text-sm sm:text-base text-muted-foreground">
+                <div className="text-xs text-foreground/75 xs:text-sm sm:text-base">
                   {metric.label}
                 </div>
                 </div>

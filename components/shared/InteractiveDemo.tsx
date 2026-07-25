@@ -34,9 +34,15 @@ import {
 } from "lucide-react"
 import { useTheme } from "next-themes"
 import dynamic from "next/dynamic"
+import { demoCardClass, demoStatValueClass } from "@/components/demo/demo-chrome"
+
+/** Flat, product-like surfaces — tokens: white canvas (light), near-black canvas (dark). */
+const demoShellClass =
+  "overflow-hidden rounded-none border border-border bg-background text-foreground shadow-none"
+const demoMetricCardClass = demoCardClass
 
 function DemoPaneSkeleton() {
-  return <div className="flex-1 animate-pulse bg-muted/30 m-6 rounded-lg min-h-[400px]" />
+  return <div className="flex-1 animate-pulse bg-muted/30 m-6 min-h-[400px] rounded-none" />
 }
 
 const EventsDemoOrganizer = dynamic(
@@ -141,7 +147,7 @@ function TeamDropdown({ isExpanded }: { isExpanded: boolean }) {
         onClick={() => setIsActive(!isActive)}
         className="w-full flex items-center justify-center p-2 rounded transition-colors hover:bg-accent"
       >
-        <div className="h-8 w-8 shrink-0 border border-border bg-black text-white dark:bg-white dark:text-black overflow-hidden rounded flex items-center justify-center">
+        <div className="h-8 w-8 shrink-0 overflow-hidden rounded border border-border bg-primary text-primary-foreground flex items-center justify-center">
           <WorkspaceDefaultAvatarSvg />
         </div>
       </button>
@@ -271,7 +277,7 @@ function Sidebar({ activeView, mode, onNavigate }: { activeView: string; mode: D
   const navItems = mode === "organizer" ? organizerNavItems : attendeeNavItems
 
   return (
-    <div className="flex flex-col w-16 bg-muted/50 border-r border-border h-full rounded-l-lg">
+    <div className="flex flex-col h-full w-16 rounded-l-lg border-r border-border bg-muted/50 dark:bg-muted/40">
       <div className="p-4 border-b border-border">
         <div className="w-8 h-8 rounded-lg bg-primary dark:bg-primary flex items-center justify-center">
           <span className="text-primary-foreground text-xs font-bold">EP</span>
@@ -600,7 +606,7 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
 // Organizer Dashboard Wrapper
 function OrganizerDashboardWrapper({ onSwitch, activeView, setActiveView }: { onSwitch: () => void; activeView: string; setActiveView: (view: string) => void }) {
   return (
-    <div className="flex h-[600px] bg-[#ffffff] dark:bg-background overflow-hidden rounded-lg border border-border">
+    <div className={cn("flex h-[600px] max-h-[70vh] min-h-[480px] overflow-hidden", demoShellClass)}>
       <Sidebar activeView={activeView} mode="organizer" onNavigate={setActiveView} />
       <div className="flex-1 flex flex-col overflow-hidden">
         <TopHeader onSwitch={onSwitch} mode="organizer" />
@@ -638,7 +644,7 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
               <div className="flex-shrink-0">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <div>
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
+                    <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
                       Welcome back, Olive
                     </h2>
                     <p className="text-sm sm:text-base text-muted-foreground mt-1">
@@ -653,52 +659,52 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
 
               {/* Stats Grid */}
               <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 flex-shrink-0">
-                <Card>
+                <Card className={demoMetricCardClass}>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4 sm:px-6 sm:pt-6">
                     <CardTitle className="text-xs sm:text-sm font-medium">Total Events</CardTitle>
                     <Calendar className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
-                    <div className="text-xl sm:text-2xl font-bold font-numbers tabular-nums">12</div>
+                    <div className={demoStatValueClass}>12</div>
                     <p className="text-[10px] sm:text-xs text-muted-foreground">
                       3 active this month
                     </p>
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className={demoMetricCardClass}>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4 sm:px-6 sm:pt-6">
                     <CardTitle className="text-xs sm:text-sm font-medium">Team Members</CardTitle>
                     <Users className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
-                    <div className="text-xl sm:text-2xl font-bold font-numbers tabular-nums">8</div>
+                    <div className={demoStatValueClass}>8</div>
                     <p className="text-[10px] sm:text-xs text-muted-foreground">
                       Active members
                     </p>
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className={demoMetricCardClass}>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4 sm:px-6 sm:pt-6">
                     <CardTitle className="text-xs sm:text-sm font-medium">Tickets Sold</CardTitle>
                     <Ticket className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
-                    <div className="text-xl sm:text-2xl font-bold font-numbers tabular-nums">2,450</div>
+                    <div className={demoStatValueClass}>2,450</div>
                     <p className="text-[10px] sm:text-xs text-muted-foreground">
                       +15 free registrations
                     </p>
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className={demoMetricCardClass}>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4 sm:px-6 sm:pt-6">
                     <CardTitle className="text-xs sm:text-sm font-medium">Revenue</CardTitle>
                     <TrendingUp className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
-                    <div className="text-xl sm:text-2xl font-bold font-numbers tabular-nums">KES 8.2M</div>
+                    <div className={demoStatValueClass}>KES 8.2M</div>
                     <p className="text-[10px] sm:text-xs text-muted-foreground">
                       From 245 purchases
                     </p>
@@ -709,7 +715,7 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
               {/* Content Section */}
               <div className="grid grid-cols-1 lg:grid-cols-7 gap-4 sm:gap-6 flex-1 min-h-0 overflow-hidden">
                 {/* Recent Activity */}
-                <Card className="lg:col-span-4 flex flex-col min-h-0 overflow-hidden">
+                <Card className={cn(demoMetricCardClass, "lg:col-span-4 flex flex-col min-h-0 overflow-hidden")}>
                   <CardHeader className="px-4 pt-4 sm:px-6 sm:pt-6 flex-shrink-0">
                     <CardTitle className="text-base sm:text-lg">Recent Activity</CardTitle>
                     <p className="text-xs sm:text-sm text-muted-foreground">
@@ -771,7 +777,7 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
                 </Card>
 
                 {/* Upcoming Events */}
-                <Card className="lg:col-span-3 flex flex-col min-h-0 overflow-hidden">
+                <Card className={cn(demoMetricCardClass, "lg:col-span-3 flex flex-col min-h-0 overflow-hidden")}>
                   <CardHeader className="px-4 pt-4 sm:px-6 sm:pt-6 flex-shrink-0">
                     <CardTitle className="text-base sm:text-lg">Upcoming Events</CardTitle>
                     <p className="text-xs sm:text-sm text-muted-foreground">
@@ -846,7 +852,7 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
 // Attendee Dashboard Wrapper
 function AttendeeDashboardWrapper({ onSwitch, activeView, setActiveView }: { onSwitch: () => void; activeView: string; setActiveView: (view: string) => void }) {
   return (
-    <div className="flex h-[600px] bg-[#ffffff] dark:bg-background overflow-hidden rounded-lg border border-border">
+    <div className={cn("flex h-[600px] max-h-[70vh] min-h-[480px] overflow-hidden", demoShellClass)}>
       <Sidebar activeView={activeView} mode="attendee" onNavigate={setActiveView} />
       <div className="flex-1 flex flex-col overflow-hidden">
         <TopHeader onSwitch={onSwitch} mode="attendee" />
@@ -878,59 +884,59 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
           <div className="h-full flex flex-col gap-4">
             {/* Header */}
             <div className="flex-shrink-0">
-              <h3 className="text-2xl font-bold text-foreground mb-1">My Dashboard</h3>
+              <h3 className="mb-1 text-lg font-semibold text-foreground">My Dashboard</h3>
               <p className="text-sm text-muted-foreground">Your events and tickets</p>
             </div>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 flex-shrink-0">
-        <Card>
+        <Card className={demoMetricCardClass}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
                 <CardTitle className="text-xs font-medium">Tickets Purchased</CardTitle>
                 <Ticket className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent className="px-4 pb-4">
-                <div className="text-2xl font-bold font-numbers tabular-nums">8</div>
+                <div className={demoStatValueClass}>8</div>
                 <p className="text-xs text-muted-foreground">From 3 purchases</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className={demoMetricCardClass}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
                 <CardTitle className="text-xs font-medium">Free Registrations</CardTitle>
                 <CalendarCheck className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent className="px-4 pb-4">
-                <div className="text-2xl font-bold font-numbers tabular-nums">5</div>
+                <div className={demoStatValueClass}>5</div>
                 <p className="text-xs text-muted-foreground">Upcoming events</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className={demoMetricCardClass}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
                 <CardTitle className="text-xs font-medium">Upcoming Events</CardTitle>
                 <Calendar className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent className="px-4 pb-4">
-                <div className="text-2xl font-bold font-numbers tabular-nums">7</div>
+                <div className={demoStatValueClass}>7</div>
                 <p className="text-xs text-muted-foreground">In the next 30 days</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className={demoMetricCardClass}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
                 <CardTitle className="text-xs font-medium">Total Spent</CardTitle>
                 <TrendingUp className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent className="px-4 pb-4">
-                <div className="text-2xl font-bold font-numbers tabular-nums">KES 12.5K</div>
+                <div className={demoStatValueClass}>KES 12.5K</div>
                 <p className="text-xs text-muted-foreground">This year</p>
               </CardContent>
             </Card>
           </div>
 
             {/* Upcoming Events */}
-            <Card className="flex-1 flex flex-col min-h-0 overflow-hidden">
+            <Card className={cn(demoMetricCardClass, "flex-1 flex flex-col min-h-0 overflow-hidden")}>
               <CardHeader className="px-4 pt-4 sm:px-6 sm:pt-6 flex-shrink-0 pb-3">
                 <div className="flex items-center justify-between">
                   <div>
@@ -953,11 +959,9 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
               <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6 flex-1 overflow-hidden flex flex-col">
                 <div className="space-y-3 flex-1">
                   {mockAttendeeEvents.map((event) => (
-                    <motion.div
+                    <div
                       key={event.id}
-                      className="p-4 border border-border rounded-lg hover:border-primary/50 transition-all"
-                      whileHover={{ scale: 1.01 }}
-                      whileTap={{ scale: 0.99 }}
+                      className="rounded-none border border-border p-4 transition-colors hover:border-foreground/25"
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1">
@@ -979,7 +983,7 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
                           {event.status}
                         </Badge>
                       </div>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </CardContent>
@@ -1004,47 +1008,13 @@ export default function InteractiveDemo() {
   }
 
   return (
-    <section className="py-12 xs:py-16 sm:py-20 md:py-28 lg:py-36 overflow-hidden relative bg-[#ffffff] dark:bg-background">
-      {/* Gradient background overlay - left to right: white to #000000 (light mode) */}
-      <div 
-        className="absolute inset-0 dark:hidden pointer-events-none"
-        style={{
-          background: 'linear-gradient(to right, #ffffff, transparent, #000000)',
-          opacity: '0.15',
-        }}
-      />
-      {/* Gradient background overlay - left to right: dark gradient (dark mode) */}
-      <div 
-        className="absolute inset-0 hidden dark:block pointer-events-none"
-        style={{
-          background: 'linear-gradient(to right, #000000, transparent, #0f0f0f)',
-          opacity: '0.1',
-        }}
-      />
-      
-      {/* Noise texture overlay - only for this section */}
-      <div 
-        className="absolute inset-0 dark:hidden pointer-events-none z-[1]"
-        style={{
-          background: `#ffffff url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          backgroundSize: '200px 200px',
-          opacity: '0.015',
-        }}
-      />
-      <div 
-        className="absolute inset-0 hidden dark:block pointer-events-none z-[1]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          backgroundSize: '200px 200px',
-          opacity: '0.03',
-        }}
-      />
-      <div className="container mx-auto px-3 xs:px-4 sm:px-6 relative z-10">
+    <section className="relative overflow-hidden bg-background py-12 xs:py-16 sm:py-20 md:py-28 lg:py-36">
+      <div className="container relative z-10 mx-auto px-3 xs:px-4 sm:px-6">
         {/* Section Header */}
         <ScrollReveal direction="up" duration={0.7} threshold={0.2}>
           <div className="text-center mb-10 xs:mb-12 sm:mb-16 md:mb-20">
             <motion.p
-              className="text-[10px] xs:text-xs font-body font-medium tracking-widest uppercase text-muted-foreground mb-3 xs:mb-4"
+              className="mb-3 text-[10px] font-body font-medium uppercase tracking-widest text-foreground/65 xs:mb-4 xs:text-xs"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -1052,77 +1022,75 @@ export default function InteractiveDemo() {
             >
               TRY IT YOURSELF
             </motion.p>
-            <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 xs:mb-5 sm:mb-6 px-1 text-balance">
+            <h2 className="font-heading mb-4 px-1 text-balance text-xl font-bold text-foreground xs:mb-5 xs:text-2xl sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">
               See Event Parlour in Action
             </h2>
-            <p className="text-muted-foreground text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl mx-auto px-2">
+            <p className="mx-auto mb-4 max-w-xs px-2 text-[0.9375rem] leading-relaxed text-foreground/75 xs:mb-5 xs:max-w-sm xs:text-base sm:mb-6 sm:max-w-xl sm:text-lg md:max-w-2xl">
               Experience our platform from both perspectives. Switch between organizer and attendee views to see how we serve everyone.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* Demo Container */}
+        {/* Demo Container — gradient stage + 1:1 product shell */}
         <ScrollReveal direction="up" delay={0.2} duration={0.7} threshold={0.2}>
-          {/* Large devices - interactive */}
-          <div className="hidden lg:block">
-            <Card className="border-2 border-border bg-[#ffffff] dark:bg-background">
-              <CardContent className="p-4 xs:p-6 sm:p-8 md:p-10">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={demoMode}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {demoMode === "organizer" ? (
-                      <OrganizerDashboardWrapper
-                        onSwitch={() => handleModeSwitch("attendee")}
-                        activeView={activeView}
-                        setActiveView={setActiveView}
-                      />
-                    ) : (
-                      <AttendeeDashboardWrapper
-                        onSwitch={() => handleModeSwitch("organizer")}
-                        activeView={activeView}
-                        setActiveView={setActiveView}
-                      />
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-              </CardContent>
-            </Card>
-          </div>
-          {/* Small devices - interactive */}
-          <div className="lg:hidden overflow-hidden w-full">
-            <div className="origin-top-left scale-[0.48] min-[390px]:scale-[0.52] min-[430px]:scale-[0.55] sm:scale-[0.62] md:scale-[0.72] w-[208%] min-[390px]:w-[192%] min-[430px]:w-[182%] sm:w-[161%] md:w-[139%] h-[clamp(16rem,55vw,26rem)]">
-              <Card className="border-2 border-border bg-[#ffffff] dark:bg-background">
-                <CardContent className="p-4 xs:p-6 sm:p-8 md:p-10">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={demoMode}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {demoMode === "organizer" ? (
-                        <OrganizerDashboardWrapper
-                          onSwitch={() => handleModeSwitch("attendee")}
-                          activeView={activeView}
-                          setActiveView={setActiveView}
-                        />
-                      ) : (
-                        <AttendeeDashboardWrapper
-                          onSwitch={() => handleModeSwitch("organizer")}
-                          activeView={activeView}
-                          setActiveView={setActiveView}
-                        />
-                      )}
-                    </motion.div>
-                  </AnimatePresence>
-                </CardContent>
-              </Card>
+          <div className="relative mx-auto w-full max-w-6xl">
+            {/* Light: black gradients / Dark: white gradients */}
+            <div
+              className="pointer-events-none absolute -inset-3 rounded-none sm:-inset-4 md:-inset-6 dark:hidden"
+              aria-hidden
+              style={{
+                background: [
+                  "radial-gradient(ellipse 120% 85% at 0% 0%, color-mix(in oklch, black 22%, transparent), transparent 58%)",
+                  "radial-gradient(ellipse 100% 75% at 100% 100%, color-mix(in oklch, black 16%, transparent), transparent 55%)",
+                  "linear-gradient(to right, rgb(0 0 0 / 0.09), transparent, rgb(0 0 0 / 0.11))",
+                  "linear-gradient(to bottom, rgb(0 0 0 / 0.05), transparent, rgb(0 0 0 / 0.08))",
+                ].join(", "),
+              }}
+            />
+            <div
+              className="pointer-events-none absolute -inset-3 hidden rounded-none sm:-inset-4 md:-inset-6 dark:block"
+              aria-hidden
+              style={{
+                background: [
+                  "radial-gradient(ellipse 120% 85% at 0% 0%, color-mix(in oklch, white 20%, transparent), transparent 58%)",
+                  "radial-gradient(ellipse 100% 75% at 100% 100%, color-mix(in oklch, white 14%, transparent), transparent 55%)",
+                  "linear-gradient(to right, rgb(255 255 255 / 0.08), transparent, rgb(255 255 255 / 0.1))",
+                  "linear-gradient(to bottom, rgb(255 255 255 / 0.06), transparent, rgb(255 255 255 / 0.09))",
+                ].join(", "),
+              }}
+            />
+
+            <div
+              className={cn(
+                demoShellClass,
+                "relative z-[1]",
+                "max-h-[min(680px,78vh)] overflow-auto overscroll-contain lg:overflow-hidden",
+                "[&_.rounded-xl]:rounded-none [&_*]:shadow-none",
+              )}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={demoMode}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {demoMode === "organizer" ? (
+                    <OrganizerDashboardWrapper
+                      onSwitch={() => handleModeSwitch("attendee")}
+                      activeView={activeView}
+                      setActiveView={setActiveView}
+                    />
+                  ) : (
+                    <AttendeeDashboardWrapper
+                      onSwitch={() => handleModeSwitch("organizer")}
+                      activeView={activeView}
+                      setActiveView={setActiveView}
+                    />
+                  )}
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
         </ScrollReveal>
@@ -1147,7 +1115,7 @@ export default function InteractiveDemo() {
                 <ArrowRight className="h-4 w-4" />
               </a>
             </Button>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-4">
+            <p className="mt-4 text-sm text-foreground/70">
               Start creating events or discovering experiences in seconds
             </p>
           </motion.div>

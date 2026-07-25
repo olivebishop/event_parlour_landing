@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Suspense } from "react";
-import ScrollReveal from "@/components/shared/animations/scroll-reveal";
 import content from "@/lib/content"
 import { cn } from "@/lib/utils";
 import { HugeiconsNewTwitter } from "./social-icons";
@@ -128,7 +127,7 @@ const TestimonialItem = ({
                   "flex flex-col justify-between h-[200px] sm:h-[220px] rounded-none border-[1.2px] border-border shrink-0 grow-0 w-[min(85vw,450px)] sm:w-[450px] bg-muted/40",
                 )}
               >
-                <p className="px-5 py-5 font-sans tracking-tight text-sm font-extralight sm:text-base md:text-lg text-pretty text-foreground/90">
+                <p className="px-5 py-5 font-body text-sm font-normal leading-snug sm:text-base md:text-lg text-pretty text-foreground">
                   &quot;{testimonial.description}&quot;
                 </p>
                 <div className="flex overflow-hidden h-[28%] gap-1 w-full border-t-[1.2px] border-border">
@@ -142,7 +141,7 @@ const TestimonialItem = ({
                       <h5 className="text-base font-medium md:text-md text-foreground">
                         {testimonial.name}
                       </h5>
-                      <p className="text-xs md:text-sm text-muted-foreground mt-[-4px]">
+                      <p className="mt-[-4px] text-xs text-foreground/70 md:text-sm">
                         {testimonial.profession}
                       </p>
                     </div>
@@ -246,25 +245,27 @@ const TestimonialScroller = () => {
   );
 };
 
-export default function Testimonials() {
+export default function Testimonials({
+  showHeader = true,
+}: {
+  showHeader?: boolean
+}) {
   const copy = content.Testimonials
 
   return (
     <div className="container mx-auto px-3 xs:px-4 sm:px-6">
-      <ScrollReveal direction="up" duration={0.7} threshold={0.2}>
-        <div className="text-center mb-8 xs:mb-10 sm:mb-12">
-          <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground max-w-[20rem] xs:max-w-sm md:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto px-2 mb-3 xs:mb-4 text-balance leading-tight">
+      {showHeader ? (
+        <div className="mb-8 text-center xs:mb-10 sm:mb-12">
+          <h2 className="mx-auto mb-3 max-w-[20rem] px-2 text-xl font-bold leading-tight text-balance text-foreground xs:mb-4 xs:max-w-sm xs:text-2xl sm:text-4xl md:max-w-2xl md:text-5xl lg:max-w-3xl lg:text-6xl">
             {copy.subtitle}
           </h2>
-          <p className="text-muted-foreground text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm md:max-w-xl lg:max-w-2xl mx-auto px-2">
+          <p className="mx-auto max-w-xs px-2 text-sm text-muted-foreground xs:max-w-sm xs:text-base sm:text-lg md:max-w-xl lg:max-w-2xl">
             {copy.description}
           </p>
         </div>
-      </ScrollReveal>
-      
-      <ScrollReveal direction="up" delay={0.2} duration={0.8} threshold={0.1}>
-        <TestimonialScroller />
-      </ScrollReveal>
+      ) : null}
+
+      <TestimonialScroller />
     </div>
   );
 }

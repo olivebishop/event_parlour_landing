@@ -19,6 +19,47 @@ const nextConfig: NextConfig = {
       "react-icons",
     ],
   },
+  async redirects() {
+    return [
+      { source: "/platform", destination: "/", permanent: true },
+      { source: "/faq", destination: "/contact", permanent: true },
+      {
+        source: "/features/organizers/:slug",
+        destination: "/features/organizers",
+        permanent: true,
+      },
+      {
+        source: "/features/attendees/:slug",
+        destination: "/features/attendees",
+        permanent: true,
+      },
+      {
+        source: "/features/all-in-one",
+        destination: "/features/workspace",
+        permanent: true,
+      },
+      {
+        source: "/features/built-for-africa",
+        destination: "/features/community",
+        permanent: true,
+      },
+      {
+        source: "/features/transparent-pricing",
+        destination: "/features/pricing",
+        permanent: true,
+      },
+      {
+        source: "/features/live-analytics",
+        destination: "/features/analytics",
+        permanent: true,
+      },
+      {
+        source: "/features/instant-payouts",
+        destination: "/features/pricing",
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {
