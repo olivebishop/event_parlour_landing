@@ -13,6 +13,12 @@ export const metadata: Metadata = {
   title: "Features",
   description: copy.description,
   alternates: { canonical: `${siteUrl}/features` },
+  openGraph: {
+    images: [{ url: `${siteUrl}/og/features`, width: 1200, height: 630 }],
+  },
+  twitter: {
+    images: [`${siteUrl}/og/features`],
+  },
 }
 
 export default function FeaturesIndexPage() {

@@ -14,6 +14,14 @@ export const metadata: Metadata = {
   description:
     "Discover events in Nairobi, manage tickets, and stay connected with the experiences you care about.",
   alternates: { canonical: `${siteUrl}/features/attendees` },
+  openGraph: {
+    images: [
+      { url: `${siteUrl}/og/features/attendees`, width: 1200, height: 630 },
+    ],
+  },
+  twitter: {
+    images: [`${siteUrl}/og/features/attendees`],
+  },
 }
 
 export default function AttendeesFeaturesPage() {

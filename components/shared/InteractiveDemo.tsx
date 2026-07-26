@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useLayoutEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -35,15 +35,60 @@ import {
 import { useTheme } from "next-themes"
 import dynamic from "next/dynamic"
 import { demoCardClass, demoStatValueClass } from "@/components/demo/demo-chrome"
-import { BrandGrainOverlay } from "@/components/grain-overlay"
+import { brandNoiseLayerStyle } from "@/lib/brand/noise"
 
-/** Flat, product-like surfaces — tokens: white canvas (light), near-black canvas (dark). */
-const demoShellClass =
-  "overflow-hidden rounded-none border border-border bg-background text-foreground shadow-none"
+/** Product chrome inside the framed demo window. */
+const demoShellClass = "flex h-full min-h-0 bg-background text-foreground"
 const demoMetricCardClass = demoCardClass
 
+/** Desktop canvas width — always rendered, then scaled to fit the viewport. */
+const DEMO_DESIGN_WIDTH = 1100
+const DEMO_DESIGN_HEIGHT = 640
+
 function DemoPaneSkeleton() {
-  return <div className="flex-1 animate-pulse bg-muted/30 m-6 min-h-[400px] rounded-none" />
+  return (
+    <div className="m-6 min-h-[16rem] flex-1 animate-pulse bg-muted/30" />
+  )
+}
+
+function DemoScaleFrame({ children }: { children: React.ReactNode }) {
+  const outerRef = useRef<HTMLDivElement>(null)
+  const [scale, setScale] = useState(1)
+
+  useLayoutEffect(() => {
+    const el = outerRef.current
+    if (!el) return
+
+    const update = () => {
+      const width = el.clientWidth
+      if (width <= 0) return
+      setScale(Math.min(1, width / DEMO_DESIGN_WIDTH))
+    }
+
+    update()
+    const ro = new ResizeObserver(update)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
+  return (
+    <div
+      ref={outerRef}
+      className="relative w-full overflow-hidden"
+      style={{ height: DEMO_DESIGN_HEIGHT * scale }}
+    >
+      <div
+        className="demo-frame absolute left-0 top-0 origin-top-left will-change-transform"
+        style={{
+          width: DEMO_DESIGN_WIDTH,
+          height: DEMO_DESIGN_HEIGHT,
+          transform: `scale(${scale})`,
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  )
 }
 
 const EventsDemoOrganizer = dynamic(
@@ -278,13 +323,13 @@ function Sidebar({ activeView, mode, onNavigate }: { activeView: string; mode: D
   const navItems = mode === "organizer" ? organizerNavItems : attendeeNavItems
 
   return (
-    <div className="hidden h-full w-16 shrink-0 flex-col border-r border-border bg-muted/50 dark:bg-muted/40 md:flex">
+    <div className="flex h-full w-16 shrink-0 flex-col border-r border-border bg-muted/50 dark:bg-muted/40">
       <div className="border-b border-border p-4">
         <div className="flex h-8 w-8 items-center justify-center bg-primary dark:bg-primary">
           <span className="text-xs font-bold text-primary-foreground">EP</span>
         </div>
       </div>
-      <nav className="flex-1 space-y-1 overflow-y-auto overscroll-contain py-4">
+      <nav className="flex-1 space-y-1 overflow-hidden py-4">
         {navItems.map((item) => {
           const Icon = item.icon
           const isActive = activeView === item.id
@@ -616,88 +661,16 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
   )
 }
 
-function MobileDemoNav({
-  activeView,
-  mode,
-  onNavigate,
-}: {
-  activeView: string
-  mode: DemoMode
-  onNavigate: (view: string) => void
-}) {
-  const organizerItems = [
-    { icon: LayoutDashboard, label: "Dashboard", id: "dashboard" },
-    { icon: Calendar, label: "Events", id: "events" },
-    { icon: ShieldCheck, label: "KYC", id: "kyc" },
-    { icon: MessageSquare, label: "Channels", id: "channels" },
-    { icon: Mic, label: "Speakers", id: "speakers" },
-    { icon: Ticket, label: "Tickets", id: "tickets" },
-    { icon: BarChart3, label: "Analytics", id: "analytics" },
-    { icon: Settings, label: "Settings", id: "settings" },
-    { icon: HelpCircle, label: "Support", id: "support" },
-  ]
-  const attendeeItems = [
-    { icon: LayoutDashboard, label: "Dashboard", id: "dashboard" },
-    { icon: Calendar, label: "Events", id: "events" },
-    { icon: MessageSquare, label: "Channels", id: "channels" },
-    { icon: Ticket, label: "Tickets", id: "tickets" },
-    { icon: BarChart3, label: "Analytics", id: "analytics" },
-    { icon: Settings, label: "Settings", id: "settings" },
-    { icon: HelpCircle, label: "Support", id: "support" },
-  ]
-  const items = mode === "organizer" ? organizerItems : attendeeItems
-
-  return (
-    <nav
-      aria-label="Demo views"
-      className="flex shrink-0 gap-1 overflow-x-auto overscroll-contain border-t border-border bg-muted/40 px-2 py-2 md:hidden"
-    >
-      {items.map((item) => {
-        const Icon = item.icon
-        const isActive = activeView === item.id
-        return (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => onNavigate(item.id)}
-            aria-label={item.label}
-            aria-current={isActive ? "page" : undefined}
-            className={cn(
-              "flex min-w-[3.25rem] shrink-0 flex-col items-center gap-0.5 px-2 py-1.5 transition-colors",
-              isActive
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground",
-            )}
-          >
-            <Icon className="h-4 w-4" aria-hidden />
-            <span className="font-body text-[9px] leading-none">{item.label}</span>
-          </button>
-        )
-      })}
-    </nav>
-  )
-}
-
 // Organizer Dashboard Wrapper
 function OrganizerDashboardWrapper({ onSwitch, activeView, setActiveView }: { onSwitch: () => void; activeView: string; setActiveView: (view: string) => void }) {
   return (
-    <div
-      className={cn(
-        "flex h-auto min-h-[360px] max-h-[min(680px,78dvh)] flex-col overflow-hidden md:h-[600px] md:min-h-[480px] md:max-h-[70vh] md:flex-row",
-        demoShellClass,
-      )}
-    >
+    <div className={cn("flex flex-row", demoShellClass)}>
       <Sidebar activeView={activeView} mode="organizer" onNavigate={setActiveView} />
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         <TopHeader onSwitch={onSwitch} mode="organizer" />
-        <div className="min-h-0 flex-1 overflow-auto">
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
           <OrganizerDashboardContent activeView={activeView} />
         </div>
-        <MobileDemoNav
-          activeView={activeView}
-          mode="organizer"
-          onNavigate={setActiveView}
-        />
       </div>
     </div>
   )
@@ -725,27 +698,27 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
         return <SupportDemoOrganizer />
       default:
         return (
-          <div className="flex-1 overflow-hidden p-3 xs:p-4 sm:p-6">
+          <div className="h-full p-6">
             <div className="flex h-full flex-col gap-4">
               {/* Header */}
-              <div className="flex-shrink-0">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div className="shrink-0">
+                <div className="flex items-center justify-between gap-4">
                   <div>
-                    <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
+                    <h2 className="text-xl font-semibold tracking-tight">
                       Welcome back, Olive
                     </h2>
-                    <p className="text-sm sm:text-base text-muted-foreground mt-1">
+                    <p className="mt-1 text-sm text-muted-foreground">
                       Here&apos;s what&apos;s happening with your workspace
                     </p>
                   </div>
-                  <Badge variant="outline" className="w-fit text-xs sm:text-sm">
+                  <Badge variant="outline" className="w-fit text-sm">
                     Owner
                   </Badge>
                 </div>
               </div>
 
               {/* Stats Grid */}
-              <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 flex-shrink-0">
+              <div className="grid shrink-0 grid-cols-4 gap-4">
                 <Card className={demoMetricCardClass}>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4 sm:px-6 sm:pt-6">
                     <CardTitle className="text-xs sm:text-sm font-medium">Total Events</CardTitle>
@@ -800,16 +773,16 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
               </div>
 
               {/* Content Section */}
-              <div className="grid grid-cols-1 lg:grid-cols-7 gap-4 sm:gap-6 flex-1 min-h-0 overflow-hidden">
+              <div className="grid min-h-0 flex-1 grid-cols-7 gap-6">
                 {/* Recent Activity */}
-                <Card className={cn(demoMetricCardClass, "lg:col-span-4 flex flex-col min-h-0 overflow-hidden")}>
-                  <CardHeader className="px-4 pt-4 sm:px-6 sm:pt-6 flex-shrink-0">
-                    <CardTitle className="text-base sm:text-lg">Recent Activity</CardTitle>
-                    <p className="text-xs sm:text-sm text-muted-foreground">
+                <Card className={cn(demoMetricCardClass, "col-span-4 flex min-h-0 flex-col")}>
+                  <CardHeader className="shrink-0 px-6 pt-6">
+                    <CardTitle className="text-lg">Recent Activity</CardTitle>
+                    <p className="text-sm text-muted-foreground">
                       Recent ticket sales and registrations
                     </p>
                   </CardHeader>
-                  <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6 flex-1 overflow-hidden">
+                  <CardContent className="min-h-0 flex-1 px-6 pb-6">
                     {mockRecentActivity.length === 0 ? (
                       <div className="flex flex-col items-center justify-center py-8 sm:py-12 text-center">
                         <div className="rounded-full bg-muted p-3 sm:p-4 mb-3 sm:mb-4">
@@ -864,14 +837,14 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
                 </Card>
 
                 {/* Upcoming Events */}
-                <Card className={cn(demoMetricCardClass, "lg:col-span-3 flex flex-col min-h-0 overflow-hidden")}>
-                  <CardHeader className="px-4 pt-4 sm:px-6 sm:pt-6 flex-shrink-0">
-                    <CardTitle className="text-base sm:text-lg">Upcoming Events</CardTitle>
-                    <p className="text-xs sm:text-sm text-muted-foreground">
+                <Card className={cn(demoMetricCardClass, "col-span-3 flex min-h-0 flex-col")}>
+                  <CardHeader className="shrink-0 px-6 pt-6">
+                    <CardTitle className="text-lg">Upcoming Events</CardTitle>
+                    <p className="text-sm text-muted-foreground">
                       Your scheduled events
                     </p>
                   </CardHeader>
-                  <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6 flex-1 overflow-hidden">
+                  <CardContent className="min-h-0 flex-1 px-6 pb-6">
                     {mockUpcomingEvents.length === 0 ? (
                       <div className="flex flex-col items-center justify-center py-8 text-center">
                         <div className="rounded-full bg-muted p-3 mb-3">
@@ -939,23 +912,13 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
 // Attendee Dashboard Wrapper
 function AttendeeDashboardWrapper({ onSwitch, activeView, setActiveView }: { onSwitch: () => void; activeView: string; setActiveView: (view: string) => void }) {
   return (
-    <div
-      className={cn(
-        "flex h-auto min-h-[360px] max-h-[min(680px,78dvh)] flex-col overflow-hidden md:h-[600px] md:min-h-[480px] md:max-h-[70vh] md:flex-row",
-        demoShellClass,
-      )}
-    >
+    <div className={cn("flex flex-row", demoShellClass)}>
       <Sidebar activeView={activeView} mode="attendee" onNavigate={setActiveView} />
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         <TopHeader onSwitch={onSwitch} mode="attendee" />
-        <div className="min-h-0 flex-1 overflow-auto">
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
           <AttendeeDashboardContent activeView={activeView} />
         </div>
-        <MobileDemoNav
-          activeView={activeView}
-          mode="attendee"
-          onNavigate={setActiveView}
-        />
       </div>
     </div>
   )
@@ -979,116 +942,124 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
         return <SupportDemoAttendee />
       default:
         return (
-          <div className="flex-1 overflow-hidden p-3 xs:p-4 sm:p-6">
-          <div className="flex h-full flex-col gap-4">
-            {/* Header */}
-            <div className="flex-shrink-0">
-              <h3 className="mb-1 text-lg font-semibold text-foreground">My Dashboard</h3>
-              <p className="text-sm text-muted-foreground">Your events and tickets</p>
-            </div>
+          <div className="h-full p-6">
+            <div className="flex h-full flex-col gap-4">
+              <div className="shrink-0">
+                <h3 className="mb-1 text-xl font-semibold text-foreground">
+                  My Dashboard
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Your events and tickets
+                </p>
+              </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 flex-shrink-0">
-        <Card className={demoMetricCardClass}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
-                <CardTitle className="text-xs font-medium">Tickets Purchased</CardTitle>
-                <Ticket className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent className="px-4 pb-4">
-                <div className={demoStatValueClass}>8</div>
-                <p className="text-xs text-muted-foreground">From 3 purchases</p>
-              </CardContent>
-            </Card>
+              <div className="grid shrink-0 grid-cols-4 gap-4">
+                <Card className={demoMetricCardClass}>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 px-4 pb-2 pt-4">
+                    <CardTitle className="text-xs font-medium">Tickets Purchased</CardTitle>
+                    <Ticket className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent className="px-4 pb-4">
+                    <div className={demoStatValueClass}>8</div>
+                    <p className="text-xs text-muted-foreground">From 3 purchases</p>
+                  </CardContent>
+                </Card>
 
-            <Card className={demoMetricCardClass}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
-                <CardTitle className="text-xs font-medium">Free Registrations</CardTitle>
-                <CalendarCheck className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent className="px-4 pb-4">
-                <div className={demoStatValueClass}>5</div>
-                <p className="text-xs text-muted-foreground">Upcoming events</p>
-              </CardContent>
-            </Card>
+                <Card className={demoMetricCardClass}>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 px-4 pb-2 pt-4">
+                    <CardTitle className="text-xs font-medium">Free Registrations</CardTitle>
+                    <CalendarCheck className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent className="px-4 pb-4">
+                    <div className={demoStatValueClass}>5</div>
+                    <p className="text-xs text-muted-foreground">Upcoming events</p>
+                  </CardContent>
+                </Card>
 
-            <Card className={demoMetricCardClass}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
-                <CardTitle className="text-xs font-medium">Upcoming Events</CardTitle>
-                <Calendar className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent className="px-4 pb-4">
-                <div className={demoStatValueClass}>7</div>
-                <p className="text-xs text-muted-foreground">In the next 30 days</p>
-              </CardContent>
-            </Card>
+                <Card className={demoMetricCardClass}>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 px-4 pb-2 pt-4">
+                    <CardTitle className="text-xs font-medium">Upcoming Events</CardTitle>
+                    <Calendar className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent className="px-4 pb-4">
+                    <div className={demoStatValueClass}>7</div>
+                    <p className="text-xs text-muted-foreground">In the next 30 days</p>
+                  </CardContent>
+                </Card>
 
-            <Card className={demoMetricCardClass}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
-                <CardTitle className="text-xs font-medium">Total Spent</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent className="px-4 pb-4">
-                <div className={demoStatValueClass}>KES 12.5K</div>
-                <p className="text-xs text-muted-foreground">This year</p>
-              </CardContent>
-            </Card>
-          </div>
+                <Card className={demoMetricCardClass}>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 px-4 pb-2 pt-4">
+                    <CardTitle className="text-xs font-medium">Total Spent</CardTitle>
+                    <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent className="px-4 pb-4">
+                    <div className={demoStatValueClass}>KES 12.5K</div>
+                    <p className="text-xs text-muted-foreground">This year</p>
+                  </CardContent>
+                </Card>
+              </div>
 
-            {/* Upcoming Events */}
-            <Card className={cn(demoMetricCardClass, "flex-1 flex flex-col min-h-0 overflow-hidden")}>
-              <CardHeader className="px-4 pt-4 sm:px-6 sm:pt-6 flex-shrink-0 pb-3">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-lg">Upcoming Events</CardTitle>
-                    <p className="text-sm text-muted-foreground">Events you're attending</p>
-                  </div>
-                  <a
-                    href="https://app.eventparlour.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Browse events on EventParlour"
-                  >
-                    <Button variant="outline" size="sm" className="gap-2">
-                      Browse Events
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </a>
-                </div>
-              </CardHeader>
-              <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6 flex-1 overflow-hidden flex flex-col">
-                <div className="space-y-3 flex-1">
-                  {mockAttendeeEvents.map((event) => (
-                    <div
-                      key={event.id}
-                      className="rounded-none border border-border p-4 transition-colors hover:border-foreground/25"
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex-1">
-                          <h4 className="font-semibold text-foreground mb-2">{event.title}</h4>
-                          <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
-                            <span className="flex items-center gap-1">
-                              <Calendar className="h-3 w-3" />
-                              {event.date}
-                            </span>
-                            <Badge variant="secondary" className="text-xs">
-                              {event.tickets} ticket{event.tickets > 1 ? "s" : ""}
-                            </Badge>
-                          </div>
-                        </div>
-                        <Badge
-                          variant={event.status === "confirmed" ? "default" : "secondary"}
-                          className="text-xs"
-                        >
-                          {event.status}
-                        </Badge>
-                      </div>
+              <Card className={cn(demoMetricCardClass, "flex min-h-0 flex-1 flex-col")}>
+                <CardHeader className="shrink-0 px-6 pb-3 pt-6">
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <CardTitle className="text-lg">Upcoming Events</CardTitle>
+                      <p className="text-sm text-muted-foreground">
+                        Events you&apos;re attending
+                      </p>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    <a
+                      href="https://app.eventparlour.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Browse events on EventParlour"
+                    >
+                      <Button variant="outline" size="sm" className="gap-2">
+                        Browse Events
+                        <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </a>
+                  </div>
+                </CardHeader>
+                <CardContent className="min-h-0 flex-1 px-6 pb-6">
+                  <div className="space-y-3">
+                    {mockAttendeeEvents.slice(0, 3).map((event) => (
+                      <div
+                        key={event.id}
+                        className="rounded-none border border-border p-4 transition-colors hover:border-foreground/25"
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="min-w-0 flex-1">
+                            <h4 className="mb-2 truncate font-semibold text-foreground">
+                              {event.title}
+                            </h4>
+                            <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
+                              <span className="flex items-center gap-1">
+                                <Calendar className="h-3 w-3" />
+                                {event.date}
+                              </span>
+                              <Badge variant="secondary" className="text-xs">
+                                {event.tickets} ticket
+                                {event.tickets > 1 ? "s" : ""}
+                              </Badge>
+                            </div>
+                          </div>
+                          <Badge
+                            variant={
+                              event.status === "confirmed" ? "default" : "secondary"
+                            }
+                            className="shrink-0 text-xs"
+                          >
+                            {event.status}
+                          </Badge>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
-        </div>
         )
     }
   }
@@ -1107,13 +1078,53 @@ export default function InteractiveDemo() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-background py-12 xs:py-16 sm:py-20 md:py-28 lg:py-36">
+    <div className="relative isolate overflow-hidden bg-muted/40 py-14 xs:py-16 sm:py-20 md:py-28 lg:py-32 dark:bg-[oklch(0.11_0_0)]">
+      {/* Stage atmosphere — soft in light, Midday grain in dark */}
+      <div
+        aria-hidden
+        className="absolute inset-0 dark:hidden"
+        style={{
+          background: [
+            "radial-gradient(ellipse 90% 70% at 10% 30%, color-mix(in oklch, var(--foreground) 8%, transparent), transparent 55%)",
+            "radial-gradient(ellipse 80% 60% at 90% 70%, color-mix(in oklch, var(--foreground) 6%, transparent), transparent 50%)",
+            "linear-gradient(160deg, oklch(0.97 0 0) 0%, oklch(0.93 0 0) 100%)",
+          ].join(", "),
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 hidden dark:block"
+        style={{
+          background: [
+            "radial-gradient(ellipse 85% 75% at 12% 42%, oklch(0.22 0 0) 0%, transparent 58%)",
+            "radial-gradient(ellipse 95% 85% at 88% 48%, oklch(0.34 0 0) 0%, transparent 62%)",
+            "linear-gradient(108deg, oklch(0.09 0 0) 0%, oklch(0.16 0 0) 42%, oklch(0.27 0 0) 100%)",
+          ].join(", "),
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-40 mix-blend-multiply dark:opacity-[0.62] dark:mix-blend-overlay"
+        style={{
+          backgroundImage: brandNoiseLayerStyle.backgroundImage,
+          backgroundRepeat: "repeat",
+          backgroundSize: "160px 160px",
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-50 dark:opacity-80"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 60% at 50% 45%, transparent 40%, color-mix(in oklch, var(--background) 70%, transparent) 100%)",
+        }}
+      />
+
       <div className="container relative z-10 mx-auto px-3 xs:px-4 sm:px-6">
-        {/* Section Header */}
         <ScrollReveal direction="up" duration={0.7} threshold={0.2}>
-          <div className="text-center mb-10 xs:mb-12 sm:mb-16 md:mb-20">
+          <div className="mb-8 text-center xs:mb-10 sm:mb-12 md:mb-14">
             <motion.p
-              className="mb-3 text-[10px] font-body font-medium uppercase tracking-widest text-foreground/65 xs:mb-4 xs:text-xs"
+              className="mb-3 font-body text-[10px] font-medium uppercase tracking-widest text-foreground/55 xs:mb-4 xs:text-xs dark:text-white/55"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -1121,60 +1132,33 @@ export default function InteractiveDemo() {
             >
               TRY IT YOURSELF
             </motion.p>
-            <h2 className="font-heading mb-4 px-1 text-balance text-xl font-bold text-foreground xs:mb-5 xs:text-2xl sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">
+            <h2
+              id="demo-heading"
+              className="mb-4 px-1 font-heading text-balance text-xl font-bold text-foreground xs:mb-5 xs:text-2xl sm:mb-6 sm:text-4xl md:text-5xl dark:text-white"
+            >
               See Event Parlour in Action
             </h2>
-            <p className="mx-auto mb-4 max-w-xs px-2 text-[0.9375rem] leading-relaxed text-foreground/75 xs:mb-5 xs:max-w-sm xs:text-base sm:mb-6 sm:max-w-xl sm:text-lg md:max-w-2xl">
-              Experience our platform from both perspectives. Switch between organizer and attendee views to see how we serve everyone.
+            <p className="mx-auto max-w-xs px-2 font-body text-[0.9375rem] leading-relaxed text-foreground/70 xs:max-w-sm xs:text-base sm:max-w-xl sm:text-lg md:max-w-2xl dark:text-white/65">
+              Experience our platform from both perspectives. Switch between
+              organizer and attendee views to see how we serve everyone.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* Demo Container — gradient stage + 1:1 product shell */}
         <ScrollReveal direction="up" delay={0.2} duration={0.7} threshold={0.2}>
-          <div className="relative mx-auto w-full max-w-6xl overflow-hidden">
-            <BrandGrainOverlay
-              fixed={false}
-              intensity="subtle"
-              className="z-0 -inset-3 sm:-inset-4 md:-inset-6"
-            />
-            {/* Light: black gradients / Dark: white gradients */}
-            <div
-              className="pointer-events-none absolute -inset-3 z-0 rounded-none sm:-inset-4 md:-inset-6 dark:hidden"
-              aria-hidden
-              style={{
-                background: [
-                  "radial-gradient(ellipse 120% 85% at 0% 0%, color-mix(in oklch, black 22%, transparent), transparent 58%)",
-                  "radial-gradient(ellipse 100% 75% at 100% 100%, color-mix(in oklch, black 16%, transparent), transparent 55%)",
-                  "linear-gradient(to right, rgb(0 0 0 / 0.09), transparent, rgb(0 0 0 / 0.11))",
-                  "linear-gradient(to bottom, rgb(0 0 0 / 0.05), transparent, rgb(0 0 0 / 0.08))",
-                ].join(", "),
-              }}
-            />
-            <div
-              className="pointer-events-none absolute -inset-3 z-0 hidden rounded-none sm:-inset-4 md:-inset-6 dark:block"
-              aria-hidden
-              style={{
-                background: [
-                  "radial-gradient(ellipse 120% 85% at 0% 0%, color-mix(in oklch, white 20%, transparent), transparent 58%)",
-                  "radial-gradient(ellipse 100% 75% at 100% 100%, color-mix(in oklch, white 14%, transparent), transparent 55%)",
-                  "linear-gradient(to right, rgb(255 255 255 / 0.08), transparent, rgb(255 255 255 / 0.1))",
-                  "linear-gradient(to bottom, rgb(255 255 255 / 0.06), transparent, rgb(255 255 255 / 0.09))",
-                ].join(", "),
-              }}
-            />
-
-            <div
-              className={cn(
-                demoShellClass,
-                "relative z-[1]",
-                "max-h-[min(680px,78vh)] overflow-auto overscroll-contain lg:overflow-hidden",
-                "[&_.rounded-xl]:rounded-none [&_*]:shadow-none",
-              )}
-            >
+          <div
+            className={cn(
+              "relative mx-auto w-full max-w-6xl",
+              "border border-foreground/15 bg-background dark:border-white/15",
+              "shadow-[0_28px_90px_-20px_rgba(0,0,0,0.18)] dark:shadow-[0_28px_90px_-20px_rgba(0,0,0,0.75)]",
+              "[&_.rounded-xl]:rounded-none [&_.rounded-lg]:rounded-none [&_.rounded-md]:rounded-none",
+            )}
+          >
+            <DemoScaleFrame>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={demoMode}
+                  className="h-full"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -1195,20 +1179,19 @@ export default function InteractiveDemo() {
                   )}
                 </motion.div>
               </AnimatePresence>
-            </div>
+            </DemoScaleFrame>
           </div>
         </ScrollReveal>
 
-        {/* CTA */}
         <ScrollReveal direction="up" delay={0.4} duration={0.7} threshold={0.2}>
           <motion.div
-            className="text-center mt-8 xs:mt-10 sm:mt-12"
+            className="mt-8 text-center xs:mt-10 sm:mt-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            <Button asChild size="cta" className="gap-2">
+            <Button asChild size="cta" className="gap-2 shadow-none">
               <a
                 href="https://app.eventparlour.com/auth/sign-up"
                 target="_blank"
@@ -1219,12 +1202,12 @@ export default function InteractiveDemo() {
                 <ArrowRight className="h-4 w-4" />
               </a>
             </Button>
-            <p className="mt-4 text-sm text-foreground/70">
+            <p className="mt-4 font-body text-sm text-foreground/55 dark:text-white/55">
               Start creating events or discovering experiences in seconds
             </p>
           </motion.div>
         </ScrollReveal>
       </div>
-    </section>
+    </div>
   )
 }

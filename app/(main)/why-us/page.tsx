@@ -22,6 +22,12 @@ export const metadata: Metadata = {
   description:
     "Real feedback from engineers, creators, and organizers who use Event Parlour to sell tickets and run events.",
   alternates: { canonical: `${siteUrl}/why-us` },
+  openGraph: {
+    images: [{ url: `${siteUrl}/og/why-us`, width: 1200, height: 630 }],
+  },
+  twitter: {
+    images: [`${siteUrl}/og/why-us`],
+  },
 }
 
 export default function WhyUsPage() {
@@ -45,7 +51,7 @@ export default function WhyUsPage() {
 
       <section
         aria-labelledby="why-us-cta-heading"
-        className="container relative z-20 mx-auto px-3 pb-16 xs:px-4 sm:px-6 sm:pb-20 md:pb-24 lg:pb-28"
+        className="container relative z-20 mx-auto px-4 pb-16 xs:px-5 sm:px-6 sm:pb-20 md:pb-24 lg:pb-28"
       >
         <MarketingCtaBanner
           id="why-us-cta-heading"

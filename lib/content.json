@@ -17,9 +17,9 @@
       }
     },
     "NotFound": {
-      "title": "error",
-      "subtitle": "Page not found!",
-      "description": "Sorry, but the page you are looking for doesn't exist or has been removed.",
+      "title": "404",
+      "subtitle": "Not every event is worth attending. This page is one of them.",
+      "description": "Not every event is worth attending. This page is one of them.",
       "button": "Back to main page"
     },
     "ContactUs": {
@@ -386,11 +386,12 @@
       "successMessage": "We'll get back to you as soon as possible."
     },
     "HeroSection": {
-      "title": "Events reimagined for",
-      "words": ["Organizers", "Attendees", "Speakers", "Vendors"],
-      "description": "Because the best moments deserve to be lived.",
-      "descriptionLine2": "Let your next event be one to remember.",
-      "cta": "Create your event now"
+      "eyebrow": "Built for",
+      "words": ["organizers", "attendees", "speakers", "vendors"],
+      "headline": "Sell out",
+      "headlineLine2": "your next event.",
+      "description": "Distribution first. Management included. List once and land in front of an audience already looking for their next experience.",
+      "cta": "Create your event"
     },
     "DistributionMetrics": {
       "title": "The marketplace where events get discovered",

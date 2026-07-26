@@ -33,6 +33,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
+  openGraph: {
+    images: [{ url: `${siteUrl}/og`, width: 1200, height: 630 }],
+  },
+  twitter: {
+    images: [`${siteUrl}/og`],
+  },
 }
 
 export default function Home() {
@@ -46,7 +52,8 @@ export default function Home() {
 
       <section
         id="demo"
-        className="relative z-20 mt-8 scroll-mt-[4.5rem] sm:mt-10 sm:scroll-mt-24 md:mt-12 lg:mt-16"
+        aria-labelledby="demo-heading"
+        className="relative z-20 scroll-mt-[4.5rem] sm:scroll-mt-24"
       >
         <InteractiveDemo />
       </section>
@@ -64,7 +71,7 @@ export default function Home() {
 
       <section
         aria-labelledby="home-cta-heading"
-        className="container relative z-20 mx-auto mt-12 px-3 xs:mt-14 xs:px-4 sm:mt-16 sm:px-6 md:mt-20 lg:mt-24"
+        className="container relative z-20 mx-auto mt-12 px-4 pb-10 xs:mt-14 xs:px-5 sm:mt-16 sm:px-6 sm:pb-12 md:mt-20 md:pb-14 lg:mt-24 lg:pb-16"
       >
         <MarketingCtaBanner
           id="home-cta-heading"
@@ -79,7 +86,6 @@ export default function Home() {
           secondaryHref={cta.secondaryHref}
           secondaryLabel={cta.secondaryLabel}
           hint={cta.hint}
-          className="pb-4 sm:pb-6"
         />
       </section>
     </MarketingPageShell>

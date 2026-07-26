@@ -13,6 +13,14 @@ export const metadata: Metadata = {
   title: "Features for organizers",
   description: copy.subtitle,
   alternates: { canonical: `${siteUrl}/features/organizers` },
+  openGraph: {
+    images: [
+      { url: `${siteUrl}/og/features/organizers`, width: 1200, height: 630 },
+    ],
+  },
+  twitter: {
+    images: [`${siteUrl}/og/features/organizers`],
+  },
 }
 
 export default function OrganizersFeaturesPage() {

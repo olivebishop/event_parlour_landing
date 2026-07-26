@@ -31,6 +31,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: data.catalog.navTitle,
     description: data.feature.description,
     alternates: { canonical: `${siteUrl}/features/${slug}` },
+    openGraph: {
+      images: [
+        { url: `${siteUrl}/og/features/${slug}`, width: 1200, height: 630 },
+      ],
+    },
+    twitter: {
+      images: [`${siteUrl}/og/features/${slug}`],
+    },
   }
 }
 

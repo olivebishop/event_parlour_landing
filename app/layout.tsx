@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     // Dynamic route — works for Reddit, LinkedIn, Discord, etc. (not a missing static jpg)
     images: [
       {
-        url: "/opengraph-image",
+        url: "/og",
         width: 1200,
         height: 630,
         alt: "Event Parlour — Events marketplace",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     description: seoDescription,
     site: "@EventsPalour",
     creator: "@EventsPalour",
-    images: [`${siteUrl}/opengraph-image`],
+    images: [`${siteUrl}/og`],
   },
   metadataBase: new URL(siteUrl),
   alternates: {

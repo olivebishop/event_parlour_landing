@@ -21,6 +21,12 @@ export const metadata: Metadata = {
   title: "Contact & FAQ — Talk to the Event Parlour team",
   description: `${content.ContactUs.description} Find answers to common questions about ticketing and payouts.`,
   alternates: { canonical: `${siteUrl}/contact` },
+  openGraph: {
+    images: [{ url: `${siteUrl}/og/contact`, width: 1200, height: 630 }],
+  },
+  twitter: {
+    images: [`${siteUrl}/og/contact`],
+  },
 }
 
 export default function ContactPage() {

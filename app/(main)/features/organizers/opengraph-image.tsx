@@ -5,10 +5,10 @@ import {
 } from "@/lib/seo/create-og-image"
 import { getOgContent } from "@/lib/seo/og-content"
 
-export const alt = "Event Parlour — Sell out your next event"
+export const alt = "Features for organizers — Event Parlour"
 export const size = ogImageSize
 export const contentType = ogImageContentType
 
 export default async function Image() {
-  return createOgImage(getOgContent(""))
+  return createOgImage(getOgContent("/features/organizers"))
 }

@@ -60,59 +60,81 @@ export function MarketingCtaBanner({
     <aside
       aria-labelledby={id}
       className={cn(
-        "relative mx-auto max-w-7xl overflow-x-clip pb-1.5",
+        "relative mx-auto max-w-7xl overflow-x-clip sm:pb-2 sm:pr-1.5",
         className,
       )}
     >
-      <div className="relative m-0.5 overflow-hidden border border-foreground/20 bg-card shadow-[4px_4px_0_0] shadow-foreground/10 transition-[border-color,box-shadow] duration-300 ease-out hover:border-foreground/30 hover:shadow-[6px_6px_0_0] hover:shadow-foreground/12">
-        <BrandGrainOverlay fixed={false} intensity="subtle" />
-        <MarketingGridPattern className="opacity-80" />
+      <div
+        className={cn(
+          "relative overflow-hidden bg-muted",
+          "sm:border sm:border-foreground/20 sm:bg-card",
+          "sm:shadow-[4px_4px_0_0] sm:shadow-foreground/10",
+          "sm:transition-[border-color,box-shadow] sm:duration-300 sm:ease-out",
+          "sm:hover:border-foreground/30 sm:hover:shadow-[6px_6px_0_0] sm:hover:shadow-foreground/12",
+        )}
+      >
+        <BrandGrainOverlay
+          fixed={false}
+          intensity="subtle"
+          className="hidden sm:block"
+        />
+        <MarketingGridPattern className="hidden opacity-80 sm:block" />
 
-        {/* One composition: stacked on small/medium, split on large — same CTA as desktop. */}
         <div className="relative z-10 grid lg:grid-cols-[minmax(0,1fr)_minmax(17rem,32rem)]">
-          <div className="flex flex-col justify-center gap-2.5 px-5 py-3 xs:gap-3 xs:px-6 xs:py-3.5 sm:gap-4 sm:px-8 sm:py-6 md:px-10 md:py-8 lg:border-r lg:border-border/80 lg:gap-5 lg:py-12 lg:pl-10 lg:pr-8 xl:p-12">
-            <PixelLabel tone="soft" as="p">
-              {eyebrow}
-            </PixelLabel>
-
-            <div className="space-y-2 sm:space-y-3">
-              <p className="font-body text-sm font-medium text-foreground">
+          <div className="flex flex-col justify-center px-5 py-6 xs:px-6 xs:py-7 sm:gap-4 sm:px-8 sm:py-7 md:gap-5 md:px-10 md:py-8 lg:border-r lg:border-border/80 lg:py-10 lg:pl-10 lg:pr-8 xl:p-10">
+            {/* Meta — tablet/desktop only */}
+            <div className="mb-0 hidden flex-wrap items-center gap-x-3 gap-y-1 sm:mb-0 sm:flex">
+              <PixelLabel tone="soft" as="p">
+                {eyebrow}
+              </PixelLabel>
+              <span aria-hidden className="h-3 w-px bg-foreground/20" />
+              <p className="font-body text-sm font-medium text-foreground/70">
                 {kicker}
-              </p>
-              <h2
-                id={id}
-                className="font-heading text-xl font-bold leading-tight tracking-tight text-foreground xs:text-2xl sm:text-3xl md:text-[2rem] md:leading-[1.12]"
-              >
-                {title}
-              </h2>
-              <p className="max-w-lg font-body text-sm leading-relaxed text-foreground/75 sm:text-base">
-                {description}
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 pt-0.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 sm:pt-1">
+            <h2
+              id={id}
+              className="font-heading text-2xl font-bold leading-[1.15] tracking-tight text-foreground sm:text-3xl md:text-[1.85rem] md:leading-[1.12]"
+            >
+              {title}
+            </h2>
+
+            <p className="mt-2 max-w-sm font-body text-sm leading-relaxed text-foreground/60 sm:mt-2.5 sm:max-w-lg sm:text-foreground/75 md:text-base">
+              {description}
+            </p>
+
+            {/* Mobile: side-by-side compact buttons (reference layout) */}
+            <div className="mt-5 flex flex-row items-center gap-2.5 sm:mt-4 sm:flex-wrap sm:gap-3">
               <Button
                 asChild
-                size="cta"
-                className="h-10 w-full gap-2 shadow-none sm:w-auto sm:min-w-[12rem]"
+                size="sm"
+                className="h-9 min-h-9 flex-1 px-3 text-sm font-semibold shadow-none sm:h-auto sm:min-h-11 sm:w-auto sm:min-w-[12.5rem] sm:flex-none sm:px-6 sm:py-2.5 sm:text-[0.9375rem] sm:font-medium"
               >
                 {primaryExternal ? (
                   <a href={primaryHref} {...primaryLinkProps}>
                     {primaryLabel}
-                    <ArrowRight className="h-4 w-4" aria-hidden />
+                    <ArrowRight
+                      className="hidden h-4 w-4 sm:inline"
+                      aria-hidden
+                    />
                   </a>
                 ) : (
                   <Link href={primaryHref}>
                     {primaryLabel}
-                    <ArrowRight className="h-4 w-4" aria-hidden />
+                    <ArrowRight
+                      className="hidden h-4 w-4 sm:inline"
+                      aria-hidden
+                    />
                   </Link>
                 )}
               </Button>
+
               <Button
                 asChild
                 variant="outline"
-                size="cta"
-                className="hidden border-foreground/15 bg-background/80 shadow-none backdrop-blur-sm sm:inline-flex"
+                size="sm"
+                className="h-9 min-h-9 flex-1 border-border bg-background px-3 text-sm font-semibold shadow-none sm:h-auto sm:min-h-11 sm:w-auto sm:flex-none sm:border-foreground/15 sm:bg-background/80 sm:px-6 sm:py-2.5 sm:text-[0.9375rem] sm:font-medium sm:backdrop-blur-sm"
               >
                 {secondaryExternal ? (
                   <a href={secondaryHref} {...secondaryLinkProps}>
@@ -123,12 +145,13 @@ export function MarketingCtaBanner({
                 )}
               </Button>
             </div>
-            <p className="hidden font-body text-sm leading-relaxed text-foreground/70 sm:block">
+
+            <p className="mt-0 hidden font-body text-sm leading-relaxed text-foreground/70 sm:mt-1 sm:block">
               {hint}
             </p>
           </div>
 
-          <div className="relative hidden min-h-[22rem] lg:block">
+          <div className="relative hidden min-h-[16rem] lg:block xl:min-h-[18rem]">
             <Image
               src={imageSrc}
               alt={imageAlt}
@@ -154,8 +177,8 @@ export function MarketingCtaBanner({
             />
             <BrandGrainOverlay fixed={false} intensity="subtle" />
 
-            <div className="relative z-10 flex h-full min-h-[22rem] flex-col justify-end p-8">
-              <p className="max-w-[16rem] font-heading text-xl font-semibold leading-snug text-background">
+            <div className="relative z-10 flex h-full min-h-[16rem] flex-col justify-end p-6 xl:min-h-[18rem] xl:p-8">
+              <p className="max-w-[16rem] font-heading text-lg font-semibold leading-snug text-background xl:text-xl">
                 {panelLine}
               </p>
             </div>

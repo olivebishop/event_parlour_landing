@@ -576,6 +576,17 @@ pre {
       px-5 sm:px-6 md:px-7 py-2.5 sm:py-3
       text-sm sm:text-[0.9375rem] md:text-base;
   }
+
+  /* Scaled desktop demo — hide scrollbars; content stays in the fixed canvas */
+  .demo-frame,
+  .demo-frame * {
+    scrollbar-width: none;
+  }
+
+  .demo-frame *::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 }
 
 /* Cookie Banner Styling - Match site's theme */
@@ -699,6 +710,7 @@ pre {
   .animate-hrtl-scroll,
   .animate-hrtl-scroll-reverse,
   .animate-hero-in,
+  .animate-hero-line,
   .animate-gallery-in {
     animation: none;
   }
@@ -721,6 +733,45 @@ html {
 
 .animate-hero-in {
   animation: hero-in 0.55s ease-out both;
+}
+
+/* Headline lines wipe up from their own baseline */
+@keyframes hero-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.42em);
+    clip-path: inset(0 0 108% 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(-25% -8% -25% -8%);
+  }
+}
+
+.animate-hero-line {
+  animation: hero-line-in 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Hairline grid, fading out before it reaches the copy */
+.hero-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklch, var(--foreground) 7%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklch, var(--foreground) 7%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 4.5rem 4.5rem;
+  mask-image: radial-gradient(
+    120% 85% at 85% 0%,
+    black 0%,
+    transparent 70%
+  );
 }
 
 @keyframes gallery-in {
