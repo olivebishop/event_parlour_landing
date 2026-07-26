@@ -427,6 +427,7 @@ export default function TicketsDemo() {
             <button
               type="button"
               className="flex-1 bg-black/50 backdrop-blur-sm"
+              aria-label="Close transfer dialog"
               onClick={() => {
                 setSelectedTicket(null)
                 setRecipientEmail("")
@@ -450,8 +451,9 @@ export default function TicketsDemo() {
                       }}
                       className="p-2 hover:bg-accent transition-colors text-muted-foreground hover:text-card-foreground rounded-md"
                       disabled={isTransferring}
+                      aria-label="Close"
                     >
-                      <X className="w-5 h-5" />
+                      <X className="w-5 h-5" aria-hidden />
                     </button>
                   </div>
                 </div>

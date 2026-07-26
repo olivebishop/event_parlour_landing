@@ -44,8 +44,8 @@ export default function Hero() {
           id="hero-heading"
           className="mt-6 font-heading text-[clamp(2.9rem,10.5vw,7rem)] font-bold leading-[0.86] tracking-[-0.02em] text-foreground sm:mt-8"
         >
-          <span className="animate-hero-line block">{headline}</span>
-          <span className="animate-hero-line block text-foreground/40 [animation-delay:120ms]">
+          <span className="block">{headline}</span>
+          <span className="animate-hero-line block text-foreground/40 [animation-delay:80ms]">
             {headlineLine2}
           </span>
         </h1>

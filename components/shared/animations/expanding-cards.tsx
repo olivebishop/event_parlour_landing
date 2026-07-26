@@ -143,53 +143,66 @@ export default function ExpandingCards() {
                       : "border border-foreground/30 dark:border-white/22",
                   )}
                   data-active={isActive.toString()}
-                  aria-label={card.title}
-                  onClick={() => handleCardInteraction(card.id)}
                   onMouseEnter={() => (!isMobileView ? handleCardInteraction(card.id) : null)}
                 >
+                  <button
+                    type="button"
+                    className="absolute inset-0 z-30 cursor-pointer"
+                    aria-expanded={isActive}
+                    aria-controls={`expanding-card-${card.id}`}
+                    aria-label={card.title}
+                    onClick={() => handleCardInteraction(card.id)}
+                  />
+
                   {!isActive && <CollapsedCardFace />}
 
                   <div
                     className={cn(
-                      "absolute inset-0 transition-opacity duration-500 ease-out",
-                      isActive ? "opacity-100" : "pointer-events-none opacity-0",
+                      "pointer-events-none absolute inset-0 transition-opacity duration-500 ease-out",
+                      isActive ? "opacity-100" : "opacity-0",
                     )}
+                    aria-hidden
                   >
                     <ActiveCardFace />
                   </div>
 
-                  {isActive ? (
-                    <article
+                  <div
+                    id={`expanding-card-${card.id}`}
+                    role="region"
+                    aria-label={`${card.title} details`}
+                    hidden={!isActive}
+                    className={cn(
+                      "pointer-events-none absolute left-0 top-0 z-10 flex h-full w-full flex-col overflow-hidden p-4 font-body sm:p-5",
+                      isVerticalLayout ? "justify-start gap-2 pt-14 sm:gap-3" : "justify-end gap-2 sm:gap-3",
+                    )}
+                  >
+                    <p
+                      aria-hidden
+                      className="relative z-20 font-heading text-base font-semibold uppercase tracking-wide text-foreground sm:text-lg"
+                    >
+                      {card.title}
+                    </p>
+
+                    <div
                       className={cn(
-                        "absolute left-0 top-0 z-10 flex h-full w-full flex-col overflow-hidden p-4 font-body sm:p-5",
-                        isVerticalLayout ? "justify-start gap-2 pt-14 sm:gap-3" : "justify-end gap-2 sm:gap-3",
+                        "relative z-20 flex flex-col gap-2",
+                        isVerticalLayout && "mt-2",
                       )}
                     >
-                      <h3 className="relative z-20 font-heading text-base font-semibold uppercase tracking-wide text-foreground sm:text-lg">
-                        {card.title}
-                      </h3>
+                      <p className="text-balance text-sm leading-relaxed text-foreground/85 sm:text-[0.9375rem]">
+                        {card.description}
+                      </p>
 
-                      <div
-                        className={cn(
-                          "relative z-20 flex flex-col gap-2",
-                          isVerticalLayout && "mt-2",
-                        )}
-                      >
-                        <p className="text-balance text-sm leading-relaxed text-foreground/85 sm:text-[0.9375rem]">
-                          {card.description}
-                        </p>
-
-                        <div className="mt-2 flex items-baseline gap-2 border-t border-foreground/10 pt-3 dark:border-white/15">
-                          <span className="font-numbers text-2xl font-bold tabular-nums text-foreground sm:text-3xl">
-                            {card.stat}
-                          </span>
-                          <span className="text-xs text-foreground/75 sm:text-sm">
-                            {card.statLabel}
-                          </span>
-                        </div>
+                      <div className="mt-2 flex items-baseline gap-2 border-t border-foreground/10 pt-3 dark:border-white/15">
+                        <span className="font-numbers text-2xl font-bold tabular-nums text-foreground sm:text-3xl">
+                          {card.stat}
+                        </span>
+                        <span className="text-xs text-foreground/75 sm:text-sm">
+                          {card.statLabel}
+                        </span>
                       </div>
-                    </article>
-                  ) : null}
+                    </div>
+                  </div>
                 </li>
               )
             })}

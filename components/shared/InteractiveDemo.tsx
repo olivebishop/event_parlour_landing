@@ -394,9 +394,10 @@ function ModeToggle() {
             : "hover:bg-accent/50"
         )}
         onClick={() => setTheme("light")}
+        aria-label="Switch to light theme"
         title="Switch to light theme"
       >
-        <Sun className="h-4 w-4" />
+        <Sun className="h-4 w-4" aria-hidden />
       </button>
       <button
         type="button"
@@ -407,9 +408,10 @@ function ModeToggle() {
             : "hover:bg-accent/50"
         )}
         onClick={() => setTheme("dark")}
+        aria-label="Switch to dark theme"
         title="Switch to dark theme"
       >
-        <Moon className="h-4 w-4" />
+        <Moon className="h-4 w-4" aria-hidden />
       </button>
     </div>
   )
@@ -461,8 +463,9 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
               variant="outline"
               size="sm"
               className="w-full max-w-[2.5rem] justify-start px-2 text-muted-foreground sm:max-w-sm sm:px-3"
+              aria-label="Search"
             >
-              <Search className="h-4 w-4 sm:mr-2" />
+              <Search className="h-4 w-4 sm:mr-2" aria-hidden />
               <span className="hidden sm:inline">Search...</span>
             </Button>
           </div>
@@ -480,11 +483,17 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
                 size="sm"
                 onClick={() => setIsNotificationOpen(!isNotificationOpen)}
                 className="relative"
+                aria-label={
+                  unreadCount > 0
+                    ? `Notifications, ${unreadCount} unread`
+                    : "Notifications"
+                }
               >
-                <Bell className="h-4 w-4" />
+                <Bell className="h-4 w-4" aria-hidden />
                 {unreadCount > 0 && (
                   <span
                     data-allow-radius
+                    aria-hidden
                     className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] text-primary-foreground"
                   >
                     {unreadCount}
@@ -1008,17 +1017,16 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
                         Events you&apos;re attending
                       </p>
                     </div>
-                    <a
-                      href="https://app.eventparlour.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Browse events on EventParlour"
-                    >
-                      <Button variant="outline" size="sm" className="gap-2">
+                    <Button variant="outline" size="sm" className="gap-2" asChild>
+                      <a
+                        href="https://app.eventparlour.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         Browse Events
-                        <ArrowRight className="h-4 w-4" />
-                      </Button>
-                    </a>
+                        <ArrowRight className="h-4 w-4" aria-hidden />
+                      </a>
+                    </Button>
                   </div>
                 </CardHeader>
                 <CardContent className="min-h-0 flex-1 px-6 pb-6">
