@@ -15,13 +15,10 @@ export function FeatureBlock({
   includesText,
   activeText,
   sectionId,
-  /**
-   * On small/medium only: hide the text column (page intro already covers it).
-   * Large screens always keep the original two-column design.
-   */
-  omitIntroCopy = false,
   /** Designed mocks are for platform pillars only; hub pages pass false for images. */
   useDesignedVisual = false,
+  /** Use h1 + page spacing when this block is the feature detail page body. */
+  asPageHeading = false,
 }: {
   feature: Feature
   index: number
@@ -29,34 +26,30 @@ export function FeatureBlock({
   includesText: string
   activeText: string
   sectionId?: string
-  omitIntroCopy?: boolean
   useDesignedVisual?: boolean
+  asPageHeading?: boolean
 }) {
   const visualKey = useDesignedVisual
     ? resolveFeatureVisualKey(sectionId)
     : null
   const useDesignedLayout = Boolean(visualKey)
+  const TitleTag = asPageHeading ? "h1" : "h3"
 
   return (
     <article
       id={sectionId}
       className={cn(
         "group/block scroll-mt-28 border-t border-border/70 py-10 first:border-t-0 first:pt-0 xs:py-14 sm:py-16 md:py-20 lg:py-28",
-        omitIntroCopy && "border-t-0 pt-0 xs:pt-0 sm:pt-0 md:pt-0 lg:border-t-0 lg:pt-0",
+        asPageHeading && "border-t-0 py-0 xs:py-0 sm:py-0 md:py-0 lg:py-0",
       )}
     >
       <div
         className={cn(
-          "grid grid-cols-1 items-center gap-6 xs:gap-8 sm:gap-10 md:gap-12 lg:grid-cols-2 lg:gap-20",
+          "grid grid-cols-1 items-center gap-8 xs:gap-10 sm:gap-12 md:gap-14 lg:grid-cols-2 lg:items-center lg:gap-16 xl:gap-24",
           isReversed && "lg:[direction:rtl]",
         )}
       >
-        <div
-          className={cn(
-            "space-y-4 xs:space-y-5 sm:space-y-6 lg:[direction:ltr]",
-            omitIntroCopy && "hidden lg:block",
-          )}
-        >
+        <div className="space-y-4 xs:space-y-5 sm:space-y-6 lg:[direction:ltr] lg:max-w-xl">
           <div className="flex items-center gap-2">
             <div className="flex h-6 w-6 items-center justify-center border border-border bg-background xs:h-7 xs:w-7 sm:h-8 sm:w-8">
               <div className="text-xs text-foreground xs:text-sm sm:text-base">
@@ -68,17 +61,25 @@ export function FeatureBlock({
             </span>
           </div>
 
-          {omitIntroCopy ? (
-            <h1 className="text-xl font-bold leading-tight text-foreground xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-              {feature.title}
-            </h1>
-          ) : (
-            <h3 className="text-xl font-bold leading-tight text-foreground xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-              {feature.title}
-            </h3>
-          )}
+          <TitleTag
+            className={cn(
+              "font-bold leading-tight text-foreground",
+              asPageHeading
+                ? "font-heading text-[clamp(1.65rem,4vw,3rem)] tracking-tight"
+                : "text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl",
+            )}
+          >
+            {feature.title}
+          </TitleTag>
 
-          <p className="max-w-xs text-sm leading-relaxed text-foreground/75 xs:max-w-sm xs:text-base sm:text-lg md:max-w-md">
+          <p
+            className={cn(
+              "leading-relaxed text-foreground/75",
+              asPageHeading
+                ? "max-w-xl text-[0.9375rem] sm:text-base md:text-lg"
+                : "max-w-xs text-sm xs:max-w-sm xs:text-base sm:text-lg md:max-w-md",
+            )}
+          >
             {feature.description}
           </p>
 
@@ -93,13 +94,7 @@ export function FeatureBlock({
           </ul>
         </div>
 
-        <div
-          className={cn(
-            "relative lg:[direction:ltr]",
-            !omitIntroCopy && "mt-4 xs:mt-6 lg:mt-0",
-            omitIntroCopy && "lg:mt-0",
-          )}
-        >
+        <div className="relative lg:[direction:ltr]">
           <div className="relative">
             {useDesignedLayout && visualKey ? (
               <div className="relative transition-[border-color] duration-300 ease-out group-hover/block:[&>div>div]:border-foreground/25">
@@ -169,34 +164,24 @@ export function FeatureBlock({
               </div>
             )}
 
-            <div className="absolute bottom-2 right-2 z-10 hidden max-w-[180px] border border-border bg-background p-3 transition-transform duration-300 ease-out group-hover/block:translate-y-[-2px] lg:block xl:bottom-3 xl:right-3">
-              <p className="mb-2 text-[10px] font-medium text-muted-foreground sm:text-xs">
-                {includesText}
-              </p>
-              <ul className="space-y-1.5">
-                {feature.capabilities.slice(0, 3).map((cap) => (
-                  <li key={cap} className="flex items-center gap-2">
-                    <div className="h-1 w-1 shrink-0 bg-foreground xs:h-1.5 xs:w-1.5" />
-                    <span className="text-[10px] leading-tight text-foreground sm:text-xs">
-                      {cap}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {!asPageHeading ? (
+              <div className="absolute bottom-2 right-2 z-10 hidden max-w-[180px] border border-border bg-background p-3 transition-transform duration-300 ease-out group-hover/block:translate-y-[-2px] lg:block xl:bottom-3 xl:right-3">
+                <p className="mb-2 text-[10px] font-medium text-muted-foreground sm:text-xs">
+                  {includesText}
+                </p>
+                <ul className="space-y-1.5">
+                  {feature.capabilities.slice(0, 3).map((cap) => (
+                    <li key={cap} className="flex items-center gap-2">
+                      <div className="h-1 w-1 shrink-0 bg-foreground xs:h-1.5 xs:w-1.5" />
+                      <span className="text-[10px] leading-tight text-foreground sm:text-xs">
+                        {cap}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
-
-          {omitIntroCopy ? (
-            <ul className="mt-4 flex flex-wrap gap-1.5 xs:mt-5 xs:gap-2 lg:hidden">
-              {feature.capabilities.map((capability) => (
-                <li key={capability}>
-                  <span className="inline-block border border-border bg-muted px-2 py-1 text-xs text-foreground/80 xs:px-2.5 xs:py-1.5 sm:px-3 sm:text-sm">
-                    {capability}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          ) : null}
         </div>
       </div>
     </article>

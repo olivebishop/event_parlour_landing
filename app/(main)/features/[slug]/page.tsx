@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { MarketingPageShell } from "@/components/marketing/marketing-page-shell"
-import { PlatformFeatureIntro } from "@/components/features/platform-feature-intro"
 import { PlatformFeatureDetail } from "@/components/features/platform-feature-pages"
 import {
   getAllPlatformFeatureSlugs,
@@ -49,7 +48,6 @@ export default async function PlatformFeaturePage({ params }: PageProps) {
 
   return (
     <MarketingPageShell>
-      <PlatformFeatureIntro slug={slug} />
       <PlatformFeatureDetail slug={slug} />
     </MarketingPageShell>
   )

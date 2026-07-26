@@ -25,32 +25,10 @@ export function PlatformFeatureDetail({
   if (!data) return null
 
   const { feature } = data
-  const otherLinks = platformFeatureCatalog.filter((e) => e.slug !== slug)
 
   return (
-    <section className="overflow-x-clip bg-background pb-12 xs:pb-16 sm:pb-20 md:pb-28 lg:pt-32 lg:pb-36">
+    <section className="overflow-x-clip bg-background pt-24 pb-12 xs:pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-28 lg:pb-36">
       <div className="container mx-auto px-3 xs:px-4 sm:px-6">
-        <nav
-          aria-label="Other platform features"
-          className="mb-10 flex flex-wrap gap-2 xs:mb-12 sm:mb-14"
-        >
-          <Link
-            href="/features"
-            className="border border-border bg-background px-2.5 py-1.5 font-body text-xs text-foreground/75 transition-[border-color,color,background-color] duration-200 hover:border-foreground/30 hover:bg-muted/50 hover:text-foreground sm:text-sm"
-          >
-            {copy.index.allFeaturesLabel}
-          </Link>
-          {otherLinks.map((entry) => (
-            <Link
-              key={entry.slug}
-              href={platformFeatureHref(entry.slug)}
-              className="border border-border bg-background px-2.5 py-1.5 font-body text-xs text-foreground/75 transition-[border-color,color,background-color] duration-200 hover:border-foreground/30 hover:bg-muted/50 hover:text-foreground sm:text-sm"
-            >
-              {entry.navTitle}
-            </Link>
-          ))}
-        </nav>
-
         <div className="mx-auto max-w-7xl">
           <FeatureBlock
             sectionId={slug}
@@ -59,12 +37,12 @@ export function PlatformFeatureDetail({
             isReversed={false}
             includesText={copy.includes}
             activeText={copy.active}
-            omitIntroCopy
             useDesignedVisual
+            asPageHeading
           />
         </div>
 
-        <div className="mt-12 xs:mt-16 sm:mt-20">
+        <div className="mt-14 xs:mt-16 sm:mt-20 md:mt-24">
           <MarketingCtaBanner
             eyebrow={copy.cta.eyebrow}
             kicker={copy.cta.kicker}
