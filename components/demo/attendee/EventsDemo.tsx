@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, MapPin, ArrowRight, Filter, Search } from "lucide-react"
 import { mockEvents } from "../mockData"
-import { motion } from "framer-motion"
+import { demoCardClass } from "@/components/demo/demo-chrome"
+import { cn } from "@/lib/utils"
 
 export default function EventsDemo() {
   const [selectedTab, setSelectedTab] = useState<"all" | "past" | "near">("all")
@@ -60,12 +61,10 @@ export default function EventsDemo() {
         <div className="flex-1 overflow-y-auto pr-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {mockEvents.map((event) => (
-              <motion.div
+              <Card
                 key={event.id}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className={cn(demoCardClass, "cursor-pointer hover:border-primary/50 transition-colors")}
               >
-                <Card className="cursor-pointer hover:border-primary/50 transition-all">
                   <CardContent className="p-4">
                     <div className="flex items-center gap-2 mb-3">
                       <Badge variant={event.status === "active" ? "default" : "secondary"} className="text-xs">
@@ -91,7 +90,6 @@ export default function EventsDemo() {
                     </Button>
                   </CardContent>
                 </Card>
-              </motion.div>
             ))}
           </div>
         </div>

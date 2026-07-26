@@ -8,6 +8,13 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1280, 1536, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.dicebear.com",
+        pathname: "/**",
+      },
+    ],
   },
   experimental: {
     inlineCss: true,
@@ -18,6 +25,47 @@ const nextConfig: NextConfig = {
       "recharts",
       "react-icons",
     ],
+  },
+  async redirects() {
+    return [
+      { source: "/platform", destination: "/", permanent: true },
+      { source: "/faq", destination: "/contact", permanent: true },
+      {
+        source: "/features/organizers/:slug",
+        destination: "/features/organizers",
+        permanent: true,
+      },
+      {
+        source: "/features/attendees/:slug",
+        destination: "/features/attendees",
+        permanent: true,
+      },
+      {
+        source: "/features/all-in-one",
+        destination: "/features/workspace",
+        permanent: true,
+      },
+      {
+        source: "/features/built-for-africa",
+        destination: "/features/community",
+        permanent: true,
+      },
+      {
+        source: "/features/transparent-pricing",
+        destination: "/features/pricing",
+        permanent: true,
+      },
+      {
+        source: "/features/live-analytics",
+        destination: "/features/analytics",
+        permanent: true,
+      },
+      {
+        source: "/features/instant-payouts",
+        destination: "/features/pricing",
+        permanent: true,
+      },
+    ]
   },
   async headers() {
     return [

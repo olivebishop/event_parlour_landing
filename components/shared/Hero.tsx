@@ -1,104 +1,81 @@
-import Image from "next/image"
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import ArtGallery from "@/components/shared/ArtGallery"
 import { HeroWordCycle } from "@/components/shared/HeroWordCycle"
+import { appHref } from "@/lib/app-url"
 import content from "@/lib/content"
 
-const { title, words, description, descriptionLine2 } = content.HeroSection
-
-const avatars = [
-  {
-    img: "/images/attendee.svg",
-    position: "top-[10%] left-1 sm:top-[16%] sm:left-[3%] md:left-[6%] lg:left-[8%]",
-    alt: "Attendee",
-  },
-  {
-    img: "/images/speaker.svg",
-    position: "bottom-[6%] left-1 sm:top-[52%] sm:bottom-auto sm:left-[10%] md:left-[14%] lg:left-[16%]",
-    alt: "Speaker",
-  },
-  {
-    img: "/images/vendor.svg",
-    position: "top-[10%] right-1 sm:top-[16%] sm:right-[3%] md:right-[6%] lg:right-[8%]",
-    alt: "Vendor",
-  },
-  {
-    img: "/images/org.svg",
-    position: "bottom-[6%] right-1 sm:top-[52%] sm:bottom-auto sm:right-[10%] md:right-[14%] lg:right-[16%]",
-    alt: "Organizer",
-  },
-]
+const {
+  eyebrow,
+  words,
+  headline,
+  headlineLine2,
+  description,
+  cta,
+} = content.HeroSection
 
 export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative w-full max-w-7xl mx-auto px-5 xs:px-6 sm:px-8 lg:px-10 pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-6 sm:pb-8 md:pb-10 text-center flex flex-col overflow-x-clip"
+      className="relative w-full overflow-x-clip"
     >
-      {/*
-        Content is a self-contained centered column.
-        Avatars are decorative only and never affect text measure/spacing.
-      */}
-      <div className="relative flex flex-col items-center justify-center py-6 sm:py-10 md:py-14">
-        {avatars.map((avatar) => (
-          <div
-            key={avatar.alt}
-            className={cn(
-              "absolute z-10 pointer-events-none opacity-25 sm:opacity-70 md:opacity-100",
-              "max-[359px]:hidden",
-              avatar.position
-            )}
-            aria-hidden="true"
-          >
-            <div className="relative size-7 xs:size-8 sm:size-12 md:size-16 lg:size-20 xl:size-24 overflow-hidden rounded-lg border border-foreground/30 sm:border-2 sm:border-foreground/80 bg-muted shadow-md">
-              <Image
-                src={avatar.img}
-                alt=""
-                fill
-                className="object-cover"
-                sizes="(max-width: 640px) 32px, (max-width: 1024px) 64px, 96px"
-              />
-            </div>
-          </div>
-        ))}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(155deg,color-mix(in_oklch,var(--foreground)_5%,transparent)_0%,transparent_48%)]"
+      />
+      <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
 
-        <div className="@container relative z-30 w-full max-w-[18.5rem] xs:max-w-[21rem] sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto">
-          <h1
-            id="hero-heading"
-            className="text-foreground mx-auto animate-hero-in flex flex-col items-center gap-1 xs:gap-1.5 sm:gap-2 font-heading font-bold tracking-normal text-[length:clamp(1.2rem,calc(100cqi/14),3.35rem)]"
+      <div className="relative mx-auto flex min-h-[min(calc(100svh-3.5rem),42rem)] w-full max-w-6xl flex-col justify-center px-5 pb-10 pt-24 xs:px-6 sm:px-8 sm:pb-12 sm:pt-28 lg:px-10">
+        {/* Eyebrow */}
+        <div className="animate-hero-in flex items-baseline justify-between gap-6">
+          <p className="font-body text-[11px] font-medium uppercase tracking-[0.18em] text-foreground/45 sm:text-xs">
+            {eyebrow}{" "}
+            <HeroWordCycle words={words} className="text-foreground/80" />
+          </p>
+          <span
+            aria-hidden
+            className="hidden shrink-0 font-numbers text-xs tracking-[0.2em] text-foreground/35 sm:block"
           >
-            {/* Base size on h1; word is 1.3em so the gap stays ~1.3× on every breakpoint */}
-            <span className="block text-[1em] leading-[1.2] text-balance">
-              {title}
-            </span>
-            <HeroWordCycle words={words} />
-          </h1>
+            01
+          </span>
+        </div>
 
-          <p className="font-body font-normal text-muted-foreground mx-auto mt-5 xs:mt-6 sm:mt-7 md:mt-8 max-w-[17.5rem] xs:max-w-[20rem] sm:max-w-md md:max-w-lg animate-hero-in [animation-delay:80ms]">
-            <span className="block text-[0.9375rem] xs:text-base sm:text-lg md:text-xl leading-[1.55] sm:leading-[1.6] text-pretty">
-              {description}
-            </span>
-            <span className="block mt-2 sm:mt-2.5 text-[0.9375rem] xs:text-base sm:text-lg md:text-xl leading-[1.55] sm:leading-[1.6] text-pretty">
-              {descriptionLine2}
-            </span>
+        {/* The one thing that should stop you */}
+        <h1
+          id="hero-heading"
+          className="mt-6 font-heading text-[clamp(2.9rem,10.5vw,7rem)] font-bold leading-[0.86] tracking-[-0.02em] text-foreground sm:mt-8"
+        >
+          <span className="animate-hero-line block">{headline}</span>
+          <span className="animate-hero-line block text-foreground/40 [animation-delay:120ms]">
+            {headlineLine2}
+          </span>
+        </h1>
+
+        {/* Pitch + action */}
+        <div className="animate-hero-in mt-10 flex flex-col gap-8 border-t border-foreground/15 pt-6 sm:mt-12 sm:pt-7 md:flex-row md:items-start md:justify-between md:gap-14 [animation-delay:140ms]">
+          <p className="max-w-md font-body text-pretty text-[0.975rem] leading-relaxed text-foreground/70 sm:text-base sm:leading-[1.6]">
+            {description}
           </p>
 
-          <div className="mt-6 xs:mt-7 sm:mt-8 md:mt-10 animate-hero-in [animation-delay:140ms] flex justify-center">
-            <Button asChild size="cta">
+          <div className="flex shrink-0 flex-col md:items-end">
+            <Button
+              asChild
+              size="cta"
+              className="w-full max-w-none justify-between gap-6 px-5 sm:w-auto sm:min-w-[15.5rem]"
+            >
               <a
-                href="https://app.eventparlour.com/auth/sign-up"
+                href={appHref("/auth/sign-up")}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Create your event
+                <span>{cta}</span>
+                <span aria-hidden className="font-numbers text-base leading-none">
+                  →
+                </span>
               </a>
             </Button>
           </div>
         </div>
       </div>
-
-      <ArtGallery />
     </section>
   )
 }

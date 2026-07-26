@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, MapPin, Users, Plus, Filter, Search } from "lucide-react"
 import { mockEvents } from "../mockData"
-import { motion } from "framer-motion"
+import { cn } from "@/lib/utils"
+import { demoCardClass } from "@/components/demo/demo-chrome"
 
 export default function EventsDemo() {
   const [selectedTab, setSelectedTab] = useState<"all" | "past" | "create">("all")
@@ -54,7 +55,7 @@ export default function EventsDemo() {
         {/* Content */}
         <div className="flex-1 overflow-hidden">
           {selectedTab === "create" ? (
-            <Card className="h-full">
+            <Card className={cn(demoCardClass, "h-full")}>
               <CardHeader>
                 <CardTitle>Create New Event</CardTitle>
               </CardHeader>
@@ -88,12 +89,10 @@ export default function EventsDemo() {
           ) : (
             <div className="space-y-3 overflow-y-auto h-full pr-2">
               {mockEvents.map((event) => (
-                <motion.div
+                <div
                   key={event.id}
-                  className={selectedEvent === event.id ? "p-4 border-2 border-primary rounded-lg bg-primary/5" : "p-4 border border-border rounded-lg cursor-pointer hover:border-primary/50 transition-all"}
+                  className={selectedEvent === event.id ? "p-4 border-2 border-primary rounded-none bg-primary/5" : "p-4 border border-border rounded-none cursor-pointer hover:border-primary/50 transition-colors"}
                   onClick={() => setSelectedEvent(selectedEvent === event.id ? null : event.id)}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
@@ -123,7 +122,7 @@ export default function EventsDemo() {
                       <div className="text-xs text-muted-foreground">Revenue</div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           )}

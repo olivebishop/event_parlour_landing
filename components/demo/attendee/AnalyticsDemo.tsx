@@ -6,6 +6,8 @@ import { BarChart3, TrendingUp, Calendar, DollarSign } from "lucide-react"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import { ChartConfig, ChartContainer } from "@/components/ui/chart"
 import { Badge } from "@/components/ui/badge"
+import { demoCardClass, demoStatValueClass } from "@/components/demo/demo-chrome"
+import { cn } from "@/lib/utils"
 import { useRef, useState } from "react"
 import { useSpring, useMotionValueEvent } from "framer-motion"
 
@@ -62,53 +64,53 @@ export default function AnalyticsDemo() {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 flex-shrink-0">
-          <Card>
+          <Card className={demoCardClass}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
               <CardTitle className="text-xs font-medium">Events Attended</CardTitle>
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold font-numbers tabular-nums">12</div>
+              <div className={demoStatValueClass}>12</div>
               <p className="text-xs text-muted-foreground">This year</p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className={demoCardClass}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
               <CardTitle className="text-xs font-medium">Total Spent</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold font-numbers tabular-nums">KES 45K</div>
+              <div className={demoStatValueClass}>KES 45K</div>
               <p className="text-xs text-muted-foreground">This year</p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className={demoCardClass}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
               <CardTitle className="text-xs font-medium">Tickets Purchased</CardTitle>
               <BarChart3 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold font-numbers tabular-nums">18</div>
+              <div className={demoStatValueClass}>18</div>
               <p className="text-xs text-muted-foreground">All time</p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className={demoCardClass}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
               <CardTitle className="text-xs font-medium">Upcoming Events</CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold font-numbers tabular-nums">5</div>
+              <div className={demoStatValueClass}>5</div>
               <p className="text-xs text-muted-foreground">Next 30 days</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Chart */}
-        <Card className="flex-1 flex flex-col min-h-0">
+        <Card className={cn(demoCardClass, "flex-1 flex flex-col min-h-0")}>
           <CardHeader>
             <CardTitle>
               {springY.get().toFixed(0)} Events

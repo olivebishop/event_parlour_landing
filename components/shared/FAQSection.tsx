@@ -5,7 +5,7 @@ const faqs = content.FAQSection.questions
 function AnswerText({ answer }: { answer: string }) {
   return (
     <>
-      {answer.split(/(https?:\/\/[^\s]+|#[^\s]+)/g).map((part, i) => {
+      {answer.split(/(https?:\/\/[^\s]+|#[^\s]+|\/contact(?:#faq)?)/g).map((part, i) => {
         if (part.match(/^https?:\/\//)) {
           return (
             <a
@@ -16,6 +16,17 @@ function AnswerText({ answer }: { answer: string }) {
               className="text-foreground underline underline-offset-2 hover:opacity-80"
             >
               {part}
+            </a>
+          )
+        }
+        if (part.match(/^\/contact/)) {
+          return (
+            <a
+              key={i}
+              href={part.startsWith("/contact#") ? part : "/contact#faq"}
+              className="text-foreground underline underline-offset-2 hover:opacity-80"
+            >
+              contact page
             </a>
           )
         }
@@ -43,14 +54,14 @@ export default function FAQSection() {
       className="py-10 xs:py-12 sm:py-16 bg-background"
     >
       <div className="container mx-auto px-3 xs:px-4 sm:px-6">
-        <div className="flex items-center mb-6 xs:mb-8 sm:mb-10">
+        <div className="mb-6 flex flex-col gap-3 xs:mb-8 sm:mb-10 sm:flex-row sm:items-center">
           <h2
             id="faq-heading"
-            className="text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mr-2 xs:mr-3 sm:mr-4 shrink-0 max-w-[70%] sm:max-w-none"
+            className="shrink-0 text-xl font-bold text-foreground xs:text-2xl sm:mr-4 sm:text-4xl md:text-5xl lg:text-6xl"
           >
             {content.FAQSection.title}
           </h2>
-          <div className="flex-grow h-px bg-gradient-to-r from-border to-foreground" />
+          <div className="hidden h-px flex-grow bg-gradient-to-r from-border to-foreground sm:block" />
         </div>
 
         <div className="space-y-2 xs:space-y-3 sm:space-y-4">

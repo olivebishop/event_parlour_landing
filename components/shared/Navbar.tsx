@@ -1,335 +1,345 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import content from "@/lib/content";
 import { cn } from "@/lib/utils";
-import { 
-  HugeiconsNewTwitter, 
-  HugeiconsInstagram, 
-  HugeiconsLinkedin01 
+import { BrandLogoLink } from "@/components/shared/brand-logo-link";
+import { Button } from "@/components/ui/button";
+import {
+  FeaturesNavTrigger,
+  FeaturesNavPanel,
+  MobileFeaturesLinks,
+} from "@/components/shared/features-nav-menu";
+import { categoryHubHref } from "@/lib/feature-catalog";
+import {
+  HugeiconsNewTwitter,
+  HugeiconsInstagram,
+  HugeiconsLinkedin01,
 } from "./social-icons";
 
 const copy = content.Navbar;
 
-interface NavLink {
-  href: string;
-  label: string;
+const secondaryLinks = [
+  { href: "/why-us", label: copy["why us"] },
+  { href: "/contact", label: copy.contact },
+] as const;
+
+/** Audience hubs — peer links in the mobile drawer (not nested under Features). */
+const audienceLinks = [
+  { href: categoryHubHref("organizers"), label: "For organizers" },
+  { href: categoryHubHref("attendees"), label: "For attendees" },
+] as const;
+
+const externalLinks = [
+  { href: "https://app.eventparlour.com", label: copy.events },
+  { href: "https://app.eventparlour.com/blogs", label: copy.blogs },
+] as const;
+
+const SIGN_IN_HREF = "https://app.eventparlour.com/auth/sign-in";
+
+function isActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+function isFeaturesActive(pathname: string) {
+  return pathname.startsWith("/features");
+}
+
+const primaryNavLinkClass =
+  "shrink-0 whitespace-nowrap font-body text-[0.9375rem] text-foreground transition-colors duration-200 hover:text-foreground/80";
+
+const secondaryNavLinkClass =
+  "shrink-0 whitespace-nowrap font-body text-[0.875rem] text-foreground/75 transition-colors duration-200 hover:text-foreground";
+
 export function Navbar() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [featuresOpen, setFeaturesOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
-  const [isHovering, setIsHovering] = useState<string | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
 
-  const navLinks: NavLink[] = [
-    { href: "#features", label: copy.features },
-    { href: "#why-us", label: copy["why us"] },
-    { href: "#contact", label: copy.contact }
-  ];
+  const isHome = pathname === "/";
+  const headerSolid = featuresOpen || isOpen || hasScrolled || !isHome;
 
   useEffect(() => {
-    let ticking = false
-
-    const update = () => {
-      setHasScrolled(window.scrollY > 20)
-      ticking = false
-    }
-
-    const handleScroll = () => {
-      if (!ticking) {
-        ticking = true
-        window.requestAnimationFrame(update)
-      }
-    }
-
-    // Defer first measurement until after paint
-    const idle = window.requestAnimationFrame(update)
-    window.addEventListener("scroll", handleScroll, { passive: true })
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
     return () => {
-      window.cancelAnimationFrame(idle)
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
-  const handleNavClick = () => {
+  useEffect(() => {
     setIsOpen(false);
-  };
+    setFeaturesOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    let ticking = false;
+    const update = () => {
+      setHasScrolled(window.scrollY > 16);
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    };
+    window.requestAnimationFrame(update);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!featuresOpen) return;
+    const onPointerDown = (e: MouseEvent) => {
+      if (!headerRef.current?.contains(e.target as Node)) {
+        setFeaturesOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    return () => document.removeEventListener("mousedown", onPointerDown);
+  }, [featuresOpen]);
+
+  const closeMobile = () => setIsOpen(false);
 
   return (
     <>
-      <motion.nav 
-        initial={false}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+      <header
+        ref={headerRef}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          hasScrolled 
-            ? 'bg-background/90 dark:bg-black/90 backdrop-blur-md shadow-lg dark:shadow-black/30' 
-            : 'bg-transparent'
+          "fixed top-0 left-0 right-0 z-50 transition-[background-color,backdrop-filter] duration-300",
+          headerSolid
+            ? "bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/90"
+            : "bg-transparent backdrop-blur-none",
         )}
         aria-label="Primary"
+        onMouseLeave={(e) => {
+          const next = e.relatedTarget;
+          if (next instanceof Node && headerRef.current?.contains(next)) return;
+          setFeaturesOpen(false);
+        }}
       >
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-5">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center group relative z-[60] touch-manipulation" style={{ WebkitTapHighlightColor: 'transparent' }}>
-              <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} className="flex items-center">
-                <span className="text-base sm:text-xl md:text-2xl font-heading font-semibold text-foreground tracking-tight whitespace-nowrap lowercase">
-                  event parlour
-                </span>
-              </motion.div>
-            </Link>
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:gap-6 sm:px-8 lg:h-16 lg:gap-8 lg:px-10 xl:max-w-[90rem] xl:px-12">
+          <BrandLogoLink logoClassName="shrink-0 text-base font-semibold lowercase tracking-tight sm:text-lg" />
 
-            <div className="hidden lg:flex items-center space-x-8">
-              {navLinks.map((link) => (
-                <a
+          <nav
+            className="hidden min-w-0 items-center gap-5 lg:flex xl:gap-7"
+            aria-label="Site"
+          >
+            <div className="flex min-w-0 items-center gap-5 xl:gap-7">
+              <div
+                className="shrink-0"
+                onMouseEnter={() => setFeaturesOpen(true)}
+              >
+                <FeaturesNavTrigger
+                  open={featuresOpen}
+                  active={isFeaturesActive(pathname)}
+                  onOpenChange={setFeaturesOpen}
+                />
+              </div>
+
+              {secondaryLinks.map((link) => (
+                <Link
                   key={link.href}
                   href={link.href}
-                  onClick={handleNavClick}
-                  className="relative px-3 py-2 text-foreground text-sm lg:text-base transition-colors duration-300 cursor-pointer"
-                  onMouseEnter={() => setIsHovering(link.href)}
-                  onMouseLeave={() => setIsHovering(null)}
+                  className={cn(
+                    primaryNavLinkClass,
+                    isActive(pathname, link.href) && "text-foreground",
+                  )}
                 >
-                  <span className="relative z-10">{link.label}</span>
-                  <motion.span 
-                    className="absolute bottom-0 left-0 w-full h-[2px] bg-foreground"
-                    initial={{ scaleX: 0, originX: 0 }}
-                    animate={{ scaleX: isHovering === link.href ? 1 : 0 }}
-                    transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                  />
-                </a>
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+
+            <span
+              className="h-4 w-px shrink-0 bg-border/80"
+              aria-hidden
+            />
+
+            <div className="flex shrink-0 items-center gap-4 xl:gap-5">
+              {externalLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={secondaryNavLinkClass}
+                >
+                  {link.label}
+                </Link>
               ))}
 
-              <Link
-                href="https://app.eventparlour.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative px-3 py-2 text-foreground text-sm lg:text-base transition-colors duration-300 cursor-pointer"
-                onMouseEnter={() => setIsHovering("events")}
-                onMouseLeave={() => setIsHovering(null)}
+              <Button
+                asChild
+                size="sm"
+                className="h-8 shrink-0 rounded-none px-3.5 text-xs shadow-none xl:px-4 xl:text-sm"
               >
-                <span className="relative z-10">{copy.events}</span>
-                <motion.span 
-                  className="absolute bottom-0 left-0 w-full h-[2px] bg-foreground"
-                  initial={{ scaleX: 0, originX: 0 }}
-                  animate={{ scaleX: isHovering === "events" ? 1 : 0 }}
-                  transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                />
-              </Link>
-
-              <Link
-                href="https://app.eventparlour.com/blogs"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative px-3 py-2 text-foreground text-sm lg:text-base transition-colors duration-300 cursor-pointer"
-                onMouseEnter={() => setIsHovering("blogs")}
-                onMouseLeave={() => setIsHovering(null)}
-              >
-                <span className="relative z-10">{copy.blogs}</span>
-                <motion.span 
-                  className="absolute bottom-0 left-0 w-full h-[2px] bg-foreground"
-                  initial={{ scaleX: 0, originX: 0 }}
-                  animate={{ scaleX: isHovering === "blogs" ? 1 : 0 }}
-                  transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                />
-              </Link>
-            </div>
-
-            <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4">
-              <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} className="hidden lg:block">
-                <Link href="https://app.eventparlour.com/auth/sign-in" target="_blank" rel="noopener noreferrer">
-                  <Button size="default" className="transition-all duration-300">
-                    {copy.signIn}
-                  </Button>
+                <Link
+                  href={SIGN_IN_HREF}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {copy.signIn}
                 </Link>
-              </motion.div>
+              </Button>
             </div>
+          </nav>
+
+          <div className="flex shrink-0 items-center gap-2 lg:hidden">
+            <Button
+              asChild
+              size="sm"
+              className="h-8 rounded-none px-3 text-xs shadow-none"
+            >
+              <Link
+                href={SIGN_IN_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {copy.signIn}
+              </Link>
+            </Button>
+            <button
+              type="button"
+              className="flex h-10 w-10 shrink-0 items-center justify-center"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+            >
+              <div className="relative flex h-5 w-6 flex-col items-center justify-center">
+                <motion.span
+                  animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 0 : -7 }}
+                  className="absolute block h-0.5 w-6 bg-foreground"
+                />
+                <motion.span
+                  animate={{ opacity: isOpen ? 0 : 1 }}
+                  className="absolute block h-0.5 w-6 bg-foreground"
+                />
+                <motion.span
+                  animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? 0 : 7 }}
+                  className="absolute block h-0.5 w-6 bg-foreground"
+                />
+              </div>
+            </button>
           </div>
         </div>
-      </motion.nav>
 
-      <div className="lg:hidden">
-        <motion.div
-          animate={{
-            width: isOpen ? '100vw' : '48px',
-            height: isOpen ? '100vh' : '48px',
-          }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="fixed top-0 right-0 z-[60] bg-gradient-to-br from-background to-muted dark:from-zinc-800 dark:to-zinc-900 shadow-2xl dark:shadow-black/50 overflow-hidden"
-          style={{
-            borderRadius: isOpen ? '0' : '0 0 0 1rem',
-          }}
-        >
-          <button
-            className="absolute right-0 top-0 z-[70] w-12 h-12 min-w-[48px] min-h-[48px] bg-transparent transition-all active:bg-accent hover:bg-accent/50 flex items-center justify-center touch-manipulation"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isOpen}
-            style={{ WebkitTapHighlightColor: 'transparent' }}
-          >
-            <div className="relative w-6 h-5 flex flex-col justify-center items-center">
-              <motion.span
-                animate={{
-                  rotate: isOpen ? 45 : 0,
-                  y: isOpen ? 0 : -8,
-                }}
-                className="absolute block h-0.5 w-6 bg-foreground rounded-full"
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              />
-              <motion.span
-                animate={{
-                  opacity: isOpen ? 0 : 1,
-                  x: isOpen ? 20 : 0,
-                }}
-                className="absolute block h-0.5 w-6 bg-foreground rounded-full"
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              />
-              <motion.span
-                animate={{
-                  rotate: isOpen ? -45 : 0,
-                  y: isOpen ? 0 : 8,
-                }}
-                className="absolute block h-0.5 w-6 bg-foreground rounded-full"
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              />
-            </div>
-          </button>
+        <div onMouseEnter={() => setFeaturesOpen(true)}>
+          <FeaturesNavPanel
+            open={featuresOpen}
+            onOpenChange={setFeaturesOpen}
+          />
+        </div>
+      </header>
 
-          <AnimatePresence>
-            {isOpen && (
-              <motion.nav
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ delay: 0.1 }}
-                className="h-full w-full overflow-y-auto pt-16 sm:pt-20 px-4 sm:px-6 md:px-8 pb-24 sm:pb-8"
-              >
-                <div className="space-y-4 sm:space-y-6">
-                  {navLinks.map((link, index) => (
-                    <motion.div
-                      key={link.href}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 + index * 0.1 }}
-                    >
-                      <a
-                        href={link.href}
-                        onClick={handleNavClick}
-                        className="block text-3xl sm:text-4xl md:text-5xl font-semibold text-muted-foreground transition-colors active:text-foreground hover:text-foreground cursor-pointer py-3 sm:py-4 px-2 -mx-2 rounded-lg active:bg-accent touch-manipulation min-h-[60px] flex items-center"
-                        style={{ WebkitTapHighlightColor: 'transparent' }}
-                      >
-                        {link.label}.
-                      </a>
-                    </motion.div>
-                  ))}
+      <AnimatePresence>
+        {isOpen ? (
+          <>
+            <motion.button
+              type="button"
+              aria-label="Close menu"
+              className="fixed inset-0 z-[55] bg-background/50 backdrop-blur-[2px] lg:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeMobile}
+            />
+            <motion.nav
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              className="fixed left-0 right-0 top-14 z-[60] max-h-[calc(100dvh-3.5rem)] overflow-y-auto bg-background px-5 py-6 sm:px-8 lg:hidden"
+            >
+              <div className="space-y-1 border-b border-border pb-4">
+                <MobileFeaturesLinks onNavigate={closeMobile} />
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 + navLinks.length * 0.1 }}
+                {[...audienceLinks, ...secondaryLinks].map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={closeMobile}
+                    className={cn(
+                      "flex min-h-11 items-center font-heading text-xl font-semibold",
+                      isActive(pathname, link.href)
+                        ? "text-foreground"
+                        : "text-muted-foreground",
+                    )}
                   >
-                    <Link
-                      href="https://app.eventparlour.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setIsOpen(false)}
-                      className="block text-3xl sm:text-4xl md:text-5xl font-semibold text-zinc-400 transition-colors active:text-white hover:text-white py-3 sm:py-4 px-2 -mx-2 rounded-lg active:bg-white/10 touch-manipulation min-h-[60px] flex items-center"
-                      style={{ WebkitTapHighlightColor: 'transparent' }}
-                    >
-                      {copy.events}.
-                    </Link>
-                  </motion.div>
+                    {link.label}.
+                  </Link>
+                ))}
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 + (navLinks.length + 1) * 0.1 }}
+                {externalLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={closeMobile}
+                    className="flex min-h-11 items-center font-heading text-xl font-semibold text-muted-foreground"
                   >
-                    <Link
-                      href="https://app.eventparlour.com/blogs"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setIsOpen(false)}
-                      className="block text-3xl sm:text-4xl md:text-5xl font-semibold text-zinc-400 transition-colors active:text-white hover:text-white py-3 sm:py-4 px-2 -mx-2 rounded-lg active:bg-white/10 touch-manipulation min-h-[60px] flex items-center"
-                      style={{ WebkitTapHighlightColor: 'transparent' }}
-                    >
-                      {copy.blogs}.
-                    </Link>
-                  </motion.div>
+                    {link.label}.
+                  </Link>
+                ))}
+              </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    <Link
-                      href="https://app.eventparlour.com/auth/sign-in"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setIsOpen(false)}
-                      className="block text-3xl sm:text-4xl md:text-5xl font-semibold text-zinc-400 transition-colors active:text-white hover:text-white py-3 sm:py-4 px-2 -mx-2 rounded-lg active:bg-white/10 touch-manipulation min-h-[60px] flex items-center"
-                      style={{ WebkitTapHighlightColor: 'transparent' }}
-                    >
-                      {copy.signIn}.
-                    </Link>
-                  </motion.div>
-                </div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="absolute bottom-4 sm:bottom-8 left-4 sm:left-6 md:left-8 flex gap-3 sm:gap-4"
+              <div className="mt-6">
+                <Button
+                  asChild
+                  size="cta"
+                  className="h-11 w-full rounded-none text-sm shadow-none"
                 >
-                  <a 
-                    href="https://x.com/EventsPalour" 
+                  <Link
+                    href={SIGN_IN_HREF}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground active:text-foreground hover:text-foreground transition-colors p-2 -m-2 rounded-lg active:bg-accent touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
-                    aria-label="Follow us on X (Twitter)"
-                    style={{ WebkitTapHighlightColor: 'transparent' }}
+                    onClick={closeMobile}
                   >
-                    <HugeiconsNewTwitter className="w-5 h-5 sm:w-6 sm:h-6" />
-                  </a>
-                  <a 
-                    href="https://www.instagram.com/event.parlour" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground active:text-foreground hover:text-foreground transition-colors p-2 -m-2 rounded-lg active:bg-accent touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
-                    aria-label="Follow us on Instagram"
-                    style={{ WebkitTapHighlightColor: 'transparent' }}
-                  >
-                    <HugeiconsInstagram className="w-5 h-5 sm:w-6 sm:h-6" />
-                  </a>
-                  <a 
-                    href="https://www.linkedin.com/company/eventparlour" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground active:text-foreground hover:text-foreground transition-colors p-2 -m-2 rounded-lg active:bg-accent touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
-                    aria-label="Follow us on LinkedIn"
-                    style={{ WebkitTapHighlightColor: 'transparent' }}
-                  >
-                    <HugeiconsLinkedin01 className="w-5 h-5 sm:w-6 sm:h-6" />
-                  </a>
-                </motion.div>
-              </motion.nav>
-            )}
-          </AnimatePresence>
-        </motion.div>
-      </div>
+                    {copy.signIn}
+                  </Link>
+                </Button>
+              </div>
+
+              <div className="mt-8 flex gap-2 border-t border-border pt-6">
+                <a
+                  href="https://x.com/EventsPalour"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-10 w-10 items-center justify-center border border-border text-muted-foreground"
+                  aria-label="X"
+                >
+                  <HugeiconsNewTwitter className="h-4 w-4" />
+                </a>
+                <a
+                  href="https://www.instagram.com/event.parlour"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-10 w-10 items-center justify-center border border-border text-muted-foreground"
+                  aria-label="Instagram"
+                >
+                  <HugeiconsInstagram className="h-4 w-4" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/eventparlour"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-10 w-10 items-center justify-center border border-border text-muted-foreground"
+                  aria-label="LinkedIn"
+                >
+                  <HugeiconsLinkedin01 className="h-4 w-4" />
+                </a>
+              </div>
+            </motion.nav>
+          </>
+        ) : null}
+      </AnimatePresence>
     </>
   );
 }

@@ -23,11 +23,11 @@ const variantClass: Record<NonNullable<PixelLabelProps["variant"]>, string> = {
 
 const toneClass: Record<NonNullable<PixelLabelProps["tone"]>, string> = {
   foreground: "text-foreground",
-  soft: "text-muted-foreground",
+  soft: "text-foreground/65",
 };
 
 export function PixelLabel({
-  variant = "line",
+  variant = "plain",
   tone = "foreground",
   as: Tag = "span",
   className,
@@ -36,8 +36,10 @@ export function PixelLabel({
 }: PixelLabelProps) {
   return (
     <Tag
+      data-allow-radius={variant === "circle" ? "" : undefined}
       className={cn(
-        "font-numbers text-[0.6875rem] font-medium uppercase tracking-[0.14em]",
+        "text-xs font-medium uppercase tracking-[0.12em]",
+        variant === "circle" ? "font-pixel-circle" : "font-numbers",
         variantClass[variant],
         toneClass[tone],
         className,
