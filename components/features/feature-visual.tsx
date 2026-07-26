@@ -17,7 +17,9 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react"
+import { encode as encodeQr } from "uqr"
 import { BrandGrainOverlay } from "@/components/grain-overlay"
+import { APP_URL } from "@/lib/app-url"
 import { cn } from "@/lib/utils"
 
 const COLLAB = {
@@ -427,20 +429,43 @@ function CollabCursor({
   )
 }
 
+const WORKSPACE_MEMBERS = [
+  {
+    id: "olivebishop",
+    person: COLLAB.olivebishop,
+    role: "OWNER",
+    you: true,
+    idle: "Online",
+    active: "Editing event title",
+    cursorPath: {
+      left: ["18%", "32%", "24%", "18%"],
+      top: ["28%", "34%", "40%", "28%"],
+      duration: 5.5,
+    },
+  },
+  {
+    id: "blackie",
+    person: COLLAB.blackie,
+    role: "ADMIN",
+    you: false,
+    idle: "Online",
+    active: "Editing VIP tier",
+    cursorPath: {
+      left: ["48%", "62%", "55%", "48%"],
+      top: ["52%", "58%", "64%", "52%"],
+      duration: 4.2,
+    },
+  },
+] as const
+
 function WorkspaceVisual() {
   const reduce = useReducedMotion()
-  const members = [
-    {
-      person: COLLAB.olivebishop,
-      role: "OWNER",
-      you: true,
-    },
-    {
-      person: COLLAB.blackie,
-      role: "ADMIN",
-      you: false,
-    },
-  ] as const
+  const [selectedId, setSelectedId] =
+    useState<(typeof WORKSPACE_MEMBERS)[number]["id"]>("olivebishop")
+  const [invited, setInvited] = useState(false)
+
+  const activeCount = invited ? 3 : 2
+  const selected = WORKSPACE_MEMBERS.find((m) => m.id === selectedId) ?? WORKSPACE_MEMBERS[0]
 
   return (
     <Stage>
@@ -464,72 +489,134 @@ function WorkspaceVisual() {
               </p>
             </div>
 
-            <div className="flex items-center justify-between border-b border-border px-2.5 py-1.5 sm:px-3">
+            <div className="flex items-center justify-between gap-2 border-b border-border px-2.5 py-1.5 sm:px-3">
               <span className="font-body text-[10px] text-foreground/60">
-                Team · 2 active
+                Team · {activeCount} {invited ? "· 1 pending" : "active"}
               </span>
-              <span className="inline-flex items-center gap-1 border border-border bg-background px-1.5 py-0.5 font-body text-[10px]">
+              <button
+                type="button"
+                onClick={() => setInvited(true)}
+                disabled={invited}
+                className={cn(
+                  "inline-flex items-center gap-1 border px-1.5 py-0.5 font-body text-[10px] transition-colors",
+                  invited
+                    ? "cursor-default border-border bg-muted text-foreground/50"
+                    : "border-foreground bg-foreground text-background hover:bg-foreground/90",
+                )}
+              >
                 <Users className="h-3 w-3" aria-hidden />
-                Invite
-              </span>
+                {invited ? "Invited" : "Invite"}
+              </button>
             </div>
 
-            <ul className="relative flex-1 divide-y divide-border overflow-hidden">
-              {members.map((m, i) => (
-                <motion.li
-                  key={m.person.name}
-                  initial={reduce ? false : { opacity: 0, x: -6 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.08 + i * 0.08, duration: 0.3 }}
-                  className="flex items-center justify-between gap-2 px-2.5 py-2.5 sm:px-3"
-                >
-                  <span className="flex min-w-0 items-center gap-2">
-                    <Face src={m.person.src} alt={m.person.name} size={28} />
-                    <span className="min-w-0">
-                      <span className="block truncate font-body text-xs font-medium sm:text-sm">
-                        {m.person.name}
-                        {m.you ? (
-                          <span className="text-foreground/45"> · you</span>
-                        ) : null}
+            <ul
+              className="relative z-10 flex-1 divide-y divide-border overflow-hidden"
+              aria-label="Workspace members"
+            >
+              {WORKSPACE_MEMBERS.map((m, i) => {
+                const isSelected = m.id === selectedId
+                return (
+                  <motion.li
+                    key={m.person.name}
+                    initial={reduce ? false : { opacity: 0, x: -6 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.08 + i * 0.08, duration: 0.3 }}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setSelectedId(m.id)}
+                      aria-pressed={isSelected}
+                      className={cn(
+                        "flex w-full items-center justify-between gap-2 px-2.5 py-2.5 text-left transition-colors sm:px-3",
+                        isSelected
+                          ? "bg-foreground/[0.06] ring-1 ring-inset ring-foreground/25"
+                          : "hover:bg-muted/50",
+                      )}
+                    >
+                      <span className="flex min-w-0 items-center gap-2">
+                        <Face src={m.person.src} alt="" size={28} />
+                        <span className="min-w-0">
+                          <span className="block truncate font-body text-xs font-medium sm:text-sm">
+                            {m.person.name}
+                            {m.you ? (
+                              <span className="text-foreground/45"> · you</span>
+                            ) : null}
+                          </span>
+                          <span className="font-body text-[10px] text-foreground/55">
+                            {isSelected ? m.active : m.idle}
+                          </span>
+                        </span>
                       </span>
-                      <span className="font-body text-[10px] text-foreground/55">
-                        {m.you ? "Editing event title" : "Editing VIP tier"}
+                      <span
+                        className={cn(
+                          "shrink-0 border px-1.5 py-0.5 font-body text-[9px] uppercase tracking-wide",
+                          isSelected
+                            ? "border-foreground bg-foreground text-background"
+                            : "border-border text-foreground/70",
+                        )}
+                      >
+                        {m.role}
+                      </span>
+                    </button>
+                  </motion.li>
+                )
+              })}
+
+              <AnimatePresence initial={false}>
+                {invited ? (
+                  <motion.li
+                    key="pending"
+                    initial={reduce ? false : { opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={reduce ? undefined : { opacity: 0, height: 0 }}
+                    className="flex items-center justify-between gap-2 border-t border-border bg-muted/20 px-2.5 py-2.5 sm:px-3"
+                  >
+                    <span className="flex min-w-0 items-center gap-2">
+                      <span className="flex size-7 items-center justify-center rounded-full border border-dashed border-border font-body text-[10px] text-foreground/50">
+                        +
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block truncate font-body text-xs font-medium">
+                          alex@studio.co
+                        </span>
+                        <span className="font-body text-[10px] text-foreground/55">
+                          Invite sent
+                        </span>
                       </span>
                     </span>
-                  </span>
-                  <span className="shrink-0 border border-border px-1.5 py-0.5 font-body text-[9px] uppercase tracking-wide text-foreground/70">
-                    {m.role}
-                  </span>
-                </motion.li>
-              ))}
-              <li className="flex items-center gap-2 border-t border-dashed border-border px-2.5 py-2.5 text-foreground/60 sm:px-3">
-                <span className="flex size-7 items-center justify-center rounded-full border border-dashed border-border">
-                  <Users className="h-3.5 w-3.5" aria-hidden />
-                </span>
-                <span className="font-body text-xs">Invite teammate…</span>
-              </li>
+                    <span className="shrink-0 border border-border px-1.5 py-0.5 font-body text-[9px] uppercase tracking-wide text-foreground/60">
+                      Pending
+                    </span>
+                  </motion.li>
+                ) : (
+                  <motion.li
+                    key="invite-row"
+                    initial={false}
+                    className="border-t border-dashed border-border"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setInvited(true)}
+                      className="flex w-full items-center gap-2 px-2.5 py-2.5 text-left text-foreground/60 transition-colors hover:bg-muted/40 hover:text-foreground sm:px-3"
+                    >
+                      <span className="flex size-7 items-center justify-center rounded-full border border-dashed border-border">
+                        <Users className="h-3.5 w-3.5" aria-hidden />
+                      </span>
+                      <span className="font-body text-xs">Invite teammate…</span>
+                    </button>
+                  </motion.li>
+                )}
+              </AnimatePresence>
             </ul>
 
-            <div className="pointer-events-none absolute inset-0 top-14">
+            <div className="pointer-events-none absolute inset-0 top-14 z-[5]">
               <CollabCursor
-                person={COLLAB.olivebishop}
+                key={selected.id}
+                person={selected.person}
+                invert={selected.id === "blackie"}
                 reduce={reduce}
-                path={{
-                  left: ["18%", "32%", "24%", "18%"],
-                  top: ["22%", "30%", "38%", "22%"],
-                  duration: 5.5,
-                }}
-              />
-              <CollabCursor
-                person={COLLAB.blackie}
-                invert
-                reduce={reduce}
-                path={{
-                  left: ["48%", "62%", "55%", "48%"],
-                  top: ["48%", "56%", "64%", "48%"],
-                  duration: 4.2,
-                }}
+                path={selected.cursorPath}
               />
             </div>
           </div>
@@ -693,57 +780,26 @@ function PricingVisual() {
   )
 }
 
-/** Decorative entry QR — finder corners + seeded modules (not a real scan target). */
-function EntryQrMark({ className }: { className?: string }) {
-  const size = 21
-  const modules: boolean[][] = Array.from({ length: size }, () =>
-    Array.from({ length: size }, () => false),
-  )
-
-  const paintFinder = (ox: number, oy: number) => {
-    for (let y = 0; y < 7; y++) {
-      for (let x = 0; x < 7; x++) {
-        const edge = x === 0 || y === 0 || x === 6 || y === 6
-        const core = x >= 2 && x <= 4 && y >= 2 && y <= 4
-        modules[oy + y]![ox + x] = edge || core
-      }
-    }
-  }
-  paintFinder(0, 0)
-  paintFinder(size - 7, 0)
-  paintFinder(0, size - 7)
-
-  // Timing patterns
-  for (let i = 8; i < size - 8; i++) {
-    modules[6]![i] = i % 2 === 0
-    modules[i]![6] = i % 2 === 0
-  }
-
-  // Data-looking modules (deterministic)
-  let bit = 0
-  for (let y = 0; y < size; y++) {
-    for (let x = 0; x < size; x++) {
-      const inFinder =
-        (x < 8 && y < 8) ||
-        (x >= size - 8 && y < 8) ||
-        (x < 8 && y >= size - 8) ||
-        x === 6 ||
-        y === 6
-      if (inFinder) continue
-      bit = (bit * 1103515245 + 12345 + x * 17 + y * 31) >>> 0
-      modules[y]![x] = bit % 3 !== 0
-    }
-  }
+/** Real scannable QR — opens the Event Parlour app. */
+function EntryQrMark({
+  className,
+  value = APP_URL,
+}: {
+  className?: string
+  value?: string
+}) {
+  const qr = encodeQr(value)
+  const size = qr.size
 
   return (
     <svg
       viewBox={`0 0 ${size} ${size}`}
       className={cn("text-black dark:text-foreground", className)}
       role="img"
-      aria-label="Ticket entry QR code"
+      aria-label={`QR code linking to ${value}`}
     >
       <rect width={size} height={size} fill="white" className="dark:fill-background" />
-      {modules.map((row, y) =>
+      {qr.data.map((row, y) =>
         row.map((on, x) =>
           on ? (
             <rect key={`${x}-${y}`} x={x} y={y} width={1} height={1} fill="currentColor" />
@@ -965,36 +1021,48 @@ function TicketsChannelsVisual() {
           }
           trailing={<LiveDot />}
         >
-          <div className="grid h-full grid-cols-1 gap-0 sm:grid-cols-[0.95fr_1.15fr]">
+          <div className="grid h-full grid-cols-[0.9fr_1.1fr] gap-0">
             <motion.div
               initial={reduce ? false : { opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="hidden min-w-0 flex-col border-b border-border p-2 sm:flex sm:border-b-0 sm:border-r sm:p-3"
+              className="flex min-w-0 flex-col border-r border-border p-1.5 sm:p-3"
             >
               <div className="flex items-center gap-1.5 font-body text-[10px] uppercase tracking-wider text-foreground/60">
                 <Ticket className="h-3 w-3" aria-hidden />
                 Entry pass
               </div>
-              <div className="mt-2 flex flex-1 flex-col items-center justify-center gap-0 border border-border bg-white p-3 dark:bg-background">
-                <div className="border border-border bg-white p-1.5 dark:bg-background">
-                  <EntryQrMark className="h-[5.5rem] w-[5.5rem]" />
-                </div>
-                <div className="mt-2 min-w-0 text-center">
+              <div className="mt-1.5 flex flex-1 flex-col items-center justify-center gap-0 border border-border bg-white p-2 sm:mt-2 sm:p-3 dark:bg-background">
+                <a
+                  href={APP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-border bg-white p-1 transition-[border-color] hover:border-foreground/40 sm:p-1.5 dark:bg-background"
+                  aria-label="Open Event Parlour app"
+                >
+                  <EntryQrMark
+                    className="h-[4.25rem] w-[4.25rem] sm:h-[5.5rem] sm:w-[5.5rem]"
+                    value={APP_URL}
+                  />
+                </a>
+                <div className="mt-1.5 min-w-0 text-center sm:mt-2">
                   <p className="font-body text-[10px] font-medium tracking-wide">
                     GA · Afrobeats Night
                   </p>
                   <p className="mt-0.5 font-numbers text-[10px] tabular-nums text-foreground/60">
                     EP-7F3A-91C2
                   </p>
-                  <p className="mt-1 font-body text-[10px] text-foreground/65">
-                    Show this QR at entry · Transfer ready
+                  <p className="mt-1 font-body text-[9px] leading-snug text-foreground/65 sm:text-[10px]">
+                    Scan →{" "}
+                    <span className="font-medium text-foreground">
+                      app.eventparlour.com
+                    </span>
                   </p>
                 </div>
               </div>
             </motion.div>
             <div className="flex min-h-0 min-w-0 flex-col bg-[#efeae2] dark:bg-muted/40">
-              <div className="flex items-center gap-2 border-b border-border bg-background px-2.5 py-2">
+              <div className="flex items-center gap-2 border-b border-border bg-background px-2 py-2 sm:px-2.5">
                 <Face
                   src={COLLAB.blackie.src}
                   alt=""
@@ -1013,7 +1081,7 @@ function TicketsChannelsVisual() {
                   </p>
                 </div>
               </div>
-              <div className="flex min-h-[12rem] flex-1 flex-col gap-3 overflow-hidden px-2 py-2.5 pb-3 sm:min-h-[10.5rem] sm:px-2.5">
+              <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden px-1.5 py-2 pb-2.5 sm:min-h-[10.5rem] sm:px-2.5 sm:py-2.5 sm:pb-3">
                 <AnimatePresence mode="sync" initial={false}>
                   {showTypingFirst ? (
                     <WaTypingIndicator key="typing-1" reduce={reduce} />
