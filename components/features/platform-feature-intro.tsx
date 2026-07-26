@@ -10,7 +10,7 @@ export function PlatformFeatureIntro({ slug }: { slug: string }) {
   const { feature, catalog } = data
 
   return (
-    <div className="relative pt-24 sm:pt-28 md:pt-32">
+    <div className="relative pt-24 sm:pt-28 md:pt-32 lg:hidden">
       <div className="container relative mx-auto px-4 pb-8 sm:px-6 sm:pb-10">
         <div className="max-w-3xl space-y-4">
           <PixelLabel tone="soft">{feature.label}</PixelLabel>

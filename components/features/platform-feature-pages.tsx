@@ -28,7 +28,7 @@ export function PlatformFeatureDetail({
   const otherLinks = platformFeatureCatalog.filter((e) => e.slug !== slug)
 
   return (
-    <section className="overflow-x-clip bg-background pb-12 xs:pb-16 sm:pb-20 md:pb-28 lg:pb-36">
+    <section className="overflow-x-clip bg-background pb-12 xs:pb-16 sm:pb-20 md:pb-28 lg:pt-32 lg:pb-36">
       <div className="container mx-auto px-3 xs:px-4 sm:px-6">
         <nav
           aria-label="Other platform features"

@@ -68,9 +68,15 @@ export function FeatureBlock({
             </span>
           </div>
 
-          <h3 className="text-xl font-bold leading-tight text-foreground xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-            {feature.title}
-          </h3>
+          {omitIntroCopy ? (
+            <h1 className="text-xl font-bold leading-tight text-foreground xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+              {feature.title}
+            </h1>
+          ) : (
+            <h3 className="text-xl font-bold leading-tight text-foreground xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+              {feature.title}
+            </h3>
+          )}
 
           <p className="max-w-xs text-sm leading-relaxed text-foreground/75 xs:max-w-sm xs:text-base sm:text-lg md:max-w-md">
             {feature.description}
