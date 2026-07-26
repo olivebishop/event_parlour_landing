@@ -5,6 +5,7 @@ import { appHref } from "@/lib/app-url"
 import Hero from "@/components/shared/Hero"
 import { MarketingCtaBanner } from "@/components/marketing/marketing-cta-banner"
 import { MarketingPageShell } from "@/components/marketing/marketing-page-shell"
+import { LazySection } from "@/components/shared/lazy-section"
 import { SectionSkeleton } from "@/components/shared/section-skeleton"
 
 export const revalidate = 300
@@ -55,18 +56,30 @@ export default function Home() {
         aria-labelledby="demo-heading"
         className="relative z-20 scroll-mt-[4.5rem] sm:scroll-mt-24"
       >
-        <InteractiveDemo />
+        <LazySection
+          fallback={<SectionSkeleton className="min-h-[640px] w-full" />}
+        >
+          <InteractiveDemo />
+        </LazySection>
       </section>
 
       <section
         id="user-types"
         className="relative z-20 mt-8 scroll-mt-[4.5rem] sm:mt-10 sm:scroll-mt-24 md:mt-12 lg:mt-16"
       >
-        <ExpandingCards />
+        <LazySection
+          fallback={<SectionSkeleton className="min-h-[280px] w-full" />}
+        >
+          <ExpandingCards />
+        </LazySection>
       </section>
 
       <section className="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16">
-        <DistributionMetrics />
+        <LazySection
+          fallback={<SectionSkeleton className="min-h-[200px] w-full" />}
+        >
+          <DistributionMetrics />
+        </LazySection>
       </section>
 
       <section

@@ -720,13 +720,12 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Transform-only — keep copy painted for LCP (no opacity:0 / clip-path hide) */
 @keyframes hero-in {
   from {
-    opacity: 0.35;
     transform: translateY(10px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }
@@ -735,22 +734,20 @@ html {
   animation: hero-in 0.55s ease-out both;
 }
 
-/* Headline lines wipe up from their own baseline */
+/* Secondary headline line only — primary H1 line stays immediately visible */
 @keyframes hero-line-in {
   from {
-    opacity: 0;
-    transform: translateY(0.42em);
-    clip-path: inset(0 0 108% 0);
+    transform: translateY(0.28em);
+    opacity: 0.55;
   }
   to {
-    opacity: 1;
     transform: translateY(0);
-    clip-path: inset(-25% -8% -25% -8%);
+    opacity: 1;
   }
 }
 
 .animate-hero-line {
-  animation: hero-line-in 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: hero-line-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* Hairline grid, fading out before it reaches the copy */
