@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
+import { ChevronDown, Plus } from "lucide-react"
 import content from "@/lib/content"
 import { cn } from "@/lib/utils"
 
@@ -103,6 +104,9 @@ export default function ExpandingCards() {
           <p className="mx-auto max-w-[42rem] text-balance px-2 text-[0.9375rem] leading-relaxed text-foreground/80 sm:text-base md:text-lg">
             {copy.subtitle}
           </p>
+          <p className="mx-auto mt-4 max-w-[42rem] px-2 text-sm text-foreground/65 lg:hidden">
+            {copy.mobileTapHint}
+          </p>
         </div>
 
         <div
@@ -155,6 +159,19 @@ export default function ExpandingCards() {
                   />
 
                   {!isActive && <CollapsedCardFace />}
+
+                  {!isActive && isVerticalLayout && (
+                    <div className="relative z-20 flex h-full min-h-[var(--base)] items-center justify-between gap-3 px-3 py-2 sm:px-4 pointer-events-none">
+                      <span className="font-heading truncate text-left text-sm font-semibold uppercase tracking-wide text-foreground sm:text-base">
+                        {card.title}
+                      </span>
+                      <span className="flex shrink-0 items-center gap-1 text-foreground/70">
+                        <span className="sr-only">Expand</span>
+                        <Plus className="h-4 w-4 sm:hidden" aria-hidden />
+                        <ChevronDown className="hidden h-4 w-4 sm:block" aria-hidden />
+                      </span>
+                    </div>
+                  )}
 
                   <div
                     className={cn(
