@@ -165,6 +165,7 @@
       "sectionLabel": "WHY EVENT PARLOUR",
       "title": "The smarter way to run events",
       "subtitle": "We built the platform we wished existed. No complexity, no hidden fees, just powerful tools that work.",
+      "mobileTapHint": "Tap a row to expand and read each benefit.",
       "cards": {
         "allInOne": {
           "title": "All-in-One Platform",

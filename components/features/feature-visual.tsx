@@ -374,7 +374,7 @@ function CollabCursor({
   invert?: boolean
   reduce: boolean | null
   /** Percent positions within the canvas (0–100). */
-  path: { left: string[]; top: string[]; duration: number }
+  path: { left: readonly string[]; top: readonly string[]; duration: number }
 }) {
   return (
     <motion.div
@@ -384,7 +384,7 @@ function CollabCursor({
       animate={
         reduce
           ? { left: path.left[0], top: path.top[0] }
-          : { left: path.left, top: path.top }
+          : { left: [...path.left], top: [...path.top] }
       }
       transition={
         reduce
