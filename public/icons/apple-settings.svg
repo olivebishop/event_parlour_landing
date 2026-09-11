@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <defs>
+    <linearGradient id="apple-settings-bg" x1="12" y1="1" x2="12" y2="23" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e4e4e8"/>
+      <stop offset="1" stop-color="#9a9aa0"/>
+    </linearGradient>
+  </defs>
+  <rect width="24" height="24" fill="url(#apple-settings-bg)"/>
+  <path fill="#5c5c62" d="M12 8.4a3.6 3.6 0 1 1 0 7.2 3.6 3.6 0 0 1 0-7.2Zm8.1 2.4-.9-.3.4-1.1-1.5-1.5-1.1.4-.3-.9L14.8 6h-1.6l-.3 1.4-.9.3-1.1-.4-1.5 1.5.4 1.1-.9.3L8 11.6v1.6l1.4.3.3.9-.4 1.1 1.5 1.5 1.1-.4.3.9.9 1.4h1.6l.3-1.4.9-.3 1.1.4 1.5-1.5-.4-1.1.9-.3 1.4-.9v-1.6l-1.4-.3Z"/>
+</svg>

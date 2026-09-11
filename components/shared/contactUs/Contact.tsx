@@ -133,7 +133,7 @@ export function ContactUs() {
               <div className="bg-muted border border-border p-4 xs:p-5 sm:p-6 md:p-8">
                 <h3 className="text-lg xs:text-xl font-semibold text-foreground mb-4 xs:mb-5 sm:mb-6">{copy.contactInfo}</h3>
                 <p className="text-muted-foreground leading-relaxed mb-6 xs:mb-8 text-sm xs:text-base">
-                  <span className="font-bold text-foreground">Event Parlour</span> - {copy.companyIntro}
+                  {copy.companyIntro}
                 </p>
 
                 <div className="space-y-2 xs:space-y-3">

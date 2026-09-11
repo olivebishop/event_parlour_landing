@@ -66,7 +66,7 @@ export function getSiteStructuredDataGraph() {
       "@type": "WebPage" as const,
       "@id": `${SITE_URL}/#webpage`,
       url: SITE_URL,
-      name: "Event Parlour — Events marketplace for organizers & attendees",
+      name: "Event Parlour. Events marketplace for organizers & attendees",
       isPartOf: { "@id": `${SITE_URL}/#website` },
       about: { "@id": `${SITE_URL}/#organization` },
       description:
@@ -78,7 +78,7 @@ export function getSiteStructuredDataGraph() {
       "@id": `${SITE_URL}/#product`,
       name: "Event Parlour App",
       applicationCategory: "BusinessApplication",
-      operatingSystem: "Web",
+      operatingSystem: "Web, macOS, Windows",
       url: APP_URL,
       offers: {
         "@type": "Offer",

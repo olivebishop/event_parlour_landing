@@ -13,11 +13,11 @@ import { getSiteStructuredDataGraph } from "@/lib/seo/structured-data"
 const siteUrl = "https://www.eventparlour.com"
 
 const seoDescription =
-  "Event Parlour connects organizers with event-goers in Nairobi and beyond—distribution-first discovery, ticketing, and event management."
+  "Event Parlour connects organizers with event-goers in Nairobi and beyond. Distribution-first discovery, ticketing, and event management."
 
 export const metadata: Metadata = {
   title: {
-    default: "Event Parlour — Events marketplace for organizers, attendees & vendors",
+    default: "Event Parlour. Events marketplace for organizers, attendees & vendors",
     template: "%s | Event Parlour",
   },
   description: seoDescription,
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   creator: "Event Parlour",
   publisher: "Event Parlour",
   openGraph: {
-    title: "Event Parlour — Reach event-goers. Sell tickets. Run events.",
+    title: "Event Parlour. Reach event-goers. Sell tickets. Run events.",
     description: seoDescription,
     url: siteUrl,
     siteName: "Event Parlour",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
         url: "/og",
         width: 1200,
         height: 630,
-        alt: "Event Parlour — Events marketplace",
+        alt: "Event Parlour. Events marketplace",
       },
     ],
     locale: "en_US",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Event Parlour — Events marketplace",
+    title: "Event Parlour. Events marketplace",
     description: seoDescription,
     site: "@EventsPalour",
     creator: "@EventsPalour",

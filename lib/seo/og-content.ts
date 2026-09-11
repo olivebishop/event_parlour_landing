@@ -11,6 +11,7 @@ export function getOgPaths(): string[] {
     "",
     "/why-us",
     "/contact",
+    "/download",
     "/features",
     "/features/organizers",
     "/features/attendees",
@@ -28,7 +29,7 @@ export function getOgContent(path = ""): CreateOgImageOptions {
         eyebrow: "Event Parlour",
         title: "Sell out your next event.",
         description:
-          "Distribution-first event marketplace for organizers, attendees & vendors — Nairobi & beyond.",
+          "Distribution-first event marketplace for organizers, attendees & vendors. Nairobi and beyond.",
       }
     case "/why-us":
       return {
@@ -43,6 +44,13 @@ export function getOgContent(path = ""): CreateOgImageOptions {
         title: "Talk to the Event Parlour team",
         description:
           "Get in touch for planning help, or find answers about ticketing and payouts.",
+      }
+    case "/download":
+      return {
+        eyebrow: "Download",
+        title: "Sell out from your desk",
+        description:
+          "List events, sell tickets, and check them in from your Mac or Windows machine.",
       }
     case "/features": {
       const copy = content.PlatformFeatures.index
