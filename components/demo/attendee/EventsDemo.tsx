@@ -85,7 +85,7 @@ export default function EventsDemo() {
                       </div>
                     </div>
                     <Button className="w-full gap-2" size="sm">
-                      View Details
+                      Get Tickets
                       <ArrowRight className="h-4 w-4" />
                     </Button>
                   </CardContent>

@@ -18,7 +18,7 @@ const siteUrl = "https://www.eventparlour.com"
 const copy = content.Testimonials
 
 export const metadata: Metadata = {
-  title: "Why Us — What organizers and builders say",
+  title: "Why Us. What organizers and builders say",
   description:
     "Real feedback from engineers, creators, and organizers who use Event Parlour to sell tickets and run events.",
   alternates: { canonical: `${siteUrl}/why-us` },

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 551.111 1000">
+  <defs>
+    <linearGradient id="nf-src-a">
+      <stop offset="0" stop-color="#b1060f"/>
+      <stop offset=".546" stop-color="#7b010c"/>
+      <stop offset="1" stop-color="#e50914" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="nf-src-b">
+      <stop offset="0" stop-color="#b1060f"/>
+      <stop offset=".625" stop-color="#7b010c"/>
+      <stop offset="1" stop-color="#b1060f" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="nf-left" xlink:href="#nf-src-a" x1="78.234" x2="221.663" y1="423.767" y2="365.092" gradientUnits="userSpaceOnUse"/>
+    <linearGradient id="nf-right" xlink:href="#nf-src-b" x1="456.365" x2="309.676" y1="521.56" y2="583.495" gradientUnits="userSpaceOnUse"/>
+  </defs>
+  <path d="M-1.152-1.152 2.305 1002.67c73.273-14.111 130.892-12.569 195.924-18.44V0Z" fill="url(#nf-left)"/>
+  <path d="M353.816 0h199.381l2.305 1000.365-202.839-33.422z" fill="url(#nf-right)"/>
+  <path d="M1.152 0c4.61 11.525 345.749 981.925 345.749 981.925 56.056-.4 131.219 8.754 205.144 17.288L197.077 0Z" fill="#e50914"/>
+</svg>

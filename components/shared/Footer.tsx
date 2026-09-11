@@ -19,7 +19,11 @@ import { FooterSystemStatus } from "@/components/shared/footer-system-status";
 import { appHref } from "@/lib/app-url";
 
 function resolveFooterHref(href: string): string {
-  if (href.startsWith("http") || href.startsWith("#")) {
+  if (
+    href.startsWith("http") ||
+    href.startsWith("#") ||
+    href === "/download"
+  ) {
     return href;
   }
   return appHref(href);
@@ -111,14 +115,15 @@ const Footer = () => {
   };
 
   const listEventHref = appHref("/auth/sign-up");
-  const exploreHref = appHref("/auth/sign-in");
+  const exploreHref = appHref("/");
 
   const navColumns = {
     product: [
-      { href: "/auth/sign-up", label: "List Your Event" },
-      { href: "/auth/sign-in", label: "Explore Events" },
+      { href: "/auth/sign-up", label: "List your event" },
+      { href: "https://app.eventparlour.com", label: "Explore events" },
       { href: "/pricing", label: "Pricing" },
       { href: "/changelog", label: "Changelog" },
+      { href: "/download", label: "Download" },
       { href: "/features/organizers", label: "Features" },
       { href: "/roadmap", label: "Roadmap" },
       { href: "/docs", label: "Docs" },

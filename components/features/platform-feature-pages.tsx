@@ -99,13 +99,13 @@ export function PlatformFeaturesIndex() {
             href="/features/organizers"
             className="font-body text-sm text-foreground underline-offset-4 hover:underline"
           >
-            For organizers — workspace & tools →
+            For organizers. Workspace & tools →
           </Link>
           <Link
             href="/features/attendees"
             className="font-body text-sm text-foreground underline-offset-4 hover:underline"
           >
-            For attendees — discover & tickets →
+            For attendees. Discover & tickets →
           </Link>
         </div>
       </div>

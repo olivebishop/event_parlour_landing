@@ -18,7 +18,7 @@ const ContactUs = dynamic(
 const siteUrl = "https://www.eventparlour.com"
 
 export const metadata: Metadata = {
-  title: "Contact & FAQ — Talk to the Event Parlour team",
+  title: "Contact & FAQ. Talk to the Event Parlour team",
   description: `${content.ContactUs.description} Find answers to common questions about ticketing and payouts.`,
   alternates: { canonical: `${siteUrl}/contact` },
   openGraph: {

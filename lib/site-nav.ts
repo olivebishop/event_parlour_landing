@@ -24,6 +24,16 @@ export const secondaryMarketingNav: SiteNavItem[] = [
 
   {
 
+    href: "/download",
+
+    label: copy.download,
+
+    description: "Sell tickets from your Mac or Windows desk.",
+
+  },
+
+  {
+
     href: "/why-us",
 
     label: copy["why us"],

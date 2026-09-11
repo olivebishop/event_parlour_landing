@@ -115,7 +115,7 @@ export function FeaturesNavPanel({
               <AudiencePreviewCard
                 href={categoryHubHref("organizers")}
                 onNavigate={close}
-                title="For music organizers"
+                title="For organizers"
                 description="List shows, sell tickets, pack the room."
                 imageSrc="/images/banner_one.png"
                 imageAlt="DJ and crowd at a live music event"

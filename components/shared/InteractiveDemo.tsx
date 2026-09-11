@@ -1023,7 +1023,7 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        Browse Events
+                        Explore events
                         <ArrowRight className="h-4 w-4" aria-hidden />
                       </a>
                     </Button>
@@ -1201,12 +1201,12 @@ export default function InteractiveDemo() {
           >
             <Button asChild size="cta" className="gap-2 shadow-none">
               <a
-                href="https://app.eventparlour.com/auth/sign-up"
+                href="https://app.eventparlour.com/auth/sign-in"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Create your account on Event Parlour"
+                aria-label="Get tickets on Event Parlour"
               >
-                Create Your Account
+                Get Tickets
                 <ArrowRight className="h-4 w-4" />
               </a>
             </Button>

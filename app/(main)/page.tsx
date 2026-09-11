@@ -25,10 +25,18 @@ const DistributionMetrics = dynamic(
   { loading: () => <SectionSkeleton className="min-h-[200px] w-full" /> },
 )
 
+const DownloadSection = dynamic(
+  () =>
+    import("@/components/download/download-section").then((m) => ({
+      default: m.DownloadSection,
+    })),
+  { loading: () => <SectionSkeleton className="min-h-[520px] w-full" /> },
+)
+
 const siteUrl = "https://www.eventparlour.com"
 
 export const metadata: Metadata = {
-  title: "Event Parlour - Reach Thousands of Event-Goers in Nairobi",
+  title: "Event Parlour. Reach Thousands of Event-Goers in Nairobi",
   description:
     "Get your events in front of the right audience. We connect organizers with active event-goers looking for experiences like yours. Distribution first. Management included.",
   alternates: {
@@ -81,6 +89,12 @@ export default function Home() {
           <DistributionMetrics />
         </LazySection>
       </section>
+
+      <LazySection
+        fallback={<SectionSkeleton className="min-h-[520px] w-full" />}
+      >
+        <DownloadSection />
+      </LazySection>
 
       <section
         aria-labelledby="home-cta-heading"

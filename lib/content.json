@@ -1,12 +1,13 @@
 {
     "Navbar": {
-      "events": "Events",
+      "events": "Explore events",
       "accommodations": "Accommodations",
       "features": "Features",
       "why us": "Why Us",
       "venues": "Venues",
       "contact": "Contact",
-      "signIn": "Sign In",
+      "download": "Download",
+      "signIn": "Get Tickets",
       "blogs": "Blogs",
       "brandName": "CircleUp"
     },
@@ -29,7 +30,7 @@
       "location": "Nairobi, Kenya",
       "email": "support@eventparlour.com",
       "phone": "+254 791 482 626",
-      "hours": "Open - 24 hrs",
+      "hours": "Open 24 hrs",
       "yourDetails": "Your Details",
       "nameLabel": "Name *",
       "namePlaceholder": "Enter your name",
@@ -49,7 +50,7 @@
       "title": "Find Your Perfect Stay",
       "subtitle": "Comfortable accommodations near your event venue",
       "locationPlaceholder": "Location",
-      "datesPlaceholder": "Check-in - Check-out",
+      "datesPlaceholder": "Check-in, Check-out",
       "searchButton": "Search"
     },
     "BedsSection": {
@@ -75,7 +76,7 @@
         "festivals": "Festivals",
         "concerts": "Concerts"
       },
-      "viewAllEvents": "View All Events",
+      "viewAllEvents": "Explore events",
       "showLess": "Show Less",
       "getTickets": "Get Tickets"
     },
@@ -107,7 +108,7 @@
       "address2": "Nairobi, Kenya",
       "quickLinksTitle": "Quick Links",
       "quickLinks": {
-        "events": "Events",
+        "events": "Explore events",
         "contact": "Contact",
         "privacyPolicy": "Privacy Policy",
         "termsAndCondition": "Terms And Condition"
@@ -150,8 +151,8 @@
       "updateLink": "🎉 | Get Event Updates",
       "title": "Unforgettable Events, Made Simple.",
       "subtitle": "The Go-To Platform for ",
-      "hostEvent": "Host Event",
-      "exploreEvents": "Explore Events"
+      "hostEvent": "List your event",
+      "exploreEvents": "Explore events"
     },
     "NoEvents": {
       "title": "No Events Found",
@@ -211,7 +212,7 @@
         "reach": {
           "label": "REACH YOUR AUDIENCE",
           "title": "Get discovered by thousands of event-goers.",
-          "description": "Your events appear in our marketplace where active attendees search by category and location. No marketing needed—we bring the audience to you.",
+          "description": "Your events appear in our marketplace where active attendees search by category and location. No marketing needed. We bring the audience to you.",
           "capabilities": ["Marketplace visibility", "Category-based discovery", "Location targeting", "Active attendee base"]
         },
         "discovery": {
@@ -229,7 +230,7 @@
         "dashboard": {
           "label": "CENTRALIZED CONTROL",
           "title": "Manage everything from one dashboard.",
-          "description": "Your events, team, and resources—all in one powerful workspace.",
+          "description": "Your events, team, and resources, all in one powerful workspace.",
           "capabilities": ["Multi-event management", "Team collaboration & roles", "Custom branding", "Activity logs"]
         },
         "speakers": {
@@ -315,7 +316,7 @@
       "sectionLabel": "WHY EVENT PARLOUR",
       "title": "Loved by the people who run great events",
       "subtitle": "Events that work.",
-      "pageDescription": "Organizers, engineers, and creators share how Event Parlour feels in the wild—from sharp UX to ticketing that stays out of the way. Real posts from people who list shows, buy tickets, and come back for the next one.",
+      "pageDescription": "Organizers, engineers, and creators share how Event Parlour feels in the wild, from sharp UX to ticketing that stays out of the way. Real posts from people who list shows, buy tickets, and come back for the next one.",
       "description": "Loved by organizers, vendors, and attendees who want events to just work.",
       "cta": {
         "eyebrow": "Next step",
@@ -366,11 +367,11 @@
       "title": "Let's create something",
       "subtitle": "Have a question or want to work together? We'd love to hear from you.",
       "contactInfo": "Contact Information",
-      "companyIntro": "Event Parlour - event platform for everyone. Contact our dedicated support team for inquiries.",
+      "companyIntro": "Event Parlour. Event platform for everyone. Contact our dedicated support team for inquiries.",
       "location": "Nairobi, Kenya",
       "email": "hello@eventparlour.com",
       "phone": "+254 791 482 626",
-      "hours": "Open - 24 hrs",
+      "hours": "Open 24 hrs",
       "connectWithUs": "CONNECT WITH US",
       "formTitle": "Send Us a Message",
       "fullName": "Full Name",
@@ -392,7 +393,7 @@
       "headline": "Sell out",
       "headlineLine2": "your next event.",
       "description": "Distribution first. Management included. List once and land in front of an audience already looking for their next experience.",
-      "cta": "Create your event"
+      "cta": "List your event"
     },
     "DistributionMetrics": {
       "title": "The marketplace where events get discovered",
@@ -410,7 +411,7 @@
       "index": {
         "eyebrow": "WHY EVENT PARLOUR",
         "title": "Features",
-        "description": "Marketplace reach, your storefront, fair pricing, tickets and channels, community promotion, and analytics—on one platform.",
+        "description": "Marketplace reach, your storefront, fair pricing, tickets and channels, community promotion, and analytics on one platform.",
         "allFeaturesLabel": "All features"
       },
       "includes": "Includes",
@@ -431,7 +432,7 @@
         "navDescription": "Discovery, announcements, and event updates in one feed.",
         "label": "DISTRIBUTION FIRST",
         "title": "A marketplace where nobody misses your event.",
-        "description": "List in Event Parlour discovery and keep attendees close with updates and announcements—schedule changes, drops, and reminders so your crowd shows up informed, not surprised.",
+        "description": "List in Event Parlour discovery and keep attendees close with updates and announcements: schedule changes, drops, and reminders so your crowd shows up informed, not surprised.",
         "capabilities": [
           "Marketplace discovery",
           "Event updates & announcements",
@@ -444,7 +445,7 @@
         "navDescription": "Invite your team and run events on your own URL.",
         "label": "YOUR WORKSPACE",
         "title": "Team invites, roles, and a storefront on signup.",
-        "description": "Run events from a shared workspace—invite teammates, assign access, and get a URL storefront when you sign up so you can manage and sell without sending everyone through the main Event Parlour domain.",
+        "description": "Run events from a shared workspace. Invite teammates, assign access, and get a URL storefront when you sign up so you can manage and sell without sending everyone through the main Event Parlour domain.",
         "capabilities": [
           "Workspace team invites",
           "Roles & collaboration",
@@ -454,10 +455,10 @@
       },
       "pricing": {
         "navTitle": "Pricing & split pay",
-        "navDescription": "5% on paid tickets—split payments, clear totals.",
+        "navDescription": "5% on paid tickets. Split payments, clear totals.",
         "label": "5% TRANSPARENT",
         "title": "Split payments, one clear fee.",
-        "description": "We take 5% on paid tickets—no hidden layers. Split payment flows, honest checkout totals, and revenue you can reconcile after the night.",
+        "description": "We take 5% on paid tickets. No hidden layers. Split payment flows, honest checkout totals, and revenue you can reconcile after the night.",
         "capabilities": [
           "5% platform fee on paid tickets",
           "Split payment support",
@@ -483,7 +484,7 @@
         "navDescription": "Reach fans on Instagram, WhatsApp, and X with us.",
         "label": "HOST WITH US",
         "title": "We help promote events you host on Event Parlour.",
-        "description": "Tap the Event Parlour community across Instagram, our WhatsApp channel, and X—extra reach when you list and sell with us, not just a tool sitting in a tab.",
+        "description": "Tap the Event Parlour community across Instagram, our WhatsApp channel, and X. Extra reach when you list and sell with us, not just a tool sitting in a tab.",
         "capabilities": [
           "Promotion for hosted events",
           "Instagram community",
@@ -493,10 +494,10 @@
       },
       "analytics": {
         "navTitle": "Geo analytics",
-        "navDescription": "Detailed, location-aware insights—Google-grade depth.",
+        "navDescription": "Detailed, location-aware insights with Google-grade depth.",
         "label": "DEEP ANALYTICS",
         "title": "Google-like analytics with geo baked in.",
-        "description": "See sales, traffic, and attendance with detailed breakdowns—including where buyers and check-ins come from—so you can double down on markets and channels that actually convert.",
+        "description": "See sales, traffic, and attendance with detailed breakdowns, including where buyers and check-ins come from, so you can double down on markets and channels that actually convert.",
         "capabilities": [
           "Geo-based reporting",
           "Sales & attendance funnels",
@@ -505,12 +506,27 @@
         ]
       }
     },
+    "DownloadPage": {
+      "metaTitle": "Download Event Parlour. Sell out from your desk.",
+      "metaDescription": "List events, sell tickets, and check people in from your Mac or Windows desk. Free to start. 5% on paid tickets.",
+      "cta": {
+        "eyebrow": "Skip the wait",
+        "kicker": "List today",
+        "title": "Have a show to put on sale?",
+        "description": "Publish in the browser now. Download the desktop app when you want sales and check-in on the dock.",
+        "panelLine": "Free to start. 5% on paid tickets.",
+        "primaryLabel": "List your event",
+        "secondaryLabel": "See organizer features",
+        "secondaryHref": "/features/organizers",
+        "hint": "Browser today. Desktop when you want it."
+      }
+    },
     "HomePage": {
       "cta": {
         "eyebrow": "Ready to start",
         "kicker": "Start free",
         "title": "Your next event belongs on Event Parlour",
-        "description": "List in the marketplace, sell tickets, and give attendees a smooth path from discovery to check-in—whether you are hosting or heading out.",
+        "description": "List in the marketplace, sell tickets, and give attendees a smooth path from discovery to check-in, whether you are hosting or heading out.",
         "panelLine": "Turn ideas into sold out nights",
         "primaryLabel": "Get started free",
         "secondaryLabel": "Explore features",

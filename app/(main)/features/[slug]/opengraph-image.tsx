@@ -6,7 +6,7 @@ import {
 import { getOgContent } from "@/lib/seo/og-content"
 import { getAllPlatformFeatureSlugs } from "@/lib/platform-features-content"
 
-export const alt = "Feature — Event Parlour"
+export const alt = "Feature. Event Parlour"
 export const size = ogImageSize
 export const contentType = ogImageContentType
 

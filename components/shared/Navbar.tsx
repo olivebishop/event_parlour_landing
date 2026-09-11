@@ -23,6 +23,7 @@ import {
 const copy = content.Navbar;
 
 const secondaryLinks = [
+  { href: "/download", label: copy.download },
   { href: "/why-us", label: copy["why us"] },
   { href: "/contact", label: copy.contact },
 ] as const;

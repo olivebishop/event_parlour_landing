@@ -5,7 +5,7 @@ import {
 } from "@/lib/seo/create-og-image"
 import { getOgContent } from "@/lib/seo/og-content"
 
-export const alt = "Event Parlour — Sell out your next event"
+export const alt = "Event Parlour. Sell out your next event"
 export const size = ogImageSize
 export const contentType = ogImageContentType
 

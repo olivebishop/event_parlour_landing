@@ -24,7 +24,7 @@ export const platformFeatureCatalog: PlatformFeatureCatalogEntry[] = [
     slug: "pricing",
     contentKey: "pricing",
     navTitle: "Pricing & split pay",
-    navDescription: "5% on paid tickets—split payments, clear totals.",
+    navDescription: "5% on paid tickets. Split payments, clear totals.",
   },
   {
     slug: "tickets-and-channels",
@@ -42,7 +42,7 @@ export const platformFeatureCatalog: PlatformFeatureCatalogEntry[] = [
     slug: "analytics",
     contentKey: "analytics",
     navTitle: "Geo analytics",
-    navDescription: "Detailed, location-aware insights—Google-grade depth.",
+    navDescription: "Detailed, location-aware insights with Google-grade depth.",
   },
 ]
 

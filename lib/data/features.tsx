@@ -45,7 +45,7 @@ export const categories: Category[] = [
         icon: <TrendingUp className="w-5 h-5" />,
         label: "REACH YOUR AUDIENCE",
         title: "Get discovered by thousands of event-goers.",
-        description: "Your events appear in our marketplace where active attendees search by category and location. No marketing needed—we bring the audience to you.",
+        description: "Your events appear in our marketplace where active attendees search by category and location. No marketing needed. We bring the audience to you.",
         capabilities: [
           "Marketplace visibility",
           "Category-based discovery",
@@ -84,7 +84,7 @@ export const categories: Category[] = [
         icon: <LayoutDashboard className="w-5 h-5" />,
         label: "CENTRALIZED CONTROL",
         title: "Manage everything from one dashboard.",
-        description: "Your events, team, and resources—all in one powerful workspace.",
+        description: "Your events, team, and resources, all in one powerful workspace.",
         capabilities: [
           "Multi-event management",
           "Team collaboration & roles",

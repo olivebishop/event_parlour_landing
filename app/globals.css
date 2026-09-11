@@ -216,7 +216,7 @@
 @layer base {
   *:not([data-art-gallery] *):not([data-art-gallery]):not([data-allow-radius]):not(
       [data-allow-radius] *
-    ) {
+    ):not([data-os-chrome]):not([data-os-chrome] *) {
     @apply border-border;
     outline-color: var(--ring);
     outline-offset: 2px;
@@ -236,6 +236,62 @@
   [data-allow-radius].rounded-full,
   [data-allow-radius] .rounded-full {
     border-radius: 9999px !important;
+  }
+  [data-os-chrome],
+  [data-os-chrome] * {
+    border-radius: 0;
+  }
+  [data-os-chrome] .os-frame {
+    border-radius: 12px !important;
+  }
+  [data-os-chrome] .os-window {
+    border-radius: 8px !important;
+  }
+  [data-os-chrome][data-os="mac"] .os-window {
+    border-radius: 12px !important;
+  }
+  [data-os-chrome] .os-sheet {
+    border-radius: 14px !important;
+  }
+  [data-os-chrome] .os-widget {
+    border-radius: 14px !important;
+  }
+  [data-os-chrome] .os-tile {
+    border-radius: 10px !important;
+  }
+  [data-os-chrome] .os-row {
+    border-radius: 6px !important;
+  }
+  [data-os-chrome] .os-dock {
+    border-radius: 22px !important;
+  }
+  [data-os-chrome] .os-pill {
+    border-radius: 9999px !important;
+  }
+  [data-os-chrome] .os-squircle {
+    border-radius: 22% !important;
+  }
+  [data-os-chrome] .os-dot {
+    border-radius: 9999px !important;
+  }
+  [data-os-chrome] .os-live-dot {
+    animation: os-live-pulse 1.8s ease-in-out infinite;
+  }
+  [data-os-chrome] .os-eq-bar {
+    transform-origin: bottom;
+    animation: os-eq 1.15s ease-in-out infinite;
+  }
+  [data-os-chrome] .os-eq-bar:nth-child(2) {
+    animation-delay: -0.35s;
+  }
+  [data-os-chrome] .os-eq-bar:nth-child(3) {
+    animation-delay: -0.7s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-os-chrome] .os-live-dot,
+    [data-os-chrome] .os-eq-bar {
+      animation: none;
+    }
   }
   body {
     @apply bg-background text-foreground font-sans text-[0.9375rem] leading-relaxed font-normal sm:text-base;
@@ -824,3 +880,26 @@ html {
   --input: oklch(1 0 0);
   --ring: oklch(0.145 0 0);
 }
+
+@keyframes os-live-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes os-eq {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+

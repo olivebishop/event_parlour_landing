@@ -309,7 +309,7 @@ function DistributionVisual() {
               </div>
               <p className="font-body text-xs font-semibold">Doors open 7pm</p>
               <p className="mt-0.5 font-body text-[11px] leading-snug text-foreground/75">
-                Lineup drop in 20 minutes — don&apos;t miss it.
+                Lineup drop in 20 minutes. Don&apos;t miss it.
               </p>
             </motion.div>
             <div className="relative min-h-0 flex-1 overflow-hidden">
@@ -376,18 +376,19 @@ function CollabCursor({
   /** Percent positions within the canvas (0–100). */
   path: { left: readonly string[]; top: readonly string[]; duration: number }
 }) {
+  const frozen = reduce === true
+
   return (
     <motion.div
       className="pointer-events-none absolute z-20"
-      style={{ left: path.left[0], top: path.top[0] }}
-      initial={false}
+      initial={{ left: path.left[0], top: path.top[0] }}
       animate={
-        reduce
+        frozen
           ? { left: path.left[0], top: path.top[0] }
           : { left: [...path.left], top: [...path.top] }
       }
       transition={
-        reduce
+        frozen
           ? { duration: 0 }
           : {
               duration: path.duration,
@@ -519,8 +520,7 @@ function WorkspaceVisual() {
                   <motion.li
                     key={m.person.name}
                     initial={reduce ? false : { opacity: 0, x: -6 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.08 + i * 0.08, duration: 0.3 }}
                   >
                     <button
