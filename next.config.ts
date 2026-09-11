@@ -18,6 +18,11 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     inlineCss: true,
+    // 16.3 defaults this to "warning" and can crash the homepage in dev
+    // when the instant-validation work store is missing.
+    instantInsights: {
+      validationLevel: "manual-warning",
+    },
     optimizePackageImports: [
       "lucide-react",
       "framer-motion",

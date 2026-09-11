@@ -23,32 +23,57 @@ function detectPlatform(): DownloadPlatform {
 
 function DownloadButtons({ platform }: { platform: DownloadPlatform }) {
   const copy = desktopDownloads[platform]
+  const many = copy.builds.length > 1
 
   return (
     <div className="flex flex-col items-center gap-3">
-      <div className="flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
+      <div className="flex w-full flex-row justify-center gap-2 sm:w-auto sm:gap-3">
         {copy.builds.map((build, index) => {
           const ready = isBuildReady(build)
+          const label = ready ? build.label : `${build.label}, soon`
           const button = (
             <Button
               size="cta"
               variant={index === 0 ? "default" : "outline"}
               disabled={!ready}
-              className="w-full min-w-[11.5rem] justify-between gap-6 rounded-none px-5 shadow-none sm:w-auto"
+              className={cn(
+                "max-w-none justify-between gap-2 rounded-none px-3 shadow-none sm:min-w-[11.5rem] sm:gap-6 sm:px-5",
+                many
+                  ? "w-full min-w-0 flex-1 sm:w-auto sm:flex-none"
+                  : "w-auto",
+              )}
             >
-              <span>{ready ? build.label : `${build.label}, soon`}</span>
+              <span>
+                <span className="hidden sm:inline">
+                  {label.startsWith("Download ") ? "Download " : null}
+                </span>
+                {label.replace(/^Download /, "")}
+              </span>
               <span aria-hidden className="font-numbers text-base leading-none">
                 {ready ? "↓" : "·"}
               </span>
             </Button>
           )
 
+          const wrapClass = many
+            ? "min-w-0 flex-1 sm:flex-none"
+            : "shrink-0"
+
           if (!ready) {
-            return <div key={build.id}>{button}</div>
+            return (
+              <div key={build.id} className={wrapClass}>
+                {button}
+              </div>
+            )
           }
 
           return (
-            <a key={build.id} href={build.href} download={build.filename}>
+            <a
+              key={build.id}
+              href={build.href}
+              download={build.filename}
+              className={wrapClass}
+            >
               {button}
             </a>
           )
