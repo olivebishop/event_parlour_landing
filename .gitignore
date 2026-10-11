@@ -37,6 +37,13 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# next-video
+videos/*
+!videos/*.json
+!videos/*.js
+!videos/*.ts
+public/_next-video
+
 # env files (can opt-in for committing if needed)
 .env*
 

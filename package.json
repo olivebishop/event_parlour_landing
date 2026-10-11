@@ -10,7 +10,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "videos:sync": "next-video sync"
   },
   "dependencies": {
     "@c15t/nextjs": "^1.8.2",
@@ -60,6 +61,7 @@
     "motion": "^12.42.2",
     "next": "^16.3.4",
     "next-themes": "^0.4.4",
+    "next-video": "^2.8.2",
     "nodemailer": "^6.10.0",
     "react": "^19.2.3",
     "react-day-picker": "8.10.1",

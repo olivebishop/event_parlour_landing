@@ -1,6 +1,16 @@
+import { withNextVideo } from "next-video/process"
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
+  // next-video's withNextVideo only registers *.mp4 for Turbopack; add webm.
+  turbopack: {
+    rules: {
+      "*.webm": {
+        loaders: ["next-video/webpack/video-raw-loader.js"],
+        as: "*.json",
+      },
+    },
+  },
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
@@ -107,4 +117,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+export default withNextVideo(nextConfig)
