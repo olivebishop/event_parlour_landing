@@ -55,6 +55,25 @@ const closingLineVariants = {
 const footerLinkClass =
   "inline-flex min-h-9 items-center font-body text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
 
+const footerBadgeClass =
+  "inline-flex min-h-9 items-center gap-1.5 self-start rounded-none border border-solid border-foreground/20 bg-background px-2.5 py-1.5 font-body text-xs text-muted-foreground transition-[border-color,color] duration-200 hover:border-foreground hover:text-foreground sm:self-auto";
+
+/** Startup program support — credits/tools, not paid sponsors. */
+const supportedByLinks = [
+  {
+    href: "https://www.cloudflare.com/startups/",
+    label: "Cloudflare for Startups",
+  },
+  {
+    href: "https://claude.com/programs/startups",
+    label: "Claude for Startups",
+  },
+  {
+    href: "https://atlasflow.com/startups",
+    label: "Atlasflow for Startups",
+  },
+] as const;
+
 function FooterNavColumn({
   title,
   links,
@@ -275,7 +294,7 @@ const Footer = () => {
                 href="https://tanstack.com/showcase/3c337dc8-cc31-40ee-adfc-413e9bdf041b"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-9 items-center gap-1.5 self-start rounded-none border border-solid border-foreground/20 bg-background px-2.5 py-1.5 font-body text-xs text-muted-foreground transition-[border-color,color] duration-200 hover:border-foreground hover:text-foreground sm:self-auto"
+                className={footerBadgeClass}
               >
                 <SimpleIconsTanstack
                   className="h-3.5 w-3.5 shrink-0"
@@ -288,6 +307,24 @@ const Footer = () => {
                   Theme
                 </PixelLabel>
                 <FooterThemeSwitcher inverted />
+              </div>
+            </div>
+            <div className="mt-8 space-y-3">
+              <PixelLabel variant="line" tone="soft" as="p" className="mb-0">
+                Supported by
+              </PixelLabel>
+              <div className="flex flex-wrap gap-2">
+                {supportedByLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={footerBadgeClass}
+                  >
+                    {link.label}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
