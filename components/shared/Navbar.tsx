@@ -127,7 +127,10 @@ export function Navbar() {
         }}
       >
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:gap-6 sm:px-8 lg:h-16 lg:gap-8 lg:px-10 xl:max-w-[90rem] xl:px-12">
-          <BrandLogoLink logoClassName="shrink-0 text-base font-semibold lowercase tracking-tight sm:text-lg" />
+          <BrandLogoLink
+            matchBar
+            logoClassName="shrink-0 text-base font-semibold lowercase tracking-tight sm:text-lg"
+          />
 
           <nav
             className="hidden min-w-0 items-center gap-5 lg:flex xl:gap-7"
