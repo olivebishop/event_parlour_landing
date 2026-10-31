@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Settings, User, Users, CreditCard, RefreshCw, DollarSign, TrendingUp, FileText, AlertCircle } from "lucide-react"
+import { Settings, Users, CreditCard, RefreshCw, DollarSign, TrendingUp, FileText, AlertCircle } from "lucide-react"
 import { format } from "date-fns"
 
 const mockTransactions = [
@@ -57,7 +57,7 @@ const mockMonthlyEarnings = [
 ]
 
 export default function SettingsDemo() {
-  const [selectedTab, setSelectedTab] = useState<"general" | "account" | "team" | "billing">("general")
+  const [selectedTab, setSelectedTab] = useState<"general" | "community" | "team" | "billing">("general")
   const [billingTab, setBillingTab] = useState<"overview" | "transactions" | "earnings" | "withdrawals">("overview")
 
   const getStatusBadgeVariant = (status: string) => {
@@ -90,8 +90,8 @@ export default function SettingsDemo() {
             <div className="space-y-1">
               {[
                 { id: "general", label: "General", icon: Settings },
-                { id: "account", label: "Account", icon: User },
-                { id: "team", label: "Team", icon: Users },
+                { id: "community", label: "Community", icon: Users },
+                { id: "team", label: "Team Members", icon: Users },
                 { id: "billing", label: "Billing", icon: CreditCard },
               ].map((tab) => {
                 const Icon = tab.icon
@@ -351,9 +351,9 @@ export default function SettingsDemo() {
               <Card>
                 <CardHeader>
                   <CardTitle>
-                    {selectedTab === "general" && "General Settings"}
-                    {selectedTab === "account" && "Account Settings"}
-                    {selectedTab === "team" && "Team Management"}
+                    {selectedTab === "general" && "General"}
+                    {selectedTab === "community" && "Community"}
+                    {selectedTab === "team" && "Team Members"}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -363,7 +363,7 @@ export default function SettingsDemo() {
                         <label className="text-sm font-medium mb-2 block">Workspace Name</label>
                         <input
                           type="text"
-                          defaultValue="My Workspace"
+                          defaultValue="Tech Nairobi"
                           className="w-full px-3 py-2 border border-border rounded-lg bg-background"
                         />
                       </div>
@@ -376,26 +376,10 @@ export default function SettingsDemo() {
                       <Button>Save Changes</Button>
                     </>
                   )}
-                  {selectedTab === "account" && (
-                    <>
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">Email</label>
-                        <input
-                          type="email"
-                          defaultValue="organizer@example.com"
-                          className="w-full px-3 py-2 border border-border rounded-lg bg-background"
-                        />
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">Full Name</label>
-                        <input
-                          type="text"
-                          defaultValue="John Doe"
-                          className="w-full px-3 py-2 border border-border rounded-lg bg-background"
-                        />
-                      </div>
-                      <Button>Update Account</Button>
-                    </>
+                  {selectedTab === "community" && (
+                    <p className="text-sm text-muted-foreground">
+                      Your public storefront lists events and hangouts. Community is an optional space attendees can join for updates and conversation.
+                    </p>
                   )}
                   {selectedTab === "team" && (
                     <>

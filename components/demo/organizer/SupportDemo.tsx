@@ -18,8 +18,8 @@ const faqData = [
     answer: "You can view all ticket sales in the Analytics section. Track revenue, attendee numbers, and sales trends. You can also manage ticket types and pricing from the Events page.",
   },
   {
-    question: "How do I verify my account (KYC)?",
-    answer: "Go to KYC Verification in the sidebar and upload the required documents (Business License, ID Document, Bank Statement). Our team will review your submission and notify you once verified.",
+    question: "How do I verify my account?",
+    answer: "Verification is part of publishing. When you are ready to sell tickets, the workspace asks for the documents it needs and tells you once review is done.",
   },
   {
     question: "How do I invite team members?",
@@ -35,7 +35,7 @@ const faqData = [
   },
   {
     question: "How do I communicate with attendees?",
-    answer: "Use the Channels feature to create communication channels for your events. You can send announcements, answer questions, and engage with attendees before, during, and after events.",
+    answer: "Open Community to follow a host's space. Announcements go out from the workspace, and members can talk with the host and other attendees before, during, and after the event.",
   },
   {
     question: "Can I transfer tickets between events?",

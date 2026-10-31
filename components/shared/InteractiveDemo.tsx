@@ -24,10 +24,12 @@ import {
   MessageSquare,
   HelpCircle,
   Mic,
-  ShieldCheck,
-  ChevronDown,
+  Map,
+  Megaphone,
+  ClipboardList,
+  DoorOpen,
+  ChevronsUpDown,
   Bell,
-  User,
   LogOut,
   Sun,
   Moon,
@@ -95,11 +97,24 @@ const EventsDemoOrganizer = dynamic(
   () => import("@/components/demo/organizer/EventsDemo"),
   { loading: DemoPaneSkeleton }
 )
-const KYCDemo = dynamic(() => import("@/components/demo/organizer/KYCDemo"), {
-  loading: DemoPaneSkeleton,
-})
 const ChannelsDemoOrganizer = dynamic(
   () => import("@/components/demo/organizer/ChannelsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const HangoutsDemo = dynamic(
+  () => import("@/components/demo/organizer/HangoutsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const AnnouncementsDemo = dynamic(
+  () => import("@/components/demo/organizer/AnnouncementsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const FormsDemo = dynamic(
+  () => import("@/components/demo/organizer/FormsDemo"),
+  { loading: DemoPaneSkeleton }
+)
+const CheckInDemo = dynamic(
+  () => import("@/components/demo/organizer/CheckInDemo"),
   { loading: DemoPaneSkeleton }
 )
 const SpeakersDemo = dynamic(
@@ -183,21 +198,27 @@ function WorkspaceDefaultAvatarSvg() {
 
 // Team Dropdown Component (simplified for demo)
 function TeamDropdown({ isExpanded }: { isExpanded: boolean }) {
-  const [isActive, setIsActive] = useState(false)
-
   return (
-    <div className="w-full relative">
-      <button
-        type="button"
-        aria-label="Switch workspace"
-        onClick={() => setIsActive(!isActive)}
-        className="w-full flex items-center justify-center p-2 rounded transition-colors hover:bg-accent"
-      >
-        <div className="h-8 w-8 shrink-0 overflow-hidden rounded border border-border bg-primary text-primary-foreground flex items-center justify-center">
-          <WorkspaceDefaultAvatarSvg />
-        </div>
-      </button>
-    </div>
+    <button
+      type="button"
+      aria-label="Switch workspace"
+      className={cn(
+        "flex w-full items-center gap-2.5 p-1.5 text-left outline-none transition-colors hover:bg-[#eeede9] focus-visible:ring-2 focus-visible:ring-black/20 dark:hover:bg-[#2d2d2b] dark:focus-visible:ring-white/30",
+        isExpanded ? "justify-start" : "justify-center",
+      )}
+    >
+      <div className="flex size-8 shrink-0 items-center justify-center overflow-hidden border border-border bg-primary text-primary-foreground">
+        <WorkspaceDefaultAvatarSvg />
+      </div>
+      {isExpanded ? (
+        <>
+          <span className="min-w-0 flex-1 truncate text-left text-[13.5px] font-semibold">
+            Tech Nairobi
+          </span>
+          <ChevronsUpDown className="size-3.5 shrink-0 text-muted-foreground" aria-hidden />
+        </>
+      ) : null}
+    </button>
   )
 }
 
@@ -222,16 +243,55 @@ function AttendeeProfile({ isExpanded }: { isExpanded: boolean }) {
   const initials = getInitials(displayName)
 
   return (
-    <div className="w-full flex items-center justify-center p-2 rounded transition-colors hover:bg-accent">
-      <div className="h-8 w-8 shrink-0 border border-border bg-gradient-to-br from-secondary to-secondary/70 text-foreground overflow-hidden rounded-lg flex items-center justify-center">
+    <div
+      className={cn(
+        "flex w-full items-center gap-2.5 p-1.5 transition-colors duration-200 hover:bg-[#eeede9] dark:hover:bg-[#2d2d2b]",
+        isExpanded ? "justify-start" : "justify-center",
+      )}
+    >
+      <div className="flex size-8 shrink-0 items-center justify-center overflow-hidden border border-border bg-gradient-to-br from-secondary to-secondary/70 text-foreground">
         <span className="text-xs font-semibold">{initials}</span>
       </div>
+      {isExpanded ? (
+        <div className="flex min-w-0 flex-col items-start">
+          <span className="truncate text-[13.5px] font-medium">{displayName}</span>
+          <span className="truncate text-xs font-normal text-muted-foreground">
+            Attendee
+          </span>
+        </div>
+      ) : null}
     </div>
   )
 }
 
 // Sidebar Navigation Component
+function DemoGreeting({ name }: { name: string }) {
+  const [greeting, setGreeting] = useState<string | null>(null)
+
+  useEffect(() => {
+    const hour = new Date().getHours()
+    if (hour >= 5 && hour < 12) setGreeting("Good morning")
+    else if (hour >= 12 && hour < 17) setGreeting("Good afternoon")
+    else setGreeting("Good evening")
+  }, [])
+
+  const firstName = name.trim().split(/\s+/)[0] ?? ""
+
+  if (!greeting) {
+    return <div className="h-7 w-48 bg-muted" aria-hidden />
+  }
+
+  return (
+    <h2 className="text-xl font-medium tracking-tight">
+      <span className="text-muted-foreground">{greeting}</span>
+      {firstName ? `, ${firstName}` : null}
+    </h2>
+  )
+}
+
 function Sidebar({ activeView, mode, onNavigate }: { activeView: string; mode: DemoMode; onNavigate: (view: string) => void }) {
+  const [isHovered, setIsHovered] = useState(false)
+  const isExpanded = isHovered
   // Organizer navigation items (main items only, no sub-items)
   const organizerNavItems = [
     { 
@@ -244,25 +304,40 @@ function Sidebar({ activeView, mode, onNavigate }: { activeView: string; mode: D
       label: "Events", 
       id: "events",
     },
-    { 
-      icon: ShieldCheck, 
-      label: "KYC Verification", 
-      id: "kyc",
+    {
+      icon: Map,
+      label: "Hangouts",
+      id: "hangouts",
+    },
+    {
+      icon: Megaphone,
+      label: "Announcements",
+      id: "announcements",
     },
     { 
-      icon: MessageSquare, 
-      label: "Channels", 
-      id: "channels",
+      icon: Users, 
+      label: "Community", 
+      id: "community",
     },
     { 
       icon: Mic, 
       label: "Speakers", 
       id: "speakers",
     },
+    {
+      icon: ClipboardList,
+      label: "Forms",
+      id: "forms",
+    },
     { 
       icon: Ticket, 
       label: "Tickets", 
       id: "tickets",
+    },
+    {
+      icon: DoorOpen,
+      label: "Check-in",
+      id: "check-in",
     },
     { 
       icon: BarChart3, 
@@ -294,9 +369,9 @@ function Sidebar({ activeView, mode, onNavigate }: { activeView: string; mode: D
       id: "events",
     },
     { 
-      icon: MessageSquare, 
-      label: "Channels", 
-      id: "channels",
+      icon: Users, 
+      label: "Community", 
+      id: "community",
     },
     { 
       icon: Ticket, 
@@ -323,13 +398,37 @@ function Sidebar({ activeView, mode, onNavigate }: { activeView: string; mode: D
   const navItems = mode === "organizer" ? organizerNavItems : attendeeNavItems
 
   return (
-    <div className="flex h-full w-16 shrink-0 flex-col border-r border-border bg-muted/50 dark:bg-muted/40">
-      <div className="border-b border-border p-4">
-        <div className="flex h-8 w-8 items-center justify-center bg-primary dark:bg-primary">
-          <span className="text-xs font-bold text-primary-foreground">EP</span>
+    <aside
+      aria-label="Main"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsHovered(true)}
+      onBlur={(event) => {
+        const next = event.relatedTarget
+        if (!(next instanceof Node) || !event.currentTarget.contains(next)) {
+          setIsHovered(false)
+        }
+      }}
+      className={cn(
+        "absolute inset-y-0 left-0 z-30 flex flex-col overflow-hidden border-r border-black/8 bg-[#f4f3f0] text-[#1c1c1a]",
+        "transition-[width,box-shadow] duration-200 ease-out",
+        "dark:border-white/8 dark:bg-[#151514] dark:text-white",
+        isExpanded
+          ? "w-[240px] shadow-[8px_0_24px_-12px_rgba(0,0,0,0.28)]"
+          : "w-[72px]",
+      )}
+    >
+      <div className="flex h-14 shrink-0 items-center px-3 md:h-16">
+        <div
+          className={cn(
+            "flex size-10 items-center justify-center border border-black/10 bg-white dark:border-white/10 dark:bg-[#1c1c1a]",
+            isExpanded ? "ml-0.5" : "mx-auto",
+          )}
+        >
+          <span className="text-xs font-bold text-[#1c1c1a] dark:text-white">EP</span>
         </div>
       </div>
-      <nav className="flex-1 space-y-1 overflow-hidden py-4">
+      <nav className="flex min-h-0 flex-1 flex-col gap-0.5 overflow-y-auto overflow-x-hidden py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {navItems.map((item) => {
           const Icon = item.icon
           const isActive = activeView === item.id
@@ -340,28 +439,40 @@ function Sidebar({ activeView, mode, onNavigate }: { activeView: string; mode: D
               type="button"
               onClick={() => onNavigate(item.id)}
               aria-label={item.label}
+              aria-current={isActive ? "page" : undefined}
               className={cn(
-                "flex w-full items-center justify-center p-3 transition-colors",
+                "flex shrink-0 items-center text-[13.5px] transition-colors",
+                isExpanded
+                  ? "mx-2 h-[30px] w-[calc(100%-1rem)] gap-2.5 px-2 text-left"
+                  : "mx-auto size-10 justify-center",
                 isActive
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                  ? isExpanded
+                    ? "bg-white font-medium text-[#1c1c1a] shadow-[0_1px_2px_rgba(0,0,0,0.05),0_0_0_1px_rgba(0,0,0,0.08)] dark:bg-[#2d2d2b] dark:text-white dark:shadow-none"
+                    : "bg-[#eeede9] font-medium text-[#1c1c1a] dark:bg-[#2d2d2b] dark:text-white"
+                  : "text-[#6f6f6a] hover:bg-[#eeede9] hover:text-[#1c1c1a] dark:text-[#a3a39f] dark:hover:bg-[#2d2d2b] dark:hover:text-white",
               )}
-              title={item.label}
             >
-              <Icon className="h-5 w-5" />
+              <Icon className="size-[18px] shrink-0" aria-hidden />
+              {isExpanded ? (
+                <span className="min-w-0 flex-1 truncate">{item.label}</span>
+              ) : null}
             </button>
           )
         })}
       </nav>
-      {/* Bottom section - Team Dropdown for organizer, Attendee Profile for attendee */}
-      <div className="p-3 border-t border-border">
+      <div
+        className={cn(
+          "shrink-0 border-t border-black/8 bg-transparent py-2 dark:border-white/8",
+          isExpanded ? "px-3" : "px-2",
+        )}
+      >
         {mode === "organizer" ? (
-          <TeamDropdown isExpanded={false} />
+          <TeamDropdown isExpanded={isExpanded} />
         ) : (
-          <AttendeeProfile isExpanded={false} />
+          <AttendeeProfile isExpanded={isExpanded} />
         )}
       </div>
-    </div>
+    </aside>
   )
 }
 
@@ -583,13 +694,6 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
                       className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-sm cursor-pointer"
                       onClick={() => setIsProfileOpen(false)}
                     >
-                      <User className="h-4 w-4" />
-                      Account
-                    </button>
-                    <button
-                      className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-sm cursor-pointer"
-                      onClick={() => setIsProfileOpen(false)}
-                    >
                       <Settings className="h-4 w-4" />
                       Settings
                     </button>
@@ -600,16 +704,22 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
                       <HelpCircle className="h-4 w-4" />
                       Support
                     </button>
+                    <button
+                      className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-sm cursor-pointer"
+                      onClick={() => setIsProfileOpen(false)}
+                    >
+                      <MessageSquare className="h-4 w-4" />
+                      Feedback
+                    </button>
                   </div>
                   <div className="border-t border-border p-1">
                     <button
-                      className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-destructive/10 text-sm cursor-pointer text-destructive"
+                      className="w-full flex items-center gap-2 px-2 py-1.5 text-sm cursor-pointer text-destructive hover:bg-destructive/10"
                       onClick={() => {
                         setShowSignOutDialog(true)
                         setIsProfileOpen(false)
                       }}
                     >
-                      <LogOut className="h-4 w-4" />
                       Sign Out
                     </button>
                   </div>
@@ -673,9 +783,9 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
 // Organizer Dashboard Wrapper
 function OrganizerDashboardWrapper({ onSwitch, activeView, setActiveView }: { onSwitch: () => void; activeView: string; setActiveView: (view: string) => void }) {
   return (
-    <div className={cn("flex flex-row", demoShellClass)}>
+    <div className={cn("relative", demoShellClass)}>
       <Sidebar activeView={activeView} mode="organizer" onNavigate={setActiveView} />
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col pl-[72px]">
         <TopHeader onSwitch={onSwitch} mode="organizer" />
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
           <OrganizerDashboardContent activeView={activeView} />
@@ -691,14 +801,20 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
     switch (activeView) {
       case "events":
         return <EventsDemoOrganizer />
-      case "kyc":
-        return <KYCDemo />
-      case "channels":
+      case "hangouts":
+        return <HangoutsDemo />
+      case "announcements":
+        return <AnnouncementsDemo />
+      case "community":
         return <ChannelsDemoOrganizer />
       case "speakers":
         return <SpeakersDemo />
+      case "forms":
+        return <FormsDemo />
       case "tickets":
         return <TicketsDemoOrganizer />
+      case "check-in":
+        return <CheckInDemo />
       case "analytics":
         return <AnalyticsDemoOrganizer />
       case "settings":
@@ -713,16 +829,11 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
               <div className="shrink-0">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <h2 className="text-xl font-semibold tracking-tight">
-                      Welcome back, Olive
-                    </h2>
+                    <DemoGreeting name="Olive" />
                     <p className="mt-1 text-sm text-muted-foreground">
-                      Here&apos;s what&apos;s happening with your workspace
+                      Here&apos;s what&apos;s happening with Tech Nairobi
                     </p>
                   </div>
-                  <Badge variant="outline" className="w-fit text-sm">
-                    Owner
-                  </Badge>
                 </div>
               </div>
 
@@ -736,20 +847,20 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
                   <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
                     <div className={demoStatValueClass}>12</div>
                     <p className="text-[10px] sm:text-xs text-muted-foreground">
-                      3 active this month
+                      12 events
                     </p>
                   </CardContent>
                 </Card>
 
                 <Card className={demoMetricCardClass}>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4 sm:px-6 sm:pt-6">
-                    <CardTitle className="text-xs sm:text-sm font-medium">Team Members</CardTitle>
-                    <Users className="h-4 w-4 text-muted-foreground" />
+                    <CardTitle className="text-xs sm:text-sm font-medium">Check-in</CardTitle>
+                    <CalendarCheck className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
-                    <div className={demoStatValueClass}>8</div>
+                    <div className={demoStatValueClass}>82%</div>
                     <p className="text-[10px] sm:text-xs text-muted-foreground">
-                      Active members
+                      2,009 of 2,450 in · all time
                     </p>
                   </CardContent>
                 </Card>
@@ -921,9 +1032,9 @@ function OrganizerDashboardContent({ activeView }: { activeView: string }) {
 // Attendee Dashboard Wrapper
 function AttendeeDashboardWrapper({ onSwitch, activeView, setActiveView }: { onSwitch: () => void; activeView: string; setActiveView: (view: string) => void }) {
   return (
-    <div className={cn("flex flex-row", demoShellClass)}>
+    <div className={cn("relative", demoShellClass)}>
       <Sidebar activeView={activeView} mode="attendee" onNavigate={setActiveView} />
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col pl-[72px]">
         <TopHeader onSwitch={onSwitch} mode="attendee" />
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
           <AttendeeDashboardContent activeView={activeView} />
@@ -939,7 +1050,7 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
     switch (activeView) {
       case "events":
         return <EventsDemoAttendee />
-      case "channels":
+      case "community":
         return <ChannelsDemoAttendee />
       case "tickets":
         return <TicketsDemoAttendee />
@@ -953,13 +1064,9 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
         return (
           <div className="h-full p-6">
             <div className="flex h-full flex-col gap-4">
-              <div className="shrink-0">
-                <h3 className="mb-1 text-xl font-semibold text-foreground">
-                  My Dashboard
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Your events and tickets
-                </p>
+              <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <DemoGreeting name="Olive" />
+                <Button size="sm">Create events</Button>
               </div>
 
               <div className="grid shrink-0 grid-cols-4 gap-4">
@@ -981,7 +1088,7 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
                   </CardHeader>
                   <CardContent className="px-4 pb-4">
                     <div className={demoStatValueClass}>5</div>
-                    <p className="text-xs text-muted-foreground">Upcoming events</p>
+                    <p className="text-xs text-muted-foreground">Free events</p>
                   </CardContent>
                 </Card>
 
@@ -992,7 +1099,7 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
                   </CardHeader>
                   <CardContent className="px-4 pb-4">
                     <div className={demoStatValueClass}>7</div>
-                    <p className="text-xs text-muted-foreground">In the next 30 days</p>
+                    <p className="text-xs text-muted-foreground">Events to attend</p>
                   </CardContent>
                 </Card>
 
@@ -1003,7 +1110,7 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
                   </CardHeader>
                   <CardContent className="px-4 pb-4">
                     <div className={demoStatValueClass}>KES 12.5K</div>
-                    <p className="text-xs text-muted-foreground">This year</p>
+                    <p className="text-xs text-muted-foreground">On event tickets</p>
                   </CardContent>
                 </Card>
               </div>
@@ -1014,7 +1121,7 @@ function AttendeeDashboardContent({ activeView }: { activeView: string }) {
                     <div>
                       <CardTitle className="text-lg">Upcoming Events</CardTitle>
                       <p className="text-sm text-muted-foreground">
-                        Events you&apos;re attending
+                        Events you&apos;re attending soon
                       </p>
                     </div>
                     <Button variant="outline" size="sm" className="gap-2" asChild>

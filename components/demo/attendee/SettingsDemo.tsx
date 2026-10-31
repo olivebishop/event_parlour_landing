@@ -85,7 +85,7 @@ export default function SettingsDemo() {
                       <label className="text-sm font-medium mb-2 block">Email</label>
                       <input
                         type="email"
-                        defaultValue="attendee@example.com"
+                          defaultValue="olive@example.com"
                         className="w-full px-3 py-2 border border-border rounded-lg bg-background"
                       />
                     </div>
@@ -93,7 +93,7 @@ export default function SettingsDemo() {
                       <label className="text-sm font-medium mb-2 block">Full Name</label>
                       <input
                         type="text"
-                        defaultValue="Jane Doe"
+                          defaultValue="Olive"
                         className="w-full px-3 py-2 border border-border rounded-lg bg-background"
                       />
                     </div>

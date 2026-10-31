@@ -109,7 +109,7 @@ export const mockChannels = [
   {
     id: "2",
     name: "Music Events Hub",
-    bio: "Your go-to channel for all music events in Kenya. Get updates on concerts, festivals, and live performances.",
+    bio: "Your go-to community for music events in Kenya. Get updates on concerts, festivals, and live performances.",
     imageUrl: null,
     website: null,
     socialLinks: {

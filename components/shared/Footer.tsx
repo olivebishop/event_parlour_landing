@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   HugeiconsWhatsapp,
   HugeiconsTiktok,
@@ -9,6 +9,10 @@ import {
   HugeiconsLinkedin01,
   HugeiconsNewTwitter,
   SimpleIconsTanstack,
+  SimpleIconsCloudflare,
+  SimpleIconsClaude,
+  NeonLogomark,
+  AtlasflowLogomark,
 } from "./social-icons";
 import { BrandGrainOverlay } from "@/components/grain-overlay";
 import { BrandLogoLink } from "@/components/shared/brand-logo-link";
@@ -58,19 +62,53 @@ const footerLinkClass =
 const footerBadgeClass =
   "inline-flex min-h-9 items-center gap-1.5 self-start rounded-none border border-solid border-foreground/20 bg-background px-2.5 py-1.5 font-body text-xs text-muted-foreground transition-[border-color,color] duration-200 hover:border-foreground hover:text-foreground sm:self-auto";
 
+const supportedByContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const supportedByItemVariants = {
+  hidden: { opacity: 0, x: 28 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut" as const,
+    },
+  },
+};
+
 /** Startup program support — credits/tools, not paid sponsors. */
 const supportedByLinks = [
   {
     href: "https://www.cloudflare.com/startups/",
+    name: "Cloudflare",
     label: "Cloudflare for Startups",
+    icon: SimpleIconsCloudflare,
   },
   {
     href: "https://claude.com/programs/startups",
+    name: "Claude",
     label: "Claude for Startups",
+    icon: SimpleIconsClaude,
   },
   {
     href: "https://atlasflow.com/startups",
+    name: "Atlasflow",
     label: "Atlasflow for Startups",
+    icon: AtlasflowLogomark,
+  },
+  {
+    href: "https://neon.com/",
+    name: "Neon",
+    label: "Neon for Startups",
+    icon: NeonLogomark,
   },
 ] as const;
 
@@ -118,6 +156,8 @@ function FooterNavColumn({
 }
 
 const Footer = () => {
+  const prefersReducedMotion = useReducedMotion();
+
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string,
@@ -310,22 +350,38 @@ const Footer = () => {
               </div>
             </div>
             <div className="mt-8 space-y-3">
-              <PixelLabel variant="line" tone="soft" as="p" className="mb-0">
+              <PixelLabel variant="plain" tone="soft" as="p" className="mb-0">
                 Supported by
               </PixelLabel>
-              <div className="flex flex-wrap gap-2">
-                {supportedByLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={footerBadgeClass}
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
+              <motion.ul
+                className="flex flex-wrap items-center gap-2"
+                aria-label="Startup programs supporting Event Parlour"
+                variants={supportedByContainerVariants}
+                initial={prefersReducedMotion ? "visible" : "hidden"}
+                animate="visible"
+              >
+                {supportedByLinks.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <motion.li
+                      key={link.href}
+                      className="shrink-0"
+                      variants={supportedByItemVariants}
+                    >
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={link.label}
+                        className="inline-flex min-h-8 items-center gap-1.5 rounded-none border border-solid border-foreground/15 bg-background px-2.5 py-1 font-body text-[0.6875rem] leading-none text-muted-foreground transition-[border-color,color] duration-200 hover:border-foreground hover:text-foreground"
+                      >
+                        <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                        {link.name}
+                      </a>
+                    </motion.li>
+                  );
+                })}
+              </motion.ul>
             </div>
           </div>
         </section>
