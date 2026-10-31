@@ -24,17 +24,17 @@ import {
 } from "@/components/shared/christmas-marks";
 
 const outgoingVariants = {
-  rest: { transform: "translateY(0%)" },
-  active: { transform: "translateY(100%)" },
+  rest: { y: "0%" },
+  active: { y: "100%" },
 };
 
 const incomingVariants = {
-  rest: { transform: "translateY(-100%)" },
-  active: { transform: "translateY(0%)" },
+  rest: { y: "-100%" },
+  active: { y: "0%" },
 };
 
-const rollTransition = {
-  duration: 0.3,
+const gestureTransition = {
+  duration: 0.42,
   ease: [0.338, 0.015, 0.395, 0.959] as const,
 };
 
@@ -66,11 +66,6 @@ function seasonOn(date: Date): Season | null {
   return null;
 }
 
-const spinTransition = {
-  duration: 0.5,
-  ease: [0.338, 0.015, 0.395, 0.959] as const,
-};
-
 function CostumeMark({
   icon,
   spin,
@@ -81,16 +76,14 @@ function CostumeMark({
   iconClass: string;
 }) {
   const reduce = useReducedMotion();
+  const animateIn = spin && !reduce;
   return (
-    <span className="flex h-full w-full items-center justify-start">
+    <span className="flex h-full w-full items-center justify-center">
       <motion.span
-        className={cn(
-          "inline-flex items-center justify-center",
-          iconClass,
-        )}
-        initial={spin && !reduce ? { rotate: -180, scale: 0.4 } : false}
+        className={cn("flex max-w-full items-center justify-center", iconClass)}
+        initial={animateIn ? { rotate: -22, scale: 0.9 } : false}
         animate={{ rotate: 0, scale: 1 }}
-        transition={spin && !reduce ? spinTransition : snapTransition}
+        transition={animateIn ? gestureTransition : snapTransition}
       >
         {icon}
       </motion.span>
@@ -143,6 +136,7 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
   const holdTimer = useRef<number | null>(null);
   const costumeCountRef = useRef(0);
   const pressTimer = useRef<number | null>(null);
+  const rollTimer = useRef<number | null>(null);
   const touchHold = useRef(false);
   const pointerIsTouch = useRef(false);
   const suppressClick = useRef(false);
@@ -188,15 +182,20 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
     setIncoming(nextIndex);
     setRollId(id);
     setRolling(true);
+    if (rollTimer.current !== null) window.clearTimeout(rollTimer.current);
+    rollTimer.current = window.setTimeout(() => {
+      rollTimer.current = null;
+      completeAnimation(id);
+    }, 430);
     return true;
   };
 
   const armHold = () => {
     clearHold();
-    if (!hovered.current && !focused.current) return;
+    if (!touchHold.current && !hovered.current && !focused.current) return;
     holdTimer.current = window.setTimeout(() => {
       holdTimer.current = null;
-      if (!hovered.current && !focused.current) return;
+      if (!touchHold.current && !hovered.current && !focused.current) return;
       const started = requestActive(nextCostume(displayRef.current, costumeCountRef.current));
       if (reduceMotionRef.current && started) armHold();
     }, HOLD_MS);
@@ -204,6 +203,10 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
 
   const completeAnimation = (id: number) => {
     if (id !== rollIdRef.current || !animating.current) return;
+    if (rollTimer.current !== null) {
+      window.clearTimeout(rollTimer.current);
+      rollTimer.current = null;
+    }
     animating.current = false;
 
     const next = incomingRef.current;
@@ -218,7 +221,9 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
     }
 
     setRolling(false);
-    if (hovered.current || focused.current) armHold();
+    const pointerHeld = touchHold.current;
+    const mouseActive = !pointerIsTouch.current && (hovered.current || focused.current);
+    if (pointerHeld || mouseActive) armHold();
   };
 
   const clearPress = () => {
@@ -227,13 +232,33 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
     pressTimer.current = null;
   };
 
+  const snapToWord = () => {
+    clearHold();
+    if (rollTimer.current !== null) {
+      window.clearTimeout(rollTimer.current);
+      rollTimer.current = null;
+    }
+    pendingRequest.current = null;
+    animating.current = false;
+    displayRef.current = 0;
+    incomingRef.current = 0;
+    setDisplay(0);
+    setIncoming(0);
+    setRolling(false);
+  };
+
   const endTouch = () => {
     clearPress();
-    if (!touchHold.current) return;
+    const held = touchHold.current;
     touchHold.current = false;
-    suppressClick.current = true;
     hovered.current = false;
-    if (!focused.current) release();
+    focused.current = false;
+    if (held) {
+      suppressClick.current = true;
+      release();
+      return;
+    }
+    snapToWord();
   };
 
   const engage = () => {
@@ -257,6 +282,7 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
     () => () => {
       clearHold();
       clearPress();
+      if (rollTimer.current !== null) window.clearTimeout(rollTimer.current);
     },
     [],
   );
@@ -272,7 +298,7 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
     "h-auto sm:h-auto",
     matchBar && "h-10 lg:h-auto",
   );
-  const iconClass = matchBar ? "size-8" : "size-7 sm:size-8";
+  const iconClass = matchBar ? "h-8" : "h-7 sm:h-8";
 
   if (!season) {
     return (
@@ -288,10 +314,12 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
       aria-label={wordmark}
       className={cn(linkClass, "touch-manipulation select-none")}
       onMouseEnter={() => {
+        if (pointerIsTouch.current) return;
         hovered.current = true;
         engage();
       }}
       onMouseLeave={() => {
+        if (pointerIsTouch.current) return;
         hovered.current = false;
         if (focused.current || touchHold.current) return;
         release();
@@ -312,6 +340,10 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
           return;
         }
         pointerIsTouch.current = true;
+        hovered.current = false;
+        focused.current = false;
+        clearHold();
+        if (!touchHold.current) snapToWord();
         try {
           event.currentTarget.setPointerCapture(event.pointerId);
         } catch {
@@ -348,9 +380,7 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
           "relative inline-grid overflow-hidden align-middle font-heading text-xl font-semibold lowercase leading-[1.25] tracking-tight text-foreground",
           logoClassName,
           "h-auto sm:h-auto",
-          matchBar
-            ? "h-10 py-0 my-0 lg:h-auto lg:py-2 lg:-my-2"
-            : "py-2 -my-2",
+          matchBar ? "h-14 -my-2 py-0 sm:h-14" : "py-2 -my-2",
         )}
       >
         <span className="invisible col-start-1 row-start-1 whitespace-nowrap">{WORDMARK}</span>
@@ -360,10 +390,7 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
           variants={outgoingVariants}
           initial="rest"
           animate={rolling ? "active" : "rest"}
-          transition={rolling ? rollTransition : snapTransition}
-          onAnimationComplete={
-            rolling ? () => completeAnimation(rollId) : undefined
-          }
+          transition={rolling ? gestureTransition : snapTransition}
         >
           {renderLine(display, false, costumes, iconClass)}
         </motion.span>
@@ -373,7 +400,7 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
           variants={incomingVariants}
           initial="rest"
           animate={rolling ? "active" : "rest"}
-          transition={rolling ? rollTransition : snapTransition}
+          transition={rolling ? gestureTransition : snapTransition}
         >
           {renderLine(incoming, rolling, costumes, iconClass)}
         </motion.span>

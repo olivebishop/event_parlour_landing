@@ -196,20 +196,7 @@ export function Navbar() {
             </div>
           </nav>
 
-          <div className="flex shrink-0 items-center gap-2 lg:hidden">
-            <Button
-              asChild
-              size="sm"
-              className="h-8 rounded-none px-3 text-xs shadow-none"
-            >
-              <Link
-                href={SIGN_IN_HREF}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {copy.signIn}
-              </Link>
-            </Button>
+          <div className="flex shrink-0 items-center lg:hidden">
             <button
               type="button"
               className="flex h-10 w-10 shrink-0 items-center justify-center"

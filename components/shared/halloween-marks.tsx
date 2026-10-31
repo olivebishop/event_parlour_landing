@@ -1,4 +1,5 @@
 // CC0 silhouettes from https://svgsilh.com/tag/halloween-1.html
+
 export function Silhouette({
   viewBox,
   transform,
@@ -10,8 +11,15 @@ export function Silhouette({
   paths: string[];
   fill?: string;
 }) {
+  const [, , w, h] = viewBox.split(/[\s,]+/).map(Number);
   return (
-    <svg viewBox={viewBox} aria-hidden className="size-full overflow-visible">
+    <svg
+      viewBox={viewBox}
+      aria-hidden
+      preserveAspectRatio="xMidYMid meet"
+      className="h-full w-auto max-w-full overflow-hidden"
+      style={{ aspectRatio: `${w} / ${h}` }}
+    >
       <g transform={transform} fill={fill}>
         {paths.map((d, index) => (
           <path key={index} d={d} />
