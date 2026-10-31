@@ -41,6 +41,7 @@ const gestureTransition = {
 const snapTransition = { duration: 0 };
 
 const HOLD_MS = 1100;
+const TOUCH_STEP_MS = 320;
 
 type Season = "halloween" | "christmas";
 
@@ -138,6 +139,7 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
   const pressTimer = useRef<number | null>(null);
   const rollTimer = useRef<number | null>(null);
   const touchHold = useRef(false);
+  const touchLeft = useRef(0);
   const pointerIsTouch = useRef(false);
   const suppressClick = useRef(false);
 
@@ -162,6 +164,7 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
       setIncoming(nextIndex);
       setRolling(false);
       animating.current = false;
+      if (nextIndex > 0) noteCostumeLanded();
       return true;
     }
 
@@ -201,6 +204,37 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
     }, HOLD_MS);
   };
 
+  const armTouchStep = () => {
+    clearHold();
+    holdTimer.current = window.setTimeout(() => {
+      holdTimer.current = null;
+      if (touchLeft.current <= 0 && !touchHold.current) {
+        release();
+        return;
+      }
+      requestActive(nextCostume(displayRef.current, costumeCountRef.current));
+    }, TOUCH_STEP_MS);
+  };
+
+  const noteCostumeLanded = () => {
+    if (touchLeft.current > 0) {
+      touchLeft.current -= 1;
+      if (touchLeft.current === 0 && touchHold.current) {
+        touchLeft.current = costumeCountRef.current;
+      }
+      if (touchLeft.current > 0) {
+        armTouchStep();
+        return;
+      }
+      release();
+      return;
+    }
+
+    const pointerHeld = touchHold.current;
+    const mouseActive = !pointerIsTouch.current && (hovered.current || focused.current);
+    if (pointerHeld || mouseActive) armHold();
+  };
+
   const completeAnimation = (id: number) => {
     if (id !== rollIdRef.current || !animating.current) return;
     if (rollTimer.current !== null) {
@@ -221,9 +255,7 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
     }
 
     setRolling(false);
-    const pointerHeld = touchHold.current;
-    const mouseActive = !pointerIsTouch.current && (hovered.current || focused.current);
-    if (pointerHeld || mouseActive) armHold();
+    noteCostumeLanded();
   };
 
   const clearPress = () => {
@@ -240,6 +272,7 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
     }
     pendingRequest.current = null;
     animating.current = false;
+    touchLeft.current = 0;
     displayRef.current = 0;
     incomingRef.current = 0;
     setDisplay(0);
@@ -249,13 +282,13 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
 
   const endTouch = () => {
     clearPress();
-    const held = touchHold.current;
+    const held = touchHold.current || touchLeft.current > 0;
     touchHold.current = false;
     hovered.current = false;
     focused.current = false;
     if (held) {
       suppressClick.current = true;
-      release();
+      if (touchLeft.current <= 0 && !animating.current) release();
       return;
     }
     snapToWord();
@@ -266,6 +299,7 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
     clearHold();
     const current = displayRef.current;
     const started = requestActive(current === 0 ? 1 : current);
+    if (touchLeft.current > 0) return;
     if (!started || reduceMotionRef.current) armHold();
   };
 
@@ -353,7 +387,7 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
         pressTimer.current = window.setTimeout(() => {
           pressTimer.current = null;
           touchHold.current = true;
-          hovered.current = true;
+          touchLeft.current = costumeCountRef.current;
           engage();
         }, 220);
       }}
