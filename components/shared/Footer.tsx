@@ -19,6 +19,7 @@ import { BrandLogoLink } from "@/components/shared/brand-logo-link";
 import { PixelLabel } from "@/components/shared/pixel-label";
 import { ThemeSwitcher as FooterThemeSwitcher } from "@/components/kibo-ui/theme-switcher";
 import { Button } from "@/components/ui/button";
+import { FooterAgentViewLink } from "@/components/shared/footer-agent-view";
 import { FooterSystemStatus } from "@/components/shared/footer-system-status";
 import { appHref } from "@/lib/app-url";
 
@@ -428,7 +429,10 @@ const Footer = () => {
             </span>
             <span>All rights reserved</span>
           </p>
-          <FooterSystemStatus />
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-end">
+            <FooterAgentViewLink />
+            <FooterSystemStatus />
+          </div>
         </div>
       </div>
     </footer>

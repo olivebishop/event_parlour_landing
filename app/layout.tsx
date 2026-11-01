@@ -126,6 +126,12 @@ export default function RootLayout({
               href="/llms.txt"
               title="llms.txt"
             />
+            <link
+              rel="alternate"
+              type="text/markdown"
+              href="/.md"
+              title="View as agent"
+            />
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{

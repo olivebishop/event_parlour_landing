@@ -8,6 +8,8 @@ This file helps AI assistants, answer engines, and research tools summarize our 
 
 - [Event Parlour — homepage](https://www.eventparlour.com/)
 - [Download Event Parlour. Sell out from your desk.](https://www.eventparlour.com/download)
+- [View as agent](https://www.eventparlour.com/.md): durable Markdown view of this site
+- [Product agent view](https://app.eventparlour.com/.md): ticketing, fees, and organizer tools
 
 ## Product application
 
