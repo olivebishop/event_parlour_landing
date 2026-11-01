@@ -5,12 +5,12 @@ import { SITE_URL } from "@/lib/seo/site";
 
 const APP_PAGES = [
   {
-    path: "/",
+    path: "https://app.eventparlour.com/",
     label: "Explore events",
     description: "Browse and buy tickets in the Event Parlour app",
   },
   {
-    path: "/auth/sign-up",
+    path: "https://app.eventparlour.com/auth/sign-up",
     label: "List your event",
     description: "Create an organizer account and publish an event",
   },
@@ -20,22 +20,22 @@ const APP_PAGES = [
     description: "Platform fees, payouts, and organizer costs",
   },
   {
-    path: "/changelog",
+    path: "https://app.eventparlour.com/changelog",
     label: "Changelog",
     description: "Product updates and fixes",
   },
   {
-    path: "/roadmap",
+    path: "https://app.eventparlour.com/roadmap",
     label: "Roadmap",
     description: "Planned product direction and new regions",
   },
   {
-    path: "/docs",
+    path: "https://app.eventparlour.com/docs",
     label: "Docs",
     description: "Product documentation",
   },
   {
-    path: "/partnership",
+    path: "https://app.eventparlour.com/partnership",
     label: "Partners",
     description: "Partnerships",
   },
@@ -45,37 +45,37 @@ const APP_PAGES = [
     description: "Talk to the team from the product app",
   },
   {
-    path: "/legal/about",
+    path: "https://app.eventparlour.com/legal/about",
     label: "About",
     description: "Mission and company overview",
   },
   {
-    path: "/legal",
+    path: "https://app.eventparlour.com/legal",
     label: "Legal",
     description: "Terms, privacy, refunds, and policies",
   },
   {
-    path: "/legal/privacy-policy",
+    path: "https://app.eventparlour.com/legal/privacy-policy",
     label: "Privacy Policy",
     description: "How Event Parlour handles personal data",
   },
   {
-    path: "/legal/terms-of-service",
+    path: "https://app.eventparlour.com/legal/terms-of-service",
     label: "Terms of Service",
     description: "Terms for using Event Parlour",
   },
   {
-    path: "/legal/security",
+    path: "https://app.eventparlour.com/legal/security",
     label: "Security",
     description: "Security practices",
   },
   {
-    path: "/legal/refund-policy",
+    path: "https://app.eventparlour.com/legal/refund-policy",
     label: "Refund Policy",
     description: "Refunds are set by the event organizer",
   },
   {
-    path: "/legal/cookie-policy",
+    path: "https://app.eventparlour.com/legal/cookie-policy",
     label: "Cookie Policy",
     description: "Cookies used on Event Parlour",
   },
