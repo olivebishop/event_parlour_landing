@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { PixelLabel } from "@/components/shared/pixel-label"
 import type { CategoryKey } from "@/lib/data/features"
 import {
@@ -42,12 +41,12 @@ export function FeaturePageIntro({
           <p className="max-w-xl font-body text-[0.9375rem] leading-relaxed text-foreground/75 sm:text-base">
             {description}
           </p>
-          <Link
+          <a
             href={`/features/${siblingCategory}`}
             className="inline-flex font-body text-sm text-foreground underline-offset-4 hover:underline"
           >
             {siblingLabel} →
-          </Link>
+          </a>
         </div>
       </div>
     </div>
@@ -84,21 +83,21 @@ export function FeatureDetailIntro({
             {description}
           </p>
           <div className="flex flex-wrap gap-2 pt-2">
-            <Link
+            <a
               href={`/features/${category}`}
               className="font-body text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
             >
               All {category === "organizers" ? "organizer" : "attendee"}{" "}
               features
-            </Link>
+            </a>
             {catalog.slice(0, 3).map((entry) => (
-              <Link
+              <a
                 key={entry.slug}
                 href={featureHref(category, entry.slug)}
                 className="font-body text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
               >
                 {entry.navTitle}
-              </Link>
+              </a>
             ))}
           </div>
         </div>

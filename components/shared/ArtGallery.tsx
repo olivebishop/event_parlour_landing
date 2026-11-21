@@ -1,4 +1,4 @@
-import Image from "next/image"
+import { Image } from "@/components/ui/image"
 
 const artCards = [
   { image: "/images/concerts.png", alt: "Live concert crowd" },

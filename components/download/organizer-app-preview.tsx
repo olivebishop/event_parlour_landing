@@ -79,7 +79,8 @@ const STATS = [
   },
 ] as const
 
-function greetingFor(now: Date) {
+function greetingFor(now: Date | null) {
+  if (!now) return "Welcome back"
   const hour = now.getHours()
   if (hour >= 5 && hour < 12) return "Good morning"
   if (hour >= 12 && hour < 17) return "Good afternoon"
@@ -185,12 +186,13 @@ function OrganizerSidebar() {
 export function OrganizerAppPreview() {
   const now = useLocalClock()
   const greeting = greetingFor(now)
-  const dateLabel = now.toLocaleDateString("en-US", {
-    weekday: "short",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  })
+  const dateLabel =
+    now?.toLocaleDateString("en-US", {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    }) ?? ""
 
   return (
     <div className="dark relative flex h-full min-h-0 overflow-hidden bg-black text-white [--accent:#1a1a1a] [--background:#000000] [--border:#ffffff1f] [--card:#141414] [--foreground:#ffffff] [--muted:#1a1a1a] [--muted-foreground:#a3a3a3] [--primary:#ffffff] [--primary-foreground:#000000]">
@@ -226,10 +228,10 @@ export function OrganizerAppPreview() {
         <div className="relative min-h-0 flex-1 overflow-hidden px-6 py-6">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h1 className="font-heading text-[22px] font-medium tracking-tight">
+              <p className="font-heading text-[22px] font-medium tracking-tight">
                 <span className="text-muted-foreground">{greeting}</span>
                 {", Phelix"}
-              </h1>
+              </p>
               <p className="mt-1 font-body text-sm text-muted-foreground">
                 Here&apos;s what&apos;s happening with Blackie Labs
               </p>

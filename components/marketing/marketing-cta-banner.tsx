@@ -1,5 +1,4 @@
-import Image from "next/image"
-import Link from "next/link"
+import { Image } from "@/components/ui/image"
 import { ArrowRight } from "lucide-react"
 import { BrandGrainOverlay } from "@/components/grain-overlay"
 import { MarketingGridPattern } from "@/components/marketing/marketing-grid-pattern"
@@ -120,13 +119,13 @@ export function MarketingCtaBanner({
                     />
                   </a>
                 ) : (
-                  <Link href={primaryHref}>
+                  <a href={primaryHref}>
                     {primaryLabel}
                     <ArrowRight
                       className="hidden h-4 w-4 sm:inline"
                       aria-hidden
                     />
-                  </Link>
+                  </a>
                 )}
               </Button>
 
@@ -141,7 +140,7 @@ export function MarketingCtaBanner({
                     {secondaryLabel}
                   </a>
                 ) : (
-                  <Link href={secondaryHref}>{secondaryLabel}</Link>
+                  <a href={secondaryHref}>{secondaryLabel}</a>
                 )}
               </Button>
             </div>

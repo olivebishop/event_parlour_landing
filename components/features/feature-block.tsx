@@ -1,6 +1,6 @@
 "use client"
 
-import Image from "next/image"
+import { Image } from "@/components/ui/image"
 import { cn } from "@/lib/utils"
 import type { Feature } from "@/lib/data/features"
 import {

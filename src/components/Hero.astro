@@ -1,0 +1,77 @@
+---
+/**
+ * Homepage hero. Static HTML (the LCP element ships no JS); only the rotating
+ * word in the eyebrow hydrates.
+ */
+import { buttonVariants } from "@/components/ui/button"
+import { HeroWordCycle } from "@/components/shared/HeroWordCycle"
+import { appHref } from "@/lib/app-url"
+import content from "@/lib/content"
+import { cn } from "@/lib/utils"
+
+const { eyebrow, words, headline, headlineLine2, description, cta } =
+  content.HeroSection
+---
+
+<section aria-labelledby="hero-heading" class="relative w-full overflow-x-clip">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 bg-[linear-gradient(155deg,color-mix(in_oklch,var(--foreground)_5%,transparent)_0%,transparent_48%)]"
+  >
+  </div>
+  <div aria-hidden="true" class="hero-grid pointer-events-none absolute inset-0"></div>
+
+  <div
+    class="relative mx-auto flex min-h-[min(calc(100svh-3.5rem),42rem)] w-full max-w-6xl flex-col justify-center px-5 pb-10 pt-24 xs:px-6 sm:px-8 sm:pb-12 sm:pt-28 lg:px-10"
+  >
+    <div class="animate-hero-in flex items-baseline justify-between gap-6">
+      <p
+        class="font-body text-[11px] font-medium uppercase tracking-[0.18em] text-foreground/45 sm:text-xs"
+      >
+        {eyebrow}{" "}
+        <HeroWordCycle client:idle words={words} className="text-foreground/80" />
+      </p>
+      <span
+        aria-hidden="true"
+        class="hidden shrink-0 font-numbers text-xs tracking-[0.2em] text-foreground/35 sm:block"
+      >
+        01
+      </span>
+    </div>
+
+    <h1
+      id="hero-heading"
+      class="mt-6 font-heading text-[clamp(2.9rem,10.5vw,7rem)] font-bold leading-[0.86] tracking-[-0.02em] text-foreground sm:mt-8"
+    >
+      <span class="block">{headline}</span>
+      <span class="animate-hero-line block text-foreground/40 [animation-delay:80ms]">
+        {headlineLine2}
+      </span>
+    </h1>
+
+    <div
+      class="animate-hero-in mt-10 flex flex-col gap-8 border-t border-foreground/15 pt-6 sm:mt-12 sm:pt-7 md:flex-row md:items-start md:justify-between md:gap-14 [animation-delay:140ms]"
+    >
+      <p
+        class="max-w-md font-body text-pretty text-[0.975rem] leading-relaxed text-foreground/70 sm:text-base sm:leading-[1.6]"
+      >
+        {description}
+      </p>
+
+      <div class="flex shrink-0 flex-col md:items-end">
+        <a
+          href={appHref("/auth/sign-up")}
+          target="_blank"
+          rel="noopener noreferrer"
+          class={cn(
+            buttonVariants({ size: "cta" }),
+            "w-full max-w-none justify-between gap-6 px-5 sm:w-auto sm:min-w-[15.5rem]",
+          )}
+        >
+          <span>{cta}</span>
+          <span aria-hidden="true" class="font-numbers text-base leading-none">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

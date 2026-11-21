@@ -127,15 +127,17 @@ function DesktopShortcut({
 function WindowsScene() {
   const now = useLocalClock()
   const weather = useLocalWeather()
-  const timeLabel = now.toLocaleTimeString(undefined, {
-    hour: "numeric",
-    minute: "2-digit",
-  })
-  const dateLabel = now.toLocaleDateString(undefined, {
-    day: "numeric",
-    month: "numeric",
-    year: "numeric",
-  })
+  const timeLabel =
+    now?.toLocaleTimeString(undefined, {
+      hour: "numeric",
+      minute: "2-digit",
+    }) ?? ""
+  const dateLabel =
+    now?.toLocaleDateString(undefined, {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    }) ?? ""
 
   return (
     <div

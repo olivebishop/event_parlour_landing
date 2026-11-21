@@ -1,0 +1,25 @@
+---
+import MarketingLayout from "@/src/layouts/MarketingLayout.astro"
+import content from "@/lib/content"
+import { FeatureCategoryView } from "@/components/features/feature-category-view"
+import { FeaturePageIntro } from "@/components/features/feature-page-intro"
+
+const copy = content.FeaturesSection
+---
+
+<MarketingLayout
+  path="/features/attendees"
+  breadcrumbs={[
+    { name: "Features", path: "/features" },
+    { name: "For attendees", path: "/features/attendees" },
+  ]}
+>
+  <FeaturePageIntro
+    category="attendees"
+    eyebrow={copy.sectionLabel}
+    title="For attendees"
+    titleAccent="discover, ticket, and show up"
+    description="Find events you'll love, keep tickets in one place, and never miss what matters."
+  />
+  <FeatureCategoryView client:visible category="attendees" showOverviewHeader={false} />
+</MarketingLayout>

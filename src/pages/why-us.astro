@@ -1,0 +1,48 @@
+---
+import MarketingLayout from "@/src/layouts/MarketingLayout.astro"
+import content from "@/lib/content"
+import { appHref } from "@/lib/app-url"
+import Testimonials from "@/components/shared/Testimonials"
+import { MarketingCtaBanner } from "@/components/marketing/marketing-cta-banner"
+import { MarketingPageHero } from "@/components/marketing/marketing-page-hero"
+
+const copy = content.Testimonials
+const cta = copy.cta
+---
+
+<MarketingLayout
+  path="/why-us"
+  pageType="AboutPage"
+  breadcrumbs={[{ name: "Why Us", path: "/why-us" }]}
+>
+  <MarketingPageHero
+    eyebrow={copy.sectionLabel}
+    title={copy.title}
+    titleAccent={copy.subtitle}
+    description={copy.pageDescription}
+  />
+
+  <section id="why-us" class="relative z-20 scroll-mt-24 py-10 sm:py-14 md:py-16 lg:py-20">
+    <Testimonials client:visible showHeader={false} />
+  </section>
+
+  <section
+    aria-labelledby="why-us-cta-heading"
+    class="container relative z-20 mx-auto px-4 pb-16 xs:px-5 sm:px-6 sm:pb-20 md:pb-24 lg:pb-28"
+  >
+    <MarketingCtaBanner
+      id="why-us-cta-heading"
+      eyebrow={cta.eyebrow}
+      kicker={cta.kicker}
+      title={cta.title}
+      description={cta.description}
+      panelLine={cta.panelLine}
+      primaryHref={appHref("/auth/sign-up")}
+      primaryLabel={cta.primaryLabel}
+      primaryExternal
+      secondaryHref={cta.secondaryHref}
+      secondaryLabel={cta.secondaryLabel}
+      hint={cta.hint}
+    />
+  </section>
+</MarketingLayout>

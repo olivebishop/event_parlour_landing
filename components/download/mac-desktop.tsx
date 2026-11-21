@@ -292,15 +292,17 @@ function FinderWindow() {
 
 function MacScene() {
   const now = useLocalClock()
-  const dateLabel = now.toLocaleDateString(undefined, {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-  })
-  const timeLabel = now.toLocaleTimeString(undefined, {
-    hour: "numeric",
-    minute: "2-digit",
-  })
+  const dateLabel =
+    now?.toLocaleDateString(undefined, {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+    }) ?? ""
+  const timeLabel =
+    now?.toLocaleTimeString(undefined, {
+      hour: "numeric",
+      minute: "2-digit",
+    }) ?? ""
 
   return (
     <div

@@ -1,6 +1,14 @@
 "use client"
 
-import React, { useState, useEffect, useLayoutEffect, useRef } from "react"
+import React, {
+  lazy,
+  Suspense,
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  type ComponentType,
+} from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -34,9 +42,9 @@ import {
   Sun,
   Moon,
 } from "lucide-react"
-import { useTheme } from "next-themes"
-import dynamic from "next/dynamic"
+import { useTheme } from "@/lib/theme"
 import { demoCardClass, demoStatValueClass } from "@/components/demo/demo-chrome"
+import { useLocalClock } from "@/components/download/use-local-clock"
 import { brandNoiseLayerStyle } from "@/lib/brand/noise"
 
 /** Product chrome inside the framed demo window. */
@@ -91,6 +99,21 @@ function DemoScaleFrame({ children }: { children: React.ReactNode }) {
       </div>
     </div>
   )
+}
+
+/** Code-split a demo pane; shows the skeleton while its chunk loads. */
+function dynamic<P extends object>(
+  loader: () => Promise<{ default: ComponentType<P> }>,
+  { loading: Loading }: { loading: ComponentType },
+) {
+  const LazyPane = lazy(loader)
+  return function DynamicPane(props: P) {
+    return (
+      <Suspense fallback={<Loading />}>
+        <LazyPane {...props} />
+      </Suspense>
+    )
+  }
 }
 
 const EventsDemoOrganizer = dynamic(
@@ -178,8 +201,9 @@ function WorkspaceDefaultAvatarSvg() {
       height="100%"
       viewBox="0 0 200 200"
       xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="Workspace default avatar"
     >
-      <title>Workspace default avatar</title>
       <g id="Page-1" fill="none" fillRule="evenodd">
         <g id="Never-Users-Own-Profile" fill="currentColor">
           <g id="profile3" transform="translate(31 50)">
@@ -534,8 +558,10 @@ function TopHeader({ onSwitch, mode }: { onSwitch: () => void; mode: DemoMode })
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const [showSignOutDialog, setShowSignOutDialog] = useState(false)
 
+  // Prerendered at build time — only show a date once we know the visitor's.
+  const now = useLocalClock()
   const formatDate = () => {
-    const now = new Date()
+    if (!now) return ""
     const options: Intl.DateTimeFormatOptions = {
       weekday: "short",
       year: "numeric",
@@ -1261,7 +1287,9 @@ export default function InteractiveDemo() {
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={0.2} duration={0.7} threshold={0.2}>
+          {/* Mock product UI with sample data — left out of the agent Markdown views. */}
           <div
+            data-agent-skip
             className={cn(
               "relative mx-auto w-full max-w-6xl",
               "border border-foreground/15 bg-background dark:border-white/15",

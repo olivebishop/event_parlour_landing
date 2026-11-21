@@ -1,5 +1,5 @@
 import type React from "react"
-import Image from "next/image"
+import { Image } from "@/components/ui/image"
 import { cn } from "@/lib/utils"
 
 function IllustrationFrame({

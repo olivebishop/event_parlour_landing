@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { FeatureBlock } from "@/components/features/feature-block"
 import { MarketingCtaBanner } from "@/components/marketing/marketing-cta-banner"
 import {
@@ -75,7 +74,7 @@ export function PlatformFeaturesIndex() {
             if (!feature) return null
             return (
               <li key={entry.slug}>
-                <Link
+                <a
                   href={platformFeatureHref(entry.slug)}
                   className="group block p-5 transition-colors duration-200 hover:bg-muted/40 sm:p-6"
                 >
@@ -88,25 +87,25 @@ export function PlatformFeaturesIndex() {
                   <span className="mt-4 inline-block font-body text-sm text-foreground/80 underline-offset-4 group-hover:text-foreground group-hover:underline">
                     Read more →
                   </span>
-                </Link>
+                </a>
               </li>
             )
           })}
         </ul>
 
         <div className="mx-auto mt-12 flex max-w-5xl flex-col gap-3 pt-2 sm:flex-row sm:gap-6">
-          <Link
+          <a
             href="/features/organizers"
             className="font-body text-sm text-foreground underline-offset-4 hover:underline"
           >
             For organizers. Workspace & tools →
-          </Link>
-          <Link
+          </a>
+          <a
             href="/features/attendees"
             className="font-body text-sm text-foreground underline-offset-4 hover:underline"
           >
             For attendees. Discover & tickets →
-          </Link>
+          </a>
         </div>
       </div>
     </section>

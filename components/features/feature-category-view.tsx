@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import content from "@/lib/content"
 import type { CategoryKey } from "@/lib/data/features"
 import { getFeaturesForCategory } from "@/lib/features-content"
@@ -53,13 +52,13 @@ export function FeatureCategoryView({
           className="-mx-1 mb-10 flex flex-wrap gap-1.5 px-1 xs:mb-12 xs:gap-2 sm:mb-14"
         >
           {catalog.map((entry) => (
-            <Link
+            <a
               key={entry.slug}
               href={featureHref(category, entry.slug)}
               className="border border-border bg-background px-2 py-1 font-body text-[11px] text-foreground/75 transition-[border-color,color,background-color] duration-200 hover:border-foreground/30 hover:bg-muted/50 hover:text-foreground xs:px-2.5 xs:py-1.5 xs:text-xs sm:text-sm"
             >
               {entry.navTitle}
-            </Link>
+            </a>
           ))}
         </nav>
 

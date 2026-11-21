@@ -1,0 +1,156 @@
+---
+/**
+ * 1200×630 Open Graph card template, screenshotted by Cloudflare Browser Run
+ * (scripts/generate-social-cards.ts) into public/og/<card>.png.
+ *
+ * Based on https://developers.cloudflare.com/browser-run/how-to/og-images-astro/
+ * but prerendered per page instead of server-rendered from query params, so the
+ * site stays fully static and only known pages can produce cards.
+ *
+ * Not for humans or search engines: noindex here, X-Robots-Tag in _headers,
+ * Disallow in robots.txt.
+ */
+import type { GetStaticPaths } from "astro"
+import { getOgContent, getOgPaths } from "@/lib/seo/og-content"
+import { ogImageSlug } from "@/lib/seo/site"
+
+export const getStaticPaths = (() =>
+  getOgPaths().map((path) => ({
+    params: { card: ogImageSlug(path) },
+    props: getOgContent(path),
+  }))) satisfies GetStaticPaths
+
+const { eyebrow, title, description } = Astro.props
+const titleSize = title.length > 42 ? 56 : 68
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=1200" />
+    <title>{title}</title>
+    <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/GeistPixel-Line.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/GeistPixel-Square.woff2" as="font" type="font/woff2" crossorigin />
+    <style is:inline>
+      @font-face {
+        font-family: "Geist";
+        src: url("/fonts/Geist-Variable.woff2") format("woff2");
+        font-weight: 100 900;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Geist Pixel Line";
+        src: url("/fonts/GeistPixel-Line.woff2") format("woff2");
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Geist Pixel Square";
+        src: url("/fonts/GeistPixel-Square.woff2") format("woff2");
+        font-display: block;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+      body {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 56px 64px;
+        background: #ffffff;
+        color: #000000;
+        -webkit-font-smoothing: antialiased;
+      }
+      .grid,
+      .fade {
+        position: absolute;
+        inset: 0;
+      }
+      .grid {
+        background-image:
+          linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+        background-size: 72px 72px;
+      }
+      .fade {
+        background: radial-gradient(120% 85% at 90% 0%, rgba(255, 255, 255, 0) 0%, #ffffff 72%);
+      }
+      .content,
+      .footer {
+        position: relative;
+      }
+      .content {
+        max-width: 980px;
+      }
+      .eyebrow,
+      .footer p {
+        font-family: "Geist Pixel Square", sans-serif;
+        text-transform: uppercase;
+      }
+      .eyebrow {
+        font-size: 22px;
+        letter-spacing: 0.18em;
+        color: rgba(0, 0, 0, 0.45);
+        margin-bottom: 28px;
+      }
+      h1 {
+        font-family: "Geist Pixel Line", sans-serif;
+        font-weight: 500;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+      .description {
+        font-family: "Geist", sans-serif;
+        font-size: 28px;
+        line-height: 1.4;
+        color: rgba(0, 0, 0, 0.62);
+        margin-top: 28px;
+        max-width: 820px;
+      }
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+        padding-top: 22px;
+      }
+      .footer .domain {
+        font-size: 22px;
+        letter-spacing: 0.12em;
+        color: rgba(0, 0, 0, 0.7);
+        text-transform: none;
+      }
+      .footer .tag {
+        font-size: 20px;
+        letter-spacing: 0.16em;
+        color: rgba(0, 0, 0, 0.35);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid"></div>
+    <div class="fade"></div>
+
+    <div class="content">
+      <p class="eyebrow">{eyebrow}</p>
+      <h1 style={`font-size: ${titleSize}px`}>{title}</h1>
+      {description && <p class="description">{description}</p>}
+    </div>
+
+    <div class="footer">
+      <p class="domain">www.eventparlour.com</p>
+      <p class="tag">Events marketplace</p>
+    </div>
+  </body>
+</html>

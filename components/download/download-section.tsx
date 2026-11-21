@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Link from "next/link"
 import { MacDesktop } from "@/components/download/mac-desktop"
 import { WindowsDesktop } from "@/components/download/windows-desktop"
 import { StageAtmosphere } from "@/components/download/stage-atmosphere"
@@ -81,14 +80,14 @@ function DownloadButtons({ platform }: { platform: DownloadPlatform }) {
       </div>
       <p className="font-body text-sm text-foreground/55 dark:text-white/55">
         {copy.requirements}{" "}
-        <Link
+        <a
           href={desktopDownloads.webHref}
           target="_blank"
           rel="noopener noreferrer"
           className="underline-offset-4 hover:text-foreground hover:underline"
         >
           {desktopDownloads.browserLink}
-        </Link>
+        </a>
       </p>
     </div>
   )
@@ -109,6 +108,7 @@ export function DownloadSection({
 
   const copy = desktopDownloads[platform]
   const isPage = variant === "page"
+  const Heading = isPage ? "h1" : "h2"
 
   return (
     <section
@@ -128,12 +128,13 @@ export function DownloadSection({
           <p className="mb-3 font-body text-[10px] font-medium uppercase tracking-widest text-foreground/55 xs:mb-4 xs:text-xs dark:text-white/55">
             {desktopDownloads.eyebrow}
           </p>
-          <h2
+          {/* The standalone /download page needs this as its <h1>. */}
+          <Heading
             id={`${id}-heading`}
             className="mb-4 px-1 font-heading text-balance text-xl font-bold text-foreground xs:mb-5 xs:text-2xl sm:mb-6 sm:text-4xl md:text-5xl dark:text-white"
           >
             {copy.title}
-          </h2>
+          </Heading>
           <p className="mx-auto max-w-xs px-2 font-body text-[0.9375rem] leading-relaxed text-foreground/70 xs:max-w-sm xs:text-base sm:max-w-xl sm:text-lg md:max-w-2xl dark:text-white/65">
             {copy.description}
           </p>
@@ -175,6 +176,7 @@ export function DownloadSection({
 
         <div
           data-os-chrome
+          data-agent-skip
           className={cn(
             "os-frame relative mx-auto w-full max-w-6xl overflow-hidden",
             "border border-foreground/15 bg-background dark:border-white/15",

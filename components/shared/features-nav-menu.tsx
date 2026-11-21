@@ -1,7 +1,6 @@
 "use client"
 
-import Link from "next/link"
-import Image from "next/image"
+import { Image } from "@/components/ui/image"
 import { ChevronDown } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { useCallback, useEffect, useState, type ReactNode } from "react"
@@ -147,7 +146,7 @@ function PlatformFeatureLinkColumn({
     <ul className="flex min-w-0 flex-col gap-0.5">
       {items.map((entry) => (
         <li key={entry.slug}>
-          <Link
+          <a
             href={platformFeatureHref(entry.slug)}
             onClick={onNavigate}
             className={featureMegaMenuItemClass}
@@ -158,7 +157,7 @@ function PlatformFeatureLinkColumn({
             <span className="mt-1 block font-body text-xs leading-snug text-foreground/70 group-hover:text-foreground sm:text-[0.8125rem]">
               {entry.navDescription}
             </span>
-          </Link>
+          </a>
         </li>
       ))}
     </ul>
@@ -229,7 +228,7 @@ function AudiencePreviewCard({
   const isCover = imageFit === "cover"
 
   return (
-    <Link
+    <a
       href={href}
       onClick={onNavigate}
       className="flex h-auto min-h-[240px] w-full min-w-0 flex-col overflow-hidden border border-border bg-background transition-colors hover:border-foreground/25 hover:bg-muted/40 xl:h-[277px] xl:w-[280px] xl:shrink-0 2xl:w-[320px]"
@@ -276,7 +275,7 @@ function AudiencePreviewCard({
           {description}
         </p>
       </div>
-    </Link>
+    </a>
   )
 }
 
@@ -317,13 +316,13 @@ export function MobileFeaturesLinks({ onNavigate }: { onNavigate: () => void }) 
             <ul className="space-y-1 pb-1 pt-2">
               {platformFeatureCatalog.map((entry) => (
                 <li key={entry.slug}>
-                  <Link
+                  <a
                     href={platformFeatureHref(entry.slug)}
                     onClick={onNavigate}
                     className="block py-2 font-body text-sm text-foreground/80"
                   >
                     {entry.navTitle}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

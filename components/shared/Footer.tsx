@@ -418,7 +418,8 @@ const Footer = () => {
 
         <div className="flex flex-col items-center gap-4 border-t border-border py-8 text-center font-body text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:py-9 sm:text-left">
           <p className="flex flex-col flex-wrap items-center gap-1 sm:flex-row sm:gap-x-3">
-            <span>
+            {/* Year comes from the build; the visitor's clock may be in a newer one. */}
+            <span suppressHydrationWarning>
               ©{new Date().getFullYear()}{" "}
               <span className="font-heading text-foreground">
                 Event Parlour

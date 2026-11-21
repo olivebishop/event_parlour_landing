@@ -84,7 +84,7 @@ export function NoInternet() {
       </div>
       
       {/* Add CSS for ripple animation */}
-      <style jsx global>{`
+      <style>{`
         @keyframes ripple {
           0% {
             transform: scale(0.01);

@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Image from "next/image"
+import { Image } from "@/components/ui/image"
 import NumberFlow, { NumberFlowGroup } from "@number-flow/react"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import {

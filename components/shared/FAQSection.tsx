@@ -5,7 +5,7 @@ const faqs = content.FAQSection.questions
 function AnswerText({ answer }: { answer: string }) {
   return (
     <>
-      {answer.split(/(https?:\/\/[^\s]+|#[^\s]+|\/contact(?:#faq)?)/g).map((part, i) => {
+      {answer.split(/(https?:\/\/[^\s]*[^\s.,;:!?)]|#[^\s]+|\/contact(?:#faq)?)/g).map((part, i) => {
         if (part.match(/^https?:\/\//)) {
           return (
             <a
@@ -71,9 +71,20 @@ export default function FAQSection() {
               className="group bg-muted border border-border shadow-lg overflow-hidden"
             >
               <summary className="w-full flex justify-between items-center gap-4 p-3 xs:p-4 sm:p-5 text-left text-foreground hover:bg-muted/80 transition-colors duration-200 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
-                <span className="text-sm xs:text-base sm:text-lg font-medium pr-2">
+                {/* A real heading so search and answer engines read each Q&A pair;
+                    inline styles keep the original look over the global h3 rule. */}
+                <h3
+                  className="text-sm xs:text-base sm:text-lg pr-2"
+                  style={{
+                    fontFamily: "inherit",
+                    fontWeight: 500,
+                    lineHeight: "inherit",
+                    letterSpacing: "inherit",
+                    margin: 0,
+                  }}
+                >
                   {faq.question}
-                </span>
+                </h3>
                 <svg
                   aria-hidden="true"
                   className="h-4 w-4 xs:h-5 xs:w-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"

@@ -139,10 +139,17 @@ export default function DistributionMetrics() {
                 </div>
                 <div className="mb-2 text-balance break-words font-numbers text-xl font-bold leading-none tabular-nums text-foreground xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                   {!Number.isNaN(numericValue) ? (
-                    <NumberFlow
-                      value={hasAnimated ? numericValue : 0}
-                      className="inline-block"
-                    />
+                    <>
+                      {/* Real value in the HTML for crawlers, answer engines and screen
+                          readers; the animated counter starts at 0 and is decorative. */}
+                      <span className="sr-only">{metric.value}</span>
+                      <span aria-hidden="true">
+                        <NumberFlow
+                          value={hasAnimated ? numericValue : 0}
+                          className="inline-block"
+                        />
+                      </span>
+                    </>
                   ) : (
                     metric.value
                   )}
