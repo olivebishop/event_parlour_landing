@@ -3,7 +3,13 @@ import {
   getAllPlatformFeatureSlugs,
   getPlatformFeatureBySlug,
 } from "@/lib/platform-features-content"
-import type { CreateOgImageOptions } from "@/lib/seo/create-og-image"
+import { normalizePath } from "@/lib/seo/site"
+
+export type OgContent = {
+  eyebrow: string
+  title: string
+  description?: string
+}
 
 /** Marketing paths that have a dedicated Open Graph card. */
 export function getOgPaths(): string[] {
@@ -19,9 +25,8 @@ export function getOgPaths(): string[] {
   ]
 }
 
-export function getOgContent(path = ""): CreateOgImageOptions {
-  const normalized =
-    !path || path === "/" ? "" : `/${path.replace(/^\/+|\/+$/g, "")}`
+export function getOgContent(path = ""): OgContent {
+  const normalized = normalizePath(path)
 
   switch (normalized) {
     case "":
@@ -93,12 +98,4 @@ export function getOgContent(path = ""): CreateOgImageOptions {
       }
     }
   }
-}
-
-/** Stable absolute URL for sitemap / metadata OG images. */
-export function stableOgImageUrl(path = "") {
-  const siteUrl = "https://www.eventparlour.com"
-  const normalized =
-    !path || path === "/" ? "" : `/${path.replace(/^\/+|\/+$/g, "")}`
-  return normalized ? `${siteUrl}/og${normalized}` : `${siteUrl}/og`
 }

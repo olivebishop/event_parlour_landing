@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Suspense } from "react";
 import content from "@/lib/content"
 import { cn } from "@/lib/utils";
@@ -149,7 +148,7 @@ const TestimonialItem = ({
                   </div>
                   <div className="w-[1px] bg-border" />
                   <div className="flex items-center justify-center max-w-full mx-auto px-4">
-                    <Link
+                    <a
                       href={testimonial.link}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -157,7 +156,7 @@ const TestimonialItem = ({
                       className="text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {testimonial.social}
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </div>

@@ -84,16 +84,36 @@
       "title": "Frequently Asked Questions",
       "questions": [
         {
+          "question": "What is Event Parlour?",
+          "answer": "Event Parlour is an event ticketing and event management platform for Kenya and East Africa. Organizers create events, sell tickets with M-PESA checkout, check guests in at the door, and track sales in one workspace. Attendees discover events and buy tickets at https://app.eventparlour.com"
+        },
+        {
+          "question": "How do I sell tickets for my event in Kenya?",
+          "answer": "Create a free organizer account at https://app.eventparlour.com/auth/sign-up, create your event (physical, online, or hybrid), add your ticket types, and share your event page. Buyers pay in Kenyan Shillings with M-PESA, and you check guests in at the door from the same workspace."
+        },
+        {
+          "question": "Can I pay for tickets with M-PESA?",
+          "answer": "Yes. Paid events in Kenyan Shillings (KES) check out with M-PESA, alongside card payments where the organizer has them configured."
+        },
+        {
+          "question": "How much does Event Parlour charge organizers?",
+          "answer": "Free, registration-only events have no Event Parlour platform fee. Paid tickets carry a 5% platform fee per ticket sold, and payment-network charges are separate. Full details are on the pricing page at https://app.eventparlour.com/pricing"
+        },
+        {
+          "question": "Can I host free events or registration-only events?",
+          "answer": "Yes. You can run free, registration-only events with guest registration, and Event Parlour charges no platform fee on them."
+        },
+        {
           "question": "How do I purchase tickets?",
-          "answer": "Login to the app and look for events in the sidebar. Explore events of your choice and purchase tickets directly from the event page."
+          "answer": "Open https://app.eventparlour.com, browse events near you, and buy tickets directly from the event page. You can pay with M-PESA, and transfer a ticket to someone else if you can't attend."
         },
         {
           "question": "Can I get a refund for my tickets?",
           "answer": "Refund policies depend on the event organizer. Refunds are typically available up to 24 hours before the event starts, subject to the event organizer's policy. If you're unavailable and unable to attend, you can also transfer your ticket to someone else. For more information, please refer to our refund policy at https://app.eventparlour.com/legal/refund-policy"
         },
         {
-          "question": "Are events available internationally?",
-          "answer": "Currently supporting Kenya and Europe. Support for more regions coming soon. Follow our roadmap at https://app.eventparlour.com/roadmap for updates on new regions."
+          "question": "Which countries does Event Parlour support?",
+          "answer": "Event Parlour serves organizers in Kenya, including Nairobi, Mombasa, and Kisumu, as well as Uganda, Rwanda, and Tanzania. Card checkout also supports organizers whose audiences are in the United States and Europe. Follow the roadmap at https://app.eventparlour.com/roadmap for new regions."
         },
         {
           "question": "How can I contact support?",

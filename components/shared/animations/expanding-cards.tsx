@@ -227,7 +227,7 @@ export default function ExpandingCards() {
         </div>
       </div>
 
-      <style jsx global>{`
+      <style>{`
         .cards-container {
           min-height: 52vh;
           max-height: 88vh;

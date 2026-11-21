@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Bot } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -10,7 +9,7 @@ import { cn } from "@/lib/utils";
  */
 export function FooterAgentViewLink({ className }: { className?: string }) {
   return (
-    <Link
+    <a
       href="/.md"
       className={cn(
         "group inline-flex min-h-9 shrink-0 items-center gap-0 rounded-none border border-transparent px-1.5 text-muted-foreground transition-[border-color,color,background-color,gap] duration-200",
@@ -31,6 +30,6 @@ export function FooterAgentViewLink({ className }: { className?: string }) {
       >
         View as agent
       </span>
-    </Link>
+    </a>
   );
 }

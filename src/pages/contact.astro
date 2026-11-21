@@ -1,0 +1,22 @@
+---
+import MarketingLayout from "@/src/layouts/MarketingLayout.astro"
+import content from "@/lib/content"
+import { ContactUs } from "@/components/shared/contactUs/Contact"
+import FAQSection from "@/components/shared/FAQSection"
+---
+
+<MarketingLayout
+  path="/contact"
+  pageType="ContactPage"
+  breadcrumbs={[{ name: "Contact & FAQ", path: "/contact" }]}
+  includeFaq
+>
+  <section id="contact" class="relative z-20 scroll-mt-24 pb-6 pt-20 sm:pb-8 sm:pt-24 md:pb-10">
+    <ContactUs client:load />
+  </section>
+
+  <!-- Native <details>: answers are in the HTML for crawlers and answer engines, no JS. -->
+  <section id="faq" class="relative z-20 scroll-mt-24">
+    <FAQSection />
+  </section>
+</MarketingLayout>

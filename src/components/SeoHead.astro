@@ -1,0 +1,130 @@
+---
+/**
+ * Every SEO / social / answer-engine tag for a page, in one place.
+ * Titles, descriptions and keywords come from lib/seo/page-meta.ts unless a
+ * page passes its own (e.g. the 404).
+ */
+import {
+  DEFAULT_LOCALE,
+  OG_IMAGE_HEIGHT,
+  OG_IMAGE_WIDTH,
+  SITE_NAME,
+  SITE_URL,
+  TWITTER_HANDLE,
+  canonicalUrl,
+  markdownUrl,
+  ogImageUrl,
+} from "@/lib/seo/site"
+import { CORE_KEYWORDS, getPageKeywords, getPageMeta } from "@/lib/seo/page-meta"
+import {
+  getPageStructuredData,
+  serializeJsonLd,
+  type Breadcrumb,
+} from "@/lib/seo/structured-data"
+
+export type SeoProps = {
+  /** Site path, e.g. "/features/analytics". Drives canonical, og:url, the OG card and metadata lookup. */
+  path: string
+  /** Override lib/seo/page-meta.ts (pages not in the registry, like 404). Used as-is. */
+  title?: string
+  description?: string
+  /** Use another page's OG card (defaults to `path`). */
+  ogImagePath?: string
+  ogImageAlt?: string
+  ogType?: "website" | "article"
+  noindex?: boolean
+  breadcrumbs?: Breadcrumb[]
+  includeFaq?: boolean
+  pageType?: string
+}
+
+const {
+  path,
+  title: titleOverride,
+  description: descriptionOverride,
+  ogImagePath = path,
+  ogImageAlt,
+  ogType = "website",
+  noindex = false,
+  breadcrumbs,
+  includeFaq,
+  pageType,
+} = Astro.props as SeoProps
+
+const meta = titleOverride && descriptionOverride ? null : getPageMeta(path)
+const title = titleOverride ?? meta!.title
+const description = descriptionOverride ?? meta!.description
+const keywords = meta ? getPageKeywords(path) : CORE_KEYWORDS
+
+const canonical = canonicalUrl(path)
+const image = ogImageUrl(ogImagePath)
+const imageAlt = ogImageAlt ?? title
+
+const robots = noindex
+  ? "noindex, nofollow"
+  : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+
+const jsonLd = serializeJsonLd(
+  getPageStructuredData({
+    path,
+    title,
+    description,
+    keywords,
+    breadcrumbs,
+    includeFaq,
+    pageType,
+  }),
+)
+const yandexVerification =
+  import.meta.env.PUBLIC_YANDEX_VERIFICATION ?? "26a40458f21b9754"
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content={robots} />
+<meta name="googlebot" content={robots} />
+<meta name="bingbot" content={robots} />
+<meta name="keywords" content={keywords.join(", ")} />
+<meta name="author" content={SITE_NAME} />
+<meta name="publisher" content={SITE_NAME} />
+<meta name="application-name" content={SITE_NAME} />
+<meta name="apple-mobile-web-app-title" content={SITE_NAME} />
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
+<meta name="geo.region" content="KE" />
+<meta name="geo.placename" content="Nairobi" />
+
+<!-- Open Graph (Facebook, LinkedIn, WhatsApp, Slack, Discord, iMessage…) -->
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content={SITE_NAME} />
+<meta property="og:locale" content={DEFAULT_LOCALE} />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={image} />
+<meta property="og:image:secure_url" content={image} />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content={String(OG_IMAGE_WIDTH)} />
+<meta property="og:image:height" content={String(OG_IMAGE_HEIGHT)} />
+<meta property="og:image:alt" content={imageAlt} />
+
+<!-- X / Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content={TWITTER_HANDLE} />
+<meta name="twitter:creator" content={TWITTER_HANDLE} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<meta name="twitter:image:alt" content={imageAlt} />
+
+<!-- Site verification -->
+<meta name="dmca-site-verification" content="ZG0rMlhORGRZZlhkYnZQc1dxT2pSL3Awb3FFTkpIelBFRE96SHVEbmJBRT01" />
+<meta name="yandex-verification" content={yandexVerification} />
+
+<!-- Machine-readable views for AI agents and answer engines (GEO / AEO) -->
+{!noindex && <link rel="alternate" type="text/markdown" href={markdownUrl(path)} title={`${title} (Markdown)`} />}
+<link rel="alternate" type="text/plain" href={`${SITE_URL}/llms.txt`} title="llms.txt" />
+<link rel="alternate" type="text/plain" href={`${SITE_URL}/llms-full.txt`} title="llms-full.txt" />
+<link rel="sitemap" type="application/xml" href={`${SITE_URL}/sitemap.xml`} />
+
+<script type="application/ld+json" set:html={jsonLd} />

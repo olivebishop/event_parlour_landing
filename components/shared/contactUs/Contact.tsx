@@ -8,6 +8,7 @@ import { useState } from "react"
 import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaClock, FaWhatsapp, FaInstagram, FaTiktok, FaLinkedin } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
 import { toast } from "sonner"
+import { Toaster } from "@/components/ui/sonner"
 import content from "@/lib/content"
 
 const containerVariants = {
@@ -119,9 +120,9 @@ export function ContactUs() {
             >
               {copy.sectionLabel}
             </motion.p>
-            <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 xs:mb-5 sm:mb-6 px-1 text-balance">
+            <h1 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 xs:mb-5 sm:mb-6 px-1 text-balance">
               {copy.title}
-            </h2>
+            </h1>
             <p className="text-muted-foreground text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl mx-auto px-2">
               {copy.subtitle}
             </p>
@@ -333,6 +334,7 @@ export function ContactUs() {
           </motion.div>
         </motion.div>
       </div>
+      <Toaster />
     </section>
   )
 }

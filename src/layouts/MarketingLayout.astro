@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/src/layouts/BaseLayout.astro"
+import type { SeoProps } from "@/src/components/SeoHead.astro"
+import { Navbar } from "@/components/shared/Navbar"
+import Footer from "@/components/shared/Footer"
+import { MarketingPageShell } from "@/components/marketing/marketing-page-shell"
+import { NetworkStatusOverlay } from "@/components/shared/network-status-overlay"
+
+type Props = SeoProps
+// With build.format "file", prerendered pages see "/download.html" and
+// "/index.html" here; the Navbar needs the public URL ("/download", "/").
+const pathname =
+  Astro.url.pathname.replace(/\.html$/, "").replace(/(^|\/)index$/, "").replace(/\/$/, "") || "/"
+---
+
+<BaseLayout {...Astro.props}>
+  <Navbar client:load pathname={pathname} />
+  <MarketingPageShell>
+    <slot />
+  </MarketingPageShell>
+  <Footer client:visible />
+  <NetworkStatusOverlay client:idle />
+</BaseLayout>

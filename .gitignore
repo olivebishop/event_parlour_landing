@@ -53,3 +53,8 @@ public/_next-video
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# astro
+/dist/
+/.astro/
+/email-previews/

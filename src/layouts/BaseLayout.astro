@@ -1,0 +1,65 @@
+---
+import "@/src/styles/global.css"
+import SeoHead, { type SeoProps } from "@/src/components/SeoHead.astro"
+import { ConsentManager } from "@/components/consent-manager"
+
+type Props = SeoProps & { bodyClass?: string }
+
+const { bodyClass = "", ...seo } = Astro.props
+const gaId = "G-VSXHC4Y9YQ"
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!--
+      Apply the saved theme before first paint (no flash). Same storage key as
+      lib/theme.ts, which keeps React islands in sync afterwards.
+    -->
+    <script is:inline>
+      ;(function () {
+        try {
+          var t = localStorage.getItem("theme") || "system"
+          var dark =
+            t === "dark" ||
+            (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches)
+          var root = document.documentElement
+          root.classList.toggle("dark", dark)
+          root.style.colorScheme = dark ? "dark" : "light"
+        } catch (e) {}
+      })()
+    </script>
+
+    <SeoHead {...seo} />
+
+    <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts used above the fold: body + pixel headline -->
+    <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/GeistPixel-Line.woff2" as="font" type="font/woff2" crossorigin />
+
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || []
+      window.gtag = function () {
+        dataLayer.push(arguments)
+      }
+      gtag("js", new Date())
+      gtag("config", "G-VSXHC4Y9YQ")
+    </script>
+  </head>
+  <body class:list={["font-sans font-normal antialiased bg-background text-foreground", bodyClass]}>
+    <slot />
+    <ConsentManager client:idle />
+  </body>
+</html>

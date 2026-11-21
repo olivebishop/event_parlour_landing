@@ -1,0 +1,26 @@
+---
+import type { GetStaticPaths } from "astro"
+import MarketingLayout from "@/src/layouts/MarketingLayout.astro"
+import { PlatformFeatureDetail } from "@/components/features/platform-feature-pages"
+import {
+  getAllPlatformFeatureSlugs,
+  getPlatformFeatureBySlug,
+} from "@/lib/platform-features-content"
+
+export const getStaticPaths = (() =>
+  getAllPlatformFeatureSlugs().map((slug) => ({ params: { slug } }))) satisfies GetStaticPaths
+
+const { slug } = Astro.params
+const data = getPlatformFeatureBySlug(slug)!
+const path = `/features/${slug}`
+---
+
+<MarketingLayout
+  path={path}
+  breadcrumbs={[
+    { name: "Features", path: "/features" },
+    { name: data.catalog.navTitle, path },
+  ]}
+>
+  <PlatformFeatureDetail client:visible slug={slug} />
+</MarketingLayout>

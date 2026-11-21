@@ -1,0 +1,17 @@
+---
+import MarketingLayout from "@/src/layouts/MarketingLayout.astro"
+import content from "@/lib/content"
+import { MarketingPageHero } from "@/components/marketing/marketing-page-hero"
+import { PlatformFeaturesIndex } from "@/components/features/platform-feature-pages"
+
+const copy = content.PlatformFeatures.index
+---
+
+<MarketingLayout
+  path="/features"
+  pageType="CollectionPage"
+  breadcrumbs={[{ name: "Features", path: "/features" }]}
+>
+  <MarketingPageHero eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
+  <PlatformFeaturesIndex client:visible />
+</MarketingLayout>

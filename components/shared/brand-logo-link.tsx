@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 import content from "@/lib/content";
@@ -336,14 +335,14 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
 
   if (!season) {
     return (
-      <Link href="/" aria-label={wordmark} className={linkClass}>
+      <a href="/" aria-label={wordmark} className={linkClass}>
         <span className={wordmarkClass}>{WORDMARK}</span>
-      </Link>
+      </a>
     );
   }
 
   return (
-    <Link
+    <a
       href="/"
       aria-label={wordmark}
       className={cn(linkClass, "touch-manipulation select-none")}
@@ -439,6 +438,6 @@ export function BrandLogoLink({ logoClassName, matchBar }: BrandLogoLinkProps) {
           {renderLine(incoming, rolling, costumes, iconClass)}
         </motion.span>
       </span>
-    </Link>
+    </a>
   );
 }

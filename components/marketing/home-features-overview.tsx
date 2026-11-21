@@ -1,4 +1,3 @@
-import Link from "next/link"
 import content from "@/lib/content"
 import {
   attendeeFeatureCatalog,
@@ -63,30 +62,30 @@ function FeatureHubCard({
 }) {
   return (
     <div className="bg-background p-6 sm:p-8">
-      <Link
+      <a
         href={href}
         className="font-heading text-lg font-semibold text-foreground hover:underline sm:text-xl"
       >
         {title}
-      </Link>
+      </a>
       <ul className="mt-4 space-y-2">
         {items.map((entry) => (
           <li key={entry.slug}>
-            <Link
+            <a
               href={featureHref(category, entry.slug)}
               className="font-body text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               {entry.navTitle}
-            </Link>
+            </a>
           </li>
         ))}
       </ul>
-      <Link
+      <a
         href={href}
         className="mt-5 inline-block font-body text-sm text-foreground"
       >
         View all →
-      </Link>
+      </a>
     </div>
   )
 }

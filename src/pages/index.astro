@@ -1,0 +1,70 @@
+---
+import MarketingLayout from "@/src/layouts/MarketingLayout.astro"
+import Hero from "@/src/components/Hero.astro"
+import content from "@/lib/content"
+import { appHref } from "@/lib/app-url"
+import InteractiveDemo from "@/components/shared/InteractiveDemo"
+import ExpandingCards from "@/components/shared/animations/expanding-cards"
+import DistributionMetrics from "@/components/shared/DistributionMetrics"
+import { DownloadSection } from "@/components/download/download-section"
+import { MarketingCtaBanner } from "@/components/marketing/marketing-cta-banner"
+import FAQSection from "@/components/shared/FAQSection"
+
+const cta = content.HomePage.cta
+---
+
+<MarketingLayout path="/" includeFaq>
+  <section class="relative z-10">
+    <Hero />
+  </section>
+
+  <section
+    id="demo"
+    aria-labelledby="demo-heading"
+    class="relative z-20 scroll-mt-[4.5rem] sm:scroll-mt-24"
+  >
+    <InteractiveDemo client:visible={{ rootMargin: "280px" }} />
+  </section>
+
+  <section
+    id="user-types"
+    class="relative z-20 mt-8 scroll-mt-[4.5rem] sm:mt-10 sm:scroll-mt-24 md:mt-12 lg:mt-16"
+  >
+    <ExpandingCards client:visible={{ rootMargin: "280px" }} />
+  </section>
+
+  <section class="relative z-20 mt-8 sm:mt-10 md:mt-12 lg:mt-16">
+    <DistributionMetrics client:visible={{ rootMargin: "280px" }} />
+  </section>
+
+  <DownloadSection client:visible={{ rootMargin: "280px" }} />
+
+  <!--
+    Answer-first FAQ (AEO): plain <details> HTML, so the answers are in the page
+    for Google, AI Overviews, ChatGPT, Perplexity, Claude and Gemini with no JS.
+    Mirrored in FAQPage JSON-LD (includeFaq above).
+  -->
+  <section id="faq" class="relative z-20 scroll-mt-24">
+    <FAQSection />
+  </section>
+
+  <section
+    aria-labelledby="home-cta-heading"
+    class="container relative z-20 mx-auto mt-12 px-4 pb-10 xs:mt-14 xs:px-5 sm:mt-16 sm:px-6 sm:pb-12 md:mt-20 md:pb-14 lg:mt-24 lg:pb-16"
+  >
+    <MarketingCtaBanner
+      id="home-cta-heading"
+      eyebrow={cta.eyebrow}
+      kicker={cta.kicker}
+      title={cta.title}
+      description={cta.description}
+      panelLine={cta.panelLine}
+      primaryHref={appHref("/auth/sign-up")}
+      primaryLabel={cta.primaryLabel}
+      primaryExternal
+      secondaryHref={cta.secondaryHref}
+      secondaryLabel={cta.secondaryLabel}
+      hint={cta.hint}
+    />
+  </section>
+</MarketingLayout>

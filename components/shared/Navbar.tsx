@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import content from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -56,8 +54,8 @@ const primaryNavLinkClass =
 const secondaryNavLinkClass =
   "shrink-0 whitespace-nowrap font-body text-[0.875rem] text-foreground/75 transition-colors duration-200 hover:text-foreground";
 
-export function Navbar() {
-  const pathname = usePathname();
+/** `pathname` comes from the Astro page (`Astro.url.pathname`) so SSR and hydration agree. */
+export function Navbar({ pathname }: { pathname: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const [featuresOpen, setFeaturesOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -149,7 +147,7 @@ export function Navbar() {
               </div>
 
               {secondaryLinks.map((link) => (
-                <Link
+                <a
                   key={link.href}
                   href={link.href}
                   className={cn(
@@ -158,7 +156,7 @@ export function Navbar() {
                   )}
                 >
                   {link.label}
-                </Link>
+                </a>
               ))}
             </div>
 
@@ -169,7 +167,7 @@ export function Navbar() {
 
             <div className="flex shrink-0 items-center gap-4 xl:gap-5">
               {externalLinks.map((link) => (
-                <Link
+                <a
                   key={link.href}
                   href={link.href}
                   target="_blank"
@@ -177,7 +175,7 @@ export function Navbar() {
                   className={secondaryNavLinkClass}
                 >
                   {link.label}
-                </Link>
+                </a>
               ))}
 
               <Button
@@ -185,13 +183,13 @@ export function Navbar() {
                 size="sm"
                 className="h-8 shrink-0 rounded-none px-3.5 text-xs shadow-none xl:px-4 xl:text-sm"
               >
-                <Link
+                <a
                   href={SIGN_IN_HREF}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   {copy.signIn}
-                </Link>
+                </a>
               </Button>
             </div>
           </nav>
@@ -252,7 +250,7 @@ export function Navbar() {
                 <MobileFeaturesLinks onNavigate={closeMobile} />
 
                 {[...audienceLinks, ...secondaryLinks].map((link) => (
-                  <Link
+                  <a
                     key={link.href}
                     href={link.href}
                     onClick={closeMobile}
@@ -264,11 +262,11 @@ export function Navbar() {
                     )}
                   >
                     {link.label}.
-                  </Link>
+                  </a>
                 ))}
 
                 {externalLinks.map((link) => (
-                  <Link
+                  <a
                     key={link.href}
                     href={link.href}
                     target="_blank"
@@ -277,7 +275,7 @@ export function Navbar() {
                     className="flex min-h-11 items-center font-heading text-xl font-semibold text-muted-foreground"
                   >
                     {link.label}.
-                  </Link>
+                  </a>
                 ))}
               </div>
 
@@ -287,14 +285,14 @@ export function Navbar() {
                   size="cta"
                   className="h-11 w-full rounded-none text-sm shadow-none"
                 >
-                  <Link
+                  <a
                     href={SIGN_IN_HREF}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={closeMobile}
                   >
                     {copy.signIn}
-                  </Link>
+                  </a>
                 </Button>
               </div>
 
