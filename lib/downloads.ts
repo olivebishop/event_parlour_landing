@@ -1,17 +1,29 @@
 import { appHref } from "@/lib/app-url"
+import {
+  type DesktopPlatformKey,
+  desktopDownloadHref,
+} from "@/lib/desktop-releases/platforms"
 
 export type DownloadPlatform = "mac" | "windows"
 
+/**
+ * Every button links to /api/download, which redirects to the installer in the
+ * latest published release, so links never change between versions. Whether a
+ * build is ready comes from /api/download/latest at runtime, not from env vars
+ * baked in at build time.
+ */
 export type DownloadBuild = {
   id: string
   label: string
+  platform: DesktopPlatformKey
   href: string
-  filename?: string
 }
 
-const macSiliconUrl = process.env.NEXT_PUBLIC_MAC_SILICON_URL ?? ""
-const macIntelUrl = process.env.NEXT_PUBLIC_MAC_INTEL_URL ?? ""
-const windowsUrl = process.env.NEXT_PUBLIC_WINDOWS_URL ?? ""
+const build = (
+  id: string,
+  label: string,
+  platform: DesktopPlatformKey,
+): DownloadBuild => ({ id, label, platform, href: desktopDownloadHref(platform) })
 
 export const desktopDownloads = {
   eyebrow: "Built to sell out",
@@ -23,20 +35,13 @@ export const desktopDownloads = {
     description:
       "List the show. Watch tickets move. Check them in when doors open. Event Parlour lives on the dock, not in a lost browser tab.",
     builds: [
-      {
-        id: "mac-silicon",
-        label: "Download Apple Silicon",
-        href: macSiliconUrl,
-        filename: "EventParlour-arm64.dmg",
-      },
-      {
-        id: "mac-intel",
-        label: "Download Intel",
-        href: macIntelUrl,
-        filename: "EventParlour-x64.dmg",
-      },
+      build("mac-silicon", "Download Apple Silicon", "mac-arm64"),
+      build("mac-intel", "Download Intel", "mac-x64"),
     ] satisfies DownloadBuild[],
     requirements: "Requires macOS 13 or later.",
+    // Remove once the builds are signed and notarized (ROADMAP Phase 5).
+    firstLaunch:
+      "First launch: right-click the app in Applications, choose Open, then Open again.",
   },
   windows: {
     id: "windows" as const,
@@ -45,18 +50,26 @@ export const desktopDownloads = {
     description:
       "List the show. Watch tickets move. Check them in when doors open. Event Parlour sits on the taskbar, ready before the room fills.",
     builds: [
-      {
-        id: "windows-x64",
-        label: "Download Windows",
-        href: windowsUrl,
-        filename: "EventParlour-Setup.exe",
-      },
+      build("windows-x64", "Download Windows", "windows"),
     ] satisfies DownloadBuild[],
     requirements: "Requires Windows 10 or later.",
+    // Remove once the installer is code-signed (ROADMAP Phase 5).
+    firstLaunch:
+      'If Windows shows "Windows protected your PC", choose More info, then Run anyway.',
   },
+  /** Secondary installers, listed as plain links under the buttons. */
+  more: [
+    build("windows-msi", "Windows MSI (IT-managed)", "windows-msi"),
+    build("linux-deb", "Linux .deb", "linux-deb"),
+    build("linux-rpm", "Linux .rpm", "linux-rpm"),
+    build("linux-appimage", "Linux AppImage", "linux-appimage"),
+  ] satisfies DownloadBuild[],
   webHref: appHref("/auth/sign-up"),
 }
 
-export function isBuildReady(build: DownloadBuild) {
-  return Boolean(build.href)
+export function isBuildReady(
+  build: DownloadBuild,
+  available: ReadonlySet<DesktopPlatformKey>,
+) {
+  return available.has(build.platform)
 }
