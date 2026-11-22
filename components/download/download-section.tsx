@@ -11,7 +11,46 @@ import {
   isBuildReady,
   type DownloadPlatform,
 } from "@/lib/downloads"
+import type {
+  DesktopPlatformKey,
+  LatestDesktopRelease,
+} from "@/lib/desktop-releases/platforms"
 import { cn } from "@/lib/utils"
+
+type ReleaseState = {
+  available: ReadonlySet<DesktopPlatformKey>
+  version: string | null
+}
+
+const NO_RELEASE: ReleaseState = { available: new Set(), version: null }
+
+/**
+ * Which installers the latest published release has. Fetched at runtime
+ * because pages are prerendered: a new release must switch buttons on without
+ * rebuilding the site.
+ */
+function useLatestRelease(): ReleaseState {
+  const [state, setState] = useState<ReleaseState>(NO_RELEASE)
+
+  useEffect(() => {
+    const controller = new AbortController()
+    fetch("/api/download/latest", { signal: controller.signal })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((release: LatestDesktopRelease | null) => {
+        if (!release) return
+        setState({
+          available: new Set(release.platforms),
+          version: release.version,
+        })
+      })
+      .catch(() => {
+        // Leave the buttons in their "soon" state.
+      })
+    return () => controller.abort()
+  }, [])
+
+  return state
+}
 
 function detectPlatform(): DownloadPlatform {
   if (typeof navigator === "undefined") return "mac"
@@ -20,7 +59,13 @@ function detectPlatform(): DownloadPlatform {
   return "mac"
 }
 
-function DownloadButtons({ platform }: { platform: DownloadPlatform }) {
+function DownloadButtons({
+  platform,
+  release,
+}: {
+  platform: DownloadPlatform
+  release: ReleaseState
+}) {
   const copy = desktopDownloads[platform]
   const many = copy.builds.length > 1
 
@@ -28,7 +73,7 @@ function DownloadButtons({ platform }: { platform: DownloadPlatform }) {
     <div className="flex flex-col items-center gap-3">
       <div className="flex w-full flex-row justify-center gap-2 sm:w-auto sm:gap-3">
         {copy.builds.map((build, index) => {
-          const ready = isBuildReady(build)
+          const ready = isBuildReady(build, release.available)
           const label = ready ? build.label : `${build.label}, soon`
           const button = (
             <Button
@@ -67,12 +112,7 @@ function DownloadButtons({ platform }: { platform: DownloadPlatform }) {
           }
 
           return (
-            <a
-              key={build.id}
-              href={build.href}
-              download={build.filename}
-              className={wrapClass}
-            >
+            <a key={build.id} href={build.href} className={wrapClass}>
               {button}
             </a>
           )
@@ -89,7 +129,36 @@ function DownloadButtons({ platform }: { platform: DownloadPlatform }) {
           {desktopDownloads.browserLink}
         </a>
       </p>
+      {release.version ? (
+        <p className="font-body text-xs text-foreground/50 dark:text-white/50">
+          Version {release.version}. {copy.firstLaunch}
+        </p>
+      ) : null}
+      <MoreDownloads release={release} />
     </div>
+  )
+}
+
+function MoreDownloads({ release }: { release: ReleaseState }) {
+  const builds = desktopDownloads.more.filter((build) =>
+    isBuildReady(build, release.available),
+  )
+  if (builds.length === 0) return null
+  return (
+    <p className="font-body text-xs text-foreground/55 dark:text-white/55">
+      Also available:{" "}
+      {builds.map((build, index) => (
+        <span key={build.id}>
+          {index > 0 ? " · " : null}
+          <a
+            href={build.href}
+            className="underline underline-offset-4 hover:text-foreground"
+          >
+            {build.label}
+          </a>
+        </span>
+      ))}
+    </p>
   )
 }
 
@@ -101,6 +170,14 @@ export function DownloadSection({
   variant?: "section" | "page"
 }) {
   const [platform, setPlatform] = useState<DownloadPlatform>("mac")
+  const release = useLatestRelease()
+  // /api/download sends visitors back here when the installer isn't published.
+  const [unavailable, setUnavailable] = useState(false)
+  useEffect(() => {
+    setUnavailable(
+      new URLSearchParams(window.location.search).has("unavailable"),
+    )
+  }, [])
 
   useEffect(() => {
     setPlatform(detectPlatform())
@@ -187,7 +264,16 @@ export function DownloadSection({
         </div>
 
         <div className="mt-8 text-center xs:mt-10 sm:mt-12">
-          <DownloadButtons platform={platform} />
+          {unavailable ? (
+            <p
+              role="status"
+              className="mb-4 font-body text-sm text-foreground/70 dark:text-white/70"
+            >
+              That installer isn't available yet. Pick another below, or use
+              Event Parlour in your browser.
+            </p>
+          ) : null}
+          <DownloadButtons platform={platform} release={release} />
         </div>
       </div>
     </section>
