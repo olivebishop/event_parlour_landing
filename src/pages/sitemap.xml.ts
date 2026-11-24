@@ -12,10 +12,16 @@ type SitemapEntry = {
   image?: string
 }
 
+/**
+ * Product URLs listed so the marketing property can discover the app.
+ * Only paths that currently 200 on app.eventparlour.com — /events 404s there
+ * too, so browse/tickets live at the app homepage.
+ */
 const appRoutes: { path: string; changefreq: ChangeFrequency; priority: number }[] = [
-  { path: "/", changefreq: "daily", priority: 0.9 },
-  { path: "/events", changefreq: "daily", priority: 0.95 },
+  { path: "/", changefreq: "daily", priority: 0.95 },
   { path: "/blogs", changefreq: "weekly", priority: 0.7 },
+  { path: "/pricing", changefreq: "monthly", priority: 0.8 },
+  { path: "/changelog", changefreq: "monthly", priority: 0.6 },
   { path: "/roadmap", changefreq: "monthly", priority: 0.6 },
   { path: "/auth/sign-up", changefreq: "monthly", priority: 0.8 },
   { path: "/auth/sign-in", changefreq: "monthly", priority: 0.7 },
