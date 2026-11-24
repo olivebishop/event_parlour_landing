@@ -24,8 +24,13 @@ const { handler: astroHandler } = await import("./dist/server/entry.mjs")
 const PORT = Number(process.env.PORT) || 3000
 const HOST = process.env.HOST || "0.0.0.0"
 const SITE_URL = "https://www.eventparlour.com"
+const APP_URL = "https://app.eventparlour.com"
 
-/** From next.config.ts `redirects()`. `permanent: true` → 308, as in Next. */
+/**
+ * From next.config.ts `redirects()`, plus legacy URLs Google still crawls.
+ * Absolute destinations leave this host (usually to the product app).
+ * `permanent: true` → 308, as in Next.
+ */
 const REDIRECTS = [
   { source: /^\/platform$/, destination: "/" },
   { source: /^\/faq$/, destination: "/contact" },
@@ -36,6 +41,23 @@ const REDIRECTS = [
   { source: /^\/features\/transparent-pricing$/, destination: "/features/pricing" },
   { source: /^\/features\/live-analytics$/, destination: "/features/analytics" },
   { source: /^\/features\/instant-payouts$/, destination: "/features/pricing" },
+  // Old marketing paths that 404 today but still appear in Search Console.
+  // Events browse/tickets live on the product app homepage (app /events 404s).
+  { source: /^\/events(?:\/.*)?$/, destination: `${APP_URL}/` },
+  { source: /^\/event(?:\/.*)?$/, destination: `${APP_URL}/` },
+  { source: /^\/marketplace(?:\/.*)?$/, destination: `${APP_URL}/` },
+  { source: /^\/tickets(?:\/.*)?$/, destination: `${APP_URL}/` },
+  { source: /^\/accommodation(?:\/.*)?$/, destination: "/" },
+  { source: /^\/booking(?:\/.*)?$/, destination: "/" },
+  { source: /^\/blog(\/.*)?$/, destination: `${APP_URL}/blogs$1` },
+  { source: /^\/blogs(\/.*)?$/, destination: `${APP_URL}/blogs$1` },
+  { source: /^\/pricing(\/.*)?$/, destination: `${APP_URL}/pricing$1` },
+  { source: /^\/changelog(\/.*)?$/, destination: `${APP_URL}/changelog$1` },
+  { source: /^\/roadmap(\/.*)?$/, destination: `${APP_URL}/roadmap$1` },
+  { source: /^\/about(\/.*)?$/, destination: `${APP_URL}/legal/about` },
+  { source: /^\/legal(\/.*)?$/, destination: `${APP_URL}/legal$1` },
+  { source: /^\/sign-?in(\/.*)?$/, destination: `${APP_URL}/auth/sign-in` },
+  { source: /^\/sign-?up(\/.*)?$/, destination: `${APP_URL}/auth/sign-up` },
   // Old dynamic OG image routes → the static PNGs that replaced them.
   { source: /^\/(?:og|opengraph-image|twitter-image)$/, destination: "/og/home.png" },
   // Only the old extensionless routes (/og/why-us) — not real files like video.mp4.
@@ -71,9 +93,21 @@ function redirect(res, location) {
   res.end()
 }
 
+function requestHost(req) {
+  const raw = req.headers["x-forwarded-host"] || req.headers.host || ""
+  return String(raw).split(",")[0].trim().split(":")[0].toLowerCase()
+}
+
 const server = createServer(async (req, res) => {
   const url = new URL(req.url ?? "/", "http://localhost")
   let { pathname } = url
+
+  // Apex → www so Search Console stops treating eventparlour.com as an
+  // alternate of www.eventparlour.com (same HTML, www canonical).
+  const host = requestHost(req)
+  if (host === "eventparlour.com") {
+    return redirect(res, `${SITE_URL}${pathname === "/" ? "/" : pathname}${url.search}`)
+  }
 
   // Trailing slashes → canonical form (/why-us/ → /why-us), as Next did.
   if (pathname.length > 1 && pathname.endsWith("/")) {
@@ -86,7 +120,10 @@ const server = createServer(async (req, res) => {
 
   for (const { source, destination } of REDIRECTS) {
     if (source.test(pathname)) {
-      return redirect(res, pathname.replace(source, destination) + url.search)
+      const target = pathname.replace(source, destination)
+      // Keep query string on both same-host and app redirects.
+      const location = target.includes("?") ? target : target + url.search
+      return redirect(res, location)
     }
   }
 
@@ -112,6 +149,8 @@ const server = createServer(async (req, res) => {
     res.setHeader("Content-Type", pathname.endsWith(".md") ? "text/markdown; charset=utf-8" : "text/plain; charset=utf-8")
     if (!cacheControl) res.setHeader("Cache-Control", "public, max-age=3600")
     res.setHeader("Access-Control-Allow-Origin", "*")
+    // Markdown twins are for agents; HTML is the indexed URL (canonical on each page).
+    if (pathname.endsWith(".md")) res.setHeader("X-Robots-Tag", "noindex, follow")
   }
   const isPage =
     !/\.[a-z0-9]+$/i.test(pathname) && !pathname.startsWith("/api/") && !pathname.startsWith("/_") && !pathname.startsWith("/social-card/")
