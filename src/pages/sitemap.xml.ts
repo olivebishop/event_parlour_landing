@@ -61,8 +61,10 @@ export const GET: APIRoute = () => {
   const marketing: SitemapEntry[] = getOgPaths().map((path) => ({
     loc: canonicalUrl(path),
     lastmod,
-    changefreq: path === "" || path === "/features" ? "weekly" : "monthly",
-    priority: path === "" ? 1 : path === "/features" ? 0.9 : 0.85,
+    changefreq:
+      path === "" || path === "/features" || path === "/why-us" ? "weekly" : "monthly",
+    priority:
+      path === "" ? 1 : path === "/features" || path === "/why-us" ? 0.9 : 0.85,
     image: ogImageUrl(path),
   }))
 

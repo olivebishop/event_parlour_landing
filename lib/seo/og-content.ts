@@ -39,9 +39,9 @@ export function getOgContent(path = ""): OgContent {
     case "/why-us":
       return {
         eyebrow: "Why Us",
-        title: "What organizers and builders say",
+        title: "Why organizers choose Event Parlour",
         description:
-          "Real feedback from engineers, creators, and organizers who use Event Parlour.",
+          "M-PESA ticketing, marketplace reach, clear fees, and public notes from builders who tried it.",
       }
     case "/contact":
       return {

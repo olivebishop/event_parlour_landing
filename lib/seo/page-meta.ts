@@ -77,10 +77,15 @@ const PAGES: Record<string, PageMeta> = {
     ],
   },
   "/why-us": {
-    title: "Why Organizers Choose Event Parlour | Testimonials",
+    title: "Why Organizers Choose Event Parlour | Kenya Ticketing",
     description:
-      "Why organizers, creators and engineers choose Event Parlour to sell tickets and run events in Kenya, in their own words.",
-    keywords: ["Event Parlour reviews", "best ticketing platform Kenya", "event platform testimonials"],
+      "Why organizers choose Event Parlour in Kenya: M-PESA ticketing, marketplace reach, 5% on paid tickets, and real notes from builders who tried it.",
+    keywords: [
+      "why Event Parlour",
+      "best ticketing platform Kenya",
+      "Event Parlour reviews",
+      "event platform testimonials Kenya",
+    ],
   },
   "/contact": {
     title: "Contact Event Parlour | Ticketing Help & FAQ",

@@ -1,167 +1,93 @@
 "use client";
 
-import { Suspense } from "react";
-import content from "@/lib/content"
+import { useEffect, useState, type ReactNode } from "react";
+import content from "@/lib/content";
+import {
+  WHY_US_TESTIMONIALS,
+  type WhyUsTestimonial,
+} from "@/lib/why-us-content";
 import { cn } from "@/lib/utils";
 import { HugeiconsNewTwitter } from "./social-icons";
 
-// Local placeholder to mirror the `noSSR` API without requiring an external dependency.
-const noSSR = () => {};
+type TestimonialProps = WhyUsTestimonial & {
+  social: ReactNode;
+};
 
-const testimonials = [
-  {
-    name: "Brian Martin",
-    profession: "Back End Engineer",
-    link: "https://x.com/Br1anMartin/status/2016462343069106487?s=20",
-    description: "Clean UI, BETTER UX",
-    avatar: "/people-say/brian.jpg",
-    image: "",
-    social: <HugeiconsNewTwitter className="w-6 h-6" />,
-  },
-  {
-    name: "Dennis",
-    profession: "X user",
-    link: "https://x.com/_realDennis_/status/2077330550172287327?s=20",
-    description:
-      "Hebu mjaribu @event_parlour eventparlour.com these new products may suprise you, try them",
-    avatar: "/people-say/denis.jpg",
-    image: "",
-    social: <HugeiconsNewTwitter className="w-6 h-6" />,
-  },
-  {
-    name: "Stanley Masinde",
-    profession: "Software Engineer",
-    link: "https://x.com/StanleyMasinde_/status/2013182135658574117?s=20",
-    description:
-      "Congratulations on your milestone. Guys, if you're looking for a home for your events, check out Event Parlour.",
-    avatar: "/people-say/masinde.jpg",
-    image: "",
-    social: <HugeiconsNewTwitter className="w-6 h-6" />,
-  },
-  {
-    name: "Ndegwa",
-    profession: "Software Engineer",
-    link: "https://x.com/ndegwa_official/status/2013313456405909784?s=20",
-    description: "This UI looks so good!",
-    avatar: "/people-say/ndegwa.jpg",
-    image: "",
-    social: <HugeiconsNewTwitter className="w-6 h-6" />,
-  },
-  {
-    name: "Tech Fabrizoo",
-    profession: "Tech creator",
-    link: "https://x.com/TechFabrizoo/status/2013315566560260380?s=20",
-    description: "Amazing work.",
-    avatar: "/people-say/kitze.jpg",
-    image: "",
-    social: <HugeiconsNewTwitter className="w-6 h-6" />,
-  },
-  {
-    name: "Eric Muturi",
-    profession: "Founder at Jepaks",
-    link: "https://x.com/MuturiEric_W/status/2015088832350151149?s=20",
-    description:
-      "I do not own it, but I like the project so far. A solid one 💯💯 and more to come. Platform for events, organizers, speakers, and attendees.",
-    avatar: "/people-say/erick.jpg",
-    image: "",
-    social: <HugeiconsNewTwitter className="w-6 h-6" />,
-  },
-  {
-    name: "David Amunga",
-    profession: "Software Engineer",
-    link: "https://x.com/davidamunga_/status/1903552861746712822?s=20",
-    description: "Looks good!!!",
-    avatar: "/people-say/amuga.jpg",
-    image: "",
-    social: <HugeiconsNewTwitter className="w-6 h-6" />,
-  },
-  {
-    name: "Mongare",
-    profession: "Product thinker",
-    link: "https://x.com/msnmongare/status/1903542538654646529?s=20",
-    description:
-      'Clear value proposition: "Event platform for everyone". Nice showcase of events and their details. Clear call-to-action buttons like "Create Your Event".',
-    avatar: "/people-say/xavier-pladevall.jpg",
-    image: "",
-    social: <HugeiconsNewTwitter className="w-6 h-6" />,
-  },
-];
+const testimonials: TestimonialProps[] = WHY_US_TESTIMONIALS.map((item) => ({
+  ...item,
+  social: <HugeiconsNewTwitter className="w-6 h-6" />,
+}));
 
-type TestimonialProps = (typeof testimonials)[number];
+const half = Math.floor(testimonials.length / 2);
+const rowA = testimonials.slice(0, half);
+const rowB = testimonials.slice(half);
+
+/** Repeat only in the browser so crawlers see each quote once. */
+function loopRow(items: TestimonialProps[], times = 8) {
+  return Array.from({ length: times }, () => items).flat();
+}
 
 const TestimonialItem = ({
   reverse = false,
-  testimonials,
-  noSsr,
+  items,
 }: {
   reverse?: boolean;
-  testimonials: TestimonialProps[];
-  noSsr?: boolean;
+  items: TestimonialProps[];
 }) => {
-  if (noSsr) {
-    noSSR();
-  }
-
-  const animeSeconds = testimonials.length * 10;
+  const animeSeconds = Math.max(items.length, 1) * 10;
 
   return (
-    <div className="max-w-full mx-auto">
+    <div className="mx-auto max-w-full">
       <div
         className={`[--anime-duration:${animeSeconds}s] mx-auto w-full px-4 sm:px-10`}
       >
         <div
-          style={{
-            animationDuration: `${animeSeconds}s`,
-          }}
+          style={{ animationDuration: `${animeSeconds}s` }}
           className={cn(
-            "scroller flex flex-nowrap w-max min-w-full duration-[1000s] hover:[animation-play-state:paused] overflow-hidden relative gap-5 justify-around shrink-0",
+            "scroller relative flex w-max min-w-full shrink-0 flex-nowrap justify-around gap-5 overflow-hidden duration-[1000s] hover:[animation-play-state:paused]",
             reverse ? "animate-hrtl-scroll-reverse" : "animate-hrtl-scroll",
           )}
         >
-          {testimonials.map((testimonial, indx) => {
-            return (
-              <div
-                key={indx}
-                className={cn(
-                  "flex h-[200px] w-[min(88vw,450px)] shrink-0 grow-0 flex-col justify-between rounded-none border-[1.2px] border-border bg-muted/40 sm:h-[220px]",
-                )}
-              >
-                <p className="px-5 py-5 font-body text-sm font-normal leading-snug sm:text-base md:text-lg text-pretty text-foreground">
-                  &quot;{testimonial.description}&quot;
-                </p>
-                <div className="flex overflow-hidden h-[28%] gap-1 w-full border-t-[1.2px] border-border">
-                  <div className="flex items-center w-3/4 gap-3 px-4 py-3">
-                    <img
-                      src={testimonial.avatar}
-                      data-allow-radius
-                      className="h-10 w-10 rounded-full object-cover"
-                      alt={`${testimonial.name} avatar`}
-                    />
-                    <div className="flex flex-col items-start justify-start flex-1 gap-0">
-                      <h5 className="text-base font-medium md:text-md text-foreground">
-                        {testimonial.name}
-                      </h5>
-                      <p className="mt-[-4px] text-xs text-foreground/70 md:text-sm">
-                        {testimonial.profession}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="w-[1px] bg-border" />
-                  <div className="flex items-center justify-center max-w-full mx-auto px-4">
-                    <a
-                      href={testimonial.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`View ${testimonial.name}'s testimonial on X`}
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {testimonial.social}
-                    </a>
+          {items.map((testimonial, indx) => (
+            <div
+              key={`${testimonial.name}-${indx}`}
+              className="flex h-[200px] w-[min(88vw,450px)] shrink-0 grow-0 flex-col justify-between rounded-none border-[1.2px] border-border bg-muted/40 sm:h-[220px]"
+            >
+              <p className="px-5 py-5 font-body text-sm font-normal leading-snug text-pretty text-foreground sm:text-base md:text-lg">
+                &quot;{testimonial.description}&quot;
+              </p>
+              <div className="flex h-[28%] w-full gap-1 overflow-hidden border-t-[1.2px] border-border">
+                <div className="flex w-3/4 items-center gap-3 px-4 py-3">
+                  <img
+                    src={testimonial.avatar}
+                    data-allow-radius
+                    className="h-10 w-10 rounded-full object-cover"
+                    alt={`${testimonial.name} avatar`}
+                  />
+                  <div className="flex flex-1 flex-col items-start justify-start gap-0">
+                    <h5 className="text-base font-medium text-foreground md:text-md">
+                      {testimonial.name}
+                    </h5>
+                    <p className="mt-[-4px] text-xs text-foreground/70 md:text-sm">
+                      {testimonial.profession}
+                    </p>
                   </div>
                 </div>
+                <div className="w-[1px] bg-border" />
+                <div className="mx-auto flex max-w-full items-center justify-center px-4">
+                  <a
+                    href={testimonial.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View ${testimonial.name}'s testimonial on X`}
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {testimonial.social}
+                  </a>
+                </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -169,76 +95,35 @@ const TestimonialItem = ({
 };
 
 const TestimonialScroller = () => {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
+
+  const top = ready ? loopRow(rowA) : rowA;
+  const bottom = ready ? loopRow(rowB) : rowB;
+
   return (
-    <div className="max-w-full py-5 mx-auto overflow-hidden">
+    <div className="mx-auto max-w-full overflow-hidden py-5" data-agent-skip>
       <div className="flex flex-col gap-3">
         <div
           style={{
             maskImage:
               "linear-gradient(to left, transparent 0%, black 20%, black 80%, transparent 95%)",
           }}
-          className="relative flex justify-around gap-5 overflow-hidden shrink-0"
+          className="relative flex shrink-0 justify-around gap-5 overflow-hidden"
         >
-          <Suspense
-            fallback={
-              <TestimonialItem
-                testimonials={Array(15)
-                  .fill(
-                    testimonials.slice(
-                      Math.floor(testimonials.length / 2) + 1,
-                      testimonials.length - 1,
-                    ),
-                  )
-                  .flat()}
-              />
-            }
-          >
-            <TestimonialItem
-              noSsr
-              reverse
-              testimonials={Array(15)
-                .sort(() => Math.random() - 0.5)
-                .fill(
-                  testimonials.slice(0, Math.floor(testimonials.length / 2)),
-                )
-                .flat()}
-            />
-          </Suspense>
+          <TestimonialItem reverse items={top} />
         </div>
         <div
           style={{
             maskImage:
               "linear-gradient(to left, transparent 0%, black 20%, black 80%, transparent 95%)",
           }}
-          className="relative flex justify-around gap-5 overflow-hidden shrink-0"
+          className="relative flex shrink-0 justify-around gap-5 overflow-hidden"
         >
-          <Suspense
-            fallback={
-              <TestimonialItem
-                testimonials={Array(15)
-                  .fill(
-                    testimonials.slice(
-                      Math.floor(testimonials.length / 2) + 1,
-                      testimonials.length - 1,
-                    ),
-                  )
-                  .flat()}
-              />
-            }
-          >
-            <TestimonialItem
-              noSsr
-              testimonials={Array(15)
-                .sort(() => Math.random() - 0.5)
-                .fill(
-                  testimonials.slice(
-                    Math.floor(testimonials.length / 2) + 1,
-                    testimonials.length - 1,
-                  ),
-                )
-                .flat()}
-            />
-          </Suspense>
+          <TestimonialItem items={bottom} />
         </div>
       </div>
     </div>
@@ -248,9 +133,9 @@ const TestimonialScroller = () => {
 export default function Testimonials({
   showHeader = true,
 }: {
-  showHeader?: boolean
+  showHeader?: boolean;
 }) {
-  const copy = content.Testimonials
+  const copy = content.Testimonials;
 
   return (
     <div className="container mx-auto px-3 xs:px-4 sm:px-6">

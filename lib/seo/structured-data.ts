@@ -1,4 +1,5 @@
 import content from "@/lib/content"
+import { WHY_US_TESTIMONIALS } from "@/lib/why-us-content"
 import {
   APP_URL,
   SITE_NAME,
@@ -214,6 +215,31 @@ export function getPageStructuredData({
     ...(crumbs ? { breadcrumb: { "@id": crumbs["@id"] } } : {}),
   }
 
+  const whyUsQuotes =
+    path === "/why-us"
+      ? {
+          "@type": "ItemList",
+          "@id": `${url}#quotes`,
+          name: "What people say about Event Parlour",
+          numberOfItems: WHY_US_TESTIMONIALS.length,
+          itemListElement: WHY_US_TESTIMONIALS.map((item, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            item: {
+              "@type": "Quotation",
+              text: item.description,
+              url: item.link,
+              creator: {
+                "@type": "Person",
+                name: item.name,
+                jobTitle: item.profession,
+              },
+              about: { "@id": ORG_ID },
+            },
+          })),
+        }
+      : null
+
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -223,6 +249,7 @@ export function getPageStructuredData({
       ...(isHome ? [softwareApplication(), ticketingService()] : []),
       ...(crumbs ? [crumbs] : []),
       ...(faq ? [faq] : []),
+      ...(whyUsQuotes ? [whyUsQuotes] : []),
     ],
   }
 }

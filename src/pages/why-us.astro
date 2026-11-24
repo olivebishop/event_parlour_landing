@@ -2,6 +2,7 @@
 import MarketingLayout from "@/src/layouts/MarketingLayout.astro"
 import content from "@/lib/content"
 import { appHref } from "@/lib/app-url"
+import { WHY_US_REASONS, WHY_US_TESTIMONIALS } from "@/lib/why-us-content"
 import Testimonials from "@/components/shared/Testimonials"
 import { MarketingCtaBanner } from "@/components/marketing/marketing-cta-banner"
 import { MarketingPageHero } from "@/components/marketing/marketing-page-hero"
@@ -22,7 +23,83 @@ const cta = copy.cta
     description={copy.pageDescription}
   />
 
-  <section id="why-us" class="relative z-20 scroll-mt-24 py-10 sm:py-14 md:py-16 lg:py-20">
+  <section
+    aria-labelledby="why-us-reasons-heading"
+    class="container relative z-20 mx-auto scroll-mt-24 px-4 py-10 xs:px-5 sm:px-6 sm:py-14 md:py-16"
+  >
+    <div class="mx-auto max-w-3xl">
+      <h2
+        id="why-us-reasons-heading"
+        class="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl"
+      >
+        Why organizers pick Event Parlour
+      </h2>
+      <p class="mt-3 max-w-2xl font-body text-sm leading-relaxed text-foreground/75 sm:text-base">
+        Event Parlour is an event ticketing and management platform for Kenya and East Africa.
+        Organizers sell tickets with M-PESA, check guests in at the door, and track sales in one
+        workspace — without another generic dashboard in the way.
+      </p>
+      <ul class="mt-10 space-y-8">
+        {
+          WHY_US_REASONS.map((reason) => (
+            <li class="border-t border-border pt-8 first:border-t-0 first:pt-0">
+              <h3 class="font-heading text-lg font-semibold text-foreground sm:text-xl">
+                {reason.title}
+              </h3>
+              <p class="mt-2 max-w-2xl font-body text-sm leading-relaxed text-foreground/75 sm:text-base">
+                {reason.body}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section
+    aria-labelledby="why-us-quotes-heading"
+    class="container relative z-20 mx-auto px-4 pb-6 xs:px-5 sm:px-6"
+  >
+    <div class="mx-auto max-w-3xl">
+      <h2
+        id="why-us-quotes-heading"
+        class="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+      >
+        What people say in public
+      </h2>
+      <p class="mt-3 max-w-2xl font-body text-sm leading-relaxed text-foreground/75 sm:text-base">
+        Short notes from builders and organizers who tried Event Parlour and posted about it.
+        Each quote links to the original post on X.
+      </p>
+      <ul class="mt-8 space-y-6">
+        {
+          WHY_US_TESTIMONIALS.map((item) => (
+            <li class="border-t border-border pt-6">
+              <blockquote class="font-body text-sm leading-relaxed text-foreground sm:text-base">
+                <p>&ldquo;{item.description}&rdquo;</p>
+                <footer class="mt-3 text-sm text-foreground/70">
+                  <cite class="not-italic font-medium text-foreground">{item.name}</cite>
+                  {" · "}
+                  {item.profession}
+                  {" · "}
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="underline-offset-2 hover:underline"
+                  >
+                    View on X
+                  </a>
+                </footer>
+              </blockquote>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section id="why-us" class="relative z-20 scroll-mt-24 py-10 sm:py-14 md:py-16 lg:py-20" aria-label="Scrolling quotes">
     <Testimonials client:visible showHeader={false} />
   </section>
 
